@@ -12,21 +12,6 @@ const routes: Routes = [{
       loadChildren: () => import('./primer-modulo/primer-modulo.module')
       .then(m => m.PrimerModuloModule),
     },
-    {
-      path: 'plan-adquisiciones',
-      loadChildren: () => import('./plan-adquisiciones/plan-adquisiciones.module')
-      .then(m => m.PlanAdquisicionesModule),
-    },
-    {
-      path: '',
-      redirectTo: 'plan-adquisiciones',
-      pathMatch: 'full',
-    },
-    {
-      path: '**',
-      redirectTo: 'plan-adquisiciones',
-      pathMatch: 'full',
-    },
   ],
 }];
 
