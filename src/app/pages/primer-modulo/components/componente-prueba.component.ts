@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CONFIGURACION_PRUEBA, DATOS_PRUEBA } from '../../../../shared/interfaces/interfaces';
+import { CONFIGURACION_PRUEBA, DATOS_PRUEBA } from '../../../shared/interfaces/interfaces';
 
 @Component({
   selector: 'ngx-componente-prueba',

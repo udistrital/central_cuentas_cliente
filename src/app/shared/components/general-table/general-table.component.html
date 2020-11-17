@@ -1,77 +1,75 @@
-<div class="container-fluid" *ngIf="config && datos">
-  <div class="row">
-    <div class="col-12">
-      <div class="form-group mt-3" *ngIf="config.filter">
-        <input type="text" class="form-control py-2" id="buscador-tabla" aria-describedby="search-table"
-          placeholder="Campo de Busqueda" [(ngModel)]="stringBusqueda">
-      </div>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead class="bg-primary text-white">
-            <tr *ngIf="config.title">
-              <th scope="col" colspan="100" [class]="config.title.class">
-                {{config.title.name}}
-              </th>
-            </tr>
-            <tr>
-              <ng-container *ngFor="let element of config.dataConfig">
-                <th scope="col" [class]="element.title.class">{{element.title.name}}</th>
-              </ng-container>
-              <ng-container *ngIf="config.rowActions">
-                <th scope="col" [class]="config.rowActions.title.class">{{config.rowActions.title.name}}</th>
-              </ng-container>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group mt-3" *ngIf="config.filter">
+                <input type="text" class="form-control py-2" id="buscador-tabla" aria-describedby="search-table" placeholder="Filtrar..." [(ngModel)]="stringBusqueda">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="bg-primary text-white">
+                        <tr *ngIf="config.title">
+                            <th scope="col" colspan="100" [class]="config.title.class">
+                                {{config.title.name}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <ng-container *ngFor="let element of config.dataConfig">
+                                <th scope="col" [class]="element.title.class">{{element.title.name}}</th>
+                            </ng-container>
+                            <ng-container *ngIf="config.rowActions">
+                                <th scope="col" [class]="config.rowActions.title.class">{{config.rowActions.title.name}}</th>
+                            </ng-container>
 
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let items of datos | filterTable:stringBusqueda; index as i">
-              <ng-container *ngFor="let data of config.dataConfig">
-                <ng-container *ngIf="!data.pipe.isArray">
-                  <td [class]="data.pipe.class">
-                    {{  data.pipe.functionPipe ? (items[data.key] | customTable:data.pipe.functionPipe) : items[data.key] }}
-                  </td>
-                </ng-container>
-                <ng-container *ngIf="data.pipe.isArray">
-                  <td [class]="data.pipe.class">
-                    <ng-container *ngFor="let value of items[data.key]">
-                      <span>{{value}}</span>
-                    </ng-container>
-                  </td>
-                </ng-container>
-              </ng-container>
-              <ng-container *ngIf="config.rowActions">
-                <td class="align-middle">
-                  <div [class]="config.rowActions.title.actionClass">
-                    <ng-container *ngFor="let actions of config.rowActions.actions">
-                      <div ngxMouseOver [class]="actions.class" data-toggle="tooltip" data-placement="top"
-                        (click)="SelectedAction(actions, items)" title="{{actions.title}}">
-                        <i [class]="actions.icon"></i>
-                      </div>
-                    </ng-container>
-                  </div>
-                </td>
-              </ng-container>
-            </tr>
-            <ng-container *ngIf="(datos | filterTable:stringBusqueda).length === 0">
-              <th scope="col" colspan="100" [class]="config.noData.class">
-                {{config.noData.name}}
-              </th>
-            </ng-container>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div *ngIf="config.tableActions" class="col-12 d-flex justify-content-center">
-      <ng-container *ngFor="let allAction of config.tableActions">
-        <button type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let items of datos | filterTable:stringBusqueda; index as i">
+                            <ng-container *ngFor="let data of config.dataConfig">
+                                <ng-container *ngIf="!data.pipe.isArray">
+                                    <td [class]="data.pipe.class">
+                                        {{ data.pipe.functionPipe ? (items[data.key] | customTable:data.pipe.functionPipe) : items[data.key] }}
+                                    </td>
+                                </ng-container>
+                                <ng-container *ngIf="data.pipe.isArray">
+                                    <td [class]="data.pipe.class">
+                                        <ng-container *ngFor="let value of items[data.key]">
+                                            <span>{{value}}</span>
+                                        </ng-container>
+                                    </td>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="config.rowActions">
+                                <td class="align-middle">
+                                    <div [class]="config.rowActions.title.actionClass">
+                                        <ng-container *ngFor="let actions of config.rowActions.actions">
+                                            <div ngxMouseOver [class]="actions.class" data-toggle="tooltip" data-placement="top" (click)="SelectedAction(actions, items)" title="{{actions.title}}">
+                                                <i [class]="actions.icon"></i>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        <ng-container *ngIf="(datos | filterTable:stringBusqueda).length === 0">
+                            <th scope="col" colspan="100" [class]="config.noData.class">
+                                {{config.noData.name}}
+                            </th>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="config.tableActions" class="col-12 d-flex justify-content-center">
+            <ng-container *ngFor="let allAction of config.tableActions">
+                <button type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
           <div class="d-flex flex-row justify-content-around align-middle"
           (click)="SelectedAllAction(allAction)">
             <i [class]="allAction.icon"></i>
             <span [class]="allAction.class">{{allAction.title}}</span>
           </div>
         </button>
-      </ng-container>
+            </ng-container>
 
+        </div>
     </div>
-  </div>
 </div>
