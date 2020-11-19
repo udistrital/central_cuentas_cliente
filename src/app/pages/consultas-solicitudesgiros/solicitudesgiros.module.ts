@@ -13,7 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [LayoutComponent, TableListasolicitudesComponent],
+  declarations: [LayoutComponent,
+    TableListasolicitudesComponent,
+  ],
   imports: [
     CommonModule,
     SolicitudesgirosRoutingModule,

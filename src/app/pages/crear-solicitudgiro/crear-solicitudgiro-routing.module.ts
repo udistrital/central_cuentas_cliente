@@ -8,7 +8,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'consultasolicitudesgiros',
+        path: 'crearsolicitudesgiros',
         loadChildren: () => import('./components/layout/layout.component')
         .then(m => m.LayoutComponent),
       },
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SolicitudesgirosRoutingModule { }
+export class CrearsolicitudgiroRoutingModule { }

@@ -1,12 +1,35 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <div class="form-group mt-3" *ngIf="config.filter">
-                <input type="text" class="form-control py-2" id="buscador-tabla" aria-describedby="search-table" placeholder="Filtrar..." [(ngModel)]="stringBusqueda">
+        <div class="col-7">
+            <!-- Barra de busqueda - filtrar -->
+            <div class="form-group mb-2" *ngIf="config.filter">
+                <input type="text" class="form-control py-2 mb-3 mt-3" id="buscador-tabla" aria-describedby="search-table" placeholder="Buscar..." [(ngModel)]="stringBusqueda">
             </div>
+            <!-- Fin de la Barra de busqueda - filtrar -->
+        </div>
+        <div class="col-5">
+            <!-- Botón para crear nueva solicitud de autorizacion de giro -->
+            <div *ngIf="config.tableActions" class="col-12 d-flex justify-content-center">
+                <ng-container *ngFor="let allAction of config.tableActions">
+                    <button type="button" class="btn btn-primary py-2 mb-3 mt-3 text-light">
+                        <div class="d-flex flex-row justify-content-around align-middle"
+                            (click)="SelectedAllAction(allAction)">
+                            <i [class]="allAction.icon"></i>
+                            <span [class]="allAction.class">
+                                {{allAction.title}}
+                            </span>
+                        </div>
+                    </button>
+                </ng-container>
+            </div>
+            <!-- Fin del Botón para crear nueva solicitud de autorizacion de giro -->
+        </div>
+        <div class="col-12">
+            <!-- Tabla de registros -->
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
-                    <thead class="bg-primary text-white">
+                    <!-- Encabezado de titulos -->
+                    <thead class="bg-white text-dark">
                         <tr *ngIf="config.title">
                             <th scope="col" colspan="100" [class]="config.title.class">
                                 {{config.title.name}}
@@ -19,9 +42,10 @@
                             <ng-container *ngIf="config.rowActions">
                                 <th scope="col" [class]="config.rowActions.title.class">{{config.rowActions.title.name}}</th>
                             </ng-container>
-
                         </tr>
                     </thead>
+                    <!-- Fin del Encabezado de titulos -->
+                    <!-- Llamada de datos a la tabla -->
                     <tbody>
                         <tr *ngFor="let items of datos | filterTable:stringBusqueda; index as i">
                             <ng-container *ngFor="let data of config.dataConfig">
@@ -50,26 +74,18 @@
                                 </td>
                             </ng-container>
                         </tr>
+                        <!-- Mensaje de "Elementos no asociados a la busqueda" -->
                         <ng-container *ngIf="(datos | filterTable:stringBusqueda).length === 0">
                             <th scope="col" colspan="100" [class]="config.noData.class">
                                 {{config.noData.name}}
                             </th>
                         </ng-container>
+                        <!-- Fin de Mensaje de "Elementos no asociados a la busqueda" -->
                     </tbody>
+                    <!-- Fin de Llamada de datos a la tabla -->
                 </table>
             </div>
-        </div>
-        <div *ngIf="config.tableActions" class="col-12 d-flex justify-content-center">
-            <ng-container *ngFor="let allAction of config.tableActions">
-                <button type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
-          <div class="d-flex flex-row justify-content-around align-middle"
-          (click)="SelectedAllAction(allAction)">
-            <i [class]="allAction.icon"></i>
-            <span [class]="allAction.class">{{allAction.title}}</span>
-          </div>
-        </button>
-            </ng-container>
-
+            <!-- Fin de la Tabla de registros -->
         </div>
     </div>
 </div>

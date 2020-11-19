@@ -9,8 +9,6 @@ import { SharedModule } from '../shared/shared.module';
 import { NbIconModule } from '@nebular/theme';
 
 
-
-
 @NgModule({
   imports: [
     PagesRoutingModule,

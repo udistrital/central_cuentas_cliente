@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ngx-datos-generales-iniciales [Title]="titulo"></ngx-datos-generales-iniciales>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col py-2"></div>
+    </div>
+    <!-- Inicio de "Stepper" -->
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup" label="Inicio" required>
+            <form [formGroup]="firstFormGroup">
+                <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
+                <ng-template matStepLabel>Inicio</ng-template>
+                <div class="container-fluid">
+                    <div class="row pt-3">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ngx-set-infosolicitudgiro></ngx-set-infosolicitudgiro>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de Información de solicitud y solicitante -->
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" label="Documentos" required>
+            <form [formGroup]="secondFormGroup">
+                <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
+                <ng-template matStepLabel>Documentos</ng-template>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ngx-set-cargardocumentos></ngx-set-cargardocumentos>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div> -->
+                <!-- Fin de Carga de Documentos -->
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup" label="Fill out your address">
+            <form [formGroup]="thirdFormGroup">
+                <!-- Paso 3: Autorización (datos del beneficiario del giro) -->
+                <ng-template matStepLabel>Autorización</ng-template>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- <ngx-info-beneficiariosolicitud></ngx-info-beneficiariosolicitud> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="thirdCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div> -->
+                <!-- Fin de Datos del Beneficiario del giro -->
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="fourthFormGroup" label="Fill out your address">
+            <form [formGroup]="fourthFormGroup">
+                <!-- Paso 4: Resumen de Solicitud (Se meustra en detalle los datos de la solicitud creada) -->
+                <ng-template matStepLabel>Guardar</ng-template>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- <ngx-show-infosolicitudgiro></ngx-show-infosolicitudgiro> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="fourthCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div> -->
+                <!-- Fin de Resumen de Solicitud -->
+            </form>
+        </mat-step>
+        <!-- <mat-step>
+            <ng-template matStepLabel>Finalizar</ng-template>
+            <p>You are now done.</p>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step> -->
+    </mat-horizontal-stepper>
+    <!-- Fin de "Stepper" -->
+</div>
