@@ -7,13 +7,15 @@ import { LayoutComponent } from '../crear-solicitudgiro/components/layout/layout
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule,
-MatFormFieldModule,
-MatInputModule,
-MatIconModule,
-MatCardModule,
-MatSelectModule,
-MatDatepickerModule,
-MatDividerModule  } from '@angular/material';
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatCardModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatDividerModule,
+        MatTableModule
+  } from '@angular/material';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
 
 
@@ -35,7 +37,8 @@ import { SetCargardocumentosComponent } from './components/set-cargardocumentos/
     MatCardModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule
   ]
 })
 export class CrearsolicitudgiroModule { }
