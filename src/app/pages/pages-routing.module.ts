@@ -14,6 +14,11 @@ const routes: Routes = [
       .then(m => m.SolicitudesgirosModule),
     },
     {
+      path: 'consultaordenespago',
+      loadChildren: () => import('./consultas-ordenesdepago/ordenespago.module')
+      .then(m => m.OrdenespagoModule),
+    },
+    {
       path: 'prueba',
       loadChildren: () => import('./primer-modulo/primer-modulo.module')
       .then(m => m.PrimerModuloModule),
