@@ -7,7 +7,7 @@ import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './set-infosolicitudgiro.component.html',
   styleUrls: ['./set-infosolicitudgiro.component.scss']
 })
-export class SetInfosolicitudgiroComponent implements OnInit{
+export class SetInfosolicitudgiroComponent implements OnInit {
 
 
   firstFormGroup: FormGroup;

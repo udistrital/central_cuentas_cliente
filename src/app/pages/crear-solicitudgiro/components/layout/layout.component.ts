@@ -6,7 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent{
+export class LayoutComponent {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;

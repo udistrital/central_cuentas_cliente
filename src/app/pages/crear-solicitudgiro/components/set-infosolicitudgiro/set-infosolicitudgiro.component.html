@@ -14,7 +14,7 @@
         <div class="row px-5">
             <div class="col-md-12 py-2">
 
-                <mat-form-field appearance="fill" [style.width.%]="94">
+                <mat-form-field appearance="fill" [style.width.%]="100">
                     <mat-label>Concepto</mat-label>
                     <mat-select disableRipple matInput [ngModel] formControlName="firstCtrl" required>
                         <mat-option value="1">Option 1: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
@@ -45,7 +45,7 @@
                 </mat-form-field>
             </div>
             <div class="col-md-4">
-                <mat-form-field class="example-full-width" appearance="fill" [style.width.%]="80">
+                <mat-form-field class="example-full-width" appearance="fill" [style.width.%]="100">
                     <mat-label>Fecha</mat-label>
                     <input matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker">
@@ -59,7 +59,7 @@
     <!-- Fin Campos: No. de Solicitud, Área funcional, fecha -->
     <!-- Fin Grupo: Información de Solicitud -->
 </div>
-<mat-divider class="col-md-10 py-2 border-warning" [inset]="true"></mat-divider>
+<mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
 <div class="container">
     <!-- Grupo: Solicitante -->
     <div class="row">
@@ -76,7 +76,7 @@
     <form #createForm="ngForm" [formGroup]="firstFormGroup">
         <div class="row px-5 py-3">
             <div class="col-md-4">
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" [style.width.%]="100">
                     <mat-label>Tipo de ID</mat-label>
                     <mat-select disableRipple matInput [ngModel] formControlName="firstCtrl" required>
                         <mat-option value="1">Option 1</mat-option>
@@ -88,7 +88,7 @@
                 </mat-form-field>
             </div>
             <div class="col-md-4">
-                <mat-form-field appearance="fill" [style.width.%]="93">
+                <mat-form-field appearance="fill" [style.width.%]="100">
                     <mat-label>Número de ID</mat-label>
                     <input matInput required>
                     <!-- <mat-error *ngIf="requiredField.invalid">{{getErrorMessage()}}</mat-error> -->
@@ -114,7 +114,7 @@
                 </mat-form-field>
             </div>
             <div class="col-md-4">
-                <mat-form-field appearance="fill" [style.width.%]="80">
+                <mat-form-field appearance="fill" [style.width.%]="100">
                     <mat-label>Cargo</mat-label>
                     <input matInput>
                 </mat-form-field>
@@ -126,10 +126,11 @@
 </div>
 <!-- Botones: Volver a registro, Siguiente -->
 <div class="row pt-2">
-    <div class="col-10">
+    <div class="col-md-3">
         <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white">Volver a registros</button>
     </div>
-    <div class="col-2">
+    <div class="col-md-7"></div>
+    <div class="col-md-2">
         <button mat-button matStepperNext class="btn btn-success m-0 mt-4">Siguiente</button>
     </div>
 </div>

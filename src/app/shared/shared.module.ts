@@ -16,6 +16,7 @@ import { MouseOverDirective } from './directives/mouse-over.directive';
 import { ArbolRubroComponent } from './components/arbol-rubro/arbol-rubro.component';
 import { NbTreeGridModule } from '@nebular/theme';
 import { SelectedRowDirective } from './directives/selected-row.directive';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   exports: [
@@ -42,6 +43,7 @@ import { SelectedRowDirective } from './directives/selected-row.directive';
     MouseOverDirective,
     ArbolRubroComponent,
     SelectedRowDirective,
+    FileUploadComponent,
   ],
 })
 

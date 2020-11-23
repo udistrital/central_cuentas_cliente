@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-export interface PeriodicElement {
+export interface UploadData {
   nameDocs: string;
   stateDocs: string;
   changeDocs: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: UploadData[] = [
   {
     nameDocs: 'documento1',
     stateDocs: 'Listo',
@@ -36,9 +37,14 @@ export class SetCargardocumentosComponent implements OnInit {
 
   secondFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
-
+  constructor(private _formBuilder: FormBuilder, config: NgbModalConfig, private modalService: NgbModal) {
+    config.backdrop = 'static';
+    config.keyboard = false;
    }
+
+   open(content) {
+    this.modalService.open(content);
+  }
 
   ngOnInit() {
     this.secondFormGroup = this._formBuilder.group({

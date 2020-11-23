@@ -12,7 +12,7 @@
     <!-- Campo: Elegir Tipo de Documento -->
     <form #createForm="ngForm" [formGroup]="secondFormGroup">
         <div class="row px-5 py-3">
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <mat-form-field appearance="fill" [style.width.%]="100">
                     <mat-label>Seleccione los documentos</mat-label>
                     <mat-select disableRipple required>
@@ -20,24 +20,46 @@
                         <mat-option value="2">Option 2: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
                         <mat-option value="3">Option 3: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
                     </mat-select>
-                    <mat-hint>Elegir los documentos para la solicitud de autorización de giro</mat-hint>
+                    <mat-hint>Elegir el tipo de documento</mat-hint>
                 </mat-form-field>
             </div>
             <!-- Fin Campo: Elegir Tipo de Documento -->
+            <!-- Modal: Cargar Documentos -->
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Cargar Archivo</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <p>Seleccione el archivo desde su dispositivo</p>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFileLang" lang="en">
+                        <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary text-white" (click)="c('Save click')">Subir Archivo</button>
+                </div>
+            </ng-template>
+            <!-- Fin Modal: Cargar Documentos -->
             <!-- Boton: Agregar Documento-->
-            <div class="col-md-2">
-                <button mat-button class=" btn btn-primary m-0 mt-1 text-white">Agregar Documento</button>
+            <div class="col-md-3">
+                <button class="btn btn-lg btn-primary m-0 mt-1 text-white" (click)="open(content)">Cargar archivo</button>
             </div>
             <!-- Fin Boton: Agregar Documento-->
+
         </div>
-        <!-- Fin Grupo: Agregar Documentos -->
+
     </form>
 </div>
-<mat-divider class="col-md-10 pt-2 py-2 border-warning" [inset]="true"></mat-divider>
-
+<!-- Fin Grupo: Agregar Documentos -->
+<mat-divider class="col-md-12 pt-2 py-2 border-warning"></mat-divider>
+<!-- Tabla: Cargar Documentos -->
 <div class="container">
     <div class="col-md-12 px-5 pt-3">
-        <!-- Tabla: Cargar Documentos -->
+
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z1" style="width: 95%;">
             <!-- Nombre Documento Column -->
             <ng-container matColumnDef="nameDocs">
@@ -52,7 +74,29 @@
             <!-- Modificar Documento Column -->
             <ng-container matColumnDef="changeDocs">
                 <th mat-header-cell *matHeaderCellDef> Modificar </th>
-                <td mat-cell *matCellDef="let element"> {{element.changeDocs}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <!-- Botón: Eliminar archivo cargado -->
+                    <a href="#victorModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Borrar</a>
+                    <div id="victorModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                    <h4 class="modal-title">Borrar Archivo</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Seguro que quieres borrar este elemento?</p>
+                                    <!-- <p class="text-warning"><small>Si lo borras, nunca podrás recuperarlo.</small></p> -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-danger">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- {{element.changeDocs}}  -->
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -60,6 +104,7 @@
         </table>
         <!-- Fin Tabla: Cargar Documentos -->
     </div>
+
 </div>
 
 <div class="container">

@@ -17,6 +17,7 @@ import { MatStepperModule,
         MatTableModule
   } from '@angular/material';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SetCargardocumentosComponent } from './components/set-cargardocumentos/
     MatDatepickerModule,
     MatDividerModule,
     MatTableModule
-  ]
+  ],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class CrearsolicitudgiroModule { }
