@@ -7,9 +7,6 @@ import { ConfiguracionService } from '../@core/data/configuracion.service';
 import { MenuService } from '../@core/data/menu.service';
 import { SharedModule } from '../shared/shared.module';
 import { NbIconModule } from '@nebular/theme';
-import { TableComponent } from './components/table/table.component';
-
-
 
 
 @NgModule({
@@ -23,7 +20,6 @@ import { TableComponent } from './components/table/table.component';
   ],
   declarations: [
     PagesComponent,
-    TableComponent,
   ],
   providers: [
     ConfiguracionService,

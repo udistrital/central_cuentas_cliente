@@ -7,10 +7,14 @@ import * as fromAprobaciones from './reducers/aprobaciones.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AprobacionesEffects } from './effects/aprobaciones.effects';
 import { TableComponent } from './components/table/table.component';
+import { CreateApprobationComponent } from './components/create-approbation/create-approbation.component';
+import { ListApprobationsComponent } from './components/list-approbations/list-approbations.component';
+import { RelationApprobationComponent } from './components/relation-approbation/relation-approbation.component';
+import { OrderApprobationComponent } from './components/order-approbation/order-approbation.component';
 
 
 @NgModule({
-  declarations: [TableComponent],
+  declarations: [TableComponent, CreateApprobationComponent, ListApprobationsComponent, RelationApprobationComponent, OrderApprobationComponent],
   imports: [
     CommonModule,
     AprobacionesRoutingModule,
