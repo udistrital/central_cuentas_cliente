@@ -13,9 +13,9 @@ export class ShowResumensolicitudgiroComponent implements OnInit {
   constructor( private _formBuilder: FormBuilder ) { }
 
   ngOnInit() {
-    // this.resumenSolicitudGroup = this._formBuilder.group({
-    //   concepto: new FormControl('', [Validators.required])
-    // });
+   this.resumenSolicitudGroup = this._formBuilder.group({
+     concepto: new FormControl('', [Validators.required])
+   });
   }
 
 }

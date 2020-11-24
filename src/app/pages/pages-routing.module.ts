@@ -9,14 +9,9 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
     {
-      path: 'consultasolicitudesgiros',
-      loadChildren: () => import('./consultas-solicitudesgiros/solicitudesgiros.module')
+      path: 'solicitudesgiros',
+      loadChildren: () => import('./solicitudesgiros/solicitudesgiros.module')
       .then(m => m.SolicitudesgirosModule),
-    },
-    {
-      path: 'crearsolicitudgiro',
-      loadChildren: () => import('./crear-solicitudgiro/crear-solicitudgiro.module')
-      .then(m => m.CrearsolicitudgiroModule),
     },
     {
       path: 'prueba',

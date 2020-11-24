@@ -15,6 +15,7 @@ export class SetAutorizaciongiroComponent implements OnInit {
   ngOnInit() {
     this.autorizacionGroup = this._formBuilder.group({
       concepto: new FormControl('', [Validators.required]),
+      areaFuncional: ['', Validators.required],
       tipoId: ['', Validators.required],
       numId: ['', Validators.required]
     });

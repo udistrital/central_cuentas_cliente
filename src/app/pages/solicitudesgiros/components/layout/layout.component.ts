@@ -16,10 +16,9 @@ export class LayoutComponent {
   @ViewChild(SetAutorizaciongiroComponent, {static: false}) SetAutorizaciongiroComponent: SetAutorizaciongiroComponent;
   @ViewChild(ShowResumensolicitudgiroComponent, {static: false}) ShowResumensolicitudgiroComponent: ShowResumensolicitudgiroComponent;
 
-  titulo: any;
 
   constructor( ) {
-    this.titulo = 'CREAR NUEVA SOLICITUD DE AUTORIZACIÓN DE GIRO';
+
   }
 
   get infoSolicitudGroup() {
@@ -35,3 +34,4 @@ export class LayoutComponent {
     return this.ShowResumensolicitudgiroComponent ? this.ShowResumensolicitudgiroComponent.resumenSolicitudGroup : null;
   }
 }
+

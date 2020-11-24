@@ -11,7 +11,6 @@ import { GeneralTableComponent } from './components/general-table/general-table.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterTablePipe } from './pipes/filter-table.pipe';
 import { CustomTablePipe } from './pipes/custom-table.pipe';
-import { DatosGeneralesInicialesComponent } from './components/datos-generales-iniciales/datos-generales-iniciales.component';
 import { MouseOverDirective } from './directives/mouse-over.directive';
 import { ArbolRubroComponent } from './components/arbol-rubro/arbol-rubro.component';
 import { NbTreeGridModule } from '@nebular/theme';
@@ -22,7 +21,6 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
   exports: [
     TranslateModule,
     GeneralTableComponent,
-    DatosGeneralesInicialesComponent,
     MouseOverDirective,
     ArbolRubroComponent,
     SelectedRowDirective,
@@ -39,7 +37,6 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     GeneralTableComponent,
     FilterTablePipe,
     CustomTablePipe,
-    DatosGeneralesInicialesComponent,
     MouseOverDirective,
     ArbolRubroComponent,
     SelectedRowDirective,

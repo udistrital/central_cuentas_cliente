@@ -8,12 +8,13 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'consultasolicitudesgiros',
+        path: 'solicitudesgiros',
         loadChildren: () => import('./components/layout/layout.component')
         .then(m => m.LayoutComponent),
       },
     ],
 }];
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

@@ -1,12 +1,30 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <ngx-datos-generales-iniciales [Title]="titulo"></ngx-datos-generales-iniciales>
+        <div class="col-12 col-sm-12 col-md-12 pr-0">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <ngx-table-listasolicitudes></ngx-table-listasolicitudes>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col py-2"></div>
+</div>
+<div class="row">
+
+</div>
+
+<div class="container">
+
+    <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
+        <h5 class="card-title text-center text-primary">CREAR SOLICITUD DE AUTORIZACIÓN DE GIRO</h5>
     </div>
+
     <!-- Inicio de "Stepper" -->
     <mat-horizontal-stepper linear #stepper>
         <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
@@ -18,7 +36,7 @@
         </mat-step>
         <!-- Fin de Información de solicitud y solicitante -->
         <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
-        <mat-step [stepControl]="documentosGroup" required>
+        <mat-step [stepControl]="documentosGroup" optional>
             <ng-template matStepLabel>Documentos</ng-template>
             <div class="container">
                 <ngx-set-cargardocumentos></ngx-set-cargardocumentos>
@@ -26,7 +44,7 @@
         </mat-step>
         <!-- Fin de Carga de Documentos -->
         <!-- Paso 3: Autorización de solicitud de giro -->
-        <mat-step [stepControl]="autorizacionGroup" required>
+        <mat-step [stepControl]="autorizacionGroup" optional>
             <ng-template matStepLabel>Autorización</ng-template>
             <div class="container">
                 <ngx-set-autorizaciongiro></ngx-set-autorizaciongiro>
