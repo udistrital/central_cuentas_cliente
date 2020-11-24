@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 
 
 @Component({
@@ -9,25 +9,18 @@ import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class SetInfosolicitudgiroComponent implements OnInit {
 
-
-  firstFormGroup: FormGroup;
-
-  // requiredField = new FormControl('', [Validators.required]);
+  infoSolicitudGroup: FormGroup;
 
   constructor( private _formBuilder: FormBuilder ) {
 
   }
 
-  // getErrorMessage() {
-  //   if (this.requiredField.hasError('required')) {
-  //      return 'Este campo es requerido';
-  //    }
-  //    return this.requiredField.hasError('numId') ? 'No es válido' : '';
-  //  }
-
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+    this.infoSolicitudGroup = this._formBuilder.group({
+      concepto: new FormControl('', [Validators.required]),
+      areaFuncional: ['', Validators.required],
+      tipoId: ['', Validators.required],
+      numId: ['', Validators.required]
     });
   }
 

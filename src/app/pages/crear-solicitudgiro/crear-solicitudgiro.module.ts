@@ -18,13 +18,17 @@ import { MatStepperModule,
   } from '@angular/material';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SetAutorizaciongiroComponent } from './components/set-autorizaciongiro/set-autorizaciongiro.component';
+import { ShowResumensolicitudgiroComponent } from './components/show-resumensolicitudgiro/show-resumensolicitudgiro.component';
 
 
 @NgModule({
   declarations: [
     LayoutComponent,
     SetInfosolicitudgiroComponent,
-    SetCargardocumentosComponent],
+    SetCargardocumentosComponent,
+    SetAutorizaciongiroComponent,
+    ShowResumensolicitudgiroComponent],
   imports: [
     CommonModule,
     CrearsolicitudgiroRoutingModule,
@@ -41,6 +45,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     MatDividerModule,
     MatTableModule
   ],
-  providers: [NgbModalConfig, NgbModal]
+  providers: [NgbModalConfig, NgbModal],
+  exports: [MatStepperModule]
 })
 export class CrearsolicitudgiroModule { }

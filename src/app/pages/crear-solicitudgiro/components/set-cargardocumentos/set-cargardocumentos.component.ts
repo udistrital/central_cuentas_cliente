@@ -32,10 +32,10 @@ const ELEMENT_DATA: UploadData[] = [
 })
 export class SetCargardocumentosComponent implements OnInit {
 
+  documentosGroup: FormGroup;
+
   displayedColumns: string[] = ['nameDocs', 'stateDocs', 'changeDocs'];
   dataSource = ELEMENT_DATA;
-
-  secondFormGroup: FormGroup;
 
   constructor(private _formBuilder: FormBuilder, config: NgbModalConfig, private modalService: NgbModal) {
     config.backdrop = 'static';
@@ -47,9 +47,8 @@ export class SetCargardocumentosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.documentosGroup = this._formBuilder.group({
+      documentos: new FormControl('', [Validators.required]),
     });
   }
-
 }
