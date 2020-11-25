@@ -14,12 +14,8 @@ export class AprobacionesEffects {
     return this.actions$.pipe( 
 
       ofType(AprobacionesActions.loadAprobacioness),
-      concatMap(() =>
+      concatMap(() => EMPTY)
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
-          map(data => AprobacionesActions.loadAprobacionessSuccess({ data })),
-          catchError(error => of(AprobacionesActions.loadAprobacionessFailure({ error }))))
-      )
     );
   });
 

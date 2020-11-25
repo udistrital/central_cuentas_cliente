@@ -1,1 +1,14 @@
-<p>list-approbations works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col py-2">
+            <h5 class="card-title text-center text-primary">LISTA DE APROBACIONES</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <ngx-general-table [config]="configuration" [datos]="datosPrueba"></ngx-general-table>
+        </div>
+    </div>
+</div>
+
+<button  routerLinkActive="active" routerLink="/pages/aprobaciones/crear"> Registrar </button>

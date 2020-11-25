@@ -11,12 +11,13 @@ import { CreateApprobationComponent } from './components/create-approbation/crea
 import { ListApprobationsComponent } from './components/list-approbations/list-approbations.component';
 import { RelationApprobationComponent } from './components/relation-approbation/relation-approbation.component';
 import { OrderApprobationComponent } from './components/order-approbation/order-approbation.component';
-
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [TableComponent, CreateApprobationComponent, ListApprobationsComponent, RelationApprobationComponent, OrderApprobationComponent],
   imports: [
     CommonModule,
+    SharedModule,
     AprobacionesRoutingModule,
     StoreModule.forFeature(fromAprobaciones.aprobacionesFeatureKey, fromAprobaciones.reducer),
     EffectsModule.forFeature([AprobacionesEffects])

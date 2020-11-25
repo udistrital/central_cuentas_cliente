@@ -4,19 +4,20 @@ import * as AprobacionesActions from '../actions/aprobaciones.actions';
 export const aprobacionesFeatureKey = 'aprobaciones';
 
 export interface State {
-
+  AprobacionesSeleccionado: any;
 }
 
 export const initialState: State = {
-
+  AprobacionesSeleccionado: null,
 };
 
 const aprobacionesReducer = createReducer(
   initialState,
 
   on(AprobacionesActions.loadAprobacioness, state => state),
-  on(AprobacionesActions.loadAprobacionessSuccess, (state, action) => state),
-  on(AprobacionesActions.loadAprobacionessFailure, (state, action) => state),
+  on(AprobacionesActions.loadAprobacionesSeleccionado, (state, action) =>({
+    ...state, AprobacionesSeleccionado: state.AprobacionesSeleccionado = action
+  }) ),
 
 );
 
