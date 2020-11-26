@@ -14,8 +14,8 @@ const routes: Routes = [
       .then(m => m.SolicitudesgirosModule),
     },
     {
-      path: 'consultaordenespago',
-      loadChildren: () => import('./consultas-ordenesdepago/ordenespago.module')
+      path: 'ordenespago',
+      loadChildren: () => import('./ordenesdepago/ordenespago.module')
       .then(m => m.OrdenespagoModule),
     },
     {

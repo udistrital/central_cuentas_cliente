@@ -10,10 +10,11 @@ import { OrdenespagoEffects } from './effects/ordenespago.effects';
 import { TableListaordenesComponent } from './components/table-listaordenes/table-listaordenes.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, TableListaordenesComponent],
+  declarations: [LayoutComponent, TableListaordenesComponent, CrearOrdenpagoComponent],
   imports: [
     CommonModule,
     OrdenespagoRoutingModule,
