@@ -5,11 +5,11 @@ import { SetAutorizaciongiroComponent } from '../set-autorizaciongiro/set-autori
 import { ShowResumensolicitudgiroComponent } from '../show-resumensolicitudgiro/show-resumensolicitudgiro.component';
 
 @Component({
-  selector: 'ngx-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  selector: 'ngx-stepper-solicitudgiro',
+  templateUrl: './stepper-solicitudgiro.component.html',
+  styleUrls: ['./stepper-solicitudgiro.component.scss']
 })
-export class LayoutComponent {
+export class StepperSolicitudgiroComponent {
 
   @ViewChild(SetInfosolicitudgiroComponent, {static: false}) SetInfosolicitudgiroComponent: SetInfosolicitudgiroComponent;
   @ViewChild(SetCargardocumentosComponent, {static: false}) SetCargardocumentosComponent: SetCargardocumentosComponent;
@@ -22,6 +22,9 @@ export class LayoutComponent {
   }
 
   get infoSolicitudGroup() {
+    // if (!this.SetInfosolicitudgiroComponent){
+    //   console.log('es nulo');
+    // }
     return this.SetInfosolicitudgiroComponent ? this.SetInfosolicitudgiroComponent.infoSolicitudGroup : null;
   }
   get documentosGroup() {

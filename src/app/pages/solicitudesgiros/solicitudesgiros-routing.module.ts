@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './components/layout/layout.component';
+import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgiro/stepper-solicitudgiro.component';
+import { TableListasolicitudesComponent } from './components/table-listasolicitudes/table-listasolicitudes.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: LayoutComponent,
-    children: [
-      {
-        path: 'solicitudesgiros',
-        loadChildren: () => import('./components/layout/layout.component')
-        .then(m => m.LayoutComponent),
-      },
-    ],
-}];
+    path: 'consultarsolicitudgiro',
+    component: TableListasolicitudesComponent,
+  },
+  {
+    path: 'crearsolicitudgiro',
+    component: StepperSolicitudgiroComponent,
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

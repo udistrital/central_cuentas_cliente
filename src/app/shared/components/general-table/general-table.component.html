@@ -1,33 +1,14 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="config && datos">
     <div class="row">
-        <div class="col-7">
+        <div class="col-md-12">
             <!-- Barra de busqueda - filtrar -->
             <div class="form-group mb-2" *ngIf="config.filter">
                 <input type="text" class="form-control py-2 mb-3 mt-3" id="buscador-tabla" aria-describedby="search-table" placeholder="Buscar..." [(ngModel)]="stringBusqueda">
             </div>
             <!-- Fin de la Barra de busqueda - filtrar -->
-        </div>
-        <div class="col-5">
-            <!-- Botón para crear nueva solicitud de autorizacion de giro -->
-            <div *ngIf="config.tableActions" class="col-12 d-flex justify-content-center">
-                <ng-container *ngFor="let allAction of config.tableActions">
-                    <button type="button" class="btn btn-primary py-2 mb-3 mt-3 text-light">
-                        <div class="d-flex flex-row justify-content-around align-middle"
-                            (click)="SelectedAllAction(allAction)">
-                            <i [class]="allAction.icon"></i>
-                            <span [class]="allAction.class">
-                                {{allAction.title}}
-                            </span>
-                        </div>
-                    </button>
-                </ng-container>
-            </div>
-            <!-- Fin del Botón para crear nueva solicitud de autorizacion de giro -->
-        </div>
-        <div class="col-12">
             <!-- Tabla de registros -->
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-bordered table-hover">
                     <!-- Encabezado de titulos -->
                     <thead class="bg-white text-dark">
                         <tr *ngIf="config.title">
@@ -35,7 +16,10 @@
                                 {{config.title.name}}
                             </th>
                         </tr>
-                        <tr>
+                        <tr *ngIf="config.showColumnTitle">
+                            <ng-container *ngIf="config.checkElement">
+                                <th scope="col" [class]="config.checkElement.title.class">{{config.checkElement.title.name}}</th>
+                            </ng-container>
                             <ng-container *ngFor="let element of config.dataConfig">
                                 <th scope="col" [class]="element.title.class">{{element.title.name}}</th>
                             </ng-container>
@@ -43,21 +27,32 @@
                                 <th scope="col" [class]="config.rowActions.title.class">{{config.rowActions.title.name}}</th>
                             </ng-container>
                         </tr>
+                        <tr *ngIf="config.subtitle">
+                            <th scope="col" colspan="100" [class]="config.subtitle.class">
+                                {{config.subtitle.name}}
+                            </th>
+                        </tr>
                     </thead>
                     <!-- Fin del Encabezado de titulos -->
-                    <!-- Llamada de datos a la tabla -->
                     <tbody>
                         <tr *ngFor="let items of datos | filterTable:stringBusqueda; index as i">
+                            <ng-container *ngIf="config.checkElement">
+                                <td [class]="config.checkElement.pipe.class">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    </div>
+                                </td>
+                            </ng-container>
                             <ng-container *ngFor="let data of config.dataConfig">
                                 <ng-container *ngIf="!data.pipe.isArray">
                                     <td [class]="data.pipe.class">
-                                        {{ data.pipe.functionPipe ? (items[data.key] | customTable:data.pipe.functionPipe) : items[data.key] }}
+                                        {{ data.pipe.type ? (items[data.key] | multiPipe:data.pipe.type:data.pipe.config) : items[data.key] }}
                                     </td>
                                 </ng-container>
                                 <ng-container *ngIf="data.pipe.isArray">
                                     <td [class]="data.pipe.class">
                                         <ng-container *ngFor="let value of items[data.key]">
-                                            <span>{{value}}</span>
+                                            <span class="my-2">{{value}}</span>
                                         </ng-container>
                                     </td>
                                 </ng-container>
@@ -75,17 +70,55 @@
                             </ng-container>
                         </tr>
                         <!-- Mensaje de "Elementos no asociados a la busqueda" -->
-                        <ng-container *ngIf="(datos | filterTable:stringBusqueda).length === 0">
-                            <th scope="col" colspan="100" [class]="config.noData.class">
-                                {{config.noData.name}}
-                            </th>
+                        <ng-container *ngIf="config.noData">
+                            <ng-container *ngIf="(datos | filterTable:stringBusqueda).length === 0">
+                                <tr>
+                                    <th scope="col" colspan="100" [class]="config.noData.class">
+                                        {{config.noData.name}}
+                                    </th>
+                                </tr>
+                            </ng-container>
                         </ng-container>
                         <!-- Fin de Mensaje de "Elementos no asociados a la busqueda" -->
+                        <ng-container *ngIf="config.endSubtotal">
+                            <tr>
+                                <ng-container *ngFor="let subsection of config.endSubtotal.items">
+                                    <th scope="col" [attr.colspan]="subsection.colspan" [class]="subsection.class">
+                                        {{subsection.name}}
+                                    </th>
+                                </ng-container>
+                                <ng-container *ngIf="config.endSubtotal.last.name">
+                                    <th scope="col" colspan="100" [class]="config.endSubtotal.last.class">
+                                        <!-- {{ config.endSubtotal.last.name | multiPipe:config.endSubtotal.last.pipe.type:config.endSubtotal.last.pipe.config }} -->
+                                    </th>
+                                </ng-container>
+                                <ng-container *ngIf="!config.endSubtotal.last.name">
+                                    <th scope="col" colspan="100" [class]="config.endSubtotal.last.class">
+                                        <!-- {{ Subtotal | multiPipe:config.endSubtotal.last.pipe.type:config.endSubtotal.last.pipe.config }} -->
+                                    </th>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
                     </tbody>
-                    <!-- Fin de Llamada de datos a la tabla -->
                 </table>
+
             </div>
             <!-- Fin de la Tabla de registros -->
+            <!-- Botón para crear nueva solicitud de autorizacion de giro -->
+            <div *ngIf="config.tableActions" class="col-12 d-flex justify-content-center">
+                <ng-container *ngFor="let allAction of config.tableActions">
+                    <button type="button" class="btn btn-primary py-2 mb-3 mt-3 text-light">
+                    <div class="d-flex flex-row justify-content-around align-middle"
+                        (click)="SelectedAllAction(allAction)">
+                        <i [class]="allAction.icon"></i>
+                        <span [class]="allAction.class">
+                            {{allAction.title}}
+                        </span>
+                    </div>
+                </button>
+                </ng-container>
+            </div>
+            <!-- Fin del Botón para crear nueva solicitud de autorizacion de giro -->
         </div>
     </div>
 </div>

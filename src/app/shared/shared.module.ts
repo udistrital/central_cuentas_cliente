@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -16,6 +16,7 @@ import { ArbolRubroComponent } from './components/arbol-rubro/arbol-rubro.compon
 import { NbTreeGridModule } from '@nebular/theme';
 import { SelectedRowDirective } from './directives/selected-row.directive';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { MultiPipePipe } from './pipes/multi-pipe.pipe';
 
 @NgModule({
   exports: [
@@ -41,7 +42,15 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     ArbolRubroComponent,
     SelectedRowDirective,
     FileUploadComponent,
+    MultiPipePipe
   ],
+  providers: [
+    CustomTablePipe,
+    CurrencyPipe,
+    DatePipe,
+    DecimalPipe,
+    PercentPipe
+  ]
 })
 
 export class SharedModule { }

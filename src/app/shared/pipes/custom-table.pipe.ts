@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CustomTablePipe implements PipeTransform {
 
-  transform(value: any, args: Function): any {
+  transform(value: any, args: any): any {
     return args(value);
   }
 
