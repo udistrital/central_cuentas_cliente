@@ -121,39 +121,38 @@ export const CONFIGURACION_PRUEBA: any = {
 };
 export const DATOS_PRUEBA: any = [
    {
-       vigencia:'2020',
+       vigencia: '2020',
        numeroAprobacion: '34534',
        areaFuncional: '00/00/00',
        tipoDocumento: 'Orden de pago'
    },
    {
-        vigencia:'2019',
+        vigencia: '2019',
         numeroAprobacion: '12763',
         areaFuncional: '4/8/2',
         tipoDocumento: 'Relación de autorización'
     },
     {
-        vigencia:'2020',
+        vigencia: '2020',
         numeroAprobacion: '89347932',
         areaFuncional: '4/5/9',
         tipoDocumento: 'Relación de autorización'
     },
     {
-        vigencia:'2020',
+        vigencia: '2020',
         numeroAprobacion: '712368',
         areaFuncional: '7/8/9',
         tipoDocumento: 'Orden de pago'
     },
     {
-        vigencia:'2018',
+        vigencia: '2018',
         numeroAprobacion: '231238',
         areaFuncional: '7/5/9',
         tipoDocumento: 'Relación de autorización'
     },
     {
-        vigencia:'2019',
+        vigencia: '2019',
         numeroAprobacion: '8345893',
         areaFuncional: '10/10/10',
         tipoDocumento: 'Orden de pago'
-    }
-];
+    }];

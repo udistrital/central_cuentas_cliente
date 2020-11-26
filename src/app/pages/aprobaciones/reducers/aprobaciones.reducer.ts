@@ -15,10 +15,9 @@ const aprobacionesReducer = createReducer(
   initialState,
 
   on(AprobacionesActions.loadAprobacioness, state => state),
-  on(AprobacionesActions.loadAprobacionesSeleccionado, (state, action) =>({
+  on(AprobacionesActions.loadAprobacionesSeleccionado, (state, action) => ({
     ...state, AprobacionesSeleccionado: state.AprobacionesSeleccionado = action
-  }) ),
-
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

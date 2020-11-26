@@ -16,7 +16,7 @@ const routes: Routes = [
     {
       path: 'aprobaciones',
       loadChildren: () => import('./aprobaciones/aprobaciones.module')
-      .then(m=> m.AprobacionesModule)
+      .then(m => m.AprobacionesModule)
     },
     {
       path: 'prueba',

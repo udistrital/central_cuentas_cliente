@@ -7,5 +7,4 @@ export const selectAprobacionesState = createFeatureSelector<fromAprobaciones.St
 
 export const getAprobacionSeleccionado = createSelector(
   selectAprobacionesState,
-  (state: fromAprobaciones.State) => state.AprobacionesSeleccionado
-);
+  (state: fromAprobaciones.State) => state.AprobacionesSeleccionado);

@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-approbation.component.scss']
 })
 export class CreateApprobationComponent implements OnInit {
-
-  constructor() { }
+  
+  
+  constructor(
+    
+  ) {
+    
+   }
 
   ngOnInit() {
+    
   }
+
+
+
 
 }
