@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DATOS_CREACION } from "../../interfaces/interfaces";
 
 @Component({
   selector: 'ngx-relation-approbation',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RelationApprobationComponent implements OnInit {
 
-  constructor() { }
+  @Input() nAprobacion: any;
+
+  titles: String[] = ['Área funcional','Vigencia','Mes','Consecutivo','Estado'];
+
+  attributes: any[] = [['areaFuncional'],['vigencia'],['mes'],['consecutivo'],['estado']];
+
+  datosCreacion: any;
+  constructor( ) { 
+    this.datosCreacion = DATOS_CREACION;
+  }
 
   ngOnInit() {
   }

@@ -156,3 +156,46 @@ export const DATOS_PRUEBA: any = [
         areaFuncional: '10/10/10',
         tipoDocumento: 'Orden de pago'
     }];
+export const DATOS_CREACION: any = [
+        {
+            areaFuncional: '2020',
+            vigencia: '34534',
+            mes: '00/00/00',
+            consecutivo: 'Orden de pago',
+            estado: 'activo'
+        },
+        {
+            areaFuncional: '2020',
+            vigencia: '34534',
+            mes: '00/00/00',
+            consecutivo: 'Orden de pago',
+            estado: 'activo'
+         },
+         {
+            areaFuncional: '2020',
+            vigencia: '34534',
+            mes: '00/00/00',
+            consecutivo: 'Orden de pago',
+            estado: 'activo'
+         },
+         {
+            areaFuncional: '2020',
+            vigencia: '34534',
+            mes: '00/00/00',
+            consecutivo: 'Orden de pago',
+            estado: 'activo'
+         },
+         {
+            areaFuncional: '2020',
+            vigencia: '34534',
+            mes: '00/00/00',
+            consecutivo: 'Orden de pago',
+            estado: 'activo'
+         },
+         {
+            areaFuncional: '2020',
+            vigencia: '34534',
+            mes: '00/00/00',
+            consecutivo: 'Orden de pago',
+            estado: 'activo'
+         }];

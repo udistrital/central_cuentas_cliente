@@ -11,12 +11,18 @@ export class TableComponent implements OnInit {
   @Input() attributes:String[] = [];
   @Input() list: any[] = [];
 
-  @Input() eye: boolean = false;
-  @Input() checkbox: boolean = false;
+  @Input() seleccion: boolean = false;
+  @Input() aprobacionContable: boolean = false;
+  @Input() aprobacionPresupuestal: boolean = false;
 
+  
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClick( row:any ) {
+    console.log(row);
   }
 
 }
