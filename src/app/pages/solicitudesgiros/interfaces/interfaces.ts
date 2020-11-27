@@ -161,173 +161,17 @@ export const CONFIGURACION_DOCUMENTOS: any = {
 export const DATOS_DOCUMENTOS: any = [
     {
       nombreDocumento: 'documento1',
-      nombreArchivo: 'Listo',
+      nombreArchivo: 'doc1.pdf',
       estado: 'Listo'
     },
     {
         nombreDocumento: 'documento2',
-        nombreArchivo: 'Listo',
+        nombreArchivo: 'doc2.pdf',
         estado: 'Listo'
     },
     {
         nombreDocumento: 'documento3',
-        nombreArchivo: 'Listo',
+        nombreArchivo: 'doc3.pdf',
         estado: 'Listo'
     },
-  ];
-
-export interface ArbolRubros<T> {
-    Codigo: string;
-    data?: T;
-    children?: ArbolRubros<T>[];
-    expanded?: boolean;
-}
-export interface DatosNodo {
-    Codigo: string;
-    Descripcion?: string;
-    ValorInicial?: number;
-    Hijos?: any[];
-    Movimientos?: string[];
-    Padre?: string;
-    UnidadEjecutora?: number;
-    Estado?: string;
-    IsLeaf?: boolean;
-}
-
-export const DATA_TREE_NODE: any = [
-    {
-        data: {
-            name: 'Projects',
-            size: '1.8 MB',
-            items: 5,
-            kind: 'dir'
-        },
-        children: [
-            {
-                data: {
-                    name: 'project-1.doc',
-                    kind: 'doc',
-                    size: '240 KB'
-                },
-                children: [],
-            },
-            {
-                data: {
-                    name: 'project-2.doc',
-                    kind: 'doc',
-                    size: '290 KB'
-                },
-                children: [],
-            },
-            {
-                data: {
-                    name: 'project-3',
-                    kind: 'dir',
-                    size: '466 KB',
-                    items: 3
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'project-3A.doc',
-                            kind: 'doc',
-                            size: '200 KB'
-                        },
-                        children: [],
-                    },
-                    {
-                        data: {
-                            name: 'project-3B.doc',
-                            kind: 'doc',
-                            size: '266 KB'
-                        },
-                        children: [],
-                    },
-                    {
-                        data: {
-                            name: 'project-3C.doc',
-                            kind: 'doc',
-                            size: '0'
-                        },
-                        children: [],
-                    },
-                ],
-            },
-            {
-                data: {
-                    name: 'project-4.docx',
-                    kind: 'docx',
-                    size: '900 KB'
-                },
-                children: [],
-            },
-        ],
-    },
-    {
-        data: {
-            name: 'Reports',
-            kind: 'dir',
-            size: '400 KB',
-            items: 2
-        },
-        children: [
-            {
-                data: {
-                    name: 'Report 1',
-                    kind: 'dir',
-                    size: '100 KB',
-                    items: 1
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'report-1.doc',
-                            kind: 'doc',
-                            size: '100 KB'
-                        },
-                        children: [],
-                    },
-                ],
-            },
-            {
-                data: {
-                    name: 'Report 2',
-                    kind: 'dir',
-                    size: '300 KB',
-                    items: 2
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'report-2.doc',
-                            kind: 'doc',
-                            size: '290 KB'
-                        },
-                        children: [],
-                    },
-                    {
-                        data: {
-                            name: 'report-2-note.txt',
-                            kind: 'txt',
-                            size: '10 KB'
-                        },
-                        children: [],
-                    },
-                ],
-            },
-        ],
-    },
-];
-
-export const OPCIONES_AREA_FUNCIONAL = [
-    {
-        Id: 1,
-        Nombre: 'Rector',
-        label: '01 - Rector',
-    },
-    {
-        Id: 2,
-        Nombre: 'Convenio',
-        label: '02 - Convenio',
-    }
 ];

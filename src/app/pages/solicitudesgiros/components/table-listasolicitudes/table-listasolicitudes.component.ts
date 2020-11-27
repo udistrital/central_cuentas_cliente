@@ -19,7 +19,7 @@ export class TableListasolicitudesComponent implements OnInit {
   stringBusqueda: string;
 
   constructor (
-    private store: Store<any>,
+    private store: Store<any>
   ) {
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;

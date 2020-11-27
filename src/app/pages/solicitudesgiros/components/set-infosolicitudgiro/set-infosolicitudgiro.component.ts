@@ -11,17 +11,36 @@ export class SetInfosolicitudgiroComponent implements OnInit {
 
   infoSolicitudGroup: FormGroup;
 
-  constructor( private _formBuilder: FormBuilder ) {
-
+  constructor( private fb: FormBuilder ) {
+    this.createForm();
   }
 
   ngOnInit() {
-    this.infoSolicitudGroup = this._formBuilder.group({
-      concepto: new FormControl('', [Validators.required]),
+
+  }
+
+  createForm() {
+    this.infoSolicitudGroup = this.fb.group({
+      concepto: ['', Validators.required],
+      numeroSolicitud: ['', ],
       areaFuncional: ['', Validators.required],
+      fechaSolicitud: ['', ],
       tipoId: ['', Validators.required],
-      numId: ['', Validators.required]
+      numeroId: ['', Validators.required],
+      nombres: ['', ],
+      apellidos: ['', ],
+      cargo: ['', ],
+
     });
+
+  }
+
+  saveForm() {
+    if ( this.infoSolicitudGroup.invalid ) {
+      return Object.values( this.infoSolicitudGroup.controls ).forEach( control => {
+        control.markAsTouched();
+      });
+    }
   }
 
 }

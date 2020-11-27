@@ -10,15 +10,33 @@ export class SetAutorizaciongiroComponent implements OnInit {
 
   autorizacionGroup: FormGroup;
 
-  constructor( private _formBuilder: FormBuilder ) { }
+  constructor( private fb: FormBuilder ) {
+    this.createForm();
+   }
 
   ngOnInit() {
-    this.autorizacionGroup = this._formBuilder.group({
-      concepto: new FormControl('', [Validators.required]),
-      areaFuncional: ['', Validators.required],
-      tipoId: ['', Validators.required],
-      numId: ['', Validators.required]
+
+  }
+
+  createForm() {
+    this.autorizacionGroup = this.fb.group({
+      tipoId: new FormControl('', [Validators.required]),
+      numeroId: ['', Validators.required],
+      nombreBeneficiario: ['', ],
+      codigoRubro: ['', Validators.required],
+      nombreRubro: ['', ],
+      valorLetras: ['', ],
+      valorNumero: ['', Validators.required]
     });
+
+  }
+
+  saveForm() {
+    if ( this.autorizacionGroup.invalid ) {
+      return Object.values( this.autorizacionGroup.controls ).forEach( control => {
+        control.markAsTouched();
+      });
+    }
   }
 
 }
