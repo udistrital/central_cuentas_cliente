@@ -1,0 +1,144 @@
+<form [formGroup]="infoSolicitudGroup" (ngSubmit)="saveForm()">
+    <!-- Grupo: Información de Solicitud -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <mat-card-header class="py-1">
+                    <mat-card-subtitle>
+                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                            Información de la Solicitud
+                        </h6>
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </div>
+        </div>
+        <!-- Campo: Elegir Concepto -->
+        <div class="form-group row">
+            <div class="col-md-12 py-2">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Concepto</mat-label>
+                    <mat-select disableRipple matInput formControlName="concepto">
+                        <mat-option value="1">Option 1: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
+                        <mat-option value="2">Option 2: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
+                        <mat-option value="3">Option 3: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
+                    </mat-select>
+                    <mat-hint>Elegir concepto de solicitud</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- Fin Campo: Elegir Concepto -->
+        <!-- Campos: No. de Solicitud, Área funcional, fecha -->
+        <div class="form-group row">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>No. Solicitud</mat-label>
+                    <input matInput formControlName="numeroSolicitud">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Área Funcional</mat-label>
+                    <mat-select disableRipple matInput formControlName="areaFuncional">
+                        <mat-option value="option1">Option1</mat-option>
+                        <mat-option value="option2">Option2</mat-option>
+                    </mat-select>
+                    <mat-hint>Elegir el área funcional</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaSolicitud">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- Fin Campos: No. de Solicitud, Área funcional, fecha -->
+    </div>
+    <!-- Fin Grupo: Información de Solicitud -->
+
+    <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+
+    <!-- Grupo: Solicitante -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card-header class="py-1">
+                    <mat-card-subtitle>
+                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                            Solicitante
+                        </h6>
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </div>
+        </div>
+        <!-- Campo: Elegir tipo de id, numero de id -->
+        <div class="form-group row">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Tipo de ID</mat-label>
+                    <mat-select disableRipple matInput formControlName="tipoId">
+                        <mat-option value="1">Option 1</mat-option>
+                        <mat-option value="2">Option 2</mat-option>
+                        <mat-option value="3">Option 3</mat-option>
+                    </mat-select>
+                    <mat-hint>Elegir tipo de identificación</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Número de ID</mat-label>
+                    <input matInput formControlName="numeroId">
+                    <mat-hint>Escribir el número de ID</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- Fin Campo: Elegir tipo de id, numero de id -->
+        <!-- Campos: Nombres, Apellidos, Cargo -->
+        <div class="form-group row">
+            <div class="col-md-4 ">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombres">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="apellidos">
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Cargo</mat-label>
+                    <input matInput type="text" formControlName="cargo">
+                </mat-form-field>
+            </div>
+            <!-- Fin Campos: Nombres, Apellidos, Cargo -->
+        </div>
+        <!-- Fin Grupo: Solicitante -->
+        <!-- Botones: Volver a registro, Siguiente -->
+        <div class="container">
+            <div class="row pt-2 text-center">
+                <div class="col-md-6">
+                    <a routerLink="../../solicitudesgiros/consultarsolicitudgiro">
+                        <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                            <div class="d-flex flex-row justify-content-around align-middle">
+                                <span>Volver a registros</span>
+                            </div>
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Botones: Volver a registro, Siguiente -->
+    </div>
+</form>

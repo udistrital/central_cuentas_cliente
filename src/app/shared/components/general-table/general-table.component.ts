@@ -13,6 +13,7 @@ export class GeneralTableComponent implements OnInit {
   @Input() config: any;
   @Input() datos: any;
   @Output() selectedAction: EventEmitter<any>;
+  Subtotal: any;
   stringBusqueda: string;
   datosPrueba: any[];
 
@@ -24,10 +25,19 @@ export class GeneralTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.config.endSubtotal) {
+      if (!this.config.endSubtotal.last.name) {
+        const arraySubtotal: any[] = [];
+        this.datos.forEach((element: any) => {
+          arraySubtotal.push(parseFloat(element[this.config.endSubtotal.property]));
+        });
+        this.Subtotal = arraySubtotal.reduce((accumulator, currentValue) => accumulator + currentValue);
+      }
+    }
   }
 
   SelectedAction(action: any, row: any) {
-    // console.log(this.config.title,action, row)
+
     this.store.dispatch(LoadFilaSeleccionada({
       titulo: this.config.title,
       accion: action,
@@ -36,12 +46,11 @@ export class GeneralTableComponent implements OnInit {
   }
 
   SelectedAllAction(action: any) {
-    // console.log(this.config.title, action, this.datos);
+
     this.store.dispatch(LoadAccionTabla({
       titulo: this.config.title,
       accion: action,
     }));
 
   }
-
 }

@@ -1,52 +1,90 @@
 export const configTable: any = {
     title: {
-        name: 'string',
-        class: 'string',
+        name: 'string', // name title
+        class: 'string', // bootstrap class
+    },
+    showColumnTitle: true, // show / hide columns title
+    checkElement: {
+        title: 'string', // column title
+        pipe: {
+            type: 'string', // date, currency, decimal, percent, custom ( optional )
+            config: [
+                'string', // array like pipe, no custom
+                () => { }, // only custom pipe
+            ], //  ( optional )
+            class: 'string', // bootstrap class
+        }
     },
     dataConfig: [
         {
-            key: 'string',
-            title: 'string',
+            key: 'string', // object key
+            title: 'string', // column title
             pipe: {
-                functionPipe: () => { },
-                class: 'string'
+                type: 'string', // date, currency, decimal, percent, custom ( optional )
+                config: [
+                    'string', // array like pipe, no custom
+                    () => { }, // only custom pipe
+                ], //  ( optional )
+                class: 'string', // bootstrap class
             }
         }
     ],
+    subtitle: {
+        name: 'string', // name subtitle
+        class: 'string', // bootstrap class
+    },
     rowActions: {
         title: {
-            name: 'string',
-            class: 'string',
+            name: 'string', // Title Actions
+            class: 'string', // bootstrap class
         },
         actions: [
             {
-                name: 'string',
-                icon: 'string',
-                class: 'string',
-                title: 'string',
+                name: 'string', // name action
+                icon: 'string', // icon action (font-awesome icons)
+                class: 'string', // bootstrap class
+                title: 'string', // bootstrap tooltip name
             }
         ],
     },
     tableActions: [
         {
-            name: 'string',
-            icon: 'string',
-            class: 'string',
-            title: 'string',
+            name: 'string', // name action
+            icon: 'string', // icon action (font-awesome icons)
+            class: 'string', // bootstrap class
+            title: 'string', // bootstrap tooltip name
         }
     ],
     noData: {
-        name: 'string',
-        class: 'string',
+        name: 'string', // title no data
+        class: 'string', // bootstrap class
+    },
+    endSubtotal: {
+        property: 'string', // key object
+        items: [
+            {
+                colspan: 'number', // relative offset number
+                name: 'string', // title item
+                class: 'string', // bootstrap class
+            },
+        ],
+        last: {
+            name: 'string', // if fixed name ( optional )
+            class: 'string',
+            pipe: {
+                type: 'string', // date, currency, decimal, percent, custom ( optional )
+                config: [
+                    'string', // array like pipe, no custom
+                    () => { }, // only custom pipe
+                ], //  ( optional )
+                class: 'string', // bootstrap class
+            }
+        }
     },
     sort: 'boolean',
     filter: 'boolean',
 };
 export const CONFIGURACION_PRUEBA: any = {
-    // title: {
-    //     name: 'Tabla de Prueba',
-    //     class: 'text-center',
-    // },
     dataConfig: [
         {
             key: 'id',
@@ -55,10 +93,6 @@ export const CONFIGURACION_PRUEBA: any = {
                 class: 'text-center',
             },
             pipe: {
-                // functionPipe: (data: string) => {
-                //     return data + ' ' + data;
-                // },
-                // class: 'text-uppercase'
                 class: '',
             }
         },
@@ -69,10 +103,6 @@ export const CONFIGURACION_PRUEBA: any = {
                 class: 'text-center',
             },
             pipe: {
-                // functionPipe: (data: string) => {
-                //     return data + ' ' + data;
-                // },
-                // class: 'text-uppercase'
                 class: '',
             }
         },
@@ -184,19 +214,6 @@ export interface DatosNodo {
     UnidadEjecutora?: number;
     Estado?: string;
     IsLeaf?: boolean;
-}
-
-export interface TreeNode<T> {
-    data: T;
-    children?: TreeNode<T>[];
-    expanded?: boolean;
-}
-
-export interface FSEntry {
-    name: string;
-    size: string;
-    kind: string;
-    items?: number;
 }
 
 export const DATA_TREE_NODE: any = [
@@ -322,11 +339,18 @@ export const DATA_TREE_NODE: any = [
             },
         ],
     },
-    // {
-    //     data: { name: 'Other', kind: 'dir', size: '109 MB', items: 2 },
-    //     children: [
-    //         { data: { name: 'backup.bkp', kind: 'bkp', size: '107 MB' } },
-    //         { data: { name: 'secret-note.txt', kind: 'txt', size: '2 MB' } },
-    //     ],
-    // },
+];
+
+export const OPCIONES_AREA_FUNCIONAL = [
+    {
+        Id: 1,
+        Nombre: 'Rector',
+        label: '01 - Rector',
+    },
+    {
+        Id: 2,
+        Nombre: 'Convenio',
+        label: '02 - Convenio',
+    }
+
 ];
