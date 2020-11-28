@@ -6,28 +6,7 @@ import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selector
 import { loadSolicitudgiroSeleccionado } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_DOCUMENTOS, DATOS_DOCUMENTOS } from '../../interfaces/interfaces';
 
-// export interface UploadData {
-//   nameDocs: string;
-//   stateDocs: string;
-//   changeDocs: string;
-// }
 
-// const ELEMENT_DATA: UploadData[] = [
-//   {
-//     nameDocs: 'documento1',
-//     stateDocs: 'Listo',
-//     changeDocs: 'Borrar'
-//   },
-//   {
-//     nameDocs: 'documento2',
-//     stateDocs: 'CARGAR',
-//     changeDocs: 'Borrar'
-//   },
-//   {
-//     nameDocs: 'documento3',
-//     stateDocs: 'CARGAR',
-//     changeDocs: 'Borrar'  },
-// ];
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
@@ -42,8 +21,6 @@ export class SetCargardocumentosComponent implements OnInit {
 
   documentosGroup: FormGroup;
 
-  // displayedColumns: string[] = ['nameDocs', 'stateDocs', 'changeDocs'];
-  // dataSource = ELEMENT_DATA;
 
   constructor(private store: Store<any>, private fb: FormBuilder, config: NgbModalConfig, private modalService: NgbModal) {
 
