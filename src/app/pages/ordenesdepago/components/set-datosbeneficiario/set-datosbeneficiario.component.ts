@@ -9,11 +9,27 @@ import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 export class SetDatosbeneficiarioComponent implements OnInit {
   datosBeneficiario: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.datosBeneficiario = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+    this.datosBeneficiario = this.fb.group({
+      numeroOrden: ['',
+        [
+          Validators.required,
+          Validators.pattern("^[0-9]*$")
+        ],
+      ],
+      fechaOrden: ['', Validators.required],
+      unidadEjecutora: ['', Validators.required],
+      tipoId: ['', Validators.required],
+      numeroId: ['', Validators.required],
+      banco: ['', Validators.required],
+      cuenta: ['', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$")
+      ],
+      ],
+      
     });
   }
 

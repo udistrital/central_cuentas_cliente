@@ -9,10 +9,10 @@ import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 export class SetImpuntuacionpresupuestalComponent implements OnInit {
   impuntuacionPresupuestal: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.impuntuacionPresupuestal = this._formBuilder.group({
+    this.impuntuacionPresupuestal = this.fb.group({
       firstCtrl: ['', Validators.required]
     });
   }

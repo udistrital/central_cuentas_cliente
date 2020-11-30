@@ -9,10 +9,10 @@ import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 export class SetMovimientocontableComponent implements OnInit {
   movimientoContable: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.movimientoContable = this._formBuilder.group({
+    this.movimientoContable = this.fb.group({
       firstCtrl: ['', Validators.required]
     });
   }

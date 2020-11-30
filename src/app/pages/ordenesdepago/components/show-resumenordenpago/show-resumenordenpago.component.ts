@@ -9,10 +9,10 @@ import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 export class ShowResumenordenpagoComponent implements OnInit {
   resumen: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.resumen = this._formBuilder.group({
+    this.resumen = this.fb.group({
       firstCtrl: ['', Validators.required]
     });
   }

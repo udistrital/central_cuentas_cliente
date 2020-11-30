@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadOrdenPagoSeleccionado } from '../../actions/ordenespago.actions';
-import { CONFIGURACION_PRUEBA, DATOS_PRUEBA } from '../../interfaces/interfaces';
+import { CONFIGURACION_TABLAREGISTROS, DATOS_TABLAREGISTROS } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'ngx-table-listaordenes',
@@ -18,8 +18,8 @@ export class TableListaordenesComponent implements OnInit {
   constructor(
     private store: Store<any>,
   ) {
-    this.datosPrueba = DATOS_PRUEBA;
-    this.configuracion = CONFIGURACION_PRUEBA;
+    this.datosPrueba = DATOS_TABLAREGISTROS;
+    this.configuracion = CONFIGURACION_TABLAREGISTROS;
   }
 
   ngOnInit() {

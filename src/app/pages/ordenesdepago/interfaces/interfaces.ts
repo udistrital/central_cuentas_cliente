@@ -1,57 +1,10 @@
-export const configTable: any = {
-    // title: {
-    //     name: 'string',
-    //     class: 'string',
-    // },
+export const CONFIGURACION_TABLAREGISTROS: any = {
+    showColumnTitle: true,
     dataConfig: [
         {
-            key: 'string',
-            title: 'string',
-            pipe: {
-                functionPipe: () => { },
-                class: 'string'
-            }
-        }
-    ],
-    rowActions: {
-        title: {
-            name: 'string',
-            class: 'string',
-        },
-        actions: [
-            {
-                name: 'string',
-                icon: 'string',
-                class: 'string',
-                title: 'string',
-            }
-        ],
-    },
-    tableActions: [
-        {
-            name: 'string',
-            icon: 'string',
-            class: 'string',
-            title: 'string',
-        }
-    ],
-    noData: {
-        name: 'string',
-        class: 'string',
-    },
-    sort: 'boolean',
-    filter: 'boolean',
-};
-export const CONFIGURACION_PRUEBA: any = {
-    // title: {
-    //     name: 'Actividades Asociadas',
-    //     class: 'text-center text-light',
-    // },
-    dataConfig: [
-        {
-            key: 'numeroSolicitud',
+            key: 'NumeroOrden',
             title: {
-                name: 'No. Orden de Pago',
+                name: 'No. de Órden',
                 class: 'text-center',
             },
             pipe: {
@@ -59,7 +12,7 @@ export const CONFIGURACION_PRUEBA: any = {
             }
         },
         {
-            key: 'nombreBeneficiario',
+            key: 'NombreBeneficiario',
             title: {
                 name: 'Nombre del Beneficiario',
                 class: 'text-center',
@@ -69,27 +22,27 @@ export const CONFIGURACION_PRUEBA: any = {
             }
         },
         {
-            key: 'mes',
+            key: 'Mes',
             title: {
                 name: 'Mes',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'text-center',
             }
         },
         {
-            key: 'quincena',
+            key: 'Quincena',
             title: {
                 name: 'Quincena',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'text-center',
             }
         },
         {
-            key: 'estado',
+            key: 'Estado',
             title: {
                 name: 'Estado',
                 class: 'text-center',
@@ -110,59 +63,118 @@ export const CONFIGURACION_PRUEBA: any = {
                 name: 'ver',
                 icon: 'fas fa-eye',
                 class: 'p-2',
-                title: 'Ver Solicitud',
-            },
+                title: 'Ver Resumen de Órden',
+            }
         ],
     },
-    tableActions: [
-        {
-            name: 'nuevo',
-            icon: 'fas fa-plus py-1 px-2',
-            class: 'px-2',
-            title: 'Crear Nueva Orden',
-        }
-    ],
     noData: {
-        name: 'No Existen Elementos Asociados',
+        name: 'No existen elementos asociados',
         class: 'text-center',
     },
     sort: true,
     filter: true,
 };
-export const DATOS_PRUEBA: any = [
+export const DATOS_TABLAREGISTROS: any = [
     {
-        numeroSolicitud: '1',
-        nombreBeneficiario: 'Dalia',
-        mes: 'Enero',
-        quincena: '1',
-        estado: 'Elaborado',
+        NumeroOrden: '1',
+        NombreBeneficiario: 'Dalia',
+        Mes: 'Enero',
+        Quincena: '1',
+        Estado: 'Elaborado',
     },
     {
-        numeroSolicitud: '2',
-        nombreBeneficiario: 'Marcela',
-        mes: 'Febrero',
-        quincena: '1',
-        estado: 'Elaborado',
+        NumeroOrden: '2',
+        NombreBeneficiario: 'Marcela',
+        Mes: 'Febrero',
+        Quincena: '1',
+        Estado: 'Elaborado',
     },
     {
-        numeroSolicitud: '3',
-        nombreBeneficiario: 'Muñoz',
-        mes: 'Marzo',
-        quincena: '1',
-        estado: 'Elaborado',
+        NumeroOrden: '3',
+        NombreBeneficiario: 'Muñoz',
+        Mes: 'Marzo',
+        Quincena: '1',
+        Estado: 'Elaborado',
     },
     {
-        numeroSolicitud: '4',
-        nombreBeneficiario: 'Araque',
-        mes: 'Abril',
-        quincena: '2',
-        estado: 'Elaborado',
+        NumeroOrden: '4',
+        NombreBeneficiario: 'Araque',
+        Mes: 'Abril',
+        Quincena: '2',
+        Estado: 'Elaborado',
     },
     {
-        numeroSolicitud: '5',
-        nombreBeneficiario: 'Cesar',
-        mes: 'Mayo',
-        quincena: '2',
-        estado: 'Elaborado',
+        NumeroOrden: '5',
+        NombreBeneficiario: 'Cesar',
+        Mes: 'Mayo',
+        Quincena: '2',
+        Estado: 'Elaborado',
+    },
+];
+export const CONFIGURACION_DOCUMENTOS: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'nombreDocumento',
+            title: {
+                name: 'Nombre del Documento',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'nombreArchivo',
+            title: {
+                name: 'Nombre del Archivo',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'estado',
+            title: {
+                name: 'Estado',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+    ],
+    rowActions: {
+        title: {
+            name: 'Modificar',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'ver',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Borrar Documento',
+            },
+        ],
+    },
+};
+export const DATOS_DOCUMENTOS: any = [
+    {
+      nombreDocumento: 'documento1',
+      nombreArchivo: 'doc1.pdf',
+      estado: 'Listo'
+    },
+    {
+        nombreDocumento: 'documento2',
+        nombreArchivo: 'doc2.pdf',
+        estado: 'Listo'
+    },
+    {
+        nombreDocumento: 'documento3',
+        nombreArchivo: 'doc3.pdf',
+        estado: 'Listo'
     },
 ];

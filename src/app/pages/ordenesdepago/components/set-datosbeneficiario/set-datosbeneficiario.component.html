@@ -3,13 +3,13 @@
     <div class="col-md-4">
         <mat-form-field appearance="outline" [style.width.%]="100">
             <mat-label>No. Órden</mat-label>
-            <input matInput formControlName="numeroSolicitud">
+            <input matInput formControlName="numeroOrden">
         </mat-form-field>
     </div>
     <div class="col-md-4">
       <mat-form-field appearance="outline" [style.width.%]="100">
           <mat-label>Fecha</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="fechaSolicitud">
+          <input matInput [matDatepicker]="picker" formControlName="fechaOrden">
           <mat-datepicker-toggle matSuffix [for]="picker">
               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <mat-form-field appearance="outline" [style.width.%]="100">
             <mat-label>Unidad Ejecutora</mat-label>
-            <mat-select disableRipple matInput formControlName="areaFuncional">
+            <mat-select disableRipple matInput formControlName="unidadEjecutora">
                 <mat-option value="option1">01</mat-option>
                 <mat-option value="option2">02</mat-option>
             </mat-select>
@@ -59,9 +59,9 @@
         </mat-form-field>
       </div>
       <div class="col-md-6 ">
-        <mat-form-field appearance="outline" [style.width.%]="100">
+        <mat-form-field appearance="outline" [style.width.%]="100" disabled>
             <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombres">
+            <input matInput formControlName="nombres" disabled>
             <mat-hint>Nombre del beneficiario</mat-hint>
         </mat-form-field>
       </div>
@@ -70,19 +70,19 @@
       <div class="col-md-3 ">
           <mat-form-field appearance="outline" [style.width.%]="100">
               <mat-label>Régimen</mat-label>
-              <input matInput formControlName="nombres">
+              <input matInput formControlName="regimen" disabled>
           </mat-form-field>
       </div>
       <div class="col-md-6">
           <mat-form-field appearance="outline" [style.width.%]="100">
               <mat-label>Dirección</mat-label>
-              <input matInput formControlName="apellidos">
+              <input matInput formControlName="direccion" disabled>
           </mat-form-field>
       </div>
       <div class="col-md-3">
           <mat-form-field appearance="outline" [style.width.%]="100">
               <mat-label>Teléfono</mat-label>
-              <input matInput type="text" formControlName="cargo">
+              <input matInput type="text" formControlName="telefono" disabled>
           </mat-form-field>
       </div>
       <!-- Fin Campos: Nombres, Apellidos, Cargo -->
@@ -91,13 +91,13 @@
       <div class="col-md-6">
           <mat-form-field appearance="outline" [style.width.%]="100">
               <mat-label>Banco/Sucursal</mat-label>
-              <input matInput formControlName="apellidos">
+              <input matInput formControlName="banco">
           </mat-form-field>
       </div>
       <div class="col-md-6">
           <mat-form-field appearance="outline" [style.width.%]="100">
               <mat-label>No. de Cuenta</mat-label>
-              <input matInput type="text" formControlName="cargo">
+              <input matInput type="text" formControlName="cuenta">
           </mat-form-field>
       </div>
     </div>
@@ -111,7 +111,7 @@
     <div class="container">
         <div class="row pt-2 text-center">
             <div class="col-md-6">
-                <a routerLink="../../solicitudesgiros/consultarsolicitudgiro">
+                <a routerLink="../../ordenespago/consultar">
                     <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
                         <div class="d-flex flex-row justify-content-around align-middle">
                             <span>Volver a registros</span>

@@ -18,13 +18,13 @@ export class CrearOrdenpagoComponent implements OnInit {
   @ViewChild(SetMovimientocontableComponent, {static:false}) setMovimientocontableComponent: SetMovimientocontableComponent;
   @ViewChild(ShowResumenordenpagoComponent, {static:false}) showResumenordenpagoComponent: ShowResumenordenpagoComponent;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
   }
 
   get datosBeneficiarioGroup(){
-    return this.setDatosbeneficiarioComponent ? this.setDatosbeneficiarioComponent.datosBeneficiario : null;
+    return this.setDatosbeneficiarioComponent ? this.setDatosbeneficiarioComponent.datosBeneficiario : this.fb.group({});
   }
 
   get datosCompromisoGroup(){

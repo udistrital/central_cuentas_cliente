@@ -6,6 +6,20 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-12 bg-white px-5 d-flex flex-row justify-content-end">
+            <a routerLink="../../ordenespago/crear">
+                <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                    <div class="d-flex flex-row justify-content-around align-middle">
+                        <i class="fas fa-plus py-1 px-2"></i>
+                        <span>
+                            Crear Nueva Órden de Pago
+                        </span>
+                    </div>
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col px-0">
             <ngx-general-table [config]="configuracion" [datos]="datosPrueba"></ngx-general-table>
         </div>
