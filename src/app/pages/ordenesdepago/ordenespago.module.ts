@@ -28,7 +28,10 @@ import { ShowResumenordenpagoComponent } from './components/show-resumenordenpag
 
 
 @NgModule({
-  declarations: [TableListaordenesComponent, CrearOrdenpagoComponent, SetDatosbeneficiarioComponent, SetDatoscompromisoComponent, SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent, ShowResumenordenpagoComponent],
+  declarations: [TableListaordenesComponent, CrearOrdenpagoComponent,
+    SetDatosbeneficiarioComponent, SetDatoscompromisoComponent,
+    SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent,
+    ShowResumenordenpagoComponent],
   imports: [
     CommonModule,
     OrdenespagoRoutingModule,

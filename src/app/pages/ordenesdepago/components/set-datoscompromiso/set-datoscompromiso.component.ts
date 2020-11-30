@@ -13,19 +13,19 @@ export class SetDatoscompromisoComponent implements OnInit {
 
   ngOnInit() {
     this.datosCompromiso = this.fb.group({
-      compromiso: ['',Validators.required],
+      compromiso: ['', Validators.required],
       numeroCompromiso: ['', [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        Validators.pattern('^[0-9]*$')
       ]],
       interventor: ['', Validators.required],
       numeroActa: ['', [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        Validators.pattern('^[0-9]*$')
       ]],
       numeroEntradaAlmacen: ['', [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        Validators.pattern('^[0-9]*$')
       ]],
       vigencia: ['', Validators.required],
       tipoOrden: ['', Validators.required],

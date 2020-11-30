@@ -16,7 +16,7 @@ export class SetDatosbeneficiarioComponent implements OnInit {
       numeroOrden: ['',
         [
           Validators.required,
-          Validators.pattern("^[0-9]*$")
+          Validators.pattern('^[0-9]*$')
         ],
       ],
       fechaOrden: ['', Validators.required],
@@ -26,10 +26,9 @@ export class SetDatosbeneficiarioComponent implements OnInit {
       banco: ['', Validators.required],
       cuenta: ['', [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        Validators.pattern('^[0-9]*$')
       ],
-      ],
-      
+      ]
     });
   }
 
