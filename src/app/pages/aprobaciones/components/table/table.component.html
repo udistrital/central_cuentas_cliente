@@ -1,44 +1,58 @@
 <div style="overflow-x:auto">
-<table class="table table-bordered table-hover">
-    <thead class="thead table-title">
-        <tr>
-            <th *ngIf="seleccion"> Selección </th>
-            <th *ngFor="let title of titles" scope="col"> {{title}} </th>
-            <th *ngIf="aprobacionContable"> Aprobación contable </th>
-            <th *ngIf="aprobacionPresupuestal"> Aprobación presupuestal </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of list">
-            <td *ngIf="seleccion"><label class="switch">
-                <input type="checkbox" [checked]="item.status">
-                <span class="slider round"></span>
-            </label></td>
+    <table class="table table-bordered table-hover">
+        <thead class="thead table-title">
+            <tr>
+                <th *ngIf="seleccion"> Selección </th>
+                <th *ngFor="let title of titles" scope="col"> {{title}} </th>
+                <th *ngIf="aprobacionContable"> Aprobación contable </th>
+                <th *ngIf="aprobacionPresupuestal"> Aprobación presupuestal </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of list">
+                <td *ngIf="seleccion"><label class="switch">
+                    <input type="checkbox" [checked]="item.status">
+                    <span class="slider round"></span>
+                </label></td>
 
-            <ng-container *ngFor="let attribute of attributes">
-                <ng-container *ngIf="attribute.length === 1">
-                  <td>{{item[attribute[0]]}}</td>
+                <ng-container *ngFor="let attribute of attributes">
+                    <ng-container *ngIf="attribute.length === 1">
+                    <td>{{item[attribute[0]]}}</td>
+                    </ng-container>
+                    <ng-container *ngIf="attribute.length > 1">
+                    <td>{{item[attribute[0]][attribute[1]]}}</td>
+                    </ng-container>
                 </ng-container>
-                <ng-container *ngIf="attribute.length > 1">
-                  <td>{{item[attribute[0]][attribute[1]]}}</td>
+                
+                <ng-container *ngIf="aprobacionContable" >
+                    <td>
+                        <button type="button" name="button" (click)="onClick(item)">
+                            <i class="far fa-hand-point-up"></i>
+                        </button>
+                    </td>
                 </ng-container>
-            </ng-container>
-            
-            <ng-container *ngIf="aprobacionContable" >
-                <td>
-                    <button type="button" name="button" (click)="onClick(item)">
-                        <i class="far fa-hand-point-up"></i>
-                    </button>
-                </td>
-            </ng-container>
-            <ng-container *ngIf="aprobacionPresupuestal" >
-                <td>
-                    <button type="button" name="button" (click)="onClick(item)">
-                        <i class="far fa-hand-point-up"></i>
-                    </button>
-                </td>
-            </ng-container>
-        </tr>
-    </tbody>
-</table>
+                <ng-container *ngIf="aprobacionPresupuestal" >
+                    <td>
+                        <button type="button" name="button" (click)="onClick(item)">
+                            <i class="far fa-hand-point-up"></i>
+                        </button>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    <div  *ngIf="botonAprobarRechazar" class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-dark px-3 py-2 my-2">
+                    Rechazar
+                </button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success px-3 py-2 my-2 text-light">
+                    Aprobar
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

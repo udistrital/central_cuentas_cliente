@@ -32,8 +32,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <label for="nAprobacion"> No. de aprobación </label> <br>
-                                <input id="nAprobacion" name="nAprobacion" type="number" formControlName="nAprobacion">
+                                <mat-label for="nAprobacion"> No. de aprobación </mat-label> <br>
+                                <input id="nAprobacion" name="nAprobacion" type="number" formControlName="nAprobacion" required>
                             </div>
                             <div class="col">
                                 <label> Área funcional </label> <br>
@@ -51,12 +51,12 @@
                 
                 <div class="row group">
                     <div class="col">
-                        <button routerLinkActive="active" routerLink="/pages/aprobaciones" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                        <button routerLinkActive="active" routerLink="/pages/aprobaciones/lista" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
                             Volver al registro
                         </button>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" type="submit">
+                        <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="aprobaciones.invalid ">
                             Siguiente
                         </button>
                     </div>

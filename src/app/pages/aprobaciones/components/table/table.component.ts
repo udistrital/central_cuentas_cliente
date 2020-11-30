@@ -14,6 +14,7 @@ export class TableComponent implements OnInit {
   @Input() seleccion: boolean = false;
   @Input() aprobacionContable: boolean = false;
   @Input() aprobacionPresupuestal: boolean = false;
+  @Input() botonAprobarRechazar: boolean = false; 
 
   
   constructor() { }

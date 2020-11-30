@@ -22,7 +22,17 @@ const routes: Routes = [
       path: 'prueba',
       loadChildren: () => import('./primer-modulo/primer-modulo.module')
       .then(m => m.PrimerModuloModule),
-    }],
+    },
+    {
+      path: '',
+      redirectTo: 'aprobaciones',
+      pathMatch: 'full',
+    },
+    {
+      path: '**',
+      redirectTo: 'aprobaciones',
+      pathMatch: 'full',
+    },],
   }
 ];
 

@@ -8,7 +8,22 @@
                     </h5>
                 </div>
             </div>
-            <ngx-form></ngx-form>
+            
+            <mat-horizontal-stepper linear #stepper>
+                <mat-step [stepControl]="aprobaciones" >
+                    <ng-template matStepLabel> Inicio </ng-template>
+                    <ngx-form></ngx-form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel> Aprobación </ng-template>    
+                        <ngx-relation-approbation></ngx-relation-approbation>
+                        <div class="row">
+                            <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                                Volver al registro
+                            </button>
+                        </div>
+                </mat-step>
+            </mat-horizontal-stepper>   
         </div>
     </div>
     

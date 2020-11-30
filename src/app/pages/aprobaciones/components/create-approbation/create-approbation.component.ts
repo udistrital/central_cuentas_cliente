@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ngx-create-approbation',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateApprobationComponent implements OnInit {
   
+  @Input () nombreAprobacion: any;
+  @Input () aprobaciones: any; 
   
   constructor(
     
@@ -15,10 +17,7 @@ export class CreateApprobationComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+    console.log(this.nombreAprobacion)
   }
-
-
-
 
 }

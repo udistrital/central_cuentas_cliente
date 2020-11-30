@@ -14,17 +14,44 @@ import { OrderApprobationComponent } from './components/order-approbation/order-
 import { SharedModule } from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
-import { MatNativeDateModule } from "@angular/material/core";
+import { MatCardModule,
+  MatDatepickerModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatStepperModule,
+  MatTableModule } from '@angular/material';
+import { LayoutComponent } from './components/layout/layout.component';
+
 
 @NgModule({
-  declarations: [TableComponent, CreateApprobationComponent, ListApprobationsComponent, RelationApprobationComponent, OrderApprobationComponent, FormComponent],
+  declarations: [
+    TableComponent, 
+    CreateApprobationComponent, 
+    ListApprobationsComponent, 
+    RelationApprobationComponent, 
+    OrderApprobationComponent, 
+    FormComponent, LayoutComponent],
   imports: [
     CommonModule,
     SharedModule,
     AprobacionesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatNativeDateModule,
+    MatStepperModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatDividerModule,
+    MatTableModule,
+    MatExpansionModule,
     StoreModule.forFeature(fromAprobaciones.aprobacionesFeatureKey, fromAprobaciones.reducer),
     EffectsModule.forFeature([AprobacionesEffects])
   ]

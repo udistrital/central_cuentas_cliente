@@ -8,30 +8,34 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class FormComponent implements OnInit {
 
+  @Output() nombreAprobacion: any;
+  @Output() aprobaciones: any;
+
   areaFuncional: String [] = [
     'Servicios',
     'Pagos',
     'Formatos'
   ];
-  aprobaciones: any;
-  nombreAprobacion: any;
+  
+  
 
   constructor(
     private formBuilder: FormBuilder
   ) {
+    
+   }
+
+  ngOnInit() {
     this.aprobaciones = this.formBuilder.group({
       fecha: ['', Validators.required],
       nAprobacion: ['', Validators.required],
       areaFuncional: ['', Validators.required],
-      tipoAprobacion: '',
+      tipoAprobacion: ['', Validators.required],
     })
-   }
-
-  ngOnInit() {
-    
   }
 
   onSubmit (data:any) {
+    this.nombreAprobacion = data.tipoAprobacion;
     console.log(data);
     }
 }
