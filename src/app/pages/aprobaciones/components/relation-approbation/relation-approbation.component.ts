@@ -22,4 +22,9 @@ export class RelationApprobationComponent implements OnInit {
   ngOnInit() {
   }
 
+  rechazar(){
+
+  }
+
+  aceptar () {}
 }

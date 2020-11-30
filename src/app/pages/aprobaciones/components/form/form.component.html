@@ -36,14 +36,14 @@
                                 <input id="nAprobacion" name="nAprobacion" type="number" formControlName="nAprobacion" required>
                             </div>
                             <div class="col">
-                                <label> Área funcional </label> <br>
-                                <select name="" id="" class="form-control" formControlName="areaFuncional">
+                                <mat-label for="areaFuncional"> Área funcional </mat-label> <br>
+                                <select name="areaFuncional" id="areaFuncional" class="form-control" formControlName="areaFuncional">
                                     <option *ngFor="let area of areaFuncional" value={{area}}>{{area}}</option>
                                 </select>
                             </div>
                             <div class="col"> 
-                                <label> Fecha </label> <br>
-                                <input type="date" formControlName="fecha"> 
+                                <label for="fecha"> Fecha </label> <br>
+                                <input type="date" name="fecha" id="fecha" formControlName="fecha"> 
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                 
                 <div class="row group">
                     <div class="col">
-                        <button routerLinkActive="active" routerLink="/pages/aprobaciones/lista" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                        <button routerLinkActive="active" routerLink="pages/aprobaciones/lista" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
                             Volver al registro
                         </button>
                     </div>

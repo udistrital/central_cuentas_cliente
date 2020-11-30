@@ -11,7 +11,7 @@
                 </form>
             </div>
             <div class="table">
-                <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [botonAprobarRechazar]="true"> </ngx-table>
+                <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [botonAprobarRechazar]="true" (aceptar)="aceptar($event)" (rechazar)="rechazar($event)"> </ngx-table>
             </div>
         </div>
         

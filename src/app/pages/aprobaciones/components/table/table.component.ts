@@ -26,4 +26,12 @@ export class TableComponent implements OnInit {
     console.log(row);
   }
 
+  aceptar (){
+
+  }
+
+  rechazar () {
+    
+  }
+
 }

@@ -25,6 +25,7 @@ import { MatCardModule,
   MatStepperModule,
   MatTableModule } from '@angular/material';
 import { LayoutComponent } from './components/layout/layout.component';
+import { RechazarComponent } from './components/rechazar/rechazar.component';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     ListApprobationsComponent, 
     RelationApprobationComponent, 
     OrderApprobationComponent, 
-    FormComponent, LayoutComponent],
+    FormComponent, LayoutComponent, RechazarComponent],
   imports: [
     CommonModule,
     SharedModule,
