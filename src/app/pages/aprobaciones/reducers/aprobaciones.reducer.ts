@@ -5,10 +5,14 @@ export const aprobacionesFeatureKey = 'aprobaciones';
 
 export interface State {
   AprobacionesSeleccionado: any;
+  DatosIniciales: any;
+  DatosSecundarios: any;
 }
 
 export const initialState: State = {
   AprobacionesSeleccionado: null,
+  DatosIniciales: null,
+  DatosSecundarios: null,
 };
 
 const aprobacionesReducer = createReducer(
@@ -17,6 +21,12 @@ const aprobacionesReducer = createReducer(
   on(AprobacionesActions.loadAprobacioness, state => state),
   on(AprobacionesActions.loadAprobacionesSeleccionado, (state, action) => ({
     ...state, AprobacionesSeleccionado: state.AprobacionesSeleccionado = action
+  })),
+  on(AprobacionesActions.cargarDatosIniciales, (state, action) => ({
+    ...state, DatosIniciales: state.DatosIniciales = action
+  })),
+  on(AprobacionesActions.cargarDatosSecundarios, (state, action) => ({
+    ...state, DatosSecundarios: state.DatosSecundarios = action
   })),
 );
 

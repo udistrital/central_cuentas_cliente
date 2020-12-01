@@ -8,3 +8,11 @@ export const selectAprobacionesState = createFeatureSelector<fromAprobaciones.St
 export const getAprobacionSeleccionado = createSelector(
   selectAprobacionesState,
   (state: fromAprobaciones.State) => state.AprobacionesSeleccionado);
+
+export const getDatosIniciales = createSelector(
+  selectAprobacionesState,
+  (state: fromAprobaciones.State) => state.DatosIniciales);
+
+export const getDatosSecundarios = createSelector(
+  selectAprobacionesState,
+  (state: fromAprobaciones.State) => state.DatosSecundarios);
