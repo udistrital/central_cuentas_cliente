@@ -11,7 +11,7 @@
         <tbody>
             <tr *ngFor="let item of list">
                 <td *ngIf="seleccion"><label class="switch">
-                    <input type="checkbox" [checked]="item.status">
+                    <input type="checkbox" [checked]="item.status" (change)="seleccionar(item, $event.target.checked)">
                     <span class="slider round"></span>
                 </label></td>
 
@@ -44,12 +44,12 @@
     <div  *ngIf="botonAprobarRechazar" class="container-fluid">
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-outline-dark px-3 py-2 my-2">
+                <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarAprobacion()">
                     Rechazar
                 </button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-success px-3 py-2 my-2 text-light">
+                <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarAprobacion()">
                     Aprobar
                 </button>
             </div>

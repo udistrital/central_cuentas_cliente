@@ -1,23 +1,32 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getDatosIniciales } from '../../selectors/aprobaciones.selectors';
 @Component({
   selector: 'ngx-create-approbation',
   templateUrl: './create-approbation.component.html',
   styleUrls: ['./create-approbation.component.scss']
 })
-export class CreateApprobationComponent implements OnInit {
+export class CreateApprobationComponent implements OnInit, OnDestroy {
   
-  @Input () nombreAprobacion: any;
-  @Input () aprobaciones: any; 
-  
+  nombreAprobacion: any;
+  subscription$: any;
+
   constructor(
-    
+    private store: Store<any>,
   ) {
     
    }
-
+  
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
+  
   ngOnInit() {
-    console.log(this.nombreAprobacion)
+    this.subscription$ = this.store.select(getDatosIniciales).subscribe(data=>{
+      if(data !== null){
+        this.nombreAprobacion= data.tipoAprobacion;
+    }
+    })
   }
 
 }

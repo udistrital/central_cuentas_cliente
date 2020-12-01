@@ -7,11 +7,14 @@
             <div class="row">
                 <form action="">
                     <label for="">No. de aprobación &nbsp; </label> 
-                    <input type="text" disabled="true" placeholder="nAprobacion">
+                    <input *ngIf="nAprobacion !== null" type="text" disabled="true" placeholder={{nAprobacion}}>
                 </form>
             </div>
             <div class="table">
-                <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [botonAprobarRechazar]="true" (aceptar)="aceptar($event)" (rechazar)="rechazar($event)"> </ngx-table>
+                <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [botonAprobarRechazar]="true" (aceptarAprobacionAny)="aceptar()" (rechazarAprobacionAny)="rechazar()"> </ngx-table>
+            </div>
+            <div *ngIf="rechazarFormulario">
+                <ngx-rechazar></ngx-rechazar>
             </div>
         </div>
         

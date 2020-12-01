@@ -1,1 +1,30 @@
-<p>rechazar works!</p>
+<ng-template #modalRecha>
+      <div class="modal-content">
+        <div class="modal-header">
+            <span class="material-icons cancelar">
+                cancel
+                </span>
+          <h5 class="modal-title">Rechazar proceso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)=" cerrar()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="mensajeRechazo" class="col-form-label">Describa la situación para el rechazo:</label>
+              <textarea class="form-control" id="mensajeRechazo" placeholder="Escribir..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Nombre del responsable:</label>
+              <input type="text" class="form-control" id="nombreResponsable" placeholder="Escribir nombre...">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" data-dismiss="modal" (click)=" cerrar()">Cancelar</button>
+          <button type="button" class="btn btn-success px-3 py-2 my-2 text-light">Aceptar</button>
+        </div>
+      </div>
+<ng-template>
+  
