@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 
 @Component({
@@ -19,10 +19,24 @@ export class SetInfosolicitudgiroComponent implements OnInit {
 
   }
 
+  // Validacion del Formulario
+  get conceptoInvalid() {
+    return this.infoSolicitudGroup.get('concepto').invalid && this.infoSolicitudGroup.get('concepto').touched;
+  }
+  get areaInvalid() {
+    return this.infoSolicitudGroup.get('areaFuncional').invalid && this.infoSolicitudGroup.get('areaFuncional').touched;
+  }
+  get tipoIdInvalid() {
+    return this.infoSolicitudGroup.get('tipoId').invalid && this.infoSolicitudGroup.get('tipoId').touched;
+  }
+  get numeroIdInvalid() {
+    return this.infoSolicitudGroup.get('numeroId').invalid && this.infoSolicitudGroup.get('numeroId').touched;
+  }
+
   createForm() {
     this.infoSolicitudGroup = this.fb.group({
       concepto: ['', Validators.required],
-      numeroSolicitud: ['', ],
+      numeroSolicitud: ['001', ],
       areaFuncional: ['', Validators.required],
       fechaSolicitud: ['', ],
       tipoId: ['', Validators.required],
@@ -32,7 +46,6 @@ export class SetInfosolicitudgiroComponent implements OnInit {
       cargo: ['', ],
 
     });
-
   }
 
   saveForm() {

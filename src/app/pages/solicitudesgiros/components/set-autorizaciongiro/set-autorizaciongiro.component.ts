@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'ngx-set-autorizaciongiro',
@@ -18,9 +18,23 @@ export class SetAutorizaciongiroComponent implements OnInit {
 
   }
 
+  // Validacion del Formulario
+  get tipoIdInvalid() {
+    return this.autorizacionGroup.get('tipoId').invalid && this.autorizacionGroup.get('tipoId').touched;
+  }
+  get numeroIdInvalid() {
+    return this.autorizacionGroup.get('numeroId').invalid && this.autorizacionGroup.get('numeroId').touched;
+  }
+  get rubroInvalid() {
+    return this.autorizacionGroup.get('codigoRubro').invalid && this.autorizacionGroup.get('codigoRubro').touched;
+  }
+  get valorInvalid() {
+    return this.autorizacionGroup.get('valorNumero').invalid && this.autorizacionGroup.get('valorNumero').touched;
+  }
+
   createForm() {
     this.autorizacionGroup = this.fb.group({
-      tipoId: new FormControl('', [Validators.required]),
+      tipoId: ['', Validators.required],
       numeroId: ['', Validators.required],
       nombreBeneficiario: ['', ],
       codigoRubro: ['', Validators.required],

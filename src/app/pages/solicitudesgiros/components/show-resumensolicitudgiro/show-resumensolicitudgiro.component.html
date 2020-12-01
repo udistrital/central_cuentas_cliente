@@ -2,18 +2,56 @@
     <!-- Grupo: Información de Solicitud -->
     <div class="row">
         <div class="col-md-12">
-            <mat-card-header class="py-1">
-                <mat-card-subtitle>
-                    <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                        Información de la Solicitud
-                    </h6>
-                </mat-card-subtitle>
-            </mat-card-header>
+            <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                Resumen de la Solicitud
+            </h6>
         </div>
     </div>
-    <div class="row px-5">
-        <div class="col-md-12 py-2">
-            <p>show-resumensolicitudgiro works!</p>
+
+    <div class="row">
+
+        <div class="card">
+            <div class="card-body">
+                This is some text within a card body.
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <p> <button class="btn btn-primary-800 text-white" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Lista de Documentos
+        </button> </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre del Documento</th>
+                                <th scope="col">Nombre del Archivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>documento1</th>
+                                <td>doc1.pdf</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Botones: Regresar, Siguiente -->
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div class="col-md-6">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+            </div>
+            <div class="col-md-6 form-group">
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Botones: Regresar, Siguiente -->
 </form>

@@ -1,33 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadSolicitudgiroSeleccionado } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_DOCUMENTOS, DATOS_DOCUMENTOS } from '../../interfaces/interfaces';
-
-// export interface UploadData {
-//   nameDocs: string;
-//   stateDocs: string;
-//   changeDocs: string;
-// }
-
-// const ELEMENT_DATA: UploadData[] = [
-//   {
-//     nameDocs: 'documento1',
-//     stateDocs: 'Listo',
-//     changeDocs: 'Borrar'
-//   },
-//   {
-//     nameDocs: 'documento2',
-//     stateDocs: 'CARGAR',
-//     changeDocs: 'Borrar'
-//   },
-//   {
-//     nameDocs: 'documento3',
-//     stateDocs: 'CARGAR',
-//     changeDocs: 'Borrar'  },
-// ];
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
@@ -42,11 +19,9 @@ export class SetCargardocumentosComponent implements OnInit {
 
   documentosGroup: FormGroup;
 
-  // displayedColumns: string[] = ['nameDocs', 'stateDocs', 'changeDocs'];
-  // dataSource = ELEMENT_DATA;
-
   constructor(private store: Store<any>, private fb: FormBuilder, config: NgbModalConfig, private modalService: NgbModal) {
 
+    // Datos y configuracion de Tabla
     this.datosDocumentos = DATOS_DOCUMENTOS;
     this.configuracion = CONFIGURACION_DOCUMENTOS;
 
@@ -58,6 +33,7 @@ export class SetCargardocumentosComponent implements OnInit {
 
   ngOnInit() {
 
+// Configuracion de Tabla
     this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
 
       if (fila) {
@@ -71,15 +47,14 @@ export class SetCargardocumentosComponent implements OnInit {
     });
 
   }
-
-
-  open(content) {
-    this.modalService.open(content);
+// Validacion de formulario
+  get documentosInvalid() {
+    return this.documentosGroup.get('documentos').invalid && this.documentosGroup.get('documentos').touched;
   }
 
   createForm() {
     this.documentosGroup = this.fb.group({
-      documentos: new FormControl('', [Validators.required]),
+      documentos: ['', Validators.required],
     });
   }
 
@@ -90,4 +65,9 @@ export class SetCargardocumentosComponent implements OnInit {
       });
     }
   }
+// Modal Cargar Archivos
+  open(content) {
+    this.modalService.open(content);
+  }
+
 }

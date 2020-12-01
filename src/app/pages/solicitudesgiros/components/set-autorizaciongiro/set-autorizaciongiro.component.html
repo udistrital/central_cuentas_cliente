@@ -3,44 +3,35 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <mat-card-header class="py-1">
-                    <mat-card-subtitle>
-                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                            Datos del Beneficiario
-                        </h6>
-                    </mat-card-subtitle>
-                </mat-card-header>
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Datos del Beneficiario
+                </h6>
             </div>
         </div>
         <!-- Campos: Tipo de ID, Número de ID -->
         <div class="form-group row">
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Tipo de ID</mat-label>
-                    <mat-select disableRipple matInput formControlName="tipoId">
-                        <mat-option value="1">Option 1</mat-option>
-                        <mat-option value="2">Option 2</mat-option>
-                        <mat-option value="3">Option 3</mat-option>
-                    </mat-select>
-                    <mat-hint>Elegir tipo de identificación</mat-hint>
-                </mat-form-field>
+            <div class="col-md-4">
+                <label>Tipo de ID</label>
+                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
             </div>
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Número de ID</mat-label>
-                    <input matInput formControlName="numeroId">
-                    <mat-hint>Escribir el número de ID</mat-hint>
-                </mat-form-field>
+            <div class="col-md-4">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">Complete este campo</small>
             </div>
         </div>
         <!-- Fin Campos: Tipo de ID, Número de ID-->
         <!-- Campo: Nombre (persona o entidad) -->
         <div class="form-group row">
-            <div class="col">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Nombre (persona o entidad)</mat-label>
-                    <input matInput formControlName="nombreBeneficiario">
-                </mat-form-field>
+            <div class="col-md-10">
+                <label>Nombre (persona o entidad)</label>
+                <input type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
             </div>
         </div>
         <!-- Fin Campo: Nombre (persona o entidad) -->
@@ -53,44 +44,34 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <mat-card-header class="py-1">
-                    <mat-card-subtitle>
-                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                            Información Presupuestal
-                        </h6>
-                    </mat-card-subtitle>
-                </mat-card-header>
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Información Presupuestal
+                </h6>
             </div>
         </div>
         <!-- Campo: Elegir código del rubro, mostrar nombre del rubro -->
         <div class="form-group row">
             <div class="col-md-5">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Código del Rubro</mat-label>
-                    <input matInput formControlName="codigoRubro">
-                </mat-form-field>
+                <label>Código del Rubro</label>
+                <input type="text" class="form-control" formControlName="codigoRubro" [class.is-invalid]="rubroInvalid">
+                <small *ngIf="rubroInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-5">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Nombre del Rubro</mat-label>
-                    <input matInput formControlName="nombreRubro">
-                </mat-form-field>
+                <label>Nombre del Rubro</label>
+                <input type="text" class="form-control" formControlName="nombreRubro" readonly>
             </div>
         </div>
         <!-- Fin Campo: Elegir código del rubro, mostrar nombre del rubro -->
         <!-- Campos: Valor en letras y/o números -->
         <div class="form-group row">
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Valor (en letras)</mat-label>
-                    <input matInput formControlName="valorLetras">
-                </mat-form-field>
+            <div class="col-md-7">
+                <label>Valor en Letras</label>
+                <input type="text" class="form-control" formControlName="valorLetras">
             </div>
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Valor (en números)</mat-label>
-                    <input matInput formControlName="valorNumero">
-                </mat-form-field>
+            <div class="col-md-5">
+                <label>Valor en Números</label>
+                <input type="text" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorInvalid">
+                <small *ngIf="valorInvalid" class="text-danger">Complete este campo</small>
             </div>
             <!-- Fin Campos: Valor en letras y/o números -->
         </div>

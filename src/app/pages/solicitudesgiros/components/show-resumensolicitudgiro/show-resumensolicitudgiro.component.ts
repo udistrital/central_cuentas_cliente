@@ -10,7 +10,13 @@ export class ShowResumensolicitudgiroComponent implements OnInit {
 
   resumenSolicitudGroup: FormGroup;
 
-  constructor( private _formBuilder: FormBuilder ) { }
+  constructor( private _formBuilder: FormBuilder ) {
+
+  }
+
+  get nombreNoValido() {
+    return this.resumenSolicitudGroup.get('concepto').invalid && this.resumenSolicitudGroup.get('concepto').touched;
+  }
 
   ngOnInit() {
    this.resumenSolicitudGroup = this._formBuilder.group({
