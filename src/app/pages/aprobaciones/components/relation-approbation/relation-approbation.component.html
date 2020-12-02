@@ -15,12 +15,12 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarAprobacion()">
+                    <button type="button" [disabled]="form.aprobacionesElegidas.length === 0" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarAprobacion()">
                         Rechazar
                     </button>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarAprobacion()">
+                    <button type="button" [disabled]="form.aprobacionesElegidas.length === 0" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarAprobacion()">
                         Aprobar
                     </button>
                 </div>

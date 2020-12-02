@@ -1,4 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
+import { FormService } from '../../services/form.service';
 @Component({
   selector: 'ngx-table',
   templateUrl: './table.component.html',
@@ -16,9 +17,10 @@ export class TableComponent implements OnInit {
  
   aprobacionesElegidas = [];
 
-  constructor() { }
+  constructor( private form: FormService) { }
 
   ngOnInit() {
+    this.form.aprobacionesElegidas = this.aprobacionesElegidas;
   }
 
   onClick( row:any ) {
@@ -28,10 +30,11 @@ export class TableComponent implements OnInit {
   seleccionar ( cuenta: any, isChecked: boolean){
     if (isChecked){
       this.aprobacionesElegidas.push(cuenta);
+      this.form.aprobacionesElegidas = this.aprobacionesElegidas;
     } else{
       const index = this.aprobacionesElegidas.findIndex( dato => dato.value === cuenta.consecutivo);
       this.aprobacionesElegidas.splice(index);
+      this.form.aprobacionesElegidas = this.aprobacionesElegidas;
     }
   }
-
 }
