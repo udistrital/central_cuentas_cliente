@@ -8,50 +8,196 @@
         </div>
     </div>
 
-    <div class="row">
-
-        <div class="card">
-            <div class="card-body">
-                This is some text within a card body.
+    <!-- Grupo: Información de Solicitud -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
+                    Información de la Solicitud
+                </h6>
             </div>
         </div>
-
-        <div class="col-md-12">
-            <p> <button class="btn btn-primary-800 text-white" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Lista de Documentos
-        </button> </p>
-            <div class="collapse" id="collapseExample">
-                <div class="card card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nombre del Documento</th>
-                                <th scope="col">Nombre del Archivo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>documento1</th>
-                                <td>doc1.pdf</td>
-
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="row pt-2">
+            <div class="col-md-4">
+                <label>No. Solicitud</label>
+                <input type="text" class="form-control" value="001" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Área Funcional</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Fecha</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-12">
+                <label>Concepto</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Grupo: Información de Solicitud -->
+    <!-- Grupo: Solicitante -->
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
+                    Solicitante
+                </h6>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-12">
+                <label>Nombre Completo</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-4">
+                <label>Tipo de ID</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Cargo</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Grupo: Solicitante -->
+    <!-- Grupo: Lista de Documentos -->
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="card-title col-md-12 btn btn-primary-800 text-white" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Lista de Documentos </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre del Documento</th>
+                                    <th scope="col">Nombre del Archivo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>documento1</th>
+                                    <td>doc1.pdf</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Fin Grupo: Lista de Documentos -->
+    <!-- Grupo: Datos del Beneficiario -->
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
+                    Datos del Beneficiario
+                </h6>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-6">
+                <label>Tipo de ID</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-6">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-12">
+                <label>Nombre Completo</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Grupo: Datos del Beneficiario -->
+    <!-- Grupo: Información Presupuestal -->
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
+                    Información Presupuestal
+                </h6>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-6">
+                <label>Código del Rubro</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-6">
+                <label>Nombre del Rubro</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-md-8">
+                <label>Valor en Letras</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Valor en Número</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Grupo: Información Presupuestal -->
 
     <!-- Botones: Regresar, Siguiente -->
     <div class="container">
         <div class="row pt-2 text-center">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
             </div>
-            <div class="col-md-6 form-group">
-                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            <div class="col-md-4 form-group">
+                <a routerLink="../../solicitudesgiros/consultarsolicitudgiro">
+                    <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">GUARDAR</button>
+                </a>
             </div>
+            <!-- <div class="col-md-4">
+                <button type="button" class="btn btn-primary">Continuar</button>
+            </div> -->
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
 </form>
+
+<!-- Modal: Solicitud Guardada -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¡Guardado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal: Solicitud Guardada -->
