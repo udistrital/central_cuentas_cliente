@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ViewChild, AfterViewInit} from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators} from '@angular/forms';
-import { FormService } from "../../services/form.service";
+import { FormService } from '../../services/form.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -11,45 +11,45 @@ import { Router } from '@angular/router';
   templateUrl: './rechazar.component.html',
   styleUrls: ['./rechazar.component.scss']
 })
-export class RechazarComponent implements OnInit,AfterViewInit {
+export class RechazarComponent implements OnInit, AfterViewInit {
 
-  procesoRechazado: any;  
-  modal : NgbModalRef;
-  @ViewChild('modalRecha', {static: false}) modalContenido: any; 
-  
-  ngAfterViewInit(){
+  procesoRechazado: any;
+  modal: NgbModalRef;
+  @ViewChild('modalRecha', {static: false}) modalContenido: any;
+
+  ngAfterViewInit() {
     this.abrir();
-  } 
+  }
 
   constructor(
     private modalService: NgbModal,
     private form: FormService,
     private formBuilder: FormBuilder,
-    private router: Router) { 
+    private router: Router) {
       this.procesoRechazado = this.formBuilder.group({
         nombreResponsable: ['', Validators.required],
         mensajeRechazo: ['', Validators.required],
-      })
+      });
     }
 
-  ngOnInit(){
-    
+  ngOnInit() {
+
   }
 
   abrir() {
     this.modal = this.modalService.open(this.modalContenido);
   }
 
-  cerrar (){
-    this.modal.close(); 
+  cerrar () {
+    this.modal.close();
     this.form.rechazarFormulario = false;
   }
 
-  rechazar(data:any){
+  rechazar(data: any) {
     Swal.fire({
       type: 'success',
       title: '¡Rechazo exitoso!',
-      text: data.nombreResponsable +' rechazó '+ this.form.aprobacionesElegidas.length + ' relaciones de autorización',
+      text: data.nombreResponsable + ' rechazó ' + this.form.aprobacionesElegidas.length + ' relaciones de autorización',
       confirmButtonText: 'Aceptar',
     });
     this.modal.close();

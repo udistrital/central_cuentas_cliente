@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AprobacionesEffects } from './aprobaciones.effects';
 
 describe('AprobacionesEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = new Observable ();
   let effects: AprobacionesEffects;
 
   beforeEach(() => {

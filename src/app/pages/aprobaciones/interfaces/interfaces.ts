@@ -199,3 +199,4 @@ export const DATOS_CREACION: any = [
             consecutivo: '1827',
             estado: 'activo'
          }];
+

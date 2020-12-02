@@ -16,3 +16,4 @@ export const getDatosIniciales = createSelector(
 export const getDatosSecundarios = createSelector(
   selectAprobacionesState,
   (state: fromAprobaciones.State) => state.DatosSecundarios);
+

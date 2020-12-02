@@ -11,8 +11,7 @@ import * as AprobacionesActions from '../actions/aprobaciones.actions';
 export class AprobacionesEffects {
 
   loadAprobacioness$ = createEffect(() => {
-    return this.actions$.pipe( 
-
+    return this.actions$.pipe(
       ofType(AprobacionesActions.loadAprobacioness),
       concatMap(() => EMPTY)
         /** An EMPTY observable only emits completion. Replace with your own observable API request */

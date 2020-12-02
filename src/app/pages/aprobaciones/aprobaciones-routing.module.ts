@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListApprobationsComponent } from './components/list-approbations/list-approbations.component';
-import { CreateApprobationComponent } from "./components/create-approbation/create-approbation.component";
+import { CreateApprobationComponent } from './components/create-approbation/create-approbation.component';
 import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
         component: ListApprobationsComponent,
       },
       {
-        path: 'crear', 
+        path: 'crear',
         component: CreateApprobationComponent, canActivate: []
       },
       {
@@ -27,9 +27,8 @@ const routes: Routes = [
         redirectTo: 'lista',
         pathMatch: 'full',
       },
-    ], 
+    ],
   },
-  
 ];
 
 @NgModule({

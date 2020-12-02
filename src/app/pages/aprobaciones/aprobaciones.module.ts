@@ -30,11 +30,11 @@ import { RechazarComponent } from './components/rechazar/rechazar.component';
 
 @NgModule({
   declarations: [
-    TableComponent, 
-    CreateApprobationComponent, 
-    ListApprobationsComponent, 
-    RelationApprobationComponent, 
-    OrderApprobationComponent, 
+    TableComponent,
+    CreateApprobationComponent,
+    ListApprobationsComponent,
+    RelationApprobationComponent,
+    OrderApprobationComponent,
     FormComponent, LayoutComponent, RechazarComponent],
   imports: [
     CommonModule,

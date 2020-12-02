@@ -17,12 +17,12 @@ export class FormComponent implements OnInit {
     'Pagos',
     'Formatos'
   ];
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<any>,
   ) {
-    
+
    }
 
   ngOnInit() {
@@ -31,10 +31,10 @@ export class FormComponent implements OnInit {
       nAprobacion: ['', Validators.required, Validators.pattern('^[0-9]*$')],
       areaFuncional: ['', Validators.required],
       tipoAprobacion: ['', Validators.required],
-    })
+    });
   }
 
-  onSubmit (data:any) {
+  onSubmit (data: any) {
     this.store.dispatch(cargarDatosIniciales(data));
   }
 }

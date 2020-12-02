@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DATOS_CREACION } from "../../interfaces/interfaces";
+import { DATOS_CREACION } from '../../interfaces/interfaces';
 import { getDatosIniciales } from '../../selectors/aprobaciones.selectors';
 import { FormService } from '../../services/form.service';
 import Swal from 'sweetalert2';
@@ -11,20 +11,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./relation-approbation.component.scss']
 })
 export class RelationApprobationComponent implements OnInit, OnDestroy {
-  
+
   nAprobacion: any;
-  titles: String[] = ['Área funcional','Vigencia','Mes','Consecutivo','Estado'];
-  attributes: any[] = [['areaFuncional'],['vigencia'],['mes'],['consecutivo'],['estado']];
+  titles: String[] = ['Área funcional', 'Vigencia', 'Mes', 'Consecutivo', 'Estado'];
+  attributes: any[] = [['areaFuncional'], ['vigencia'], ['mes'], ['consecutivo'], ['estado']];
   datosCreacion: any;
   subscription$: any;
   aprobacionContable = {};
-  
 
-  constructor( 
+
+  constructor(
     private store: Store<any>,
     private form: FormService,
     private router: Router
-  ) { 
+  ) {
     this.datosCreacion = DATOS_CREACION;
   }
 
@@ -34,15 +34,15 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.form.rechazarFormulario = false;
-    this.subscription$ = this.store.select(getDatosIniciales).subscribe(data=>{
-      if(data !== null){
+    this.subscription$ = this.store.select(getDatosIniciales).subscribe(data => {
+      if (data !== null) {
         this.nAprobacion = data.nAprobacion;
     }
-    })
+    });
   }
 
-  rechazarAprobacion (){
-    this.form.rechazarFormulario = true; 
+  rechazarAprobacion () {
+    this.form.rechazarFormulario = true;
   }
 
   aceptarAprobacion () {
