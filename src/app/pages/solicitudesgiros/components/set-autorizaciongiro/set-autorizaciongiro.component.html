@@ -11,7 +11,7 @@
                 </h6>
             </div>
         </div>
-        <!-- Campos: Tipo de ID, Número de ID -->
+        <!-- Campos: Tipo de ID, Número de ID, Nombre -->
         <div class="form-group row">
             <div class="col-md-4">
                 <label>Tipo de ID</label>
@@ -29,15 +29,13 @@
                 <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
         </div>
-        <!-- Fin Campos: Tipo de ID, Número de ID-->
-        <!-- Campo: Nombre (persona o entidad) -->
         <div class="form-group row">
             <div class="col-md-10">
                 <label>Nombre (persona o entidad)</label>
                 <input type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
             </div>
         </div>
-        <!-- Fin Campo: Nombre (persona o entidad) -->
+        <!-- Fin Campos: Tipo de ID, Número de ID, Nombre -->
     </div>
     <!-- Fin Grupo: Información del Beneficiario -->
 
@@ -56,9 +54,8 @@
         <div class="form-group row">
             <div class="col-md-3">
                 <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
-                <i class="fas fa-plus"></i> Seleccionar Rubro</button>
+                <i class="fas fa-plus"></i>Seleccionar Rubro</button>
             </div>
-
             <div class="col-md-4">
                 <label>Código del Rubro</label>
                 <span class="form-control overflow">
@@ -79,7 +76,6 @@
                 <label>Valor en Letras</label>
                 <input type="text" class="form-control" formControlName="valorLetras" [class.is-invalid]="valorLetrasInvalid">
                 <small *ngIf="valorLetrasInvalid" class="text-danger">Ingrese números en este campo</small>
-
             </div>
             <div class="col-md-5">
                 <label>Valor en Números</label>

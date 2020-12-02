@@ -7,8 +7,6 @@
             </h6>
         </div>
     </div>
-
-    <!-- Grupo: Información de Solicitud -->
     <div class="container">
         <div class="row">
             <div class="col">
@@ -78,6 +76,7 @@
                     Lista de Documentos </button>
             </div>
         </div>
+        <!-- Tabla: Listado de Documentos Agregados-->
         <div class="row">
             <div class="col-md-12">
                 <div class="collapse" id="collapseExample">
@@ -100,6 +99,7 @@
                 </div>
             </div>
         </div>
+        <!-- Fin Tabla: Listado de Documentos Agregados-->
     </div>
     <!-- Fin Grupo: Lista de Documentos -->
     <!-- Grupo: Datos del Beneficiario -->
@@ -168,34 +168,34 @@
                 <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
             </div>
             <div class="col-md-4 form-group">
-                <a routerLink="../../solicitudesgiros/consultarsolicitudgiro">
-                    <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">GUARDAR</button>
-                </a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+                    GUARDAR</button>
             </div>
-            <!-- <div class="col-md-4">
-                <button type="button" class="btn btn-primary">Continuar</button>
-            </div> -->
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
 </form>
 
+
 <!-- Modal: Solicitud Guardada -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¡Guardado!</h5>
+                <h5 class="modal-title" id="exampleModal2Label"><i class="fas fa-check text-success"></i>¡Guardado!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
             <div class="modal-body">
-                ...
+                <p class="text-center">Se ha guardado la Solicitud de Autorización de Giro No. 001.</p>
+                <p class="text-center">Estado: Elaborado</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Aceptar</button>
+                <!-- <button type="button" class="btn btn-secondary" >Close</button> -->
+                <a routerLink="../../solicitudesgiros/consultarsolicitudgiro" role="button" class="btn btn-primary" data-dismiss="modal">
+                    Aceptar
+                </a>
             </div>
         </div>
     </div>
