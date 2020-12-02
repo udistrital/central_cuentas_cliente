@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 
 @Component({
   selector: 'ngx-set-datosbeneficiario',
@@ -8,10 +9,12 @@ import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 })
 export class SetDatosbeneficiarioComponent implements OnInit {
   datosBeneficiario: FormGroup;
+  opcionesAreaFuncional: Array<any>;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.datosBeneficiario = this.fb.group({
       numeroOrden: ['',
         [

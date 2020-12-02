@@ -20,8 +20,9 @@
         <mat-form-field appearance="outline" [style.width.%]="100">
             <mat-label>Unidad Ejecutora</mat-label>
             <mat-select disableRipple matInput formControlName="unidadEjecutora">
-                <mat-option value="option1">01</mat-option>
-                <mat-option value="option2">02</mat-option>
+                <mat-option *ngFor="let opcion of opcionesAreaFuncional" [value]="opcion.Id">
+                    {{opcion.label}}
+                </mat-option>
             </mat-select>
             <mat-hint>Elegir la unidad ejecutora</mat-hint>
         </mat-form-field>
