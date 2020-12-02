@@ -1,17 +1,15 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DATOS_CREACION } from "../../interfaces/interfaces";
 import { getDatosIniciales } from '../../selectors/aprobaciones.selectors';
+import { FormService } from '../../services/form.service';
 @Component({
   selector: 'ngx-relation-approbation',
   templateUrl: './relation-approbation.component.html',
   styleUrls: ['./relation-approbation.component.scss']
 })
 export class RelationApprobationComponent implements OnInit, OnDestroy {
-
   
-  @Input() rechazarFormulario: boolean = false;
-
   nAprobacion: any;
   titles: String[] = ['Área funcional','Vigencia','Mes','Consecutivo','Estado'];
   attributes: any[] = [['areaFuncional'],['vigencia'],['mes'],['consecutivo'],['estado']];
@@ -22,6 +20,7 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
 
   constructor( 
     private store: Store<any>,
+    private form: FormService
   ) { 
     this.datosCreacion = DATOS_CREACION;
   }
@@ -31,6 +30,7 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.form.rechazarFormulario = false;
     this.subscription$ = this.store.select(getDatosIniciales).subscribe(data=>{
       if(data !== null){
         this.nAprobacion = data.nAprobacion;
@@ -38,12 +38,11 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
     })
   }
 
-  rechazar(){
-    this.rechazarFormulario = true;
-    console.log(this.rechazarFormulario);
+  rechazarAprobacion (){
+    this.form.rechazarFormulario = true; 
   }
 
-  aceptar () {
+  aceptarAprobacion () {
   
   }
 }

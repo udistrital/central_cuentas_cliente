@@ -1,13 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 @Component({
   selector: 'ngx-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-
-  @Output() aceptarAprobacionAny = new EventEmitter<string>();
-  @Output() rechazarAprobacionAny = new EventEmitter<string>(); 
 
   @Input() titles: String[] = [];
   @Input() attributes:String[] = [];
@@ -16,8 +13,7 @@ export class TableComponent implements OnInit {
   @Input() seleccion: boolean = false;
   @Input() aprobacionContable: boolean = false;
   @Input() aprobacionPresupuestal: boolean = false;
-  @Input() botonAprobarRechazar: boolean = false; 
-
+ 
   aprobacionesElegidas = [];
 
   constructor() { }
@@ -37,14 +33,5 @@ export class TableComponent implements OnInit {
       this.aprobacionesElegidas.splice(index);
     }
   }
-
-  aceptarAprobacion (){
-    this.aceptarAprobacionAny.emit();
-  }
-
-  rechazarAprobacion(){
-    this.rechazarAprobacionAny.emit();
-    /* this.rechazarFormulario= true; */
-  } 
 
 }

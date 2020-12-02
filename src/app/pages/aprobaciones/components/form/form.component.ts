@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { cargarDatosIniciales } from '../../actions/aprobaciones.actions';
 

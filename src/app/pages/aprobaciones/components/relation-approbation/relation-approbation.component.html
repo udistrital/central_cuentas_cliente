@@ -11,9 +11,21 @@
                 </form>
             </div>
             <div class="table">
-                <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [botonAprobarRechazar]="true" (aceptarAprobacionAny)="aceptar()" (rechazarAprobacionAny)="rechazar()"> </ngx-table>
+                <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true"> </ngx-table>
             </div>
-            <div *ngIf="rechazarFormulario">
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarAprobacion()">
+                        Rechazar
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarAprobacion()">
+                        Aprobar
+                    </button>
+                </div>
+            </div> 
+            <div *ngIf="form.rechazarFormulario">
                 <ngx-rechazar></ngx-rechazar>
             </div>
         </div>
