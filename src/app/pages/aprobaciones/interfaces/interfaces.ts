@@ -43,6 +43,7 @@ export const configTable: any = {
     filter: 'boolean',
 };
 export const CONFIGURACION_PRUEBA: any = {
+    showColumnTitle: true,
     // title: {
     //     name: 'Actividades Asociadas',
     //     class: 'text-center text-light',
