@@ -18,10 +18,6 @@ export class SetDatoscompromisoComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]*$')
       ]],
-      numeroEntradaAlmacen: ['', [
-        Validators.required,
-        Validators.pattern('^[0-9]*$')
-      ]],
       vigencia: ['', Validators.required],
       tipoOrden: ['', Validators.required],
     });
