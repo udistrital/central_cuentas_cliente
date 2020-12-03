@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
-                Aprobación de órdenes de pago
+                Aprobación presupuestal
             </div>
             <div class="row">
                 <p> Seleccione las órdenes que desee aprobar: </p>
@@ -11,16 +11,16 @@
                 <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [aprobacionContable]="true" [aprobacionPresupuestal]="true"> </ngx-table>
             </div>
             <div class="row">
-                <div class="col align-items-center">
-                    <p> Aprobación masiva </p>
+                <div class="col">
+                    <label> Aprobación masiva </label>
                 </div>
                 <div class="col">
-                    <button type="button" [disabled]="form.aprobacionesElegidas.length === 0" class="btn btn-success px-3 py-2 my-2" (click)="aprobacionContable()">
+                    <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="recha()">
                         Aprobación contable
                     </button>
                 </div>
                 <div class="col">
-                    <button type="button" [disabled]="form.aprobacionesElegidas.length === 0" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aprobacionPresupuestal()">
+                    <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aprobar()">
                         Aprobación presupuestal
                     </button>
                 </div>
@@ -28,3 +28,4 @@
         </div>
     </div>
 </div>
+
