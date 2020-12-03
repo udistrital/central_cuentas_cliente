@@ -18,7 +18,6 @@ export class SetDatoscompromisoComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[0-9]*$')
       ]],
-      interventor: ['', Validators.required],
       numeroActa: ['', [
         Validators.required,
         Validators.pattern('^[0-9]*$')
