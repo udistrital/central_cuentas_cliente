@@ -28,19 +28,19 @@ export class CrearOrdenpagoComponent implements OnInit {
   }
 
   get datosCompromisoGroup() {
-    return this.setDatosbeneficiarioComponent ? this.setDatoscompromisoComponent.datosCompromiso : null;
+    return this.setDatosbeneficiarioComponent ? this.setDatoscompromisoComponent.datosCompromiso : this.fb.group({});
   }
 
   get impuntuacionPresupuestalGroup() {
-    return this.setDatosbeneficiarioComponent ? this.setImpuntuacionpresupuestalComponent.impuntuacionPresupuestal : null;
+    return this.setDatosbeneficiarioComponent ? this.setImpuntuacionpresupuestalComponent.impuntuacionPresupuestal : this.fb.group({});
   }
 
   get movimientoContableGroup() {
-    return this.setDatosbeneficiarioComponent ? this.setMovimientocontableComponent.movimientoContable : null;
+    return this.setDatosbeneficiarioComponent ? this.setMovimientocontableComponent.movimientoContable : this.fb.group({});
   }
 
   get resumenGroup() {
-    return this.setDatosbeneficiarioComponent ? this.showResumenordenpagoComponent.resumen : null;
+    return this.setDatosbeneficiarioComponent ? this.showResumenordenpagoComponent.resumen : this.fb.group({});
   }
 
 }
