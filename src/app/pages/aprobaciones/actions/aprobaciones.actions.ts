@@ -10,21 +10,6 @@ export const loadAprobacionesSeleccionado = createAction(
 );
 
 export const cargarDatosIniciales = createAction(
-  '[DatosIniciales] Cargar DatosIniciales',
+  '[Aprobaciones] Cargar DatosIniciales',
   props(),
 );
-
-export const cargarDatosSecundarios = createAction(
-  '[DatosSecundarios] Cargar DatosSecundarios',
-  props(),
-);
-
-/* export const loadAprobacionessSuccess = createAction(
-  '[Aprobaciones] Load Aprobacioness Success',
-  props<{ data: any }>()
-);
-
-export const loadAprobacionessFailure = createAction(
-  '[Aprobaciones] Load Aprobacioness Failure',
-  props<{ error: any }>()
-); */
