@@ -1,0 +1,131 @@
+<form [formGroup]="datosBeneficiario">
+  <div class="form-group row">
+    <div class="col-md-4">
+        <mat-form-field appearance="outline" [style.width.%]="100">
+            <mat-label>No. Órden</mat-label>
+            <input matInput formControlName="numeroOrden">
+        </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="outline" [style.width.%]="100">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaOrden">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+        <mat-form-field appearance="outline" [style.width.%]="100">
+            <mat-label>Unidad Ejecutora</mat-label>
+            <mat-select disableRipple matInput formControlName="unidadEjecutora">
+                <mat-option *ngFor="let opcion of opcionesAreaFuncional" [value]="opcion.Id">
+                    {{opcion.label}}
+                </mat-option>
+            </mat-select>
+            <mat-hint>Elegir la unidad ejecutora</mat-hint>
+        </mat-form-field>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <mat-card-header class="py-1">
+                <mat-card-subtitle>
+                    <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                        Datos del beneficiario
+                    </h6>
+                </mat-card-subtitle>
+            </mat-card-header>
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]="100">
+            <mat-label>Tipo de ID</mat-label>
+            <mat-select disableRipple matInput formControlName="tipoId">
+                <mat-option value="1">CC</mat-option>
+                <mat-option value="2">NIT</mat-option>
+                <mat-option value="3">CE</mat-option>
+            </mat-select>
+            <mat-hint>Elegir tipo de identificación</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" [style.width.%]="100">
+            <mat-label>Número de ID</mat-label>
+            <input matInput formControlName="numeroId">
+            <mat-hint>Escribir el número de ID</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 ">
+        <mat-form-field appearance="outline" [style.width.%]="100" disabled>
+            <mat-label>Nombre</mat-label>
+            <input matInput disabled>
+            <mat-hint>Nombre del beneficiario</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-3 ">
+          <mat-form-field appearance="outline" [style.width.%]="100">
+              <mat-label>Régimen</mat-label>
+              <input matInput disabled>
+          </mat-form-field>
+      </div>
+      <div class="col-md-6">
+          <mat-form-field appearance="outline" [style.width.%]="100">
+              <mat-label>Dirección</mat-label>
+              <input matInput disabled>
+          </mat-form-field>
+      </div>
+      <div class="col-md-3">
+          <mat-form-field appearance="outline" [style.width.%]="100">
+              <mat-label>Teléfono</mat-label>
+              <input matInput type="text" disabled>
+          </mat-form-field>
+      </div>
+      <!-- Fin Campos: Nombres, Apellidos, Cargo -->
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+          <mat-form-field appearance="outline" [style.width.%]="100">
+              <mat-label>Banco/Sucursal</mat-label>
+              <input matInput formControlName="banco">
+          </mat-form-field>
+      </div>
+      <div class="col-md-6">
+          <mat-form-field appearance="outline" [style.width.%]="100">
+              <mat-label>No. de Cuenta</mat-label>
+              <input matInput type="text" formControlName="cuenta">
+          </mat-form-field>
+      </div>
+    </div>
+</div>
+<!-- Fin Grupo: Información de Solicitud -->
+
+<mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+
+<!-- Grupo: Solicitante -->
+<div class="container">
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div class="col-md-6">
+                <a routerLink="../../ordenespago/consultar">
+                    <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                        <div class="d-flex flex-row justify-content-around align-middle">
+                            <span>Volver a registros</span>
+                        </div>
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-3">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
