@@ -32,10 +32,6 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <mat-label for="nAprobacion"> No. de aprobación </mat-label> <br>
-                                <input id="nAprobacion" name="nAprobacion" type="number" formControlName="nAprobacion" required>
-                            </div>
-                            <div class="col">
                                 <mat-label for="areaFuncional"> Área funcional </mat-label> <br>
                                 <select name="areaFuncional" id="areaFuncional" class="form-control" formControlName="areaFuncional">
                                     <option *ngFor="let area of areaFuncional" value={{area}}>{{area}}</option>

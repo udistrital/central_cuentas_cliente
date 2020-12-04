@@ -12,13 +12,11 @@ import { Router } from '@angular/router';
 })
 export class RelationApprobationComponent implements OnInit, OnDestroy {
 
-  nAprobacion: any;
+  datosForm: any;
   titles: String[] = ['Área funcional', 'Vigencia', 'Mes', 'Consecutivo', 'Estado'];
   attributes: any[] = [['areaFuncional'], ['vigencia'], ['mes'], ['consecutivo'], ['estado']];
   datosCreacion: any;
   subscription$: any;
-  aprobacionContable = {};
-
 
   constructor(
     private store: Store<any>,
@@ -36,7 +34,7 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
     this.form.rechazarFormulario = false;
     this.subscription$ = this.store.select(getDatosIniciales).subscribe(data => {
       if (data !== null) {
-        this.nAprobacion = data.nAprobacion;
+        this.datosForm = data;
     }
     });
   }
@@ -49,7 +47,7 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
     Swal.fire({
       type: 'success',
       title: '¡Aprobación exitosa!',
-      text: 'Se han aprobado ' + this.form.aprobacionesElegidas.length + ' relaciones de autorización No. de aprobación ' + this.nAprobacion,
+      text: 'Se han aprobado ' + this.form.aprobacionesElegidas.length + ' relaciones de autorización No. de aprobación ',
       confirmButtonText: 'Aceptar',
     });
     this.router.navigateByUrl('pages/aprobaciones');
