@@ -1,5 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { FormService } from '../../services/form.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-table',
   templateUrl: './table.component.html',
@@ -18,14 +19,21 @@ export class TableComponent implements OnInit {
   aprobacionesElegidas = [];
   row: any;
 
-  constructor( private form: FormService) { }
+  constructor( private form: FormService,
+    private route: Router) { }
 
   ngOnInit() {
     this.form.aprobacionesElegidas = this.aprobacionesElegidas;
   }
 
-  onClick( row: any ) {
+  onClickContable( row: any ) {
     this.row = row;
+    this.route.navigateByUrl('pages/aprobaciones/orden/contable');
+  }
+
+  onClickPresupuestal( row: any ) {
+    this.row = row;
+    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal');
   }
 
   seleccionar ( cuenta: any, isChecked: boolean) {

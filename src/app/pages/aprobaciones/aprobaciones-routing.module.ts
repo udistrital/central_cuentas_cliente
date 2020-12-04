@@ -18,6 +18,11 @@ const routes: Routes = [
         component: CreateApprobationComponent, canActivate: []
       },
       {
+        path: 'orden',
+        loadChildren: () => import('../aprobacion-ordenespago/aprobacion-ordenespago-routing.module')
+        .then(m => m.AprobacionOrdenespagoRoutingModule)
+      },
+      {
         path: '',
         redirectTo: 'lista',
         pathMatch: 'full',
