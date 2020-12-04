@@ -10,22 +10,12 @@ import { TableListasolicitudesComponent } from './components/table-listasolicitu
 import { SetInfosolicitudgiroComponent } from './components/set-infosolicitudgiro/set-infosolicitudgiro.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule,
-  MatDatepickerModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatSelectModule,
-  MatStepperModule,
-  MatTableModule } from '@angular/material';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDividerModule, MatStepperModule } from '@angular/material';
+import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
 import { SetAutorizaciongiroComponent } from './components/set-autorizaciongiro/set-autorizaciongiro.component';
 import { ShowResumensolicitudgiroComponent } from './components/show-resumensolicitudgiro/show-resumensolicitudgiro.component';
 import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgiro/stepper-solicitudgiro.component';
-
 
 @NgModule({
   declarations: [
@@ -34,7 +24,7 @@ import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgir
     SetInfosolicitudgiroComponent,
     SetCargardocumentosComponent,
     SetAutorizaciongiroComponent,
-    ShowResumensolicitudgiroComponent
+    ShowResumensolicitudgiroComponent,
   ],
   imports: [
     CommonModule,
@@ -46,23 +36,17 @@ import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgir
     FormsModule,
     ReactiveFormsModule,
     MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatCardModule,
-    MatSelectModule,
-    MatDatepickerModule,
     MatDividerModule,
-    MatTableModule,
-    MatExpansionModule,
+    NgbModule,
     StoreModule.forFeature(fromSolicitudesgiros.solicitudesgirosFeatureKey, fromSolicitudesgiros.reducer),
     EffectsModule.forFeature([SolicitudesgirosEffects])
   ],
   providers: [
     NgbModalConfig,
-    NgbModal],
+    NgbModal,
+],
   exports: [
-    MatStepperModule
+    MatStepperModule,
   ]
 })
 export class SolicitudesgirosModule { }
