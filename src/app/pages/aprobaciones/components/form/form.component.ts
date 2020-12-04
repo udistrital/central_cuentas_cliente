@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     this.aprobaciones = this.formBuilder.group({
       fecha: ['', Validators.required],
-      nAprobacion: ['', Validators.required, Validators.pattern('^[0-9]*$')],
+      nAprobacion: ['', Validators.required],
       areaFuncional: ['', Validators.required],
       tipoAprobacion: ['', Validators.required],
     });
