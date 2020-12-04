@@ -7,19 +7,19 @@
     <div class="row">
         <div class="col-md-12 bg-white">
             <mat-horizontal-stepper linear #stepper>
-                <mat-step [stepControl]="datosBeneficiarioGroup" optional>
+                <mat-step [stepControl]="datosBeneficiarioGroup">
                     <ng-template matStepLabel>Beneficiario</ng-template>
                     <div class="container">
                         <ngx-set-datosbeneficiario></ngx-set-datosbeneficiario>
                     </div>
                 </mat-step>
-                <mat-step [stepControl]="datosCompromisoGroup" optional>
+                <mat-step [stepControl]="datosCompromisoGroup">
                     <ng-template matStepLabel>Compromiso</ng-template>
                     <div class="container">
                         <ngx-set-datoscompromiso></ngx-set-datoscompromiso>
                     </div>
                 </mat-step>
-                <mat-step [stepControl]="datosCompromisoGroup">
+                <mat-step [stepControl]="impuntuacionPresupuestal">
                     <ng-template matStepLabel>Imputación Presupuestal</ng-template>
                     <div class="container">
                         <ngx-set-impuntuacionpresupuestal></ngx-set-impuntuacionpresupuestal>
