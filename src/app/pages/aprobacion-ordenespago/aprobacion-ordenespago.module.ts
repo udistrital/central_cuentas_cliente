@@ -8,7 +8,9 @@ import { BudgetApprobationComponent } from './components/budget-approbation/budg
 
 
 @NgModule({
-  declarations: [LayoutAprobacionordenComponent, AccountantApprobationComponent, BudgetApprobationComponent],
+  declarations: [LayoutAprobacionordenComponent,
+    AccountantApprobationComponent,
+    BudgetApprobationComponent],
   imports: [
     CommonModule,
     AprobacionOrdenespagoRoutingModule

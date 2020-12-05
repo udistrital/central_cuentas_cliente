@@ -15,13 +15,13 @@ const routes: Routes = [
       },
       {
         path: 'crear',
-        component: CreateApprobationComponent, canActivate: []
+        component: CreateApprobationComponent
       },
       {
         path: 'orden',
-        loadChildren: () => import('../aprobacion-ordenespago/aprobacion-ordenespago-routing.module')
-        .then(m => m.AprobacionOrdenespagoRoutingModule)
-      },
+        loadChildren: () => import('../aprobacion-ordenespago/aprobacion-ordenespago.module')
+        .then(m => m.AprobacionOrdenespagoModule)
+      }, 
       {
         path: '',
         redirectTo: 'lista',
