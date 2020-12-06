@@ -19,10 +19,16 @@
                         <ngx-set-datoscompromiso></ngx-set-datoscompromiso>
                     </div>
                 </mat-step>
-                <mat-step [stepControl]="datosCompromisoGroup">
+                <mat-step [stepControl]="datosCompromisoGroup" optional>
                     <ng-template matStepLabel>Imputación Presupuestal</ng-template>
                     <div class="container">
                         <ngx-set-impuntuacionpresupuestal></ngx-set-impuntuacionpresupuestal>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="movimientoContableGroup">
+                    <ng-template matStepLabel>Movimiento Contable</ng-template>
+                    <div class="container">
+                        <ngx-set-movimientocontable></ngx-set-movimientocontable>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>

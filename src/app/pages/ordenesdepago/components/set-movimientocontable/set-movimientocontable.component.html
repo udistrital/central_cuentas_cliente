@@ -1,1 +1,114 @@
-<p>set-movimientocontable works!</p>
+<form [formGroup]=movimientoContable>
+    <div class="row justify-content-end">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="disponibilidad">Concepto</label>
+                <select class="form-control" id="disponibilidad">
+                    <option>Seleccione un concepto contable...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Movimiento Contable
+    </h6>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <label for="disponibilidad">Retención</label>
+                <select class="form-control" id="disponibilidad">
+                    <option>Seleccione retención...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Solo información
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" disabled>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nombre">Descuento</label>
+                <input type="text" class="form-control" id="nombre" disabled>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="nombre">Código Contable</label>
+                <input type="text" class="form-control" id="nombre" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <label for="valorAplicacion">Base de Retención</label>
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                <input type="number" class="form-control" id="valorAplicacion">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label for="valorAplicacion">Valor (con descuento))</label>
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                <input type="number" class="form-control" id="valorAplicacion">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary text-white w-100" type="button">
+                <i class="fas fa-plus"></i> Agregar
+            </button>
+        </div>
+    </div>
+    <div class="container pt-2">
+        <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable"></ngx-general-table>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <label for="valorAplicacion">Valor Total Descuentos</label>
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                <input type="number" class="form-control" id="valorAplicacion" value="$3.000.000,00">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="nombre">Código Contable</label>
+                <input type="text" class="form-control" id="nombre" disabled>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <label for="valorAplicacion">Valor Neto a Girar</label>
+            <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                <input type="number" class="form-control" id="valorAplicacion" value="$3.000.000,00">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div class="col-md-6">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+            </div>
+            <div class="col-md-6 form-group">
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</form>

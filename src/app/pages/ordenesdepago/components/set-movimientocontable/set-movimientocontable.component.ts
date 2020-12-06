@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { 
+  CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE
+ } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'ngx-set-movimientocontable',
@@ -8,8 +11,13 @@ import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 })
 export class SetMovimientocontableComponent implements OnInit {
   movimientoContable: FormGroup;
+  configTableMovimientoContable: any;
+  datosTableMovimientoContable: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
+    this.datosTableMovimientoContable = DATOS_MOVIMIENTO_CONTABLE;
+  }
 
   ngOnInit() {
     this.movimientoContable = this.fb.group({
