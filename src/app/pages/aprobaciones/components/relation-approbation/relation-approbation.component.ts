@@ -22,7 +22,7 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private form: FormService,
+    public form: FormService,
     private router: Router
   ) {
     this.datosCreacion = DATOS_CREACION;

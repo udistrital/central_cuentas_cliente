@@ -1,63 +1,37 @@
-<form [formGroup]="documentosGroup">
+<form [formGroup]="documentosGroup" (ngSubmit)="saveForm()">
     <div class="container">
         <!-- Grupo: Agregar Documentos -->
         <div class="row">
             <div class="col-md-12">
-                <mat-card-header class="py-1">
-                    <mat-card-subtitle>
-                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                            Documentos
-                        </h6>
-                    </mat-card-subtitle>
-                </mat-card-header>
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Documentos
+                </h6>
             </div>
         </div>
         <!-- Campo: Elegir Tipo de Documento -->
         <div class="form-group row">
             <div class="col-md-10">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Seleccione los documentos</mat-label>
-                    <mat-select disableRipple matInput formControlName="documentos">
-                        <mat-option value="1">Option 1: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
-                        <mat-option value="2">Option 2: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
-                        <mat-option value="3">Option 3: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
-                    </mat-select>
-                    <mat-hint>Elegir el tipo de documento</mat-hint>
-                </mat-form-field>
+                <select class="custom-select" formControlName="documentos" [class.is-invalid]="documentosInvalid">
+                    <option selected disabled value="">Seleccione un documento...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="documentosInvalid" class="text-danger">Seleccione mínimo un documento y oprima el botón "Cargar Archivo"</small>
             </div>
             <!-- Fin Campo: Elegir Tipo de Documento -->
-            <!-- Modal: Cargar Documentos -->
-            <ng-template #content let-c="close" let-d="dismiss">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Cargar Archivo</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <p>Seleccione el archivo desde su dispositivo</p>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFileLang" lang="en">
-                        <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary text-white" (click)="c('Save click')">Subir Archivo</button>
-                </div>
-            </ng-template>
-            <!-- Fin Modal: Cargar Documentos -->
             <!-- Boton: Agregar Documento-->
-            <div class="col-md-2 py-2 text-center">
-                <button class="btn btn-primary text-white" type="submit" (click)="open(content)">Cargar archivo</button>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
+                    Cargar Archivo
+                  </button>
             </div>
             <!-- Fin Boton: Agregar Documento-->
         </div>
     </div>
+    <!-- Fin Grupo: Agregar Documentos -->
 </form>
-<!-- Fin Grupo: Agregar Documentos -->
 <mat-divider class="col-md-12 pt-2 py-2 border-warning"></mat-divider>
-
-
 
 <div class="container">
     <!-- Tabla General Adaptada -->
@@ -66,7 +40,7 @@
             <ngx-general-table [config]="configuracion" [datos]="datosDocumentos"></ngx-general-table>
         </div>
     </div>
-    <!-- Tabla General Adaptada -->
+    <!-- Fin Tabla General Adaptada -->
 
     <!-- Botones: regresar, Siguiente -->
     <div class="row text-center">
@@ -74,8 +48,34 @@
             <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
         </div>
         <div class="form-group col-6">
-            <button mat-button matStepperNext class="btn btn-success m-0 mt-4" type="button">Siguiente</button>
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
 </div>
+
+<!-- Modal: Cargar Documentos -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cargar Archivo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p>Seleccione el archivo desde su dispositivo</p>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFileLang" lang="en">
+                    <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal: Cargar Documentos -->

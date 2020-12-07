@@ -3,57 +3,49 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <mat-card-header class="py-1">
-                    <mat-card-subtitle>
-                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                            Información de la Solicitud
-                        </h6>
-                    </mat-card-subtitle>
-                </mat-card-header>
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Información de la Solicitud
+                </h6>
             </div>
         </div>
         <!-- Campo: Elegir Concepto -->
         <div class="form-group row">
-            <div class="col-md-12 py-2">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Concepto</mat-label>
-                    <mat-select disableRipple matInput formControlName="concepto">
-                        <mat-option value="1">Option 1: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
-                        <mat-option value="2">Option 2: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
-                        <mat-option value="3">Option 3: Lorem ipsum dolor sit, amet consectetur adipisicing elit</mat-option>
-                    </mat-select>
-                    <mat-hint>Elegir concepto de solicitud</mat-hint>
-                </mat-form-field>
+            <div class="col">
+                <label>Concepto</label>
+                <select class="custom-select" formControlName="concepto" [class.is-invalid]="conceptoInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
             </div>
         </div>
         <!-- Fin Campo: Elegir Concepto -->
         <!-- Campos: No. de Solicitud, Área funcional, fecha -->
         <div class="form-group row">
-            <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>No. Solicitud</mat-label>
-                    <input matInput formControlName="numeroSolicitud">
-                </mat-form-field>
+            <div class="col-md-3">
+                <label>No. Solicitud</label>
+                <input type="text" class="form-control" formControlName="numeroSolicitud" readonly>
             </div>
             <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Área Funcional</mat-label>
-                    <mat-select disableRipple matInput formControlName="areaFuncional">
-                        <mat-option value="option1">Option1</mat-option>
-                        <mat-option value="option2">Option2</mat-option>
-                    </mat-select>
-                    <mat-hint>Elegir el área funcional</mat-hint>
-                </mat-form-field>
+                <label>Área Funcional</label>
+                <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="areaInvalid" class="text-danger">Complete este campo</small>
             </div>
-            <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="fechaSolicitud">
-                    <mat-datepicker-toggle matSuffix [for]="picker">
-                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
+            <div class="col-md-5">
+                <label>Fecha</label>
+                <div class="input-group">
+                    <input class="form-control" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Fin Campos: No. de Solicitud, Área funcional, fecha -->
@@ -66,56 +58,43 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <mat-card-header class="py-1">
-                    <mat-card-subtitle>
-                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                            Solicitante
-                        </h6>
-                    </mat-card-subtitle>
-                </mat-card-header>
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Solicitante
+                </h6>
             </div>
         </div>
         <!-- Campo: Elegir tipo de id, numero de id -->
         <div class="form-group row">
             <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Tipo de ID</mat-label>
-                    <mat-select disableRipple matInput formControlName="tipoId">
-                        <mat-option value="1">Option 1</mat-option>
-                        <mat-option value="2">Option 2</mat-option>
-                        <mat-option value="3">Option 3</mat-option>
-                    </mat-select>
-                    <mat-hint>Elegir tipo de identificación</mat-hint>
-                </mat-form-field>
+                <label>Tipo de ID</label>
+                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Número de ID</mat-label>
-                    <input matInput formControlName="numeroId">
-                    <mat-hint>Escribir el número de ID</mat-hint>
-                </mat-form-field>
+                <label>Número de ID</label>
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
         </div>
         <!-- Fin Campo: Elegir tipo de id, numero de id -->
         <!-- Campos: Nombres, Apellidos, Cargo -->
         <div class="form-group row">
-            <div class="col-md-4 ">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Nombres</mat-label>
-                    <input matInput formControlName="nombres">
-                </mat-form-field>
+            <div class="col-md-4">
+                <label>Nombres</label>
+                <input type="text" class="form-control" formControlName="nombres" readonly>
             </div>
             <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Apellidos</mat-label>
-                    <input matInput formControlName="apellidos">
-                </mat-form-field>
+                <label>Apellidos</label>
+                <input type="text" class="form-control" formControlName="apellidos" readonly>
             </div>
             <div class="col-md-4">
-                <mat-form-field appearance="outline" [style.width.%]="100">
-                    <mat-label>Cargo</mat-label>
-                    <input matInput type="text" formControlName="cargo">
-                </mat-form-field>
+                <label>Cargo</label>
+                <input type="text" class="form-control" formControlName="cargo" readonly>
             </div>
             <!-- Fin Campos: Nombres, Apellidos, Cargo -->
         </div>
