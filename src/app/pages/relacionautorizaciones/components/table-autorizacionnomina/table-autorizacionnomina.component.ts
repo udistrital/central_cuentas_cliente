@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
 import { CONFIGURACION_TABLAREGISTROS, DATOS_TABLAREGISTROS } from '../../interfaces/interfaces';
+import { RelacionautorizacionesService } from '../../services/relacionautorizaciones.service';
+
 
 @Component({
   selector: 'ngx-table-autorizacionnomina',
@@ -15,17 +17,21 @@ export class TableAutorizacionnominaComponent implements OnInit {
   datosTabla: any;
   subscription$: any;
 
+  relacion: any;
+
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
 
   constructor (
-    private store: Store<any>
+    private store: Store<any>,
+    private _relacionService: RelacionautorizacionesService,
   ) {
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
 
     this.stringBusqueda = '';
     this.selectedAction = new EventEmitter<any>();
+
   }
 
   ngOnInit() {
@@ -40,5 +46,7 @@ export class TableAutorizacionnominaComponent implements OnInit {
 
       this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
     });
+
+//    this.relacion = this._relacionService.getRelacion();
   }
 }

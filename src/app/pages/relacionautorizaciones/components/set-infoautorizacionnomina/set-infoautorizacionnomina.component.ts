@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { RelacionautorizacionesService, Relacion } from '../../services/relacionautorizaciones.service';
+
 
 
 @Component({
@@ -11,11 +13,17 @@ export class SetInfoautorizacionnominaComponent implements OnInit {
 
   infoautorizacionGroup: FormGroup;
 
-  constructor( private fb: FormBuilder ) {
+  relacion: any;
+
+  constructor( private fb: FormBuilder,
+    private _relacionService: RelacionautorizacionesService
+     ) {
     this.createForm();
   }
 
   ngOnInit() {
+
+    this.relacion = this._relacionService.getRelacion();
 
   }
 
