@@ -21,7 +21,7 @@ const routes: Routes = [
         path: 'orden',
         loadChildren: () => import('../aprobacion-ordenespago/aprobacion-ordenespago.module')
         .then(m => m.AprobacionOrdenespagoModule)
-      }, 
+      },
       {
         path: '',
         redirectTo: 'lista',

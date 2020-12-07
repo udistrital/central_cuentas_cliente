@@ -37,8 +37,8 @@ export class FormComponent implements OnInit {
 
   onSubmit (data: any) {
     this.store.dispatch(cargarDatosIniciales(data));
-    if (data.tipoAprobacion === "Orden de pago"){
-      this.route.navigateByUrl('pages/aprobaciones/orden/lista');      
+    if (data.tipoAprobacion === 'Orden de pago') {
+      this.route.navigateByUrl('pages/aprobaciones/orden/lista');
     }
   }
 }
