@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DATOS_ORDENPAGO } from '../../interfaces/interfaces';
-import { FormService } from '../../services/form.service';
+/* import { FormService } from '../../services/form.service'; */
 import Swal from 'sweetalert2';
-import { getDatosIniciales } from '../../selectors/aprobaciones.selectors';
 import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-order-approbation',
@@ -18,7 +17,7 @@ export class OrderApprobationComponent implements OnInit, OnDestroy {
   subscription$: any;
   nAprobacion: any;
 
-  constructor( private form: FormService,
+  constructor( 
     private router: Router,
     private store: Store<any>,
     ) { 
@@ -41,7 +40,7 @@ export class OrderApprobationComponent implements OnInit, OnDestroy {
     Swal.fire({
       type: 'success',
       title: '¡Aprobación exitosa!',
-      text: 'Se han aprobado ' + this.form.aprobacionesElegidas.length + ' órdenes de pago. "Aprobación contable" No. de aprobación: '+ this.nAprobacion,
+      text: 'Se han aprobado órdenes de pago. "Aprobación contable" No. de aprobación: '+ this.nAprobacion,
       confirmButtonText: 'Aceptar',
     });
     this.router.navigateByUrl('pages/aprobaciones');
@@ -51,7 +50,7 @@ export class OrderApprobationComponent implements OnInit, OnDestroy {
     Swal.fire({
       type: 'success',
       title: '¡Aprobación exitosa!',
-      text: 'Se han aprobado ' + this.form.aprobacionesElegidas.length + ' órdenes de pago. "Aprobación presupuestal" No. de aprobación: '+ this.nAprobacion,
+      text: 'Se han aprobado  órdenes de pago. "Aprobación presupuestal" No. de aprobación: '+ this.nAprobacion,
       confirmButtonText: 'Aceptar',
     });
     this.router.navigateByUrl('pages/aprobaciones');

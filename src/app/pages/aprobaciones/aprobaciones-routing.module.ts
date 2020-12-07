@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'crear',
-        component: CreateApprobationComponent
+        component: CreateApprobationComponent,
       },
       {
         path: 'orden',

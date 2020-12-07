@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DATOS_ORDEN_DETALLE} from '../../interfaces/interfaces';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common'
 @Component({
   selector: 'ngx-budget-approbation',
   templateUrl: './budget-approbation.component.html',
@@ -12,7 +13,7 @@ export class BudgetApprobationComponent implements OnInit {
   attributes: any[] = [['codigoCuentaContable'], ['vigencia'], ['entidad'], ['unidad'], ['disponibilidad'], ['registro'], ['valor']];
   datosCreacion: any;
 
-  constructor() { 
+  constructor( private _location: Location) { 
     this.datosCreacion = DATOS_ORDEN_DETALLE;
   }
 
@@ -31,6 +32,10 @@ export class BudgetApprobationComponent implements OnInit {
       text: 'Se aprobó la relación de orden de pago con consecutivo',
       confirmButtonText: 'Aceptar',
     });
+  }
+
+  regresar(){
+    this._location.back();
   }
 
 }
