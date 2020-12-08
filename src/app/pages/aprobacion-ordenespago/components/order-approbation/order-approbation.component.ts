@@ -21,7 +21,7 @@ export class OrderApprobationComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store<any>,
-    private form: FormService
+    public form: FormService
     ) {
     this.datosCreacion = DATOS_ORDENPAGO;
   }

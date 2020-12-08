@@ -18,12 +18,13 @@ export class TableComponent implements OnInit {
 
   aprobacionesElegidas = [];
   row: any;
+  consecutivo: any;
 
   constructor( private form: FormService,
     private route: Router) { }
 
   ngOnInit() {
-    /* this.form.aprobacionesElegidas = this.aprobacionesElegidas; */
+    this.form.aprobacionesElegidas = this.aprobacionesElegidas;
   }
 
   onClickContable( row: any ) {
@@ -32,18 +33,18 @@ export class TableComponent implements OnInit {
   }
 
   onClickPresupuestal( row: any ) {
-    this.row = row;
-    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal');
+    this.consecutivo = row.consecutivo;
+    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal/'+this.consecutivo);
   }
 
   seleccionar ( cuenta: any, isChecked: boolean) {
     if (isChecked) {
       this.aprobacionesElegidas.push(cuenta);
-      // this.form.aprobacionesElegidas = this.aprobacionesElegidas;
+      this.form.aprobacionesElegidas = this.aprobacionesElegidas;
     } else {
       const index = this.aprobacionesElegidas.findIndex( dato => dato.value === cuenta.consecutivo);
       this.aprobacionesElegidas.splice(index);
-      // this.form.aprobacionesElegidas = this.aprobacionesElegidas;
+      this.form.aprobacionesElegidas = this.aprobacionesElegidas;
     }
   }
 }

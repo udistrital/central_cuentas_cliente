@@ -19,7 +19,7 @@ const routes: Routes = [
         component: AccountantApprobationComponent,
       },
       {
-        path: 'presupuestal',
+        path: 'presupuestal/:id',
         component: BudgetApprobationComponent,
       }
     ],

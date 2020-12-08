@@ -13,7 +13,6 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [LayoutAprobacionordenComponent,
     AccountantApprobationComponent,
     BudgetApprobationComponent,
-    SharedModule,
     OrderApprobationComponent],
   imports: [
     CommonModule,
