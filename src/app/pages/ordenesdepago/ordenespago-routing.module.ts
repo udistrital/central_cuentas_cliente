@@ -5,7 +5,7 @@ import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-orde
 
 const routes: Routes = [
   {
-    path: 'consultar',
+    path: 'lista',
     component: TableListaordenesComponent,
   },
   {
