@@ -5,7 +5,7 @@ export const loadSolicitudesgiros = createAction(
 );
 
 export const loadSolicitudgiroSeleccionado = createAction(
-  '[Solicitudesgiros] Load Solicitudesgiros Seleccionado',
+  '[Solicitudes] Load Solicitudesgiros Seleccionado',
   props(),
 );
 

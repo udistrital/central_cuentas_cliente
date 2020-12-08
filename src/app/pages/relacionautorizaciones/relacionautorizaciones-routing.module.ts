@@ -7,7 +7,7 @@ import { SetInfoautorizacionnominaComponent } from './components/set-infoautoriz
 
 const routes: Routes = [
   {
-    path: 'consultar',
+    path: 'lista',
     component: TableAutorizacionnominaComponent,
   },
   {
