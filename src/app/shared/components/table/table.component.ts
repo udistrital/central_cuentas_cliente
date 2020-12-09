@@ -28,8 +28,8 @@ export class TableComponent implements OnInit {
   }
 
   onClickContable( row: any ) {
-    this.row = row;
-    this.route.navigateByUrl('pages/aprobaciones/orden/contable');
+    this.consecutivo = row.consecutivo;
+    this.route.navigateByUrl('pages/aprobaciones/orden/contable/'+this.consecutivo);
   }
 
   onClickPresupuestal( row: any ) {

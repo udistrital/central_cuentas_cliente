@@ -15,7 +15,7 @@ const routes: Routes = [
         component: OrderApprobationComponent,
       },
       {
-        path: 'contable',
+        path: 'contable/:id',
         component: AccountantApprobationComponent,
       },
       {
