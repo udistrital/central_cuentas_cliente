@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { getNodoSeleccionado } from '../../../../shared/selectors/shared.selectors';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'ngx-set-autorizaciongiro',
@@ -10,23 +12,67 @@ export class SetAutorizaciongiroComponent implements OnInit {
 
   autorizacionGroup: FormGroup;
 
-  constructor( private fb: FormBuilder ) {
-    this.createForm();
+  subscription$: any;
+
+  constructor( private fb: FormBuilder, private store: Store<any> ) {
+
+   this.createForm();
    }
 
   ngOnInit() {
 
+  // Seleccionar Rubro
+  this.subscription$ = this.store.select(getNodoSeleccionado).subscribe((nodo: any) => {
+
+    if (nodo) {
+      if (Object.keys(nodo)[0] === 'type') {
+        // hay que crear un delay porque el cambio se efectua antes de renderizar la vista
+        setTimeout(() => {
+          this.autorizacionGroup.get('rubroSeleccionado').setValue(null);
+        });
+      } else {
+        if (!nodo.children) {
+          this.autorizacionGroup.get('rubroSeleccionado').setValue(nodo);
+        }
+      }
+    }
+  });
+
+  }
+
+  // Validacion del Formulario
+  get tipoIdInvalid() {
+    return this.autorizacionGroup.get('tipoId').invalid && this.autorizacionGroup.get('tipoId').touched;
+  }
+  get numeroIdInvalid() {
+    return this.autorizacionGroup.get('numeroId').invalid && this.autorizacionGroup.get('numeroId').touched;
+  }
+  get rubroInvalid() {
+    return this.autorizacionGroup.get('codigoRubro').invalid && this.autorizacionGroup.get('codigoRubro').touched;
+  }
+  get valorLetrasInvalid() {
+    return this.autorizacionGroup.get('valorLetras').invalid && this.autorizacionGroup.get('valorLetras').touched;
+  }
+  get valorNumeroInvalid() {
+    return this.autorizacionGroup.get('valorNumero').invalid && this.autorizacionGroup.get('valorNumero').touched;
   }
 
   createForm() {
     this.autorizacionGroup = this.fb.group({
-      tipoId: new FormControl('', [Validators.required]),
-      numeroId: ['', Validators.required],
+      tipoId: ['', Validators.required],
+      numeroId: ['',
+        [Validators.required,
+        Validators.pattern('^[0-9]*$')]
+      ],
       nombreBeneficiario: ['', ],
-      codigoRubro: ['', Validators.required],
-      nombreRubro: ['', ],
-      valorLetras: ['', ],
-      valorNumero: ['', Validators.required]
+      rubroSeleccionado: [null, [Validators.required]],
+      valorLetras: ['',
+        Validators.pattern('^[a-zA-Z]*$')
+      ],
+      valorNumero: ['',
+        [Validators.required,
+        Validators.pattern('^[0-9]*$')]
+      ]
     });
 
   }
