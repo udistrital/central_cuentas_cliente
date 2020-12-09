@@ -29,12 +29,12 @@ export class TableComponent implements OnInit {
 
   onClickContable( row: any ) {
     this.consecutivo = row.consecutivo;
-    this.route.navigateByUrl('pages/aprobaciones/orden/contable/'+this.consecutivo);
+    this.route.navigateByUrl('pages/aprobaciones/orden/contable/' + this.consecutivo);
   }
 
   onClickPresupuestal( row: any ) {
     this.consecutivo = row.consecutivo;
-    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal/'+this.consecutivo);
+    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal/' + this.consecutivo);
   }
 
   seleccionar ( cuenta: any, isChecked: boolean) {

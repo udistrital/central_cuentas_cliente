@@ -9,7 +9,7 @@ import { FormService } from '../../../../shared/services/form.service';
 })
 export class AccountantApprobationComponent implements OnInit {
 
-  consecutivo: any; 
+  consecutivo: any;
   constructor( private route: Router,
     private routeActived: ActivatedRoute,
     public form: FormService) { }
@@ -23,11 +23,11 @@ export class AccountantApprobationComponent implements OnInit {
     this.consecutivo = +this.routeActived.snapshot.paramMap.get('id');
   }
 
-  rechazarContable(){
+  rechazarContable() {
     this.form.rechazarFormulario = true;
   }
 
-  aceptarContable(){
+  aceptarContable() {
     Swal.fire({
       type: 'success',
       title: '¡Aprobación exitosa!',
