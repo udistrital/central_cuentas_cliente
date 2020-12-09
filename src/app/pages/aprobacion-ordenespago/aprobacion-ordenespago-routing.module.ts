@@ -4,6 +4,7 @@ import { LayoutAprobacionordenComponent } from './components/layout-aprobacionor
 import { BudgetApprobationComponent } from './components/budget-approbation/budget-approbation.component';
 import { AccountantApprobationComponent } from './components/accountant-approbation/accountant-approbation.component';
 import { OrderApprobationComponent } from './components/order-approbation/order-approbation.component';
+import { DiscountComponent } from './components/discount/discount.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'presupuestal/:id',
         component: BudgetApprobationComponent,
+      },
+      {
+        path: 'descuento/:id',
+        component: DiscountComponent,
       }
     ],
   },
