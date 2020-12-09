@@ -14,21 +14,21 @@ export class DiscountComponent implements OnInit {
 
   titles: String[] = ['Cuenta', 'Descuento', 'Concepto', 'Valor base de retención', 'Valor'];
   attributes: any[] = [['cuenta'], ['descuento'], ['concepto'], ['valorRetencion'], ['valor']];
-  
+
   datosDescuentos: any;
   consecutivo: any;
 
-  constructor(public form : FormService,
+  constructor(public form: FormService,
     private _location: Location,
     private route: Router,
-    private routeActived: ActivatedRoute) { 
+    private routeActived: ActivatedRoute) {
     this.datosDescuentos = DATOS_ORDENPRESUPUESTAL;
   }
 
   ngOnInit() {
     this.getOrden();
     this.form.rechazarFormulario = false;
-  } 
+  }
 
   getOrden (): void {
     this.consecutivo = +this.routeActived.snapshot.paramMap.get('id');
@@ -38,7 +38,7 @@ export class DiscountComponent implements OnInit {
     this._location.back();
   }
 
-  rechazarDescuento(){
+  rechazarDescuento() {
     this.form.rechazarFormulario = true;
   }
 

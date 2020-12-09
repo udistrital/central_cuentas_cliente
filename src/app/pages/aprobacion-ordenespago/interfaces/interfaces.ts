@@ -102,6 +102,6 @@ export const DATOS_ORDENPRESUPUESTAL: any = [
       descuento: '83948',
       concepto  : 'Servicios',
       valorRetencion: '38945',
-      valor: '2349234' 
+      valor: '2349234'
    }
 ];
