@@ -17,7 +17,7 @@ export class RelationApprobationComponent implements OnInit, OnDestroy {
   attributes: any[] = [['areaFuncional'], ['vigencia'], ['mes'], ['consecutivo'], ['estado']];
   datosCreacion: any;
   subscription$: any;
-  
+
   constructor(
     private store: Store<any>,
     public form: FormService,

@@ -34,7 +34,7 @@ export class TableComponent implements OnInit {
 
   onClickPresupuestal( row: any ) {
     this.consecutivo = row.consecutivo;
-    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal/'+this.consecutivo);
+    this.route.navigateByUrl('pages/aprobaciones/orden/presupuestal/' + this.consecutivo);
   }
 
   seleccionar ( cuenta: any, isChecked: boolean) {
