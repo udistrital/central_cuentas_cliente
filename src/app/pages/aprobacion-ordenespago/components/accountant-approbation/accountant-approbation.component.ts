@@ -36,4 +36,8 @@ export class AccountantApprobationComponent implements OnInit {
     });
     this.route.navigateByUrl('pages/aprobaciones/orden/lista');
   }
+
+  openDescuentos () {
+    this.route.navigateByUrl('pages/aprobaciones/orden/descuento/' + this.consecutivo);
+  }
 }
