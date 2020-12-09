@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MenutemporalComponent } from './components/menutemporal/menutemporal.component';
+import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
 import { TableAutorizacionnominaComponent } from './components/table-autorizacionnomina/table-autorizacionnomina.component';
 import { SetInfoautorizacionnominaComponent } from './components/set-infoautorizacionnomina/set-infoautorizacionnomina.component';
 
@@ -8,10 +8,10 @@ import { SetInfoautorizacionnominaComponent } from './components/set-infoautoriz
 const routes: Routes = [
   {
     path: 'elegir',
-    component: MenutemporalComponent,
+    component: MenutiporelacionComponent,
   },
   {
-    path: 'consultar/:id',
+    path: 'lista/:id',
     component: TableAutorizacionnominaComponent,
   },
   {

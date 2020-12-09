@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { RelacionautorizacionesService, Relacion } from '../../services/relacionautorizaciones.service';
-
 
 
 @Component({
@@ -9,23 +7,20 @@ import { RelacionautorizacionesService, Relacion } from '../../services/relacion
   templateUrl: './set-infoautorizacionnomina.component.html',
   styleUrls: ['./set-infoautorizacionnomina.component.scss']
 })
-export class SetInfoautorizacionnominaComponent implements OnInit {
+export class SetInfoautorizacionnominaComponent {
 
   infoautorizacionGroup: FormGroup;
 
-  relacion: any;
+  // Variable local para mostrar datos desde servicio
+  relacion: any = {};
+
 
   constructor( private fb: FormBuilder,
-    private _relacionService: RelacionautorizacionesService
+
      ) {
     this.createForm();
   }
 
-  ngOnInit() {
-
-    this.relacion = this._relacionService.getRelacion();
-
-  }
 
   // Validacion del Formulario
   get fechaInvalid() {

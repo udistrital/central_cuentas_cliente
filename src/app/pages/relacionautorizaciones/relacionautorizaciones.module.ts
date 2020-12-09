@@ -13,14 +13,14 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material';
 import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { MenutemporalComponent } from './components/menutemporal/menutemporal.component';
+import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
 import { RelacionautorizacionesService } from './services/relacionautorizaciones.service';
 
 @NgModule({
   declarations: [
     TableAutorizacionnominaComponent,
     SetInfoautorizacionnominaComponent,
-    MenutemporalComponent,
+    MenutiporelacionComponent,
   ],
   imports: [
     CommonModule,

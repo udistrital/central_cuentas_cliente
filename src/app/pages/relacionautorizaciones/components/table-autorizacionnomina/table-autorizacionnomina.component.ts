@@ -36,7 +36,6 @@ export class TableAutorizacionnominaComponent implements OnInit {
     // Configuracion de enrutamiento de datos (nomina o seguridad social)
     this.activatedRoute.params.subscribe( params => {
       this.relacion = this._relacionService.getTipoRelacion( params['id'] );
-      // console.log(this.relacion);
     });
 
   }
@@ -53,6 +52,5 @@ export class TableAutorizacionnominaComponent implements OnInit {
 
       this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
     });
-
   }
 }

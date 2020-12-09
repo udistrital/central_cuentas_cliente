@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-md-12 bg-white py-3">
                 <h5 class="card-title text-center text-primary">
-                    CREAR NUEVA RELACIÓN DE DE AUTORIZACIÓN
+                    CREAR NUEVA RELACIÓN DE AUTORIZACIÓN
                 </h5>
                 <h6 class="card-title text-center text-primary">
-                    {{ relacion.nombreRelacion }} RA
+                    {{ relacion.nombreRelacion }}
                 </h6>
             </div>
         </div>
@@ -55,7 +55,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <h6 class="text-center">
-                        ***Autorízase al Pagador, para pagar con cargo al presupuesto de la vigencia 2020 y al PAC del mes correspondiente, la nómina de la entidad UNIVERSIDAD DISTRITAL FRANCISCO JOSE DE RECTOR PAGO NÓMINA DOCENTES
+                        {{ relacion.descripcionRelacion}}
+                        <!-- ***Autorízase al Pagador, para pagar con cargo al presupuesto de la vigencia 2020 y al PAC del mes correspondiente, la nómina de la entidad UNIVERSIDAD DISTRITAL FRANCISCO JOSE DE RECTOR PAGO NÓMINA DOCENTES -->
                     </h6>
                 </div>
             </div>
@@ -66,7 +67,7 @@
         <div class="container bg-white px-3">
             <div class="form-group row">
                 <div class="col-md-3">
-                    <label>Mes***</label>
+                    <label>{{ relacion.mesRelacion }}</label>
                     <select class="custom-select" formControlName="mes" [class.is-invalid]="mesInvalid">
                     <option selected disabled value="">Seleccione...</option>
                     <option>Octubre</option>
@@ -76,7 +77,38 @@
                     <small *ngIf="mesInvalid" class="text-danger">Complete este campo</small>
                 </div>
                 <div class="col-md-3">
-                    <label>Quincena***</label>
+                    <label>{{ relacion.quincenaRelacion }}</label>
+                    <input type="text" class="form-control" formControlName="quincena" [class.is-invalid]="quincenaInvalid">
+                    <small *ngIf="quincenaInvalid" class="text-danger">Ingrese números en este campo</small>
+                </div>
+                <div class="col-md-3">
+                    <label>No. de Compromiso</label>
+                    <select class="custom-select" formControlName="numeroCompromiso" [class.is-invalid]="numeroCompromisoInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                    <small *ngIf="numeroCompromisoInvalid" class="text-danger">Complete este campo</small>
+                </div>
+                <div class="col-md-3">
+                    <label>Tipo de Compromiso</label>
+                    <input type="text" class="form-control" formControlName="tipoCompromiso" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>{{ relacion.mesRelacion }}</label>
+                    <select class="custom-select" formControlName="mes" [class.is-invalid]="mesInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>Octubre</option>
+                    <option>Noviembre</option>
+                    <option>Diciembre</option>
+                </select>
+                    <small *ngIf="mesInvalid" class="text-danger">Complete este campo</small>
+                </div>
+                <div class="col-md-3">
+                    <label>{{ relacion.cajaRelacion }}</label>
                     <input type="text" class="form-control" formControlName="quincena" [class.is-invalid]="quincenaInvalid">
                     <small *ngIf="quincenaInvalid" class="text-danger">Ingrese números en este campo</small>
                 </div>

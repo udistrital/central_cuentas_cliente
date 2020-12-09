@@ -4,8 +4,8 @@
             <h5 class="card-title text-center text-primary">
                 RELACIONES DE AUTORIZACIÓN
             </h5>
-            <h6 class="card-title text-center text-primary" *ngFor="let tiporelacion of tiporelacion">
-                {{ tiporelacion.nombreRelacion }}
+            <h6 class="card-title text-center text-primary">
+                {{ relacion.nombreRelacion }}
             </h6>
         </div>
     </div>
@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="col-md-6 bg-white px-5 d-flex flex-row justify-content-end">
-            <a routerLink="../../crear">
+            <a routerLink='/pages/relacionautorizaciones/crear'>
                 <button type="button" class="btn btn-primary text-white">
                     <div class="d-flex flex-row justify-content-around align-middle">
                         <i class="fas fa-plus py-1 px-2"></i>Crear Nueva Relación de Autorización
