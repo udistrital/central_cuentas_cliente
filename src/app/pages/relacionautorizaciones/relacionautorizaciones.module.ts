@@ -3,24 +3,30 @@ import { CommonModule } from '@angular/common';
 
 import { RelacionautorizacionesRoutingModule } from './relacionautorizaciones-routing.module';
 import {  } from '../relacionautorizaciones/services/relacionautorizaciones.service';
-import { TableAutorizacionnominaComponent } from './components/table-autorizacionnomina/table-autorizacionnomina.component';
-import { SetInfoautorizacionnominaComponent } from './components/set-infoautorizacionnomina/set-infoautorizacionnomina.component';
+import { TableRelacionautorizacionComponent } from './components/table-relacionautorizacion/table-relacionautorizacion.component';
+import { SetInfonuevarelacionComponent } from './components/set-infonuevarelacion/set-infonuevarelacion.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromRelacionautorizaciones from './reducers/relacionautorizaciones.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { RelacionautorizacionesEffects } from './effects/relacionautorizaciones.effects';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule } from '@angular/material';
+import { MatDividerModule, MatStepperModule } from '@angular/material';
 import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { MenutemporalComponent } from './components/menutemporal/menutemporal.component';
+import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
 import { RelacionautorizacionesService } from './services/relacionautorizaciones.service';
+import { SetConsultanuevarelacionComponent } from './components/set-consultanuevarelacion/set-consultanuevarelacion.component';
+import { SetConceptonuevarelacionComponent } from './components/set-conceptonuevarelacion/set-conceptonuevarelacion.component';
+import { StepperRelacionautorizacionComponent } from './components/stepper-relacionautorizacion/stepper-relacionautorizacion.component';
 
 @NgModule({
   declarations: [
-    TableAutorizacionnominaComponent,
-    SetInfoautorizacionnominaComponent,
-    MenutemporalComponent,
+    MenutiporelacionComponent,
+    TableRelacionautorizacionComponent,
+    StepperRelacionautorizacionComponent,
+    SetInfonuevarelacionComponent,
+    SetConsultanuevarelacionComponent,
+    SetConceptonuevarelacionComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +38,7 @@ import { RelacionautorizacionesService } from './services/relacionautorizaciones
     FormsModule,
     ReactiveFormsModule,
     MatDividerModule,
+    MatStepperModule,
     NgbModule,
     StoreModule.forFeature(fromRelacionautorizaciones.relacionautorizacionesFeatureKey, fromRelacionautorizaciones.reducer),
     EffectsModule.forFeature([RelacionautorizacionesEffects])
@@ -41,7 +48,8 @@ import { RelacionautorizacionesService } from './services/relacionautorizaciones
     NgbModal,
     RelacionautorizacionesService
 ],
-  exports: [
-  ]
+  // exports: [
+  //   MatStepperModule
+  // ]
 })
 export class RelacionautorizacionesModule { }
