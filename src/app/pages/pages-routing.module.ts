@@ -14,6 +14,11 @@ const routes: Routes = [
       .then(m => m.SolicitudesgirosModule),
     },
     {
+      path: 'anulaciones',
+      loadChildren: () => import ('./anulaciones/anulaciones.module')
+      .then(m => m.AnulacionesModule),
+    },
+    {
       path: 'prueba',
       loadChildren: () => import('./primer-modulo/primer-modulo.module')
       .then(m => m.PrimerModuloModule),
