@@ -11,8 +11,7 @@ import * as AnulacionesActions from '../actions/anulaciones.actions';
 export class AnulacionesEffects {
 
   loadAnulacioness$ = createEffect(() => {
-    return this.actions$.pipe( 
-
+    return this.actions$.pipe(
       ofType(AnulacionesActions.loadAnulacioness),
       concatMap(() =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
