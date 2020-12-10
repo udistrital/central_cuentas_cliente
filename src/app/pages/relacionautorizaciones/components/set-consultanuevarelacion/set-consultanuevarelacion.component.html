@@ -1,0 +1,63 @@
+<form [formGroup]="consultaGroup" (ngSubmit)="saveForm()">
+    <!-- Campo: Elegir código del rubro, mostrar nombre del rubro -->
+    <div class="form-group row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
+                Seleccionar CDP</button>
+        </div>
+        <div class="col-md-6">
+            <span class="form-control overflow"> Descripción del CDP </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
+                Seleccionar RP</button>
+        </div>
+        <div class="col-md-6">
+            <span class="form-control overflow"> Descripción del RP </span>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
+                Mostrar Consulta</button>
+        </div>
+    </div>
+    <!-- Fin Campo: Elegir código del rubro, mostrar nombre del rubro -->
+    <!-- Tabla -->
+    <div class="row">
+        <ngx-general-table [config]="configuracion" [datos]="datosConsulta"></ngx-general-table>
+    </div>
+    <!-- Fin Tabla -->
+    <!-- Botones: regresar, Siguiente -->
+    <div class="row text-center">
+        <div class="col-6">
+            <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
+        </div>
+        <div class="form-group col-6">
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+        </div>
+    </div>
+    <!-- Fin Botones: Regresar, Siguiente -->
+</form>
+
+<!-- Modal: Seleccionar Rubro -->
+<div class="modal fade" id="ModalRubro" tabindex="-1" role="dialog" aria-labelledby="ModalRubroLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalRubroLabel">Seleccionar Rubro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-arbol-rubro></ngx-arbol-rubro>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal: Seleccionar Rubro -->
