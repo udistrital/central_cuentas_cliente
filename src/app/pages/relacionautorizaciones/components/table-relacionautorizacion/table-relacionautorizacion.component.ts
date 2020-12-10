@@ -17,7 +17,7 @@ export class TableRelacionautorizacionComponent implements OnInit {
   configuracion: any;
   datosTabla: any;
   subscription$: any;
-  
+
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
   // Variable local para mostrar datos desde servicio

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
-import { TableAutorizacionnominaComponent } from './components/table-autorizacionnomina/table-autorizacionnomina.component';
-import { SetInfoautorizacionnominaComponent } from './components/set-infoautorizacionnomina/set-infoautorizacionnomina.component';
+import { TableRelacionautorizacionComponent } from './components/table-relacionautorizacion/table-relacionautorizacion.component';
+import { StepperRelacionautorizacionComponent } from './components/stepper-relacionautorizacion/stepper-relacionautorizacion.component';
 
 
 const routes: Routes = [
@@ -12,11 +12,11 @@ const routes: Routes = [
   },
   {
     path: 'lista/:id',
-    component: TableAutorizacionnominaComponent,
+    component: TableRelacionautorizacionComponent,
   },
   {
     path: 'crear',
-    component: SetInfoautorizacionnominaComponent,
+    component: StepperRelacionautorizacionComponent,
   },
 ];
 

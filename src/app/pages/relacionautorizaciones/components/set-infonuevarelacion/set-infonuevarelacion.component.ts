@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 })
 export class SetInfonuevarelacionComponent {
 
-  inforelacionGroup: FormGroup;
+  public inforelacionGroup: FormGroup;
 
   constructor( private fb: FormBuilder) {
     this.createForm();
