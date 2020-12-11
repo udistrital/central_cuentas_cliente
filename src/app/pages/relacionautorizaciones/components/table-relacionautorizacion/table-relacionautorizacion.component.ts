@@ -7,20 +7,22 @@ import { RelacionautorizacionesService } from '../../services/relacionautorizaci
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'ngx-table-autorizacionnomina',
-  templateUrl: './table-autorizacionnomina.component.html',
-  styleUrls: ['./table-autorizacionnomina.component.scss']
+  selector: 'ngx-table-relacionautorizacion',
+  templateUrl: './table-relacionautorizacion.component.html',
+  styleUrls: ['./table-relacionautorizacion.component.scss']
 })
-export class TableAutorizacionnominaComponent implements OnInit {
+export class TableRelacionautorizacionComponent implements OnInit {
 
+  // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosTabla: any;
   subscription$: any;
-  // Variable local para mostrar datos desde servicio
-  relacion: any = {};
 
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
+  // Variable local para mostrar datos desde servicio
+  relacion: any = {};
+  id: string;
 
   constructor (
     private store: Store<any>,
@@ -34,23 +36,20 @@ export class TableAutorizacionnominaComponent implements OnInit {
     this.stringBusqueda = '';
     this.selectedAction = new EventEmitter<any>();
     // Configuracion de enrutamiento de datos (nomina o seguridad social)
-    this.activatedRoute.params.subscribe( params => {
-      this.relacion = this._relacionService.getTipoRelacion( params['id'] );
-      // console.log(this.relacion);
+    this.activatedRoute.paramMap.subscribe( params => {      
+      this.relacion = this._relacionService.getTipoRelacion( params.get('id') );
+      this.id = params.get('id');
     });
-
   }
 
   ngOnInit() {
+    // Tabla
     this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
-
       if (fila) {
-
         this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
       }
     });
     this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
-
       this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
     });
 

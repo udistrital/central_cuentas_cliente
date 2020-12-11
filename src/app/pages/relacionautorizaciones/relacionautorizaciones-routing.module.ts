@@ -15,7 +15,7 @@ const routes: Routes = [
     component: TableRelacionautorizacionComponent,
   },
   {
-    path: 'crear',
+    path: 'crear/:id',
     component: StepperRelacionautorizacionComponent,
   },
 ];

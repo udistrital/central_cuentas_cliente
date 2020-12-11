@@ -7,14 +7,14 @@
                         CREAR NUEVA RELACIÓN DE AUTORIZACIÓN
                     </h5>
                     <h6 class="card-title text-center text-primary">
-                        <!-- {{ relacion.nombreRelacion }} -->
+                        {{ relacion.nombreRelacion }}
                     </h6>
                 </div>
             </div>
             <!-- Inicio de "Stepper" -->
             <mat-horizontal-stepper linear #stepper>
                 <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
-                <mat-step>
+                <mat-step [stepControl]="inforelacionGroup">
                     <ng-template matStepLabel>Inicio</ng-template>
                     <div class="container">
                         <ngx-set-infonuevarelacion></ngx-set-infonuevarelacion>
