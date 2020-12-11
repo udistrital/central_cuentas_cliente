@@ -26,7 +26,17 @@ const routes: Routes = [
       {
         path: 'descuento/:id',
         component: DiscountComponent,
-      }
+      },
+      {
+        path: '',
+        redirectTo: 'lista',
+        pathMatch: 'full',
+      },
+      {
+        path: '**',
+        redirectTo: 'lista',
+        pathMatch: 'full',
+      },
     ],
   },
 ];
