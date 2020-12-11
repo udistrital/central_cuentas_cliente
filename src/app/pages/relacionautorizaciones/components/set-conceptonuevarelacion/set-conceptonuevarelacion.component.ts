@@ -10,15 +10,15 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './set-conceptonuevarelacion.component.html',
   styleUrls: ['./set-conceptonuevarelacion.component.scss']
 })
-export class SetConceptonuevarelacionComponent implements OnInit{
+export class SetConceptonuevarelacionComponent implements OnInit {
 
   conceptoGroup: FormGroup;
-  
+
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosConcepto: any;
   subscription$: any;
-  
+
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
 

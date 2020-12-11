@@ -16,7 +16,7 @@ export class SetInfonuevarelacionComponent {
   relacion: any = {};
   id: string;
 
-  constructor( private fb: FormBuilder,     
+  constructor( private fb: FormBuilder,
     private _relacionService: RelacionautorizacionesService,
     private activatedRoute: ActivatedRoute) {
 

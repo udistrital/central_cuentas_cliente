@@ -36,7 +36,7 @@ export class TableRelacionautorizacionComponent implements OnInit {
     this.stringBusqueda = '';
     this.selectedAction = new EventEmitter<any>();
     // Configuracion de enrutamiento de datos (nomina o seguridad social)
-    this.activatedRoute.paramMap.subscribe( params => {      
+    this.activatedRoute.paramMap.subscribe( params => {
       this.relacion = this._relacionService.getTipoRelacion( params.get('id') );
       this.id = params.get('id');
     });

@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { SetInfonuevarelacionComponent } from '../set-infonuevarelacion/set-infonuevarelacion.component';
 import { SetConceptonuevarelacionComponent } from '../set-conceptonuevarelacion/set-conceptonuevarelacion.component';
 import { SetConsultanuevarelacionComponent } from '../set-consultanuevarelacion/set-consultanuevarelacion.component';
-import { RelacionautorizacionesService } from "../../services/relacionautorizaciones.service";
-import { ActivatedRoute } from "@angular/router";
+import { RelacionautorizacionesService } from '../../services/relacionautorizaciones.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-stepper-relacionautorizacion',

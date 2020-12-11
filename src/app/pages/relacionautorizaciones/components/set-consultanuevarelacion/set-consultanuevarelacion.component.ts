@@ -10,13 +10,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './set-consultanuevarelacion.component.html',
   styleUrls: ['./set-consultanuevarelacion.component.scss']
 })
-export class SetConsultanuevarelacionComponent implements OnInit{
+export class SetConsultanuevarelacionComponent implements OnInit {
 
-  consultaGroup: FormGroup;  
+  consultaGroup: FormGroup;
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosConsulta: any;
-  subscription$: any; 
+  subscription$: any;
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
 
@@ -39,7 +39,7 @@ export class SetConsultanuevarelacionComponent implements OnInit{
     return this.consultaGroup.get('codigoRegistro').invalid && this.consultaGroup.get('codigoRegistro').touched;
   }
 
-  ngOnInit(){
+  ngOnInit() {
        // Tabla
        this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
         if (fila) {
@@ -53,12 +53,12 @@ export class SetConsultanuevarelacionComponent implements OnInit{
 
   createForm() {
     this.consultaGroup = this.fb.group({
-      codigoDisponibilidad: ['', 
-        [Validators.required,      
+      codigoDisponibilidad: ['',
+        [Validators.required,
         Validators.pattern('^[0-9]*$')]
       ],
-      codigoRegistro: ['', 
-      [Validators.required,      
+      codigoRegistro: ['',
+      [Validators.required,
       Validators.pattern('^[0-9]*$')]
     ],
     });
