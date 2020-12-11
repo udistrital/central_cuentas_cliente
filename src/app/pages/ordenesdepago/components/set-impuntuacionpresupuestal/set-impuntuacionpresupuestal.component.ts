@@ -51,9 +51,9 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
     this.agregar(); // TODO
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion) {
-        if (accion.accion.name == 'modificar') {
+        if (accion.accion.name === 'modificar') {
           this.modalEliminar(accion.fila);
-        } else if (accion.accion.name == 'ver') {
+        } else if (accion.accion.name === 'ver') {
           this.modalService.open(this.fuentesFinanciamientoModal);
         }
       }
@@ -74,7 +74,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
   }
 
   mostrarOcultarHistoria(state: string) {
-    if (state == 'false') {
+    if (state === 'false') {
       this.mostrarOcultar = 'Ocultar';
       this.mostrarOcultarIcono = 'fa-eye-slash';
     } else {
