@@ -1,104 +1,92 @@
 <form [formGroup]=movimientoContable>
-    <div class="row justify-content-end">
-        <div class="col-md-5">
-            <div class="form-group">
-                <label for="disponibilidad">Concepto</label>
-                <select class="form-control" id="disponibilidad">
-                    <option>Seleccione un concepto contable...</option>
-                </select>
-            </div>
+    <div class="row justify-content-end form-group">
+        <div class="col-md-2 d-flex align-items-center">
+            <i class="fas fa-question-circle m-2 ml-auto" data-toggle="tooltip" data-placement="bottom"
+                title="Concepto Cliente de Contabilidad:&#10;cuentas contables asignadas, crédito, débito"></i>
+            <label for="concepto" class="m-0">Concepto</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" id="concepto">
+                <option>Seleccione un concepto contable...</option>
+            </select>
         </div>
     </div>
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
         Movimiento Contable
     </h6>
     <div class="row">
-        <div class="col-md-9">
-            <div class="form-group">
-                <label for="disponibilidad">Retención</label>
-                <select class="form-control" id="disponibilidad">
-                    <option>Seleccione retención...</option>
-                </select>
-            </div>
+        <div class="col-md-9 form-group">
+            <label for="retencion">Retención</label>
+            <select class="form-control" id="retencion">
+                <option>Seleccione retención...</option>
+            </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 d-flex align-items-center">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
+                <input class="form-check-input mt-2" type="checkbox" value="" id="soloInfo">
+                <label class="form-check-label" for="soloInfo">
                     Solo información
                 </label>
+                <i class="fas fa-question-circle m-2" data-toggle="tooltip" data-placement="bottom"
+                    title="Solo si no afecta al valor total"></i>
             </div>
         </div>
     </div>
     <div class="row border-top border-primary mx-1 my-3"></div>
     <div class="row">
-        <div class="col-md-5">
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id="nombre" disabled>
-            </div>
+        <div class="col-md-5 form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" disabled>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="nombre">Descuento</label>
-                <input type="text" class="form-control" id="nombre" disabled>
-            </div>
+        <div class="col-md-3 form-group">
+            <label for="descuento">Descuento</label>
+            <input type="text" class="form-control" id="descuento" disabled>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="nombre">Código Contable</label>
-                <input type="text" class="form-control" id="nombre" disabled>
-            </div>
+        <div class="col-md-4 form-group">
+            <label for="codigoContable">Código Contable</label>
+            <input type="text" class="form-control" id="codigoContable" disabled>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5">
-            <label for="valorAplicacion">Base de Retención</label>
-            <div class="input-group">
-                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                <input type="number" class="form-control" id="valorAplicacion">
-            </div>
+        <div class="col-md-5 form-group">
+            <label for="baseRetencion">Base de Retención</label>
+            <input type="number" class="form-control" id="baseRetencion">
         </div>
-        <div class="col-md-5">
-            <label for="valorAplicacion">Valor (con descuento))</label>
-            <div class="input-group">
-                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                <input type="number" class="form-control" id="valorAplicacion">
-            </div>
+        <div class="col-md-5 form-group">
+            <label for="valor">Valor (con descuento)</label>
+            <input type="number" class="form-control" id="valor">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 form-group d-flex align-items-end">
             <button class="btn btn-primary text-white w-100" type="button">
                 <i class="fas fa-plus"></i> Agregar
             </button>
         </div>
     </div>
-    <div class="container pt-2">
-        <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable"></ngx-general-table>
+    <div class="container pt-2 px-0">
+        <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable">
+        </ngx-general-table>
     </div>
-    <div class="row">
-        <div class="col-md-6"></div>
+    <div class="row form-group">
+        <div class="col-md-4"></div>
+        <div class="col-md-3 d-flex align-items-center">
+            <label for="valorTotal" class="m-0 ml-auto">Valor Total Descuentos</label>
+        </div>
         <div class="col-md-4">
-            <label for="valorAplicacion">Valor Total Descuentos</label>
-            <div class="input-group">
-                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                <input type="number" class="form-control" id="valorAplicacion" value="$3.000.000,00">
-            </div>
+            <input class="form-control" id="valorTotal" disabled value="{{valorTotal|currency}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="nombre">Código Contable</label>
-                <input type="text" class="form-control" id="nombre" disabled>
+                <label for="codigoContable">Código Contable</label>
+                <input type="text" class="form-control" id="codigoContable" disabled>
             </div>
         </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <label for="valorAplicacion">Valor Neto a Girar</label>
-            <div class="input-group">
-                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                <input type="number" class="form-control" id="valorAplicacion" value="$3.000.000,00">
-            </div>
+        <div class="col-md-3 d-flex align-items-center">
+            <label for="valorNeto" class="m-0 ml-auto">Valor Neto a Girar</label>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+            <input class="form-control" id="valorNeto" disabled value="{{valorNeto|currency}}">
         </div>
     </div>
     <div class="container">

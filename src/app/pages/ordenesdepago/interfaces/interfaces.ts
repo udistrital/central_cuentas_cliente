@@ -295,7 +295,10 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-center align-middle',
             }
         },
     ],
@@ -307,10 +310,10 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
         },
         actions: [
             {
-                name: 'ver',
-                icon: 'fas fa-eye',
+                name: 'modificar',
+                icon: 'fas fa-trash-alt',
                 class: 'p-2',
-                title: 'Ver Resumen de Órden',
+                title: 'Modificar',
             }
         ],
     },
@@ -319,6 +322,7 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
         class: 'text-center',
     },
     sort: true,
+    maxHeight: 200
 };
 export const DATOS_MOVIMIENTO_CONTABLE: any = [
     {
@@ -326,7 +330,7 @@ export const DATOS_MOVIMIENTO_CONTABLE: any = [
         descuento: '',
         base: '',
         codigo: '111-222-333',
-        valor: '$3.000.000,00'
+        valor: 3000000.00
     }
 ];
 
