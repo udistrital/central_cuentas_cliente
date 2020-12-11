@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SetCrearsolicitudgiroComponent } from './set-crearsolicitudgiro.component';
+import { SetInfosolicitudgiroComponent } from './set-infosolicitudgiro.component';
 
-describe('SetCrearsolicitudgiroComponent', () => {
-  let component: SetCrearsolicitudgiroComponent;
-  let fixture: ComponentFixture<SetCrearsolicitudgiroComponent>;
+describe('SetInfosolicitudgiroComponent', () => {
+  let component: SetInfosolicitudgiroComponent;
+  let fixture: ComponentFixture<SetInfosolicitudgiroComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetCrearsolicitudgiroComponent ]
+      declarations: [ SetInfosolicitudgiroComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SetCrearsolicitudgiroComponent);
+    fixture = TestBed.createComponent(SetInfosolicitudgiroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

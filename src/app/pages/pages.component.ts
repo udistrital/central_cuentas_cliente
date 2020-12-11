@@ -31,7 +31,7 @@ export class PagesComponent implements OnInit {
 
   url_presupuesto  = environment.CLIENTE_PRESUPUESTO;
   url_contabilidad = environment.CLIENTE_CONTABILIDAD;
-  application_conf = 'presupuesto_kronos';
+  application_conf = 'central_cuentas';
 
   constructor(
     public  menuws: MenuService,
@@ -47,7 +47,7 @@ export class PagesComponent implements OnInit {
         data => {
           this.dataMenu = <any>data;
           this.mapMenuByObjects(this.dataMenu);
-          this.translateMenu();
+          // this.translateMenu();
         },
         (error: HttpErrorResponse) => {
           Swal.fire({
@@ -59,15 +59,15 @@ export class PagesComponent implements OnInit {
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
           this.menu = [];
-          this.translateMenu();
+          // this.translateMenu();
         });
     } else {
       this.rol = 'PUBLICO';
       this.menu = [];
-      this.translateMenu();
+      // this.translateMenu();
     }
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
-      this.translateMenu();
+      // this.translateMenu();
     });
   }
 
