@@ -154,7 +154,7 @@ steps:
       {{/success}}
   when:
     branch:
-    # - develop
+    - develop
     - release/*
     - master
     event:
