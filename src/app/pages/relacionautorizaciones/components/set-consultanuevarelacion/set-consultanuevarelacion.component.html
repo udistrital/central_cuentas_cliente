@@ -1,35 +1,94 @@
 <form [formGroup]="consultaGroup" (ngSubmit)="saveForm()">
     <!-- Campo: Elegir código del rubro, mostrar nombre del rubro -->
-    <div class="form-group row">
-        <div class="col-md-3">
-            <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
-                Seleccionar CDP</button>
+    <div class="form-group row pt-4 px-4">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <label><small>CDP - Código de Disponibilidad</small></label>
+                    <input type="text" class="form-control" formControlName="codigoDisponibilidad" [class.is-invalid]="disponibilidadInvalid">
+                    <small *ngIf="disponibilidadInvalid" class="text-danger">Ingrese números en este campo</small>
+                </div>
+                <div class="col-md-8">
+                    <fieldset disabled>
+                        <div class="form-group">
+                            <label for="disabledTextInput"><small>Descripción</small></label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label><small>RP - Código de Registro</small></label>
+                    <input type="text" class="form-control" formControlName="codigoRegistro" [class.is-invalid]="registroInvalid">
+                    <small *ngIf="registroInvalid" class="text-danger">Ingrese números en este campo</small>
+                </div>
+                <div class="col-md-8">
+                    <fieldset disabled>
+                        <div class="form-group">
+                            <label for="disabledTextInput"><small>Descripción</small></label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <span class="form-control overflow"> Descripción del CDP </span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-md-3">
-            <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
-                Seleccionar RP</button>
-        </div>
-        <div class="col-md-6">
-            <span class="form-control overflow"> Descripción del RP </span>
-        </div>
-        <div class="col-md-3">
-            <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
-                Mostrar Consulta</button>
+        <div class="col-md-2 d-flex align-items-center">
+            <button type="button" class="btn btn-primary btn-block text-white">Mostrar</button>
         </div>
     </div>
     <!-- Fin Campo: Elegir código del rubro, mostrar nombre del rubro -->
     <!-- Tabla -->
-    <div class="row">
+    <div class="col bg-white pt-3">
         <ngx-general-table [config]="configuracion" [datos]="datosConsulta"></ngx-general-table>
     </div>
     <!-- Fin Tabla -->
+    <!-- Campo: Total relacion autorización -->
+    <div class="container-fluid">
+        <div class="row justify-content-end align-items-end pl-5 pb-5 pt-2">
+            <div class="col-4">
+            </div>
+            <div class="col-3 pl-7">
+                <label>Total Relación de Autorización</label>
+            </div>
+            <div class="col-4 px-4">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="$1.000.000" readonly>
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    </div>
+    <!-- Fin Campo: Total relacion autorización -->
+
+    <!-- Campo: Fuentes afectables -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Fuentes Afectables
+                </h6>
+            </div>
+        </div>
+        <div class="row justify-content-end align-items-end">
+            <div class="col-12 px-4">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1">Descripción</textarea>
+            </div>
+        </div>
+        <div class="row justify-content-end align-items-end pl-5 pb-5 pt-1">
+            <div class="col-4">
+            </div>
+            <div class="col-3 pl-7 px-4">
+                <label>Total Fuentes de Financiación</label>
+            </div>
+            <div class="col-5 px-4">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="$" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Campo: Fuentes afectables -->
+    <mat-divider class="col-md-12 border-warning"></mat-divider>
     <!-- Botones: regresar, Siguiente -->
-    <div class="row text-center">
+    <div class="row text-center pt-3">
         <div class="col-6">
             <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
         </div>
@@ -38,26 +97,33 @@
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
-</form>
 
-<!-- Modal: Seleccionar Rubro -->
-<div class="modal fade" id="ModalRubro" tabindex="-1" role="dialog" aria-labelledby="ModalRubroLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalRubroLabel">Seleccionar Rubro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modal: Seleccionar Rubro -->
+    <!-- <div class="modal fade" id="ModalRubro" tabindex="-1" role="dialog" aria-labelledby="ModalRubroLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalRubroLabel">CDP - Disponibilidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
-            <div class="modal-body">
-                <ngx-arbol-rubro></ngx-arbol-rubro>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col">
+                        <label>Código de CDP<small>Ingrese el número de disponibilidad</small></label>
+                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="codigoDisponibilidad" [class.is-invalid]="disponibilidadInvalid">
+                        <small *ngIf="disponibilidadInvalid" class="text-danger">Ingrese números en este campo</small>
+                        <span class="form-control overflow"> Descripción del CDP </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- Fin Modal: Seleccionar Rubro -->
+    </div> -->
+    <!-- Fin Modal: Seleccionar Rubro -->
+
+</form>

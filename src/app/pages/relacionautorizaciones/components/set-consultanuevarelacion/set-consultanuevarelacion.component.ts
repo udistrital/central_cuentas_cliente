@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { CONFIGURACION_TABLACONSULTA, DATOS_TABLACONSULTA } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ngx-set-consultanuevarelacion',
@@ -12,13 +12,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class SetConsultanuevarelacionComponent implements OnInit{
 
-  consultaGroup: FormGroup;
-  
+  consultaGroup: FormGroup;  
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosConsulta: any;
-  subscription$: any;
-  
+  subscription$: any; 
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
 
@@ -32,6 +30,14 @@ export class SetConsultanuevarelacionComponent implements OnInit{
 
         this.createForm();
    }
+
+  // Validacion del Formulario
+  get disponibilidadInvalid() {
+    return this.consultaGroup.get('codigoDisponibilidad').invalid && this.consultaGroup.get('codigoDisponibilidad').touched;
+  }
+  get registroInvalid() {
+    return this.consultaGroup.get('codigoRegistro').invalid && this.consultaGroup.get('codigoRegistro').touched;
+  }
 
   ngOnInit(){
        // Tabla
@@ -47,7 +53,14 @@ export class SetConsultanuevarelacionComponent implements OnInit{
 
   createForm() {
     this.consultaGroup = this.fb.group({
-      numeroRelacion: ['001', ],
+      codigoDisponibilidad: ['', 
+        [Validators.required,      
+        Validators.pattern('^[0-9]*$')]
+      ],
+      codigoRegistro: ['', 
+      [Validators.required,      
+      Validators.pattern('^[0-9]*$')]
+    ],
     });
   }
 

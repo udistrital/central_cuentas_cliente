@@ -29,14 +29,14 @@ export class StepperRelacionautorizacionComponent {
 
   }
 
-   get inforelacionGroup() {
-     return this.SetInfoautorizacionnominaComponent ? this.SetInfoautorizacionnominaComponent.inforelacionGroup : null ;
-   }
-   get conceptoGroup() {
-     return this.SetConceptonuevarelacionComponent ? this.SetConceptonuevarelacionComponent.conceptoGroup : null;
-   }
-   get consultaGroup() {
-     return this.SetConsultanuevarelacionComponent ? this.SetConsultanuevarelacionComponent.consultaGroup : null;
-   }
+  get inforelacionGroup() {
+    return this.SetInfoautorizacionnominaComponent ? this.SetInfoautorizacionnominaComponent.inforelacionGroup : null ;
+  }
+  get consultaGroup() {
+    return this.SetConsultanuevarelacionComponent ? this.SetConsultanuevarelacionComponent.consultaGroup : null;
+  }
+  get conceptoGroup() {
+    return this.SetConceptonuevarelacionComponent ? this.SetConceptonuevarelacionComponent.conceptoGroup : null;
+  }
 }
 

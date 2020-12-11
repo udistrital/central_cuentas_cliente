@@ -14,7 +14,7 @@
             <!-- Inicio de "Stepper" -->
             <mat-horizontal-stepper linear #stepper>
                 <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
-                <mat-step [stepControl]="inforelacionGroup">
+                <mat-step [stepControl]="inforelacionGroup" optional>
                     <ng-template matStepLabel>Inicio</ng-template>
                     <div class="container">
                         <ngx-set-infonuevarelacion></ngx-set-infonuevarelacion>
@@ -22,7 +22,7 @@
                 </mat-step>
                 <!-- Fin de Información de solicitud y solicitante -->
                 <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
-                <mat-step>
+                <mat-step [stepControl]="consultaGroup" optional>
                     <ng-template matStepLabel>Consulta</ng-template>
                     <div class="container">
                         <ngx-set-consultanuevarelacion></ngx-set-consultanuevarelacion>
