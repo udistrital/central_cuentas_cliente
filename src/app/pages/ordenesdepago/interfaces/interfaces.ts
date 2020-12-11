@@ -111,7 +111,7 @@ export const DATOS_TABLAREGISTROS: any = [
         Estado: 'Elaborado',
     },
 ];
-export const CONFIGURACION_HISTORIAL: any = {
+export const CONFIGURACION_CONCEPTO_VALOR: any = {
     showColumnTitle: true,
     dataConfig: [
         {
@@ -141,19 +141,15 @@ export const CONFIGURACION_HISTORIAL: any = {
     },
     sort: true,
 };
-export const DATOS_HISTORIAL: any = [
+export const DATOS_CONCEPTO_VALOR: any = [
     {
-        concepto: 'documento1',
-        valor: 'doc1.pdf'
+        concepto: '',
+        valor: ''
     },
     {
-        concepto: 'documento2',
-        valor: 'Listo'
-    },
-    {
-        concepto: 'documento3',
-        valor: 'Listo'
-    },
+        concepto: '',
+        valor: ''
+    }
 ];
 export const CONFIGURACION_IMPUNTUACION: any = {
     showColumnTitle: true,
@@ -205,7 +201,10 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-center align-middle',
             }
         },
     ],
@@ -220,7 +219,13 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 name: 'ver',
                 icon: 'fas fa-eye',
                 class: 'p-2',
-                title: 'Ver Resumen de Órden',
+                title: 'Ver Fuentes',
+            },
+            {
+                name: 'modificar',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Modificar',
             }
         ],
     },
@@ -229,6 +234,7 @@ export const CONFIGURACION_IMPUNTUACION: any = {
         class: 'text-center',
     },
     sort: true,
+    maxHeight: 200
 };
 export const DATOS_IMPUNTUACION: any = [
     {
@@ -236,7 +242,7 @@ export const DATOS_IMPUNTUACION: any = [
         codigo: '111-222-333',
         registro: '123456',
         nombre: 'Eventos Academicos',
-        valor: '$3.000.000,00'
+        valor: 3000000.00
     }
 ];
 export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
@@ -323,3 +329,4 @@ export const DATOS_MOVIMIENTO_CONTABLE: any = [
         valor: '$3.000.000,00'
     }
 ];
+

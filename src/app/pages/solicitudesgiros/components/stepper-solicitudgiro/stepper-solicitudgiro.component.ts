@@ -16,16 +16,12 @@ export class StepperSolicitudgiroComponent {
   @ViewChild(SetAutorizaciongiroComponent, {static: false}) SetAutorizaciongiroComponent: SetAutorizaciongiroComponent;
   @ViewChild(ShowResumensolicitudgiroComponent, {static: false}) ShowResumensolicitudgiroComponent: ShowResumensolicitudgiroComponent;
 
-
   constructor( ) {
 
   }
 
   get infoSolicitudGroup() {
-    // if (!this.SetInfosolicitudgiroComponent){
-    //   console.log('es nulo');
-    // }
-    return this.SetInfosolicitudgiroComponent ? this.SetInfosolicitudgiroComponent.infoSolicitudGroup : null;
+    return this.SetInfosolicitudgiroComponent ? this.SetInfosolicitudgiroComponent.infoSolicitudGroup : null ;
   }
   get documentosGroup() {
     return this.SetCargardocumentosComponent ? this.SetCargardocumentosComponent.documentosGroup : null;

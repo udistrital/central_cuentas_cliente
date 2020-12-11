@@ -5,11 +5,11 @@ import { TableListasolicitudesComponent } from './components/table-listasolicitu
 
 const routes: Routes = [
   {
-    path: 'consultarsolicitudgiro',
+    path: 'lista',
     component: TableListasolicitudesComponent,
   },
   {
-    path: 'crearsolicitudgiro',
+    path: 'crear',
     component: StepperSolicitudgiroComponent,
   }
 ];
