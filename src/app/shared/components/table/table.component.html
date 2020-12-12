@@ -26,14 +26,14 @@
                 
                 <ng-container *ngIf="aprobacionContable" >
                     <td>
-                        <button type="button" name="button" (click)="onClick(item)">
+                        <button class="btn btn-link" type="button" name="button" (click)="onClickContable(item)">
                             <i class="far fa-hand-point-up"></i>
                         </button>
                     </td>
                 </ng-container>
                 <ng-container *ngIf="aprobacionPresupuestal" >
                     <td>
-                        <button type="button" name="button" (click)="onClick(item)">
+                        <button class="btn btn-link" type="button" name="button" (click)="onClickPresupuestal(item)">
                             <i class="far fa-hand-point-up"></i>
                         </button>
                     </td>
