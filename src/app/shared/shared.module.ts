@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -11,20 +11,23 @@ import { GeneralTableComponent } from './components/general-table/general-table.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterTablePipe } from './pipes/filter-table.pipe';
 import { CustomTablePipe } from './pipes/custom-table.pipe';
-import { DatosGeneralesInicialesComponent } from './components/datos-generales-iniciales/datos-generales-iniciales.component';
 import { MouseOverDirective } from './directives/mouse-over.directive';
 import { ArbolRubroComponent } from './components/arbol-rubro/arbol-rubro.component';
 import { NbTreeGridModule } from '@nebular/theme';
 import { SelectedRowDirective } from './directives/selected-row.directive';
-
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { MultiPipePipe } from './pipes/multi-pipe.pipe';
+import { RechazarComponent } from './components/rechazar/rechazar.component';
+import { TableComponent } from './components/table/table.component';
 @NgModule({
   exports: [
     TranslateModule,
     GeneralTableComponent,
-    DatosGeneralesInicialesComponent,
     MouseOverDirective,
     ArbolRubroComponent,
     SelectedRowDirective,
+    RechazarComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -38,11 +41,21 @@ import { SelectedRowDirective } from './directives/selected-row.directive';
     GeneralTableComponent,
     FilterTablePipe,
     CustomTablePipe,
-    DatosGeneralesInicialesComponent,
     MouseOverDirective,
     ArbolRubroComponent,
     SelectedRowDirective,
+    FileUploadComponent,
+    MultiPipePipe,
+    RechazarComponent,
+    TableComponent
   ],
+  providers: [
+    CustomTablePipe,
+    CurrencyPipe,
+    DatePipe,
+    DecimalPipe,
+    PercentPipe
+  ]
 })
 
 export class SharedModule { }

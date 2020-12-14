@@ -1,0 +1,123 @@
+<form [formGroup]="infoSolicitudGroup" (ngSubmit)="saveForm()">
+    <!-- Grupo: Información de Solicitud -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Información de la Solicitud
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: Elegir Concepto -->
+        <div class="form-group row">
+            <div class="col">
+                <label>Concepto</label>
+                <select class="custom-select" formControlName="concepto" [class.is-invalid]="conceptoInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
+            </div>
+        </div>
+        <!-- Fin Campo: Elegir Concepto -->
+        <!-- Campos: No. de Solicitud, Área funcional, fecha -->
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>No. Solicitud</label>
+                <input type="text" class="form-control" formControlName="numeroSolicitud" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Área Funcional</label>
+                <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="areaInvalid" class="text-danger">Complete este campo</small>
+            </div>
+            <div class="col-md-5">
+                <label>Fecha</label>
+                <div class="input-group">
+                    <input class="form-control" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Campos: No. de Solicitud, Área funcional, fecha -->
+    </div>
+    <!-- Fin Grupo: Información de Solicitud -->
+
+    <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+
+    <!-- Grupo: Solicitante -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Solicitante
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: Elegir tipo de id, numero de id -->
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>Tipo de ID</label>
+                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
+            </div>
+            <div class="col-md-4">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+        </div>
+        <!-- Fin Campo: Elegir tipo de id, numero de id -->
+        <!-- Campos: Nombres, Apellidos, Cargo -->
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>Nombres</label>
+                <input type="text" class="form-control" formControlName="nombres" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Apellidos</label>
+                <input type="text" class="form-control" formControlName="apellidos" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>Cargo</label>
+                <input type="text" class="form-control" formControlName="cargo" readonly>
+            </div>
+            <!-- Fin Campos: Nombres, Apellidos, Cargo -->
+        </div>
+        <!-- Fin Grupo: Solicitante -->
+        <!-- Botones: Volver a registro, Siguiente -->
+        <div class="container">
+            <div class="row pt-2 text-center">
+                <div class="col-md-6">
+                    <a routerLink="../../solicitudesgiros/lista">
+                        <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                            <div class="d-flex flex-row justify-content-around align-middle">
+                                <span>Volver a registros</span>
+                            </div>
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Botones: Volver a registro, Siguiente -->
+    </div>
+</form>
