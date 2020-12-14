@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: () => import('./relacionautorizaciones/relacionautorizaciones.module')
         .then(m => m.RelacionautorizacionesModule),
       },
+      {
+        path: 'devoluciontributaria',
+        loadChildren: () => import('./devoluciontributaria/devoluciontributaria.module')
+        .then(m => m.DevoluciontributariaModule),
+      },
     ]
   }
 ];
