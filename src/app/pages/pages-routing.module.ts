@@ -28,11 +28,7 @@ const routes: Routes = [
         loadChildren: () => import('./relacionautorizaciones/relacionautorizaciones.module')
         .then(m => m.RelacionautorizacionesModule),
       },
-      {
-        path: 'prueba',
-        loadChildren: () => import('./primer-modulo/primer-modulo.module')
-          .then(m => m.PrimerModuloModule),
-      }]
+    ]
   }
 ];
 

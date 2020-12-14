@@ -5,11 +5,13 @@ import { concatMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
 import * as RelacionautorizacionesActions from '../actions/relacionautorizaciones.actions';
+import { RelacionautorizacionesService } from '../services/relacionautorizaciones.service';
 
 
 @Injectable()
 export class RelacionautorizacionesEffects {
 
+  constructor(private actions$: Actions, private relacionService: RelacionautorizacionesService) {}
 
   loadRelacionautorizaciones$ = createEffect(() => {
     return this.actions$.pipe(
@@ -20,7 +22,14 @@ export class RelacionautorizacionesEffects {
     );
   });
 
+  getInfoRelacionautorizacion$ = createEffect(() => {
+    return this.actions$.pipe(
 
-  constructor(private actions$: Actions) { }
+      ofType(RelacionautorizacionesActions.loadRelacionautorizaciones),
+      /** An EMPTY observable only emits completion. Replace with your own observable API request */
+      concatMap(() => EMPTY)
+    );
+  });
+
 
 }
