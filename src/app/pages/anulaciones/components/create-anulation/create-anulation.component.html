@@ -1,1 +1,27 @@
-<p>create-anulation works!</p>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 class="card-title text-center text-primary">
+                        CREAR NUEVA ANULACIÓN
+                    </h5>
+                </div>
+            </div>      
+            <mat-horizontal-stepper linear #stepper>
+                <mat-step>
+                    <ng-template matStepLabel> Inicio </ng-template>
+                    <ngx-form-anulation></ngx-form-anulation>
+                </mat-step>
+                <mat-step>                   
+                    <div class="row">
+                        <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                            Volver al registro
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>   
+        </div>
+    </div>
+    
+</div> 
