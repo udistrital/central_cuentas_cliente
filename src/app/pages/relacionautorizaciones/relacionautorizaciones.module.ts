@@ -18,6 +18,8 @@ import { RelacionautorizacionesService } from './services/relacionautorizaciones
 import { SetConsultanuevarelacionComponent } from './components/set-consultanuevarelacion/set-consultanuevarelacion.component';
 import { SetConceptonuevarelacionComponent } from './components/set-conceptonuevarelacion/set-conceptonuevarelacion.component';
 import { StepperRelacionautorizacionComponent } from './components/stepper-relacionautorizacion/stepper-relacionautorizacion.component';
+import { SetPdfviewComponent } from './components/set-pdfview/set-pdfview.component';
+import { SetExtractodesagregacionComponent } from './components/set-extractodesagregacion/set-extractodesagregacion.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { StepperRelacionautorizacionComponent } from './components/stepper-relac
     SetInfonuevarelacionComponent,
     SetConsultanuevarelacionComponent,
     SetConceptonuevarelacionComponent,
+    SetPdfviewComponent,
+    SetExtractodesagregacionComponent,
   ],
   imports: [
     CommonModule,
