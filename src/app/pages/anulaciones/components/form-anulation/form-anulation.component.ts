@@ -19,7 +19,7 @@ export class FormAnulationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-  ) { 
+  ) {
     this.anulaciones = this.formBuilder.group({
       fecha: ['', Validators.required],
       areaFuncional: ['', Validators.required],
@@ -31,7 +31,7 @@ export class FormAnulationComponent implements OnInit {
   }
 
   onSubmit (data: any) {
-    console.log(data);
+    /* console.log(data); */
   }
 
 }
