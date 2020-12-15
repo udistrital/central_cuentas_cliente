@@ -6,40 +6,48 @@
                     <h5 class="card-title text-center text-primary">
                         CREAR NUEVA RELACIÓN DE AUTORIZACIÓN
                     </h5>
-                    <h6 class="card-subtitle text-center text-primary">
-                        <!-- {{ relacion.nombreRelacion }} -->
+                    <h6 class="card-title text-center text-primary">
+                        {{ relacion.nombreRelacion }}
                     </h6>
                 </div>
             </div>
             <!-- Inicio de "Stepper" -->
-            <mat-horizontal-stepper [linear]="true" #stepper>
-                <!-- Paso 1: Inicio (información de relacion de autorización) -->
-                <mat-step label="Inicio" [stepControl]="inforelacionGroup">
+            <mat-horizontal-stepper linear #stepper>
+                <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
+                <mat-step [stepControl]="inforelacionGroup" optional>
+                    <ng-template matStepLabel>Inicio</ng-template>
                     <div class="container">
                         <ngx-set-infonuevarelacion></ngx-set-infonuevarelacion>
                     </div>
                 </mat-step>
-                <!-- Fin de Información de relacion de autorización -->
-                <!-- Paso 2: Consulta (Se consulta CDP y RP y se muestra la información en tabla) -->
-                <mat-step label="Consulta">
+                <!-- Fin de Información de solicitud y solicitante -->
+                <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
+                <mat-step [stepControl]="consultaGroup" optional>
+                    <ng-template matStepLabel>Consulta</ng-template>
                     <div class="container">
-                        <button mat-button matStepperPrevious>Regresar</button>
-                        <button mat-button matStepperNext>Siguiente</button>
+                        <ngx-set-consultanuevarelacion></ngx-set-consultanuevarelacion>
                     </div>
                 </mat-step>
-                <!-- Fin de Consulta -->
-                <!-- Paso 3: Relación por concepto (se muestra la informacion que se trae de bd) -->
-                <mat-step label="Relación por Concepto">
+                <!-- Fin de Carga de Documentos -->
+                <!-- Paso 3: Autorización de solicitud de giro -->
+                <mat-step>
+                    <ng-template matStepLabel>Relación por Concepto</ng-template>
                     <div class="container">
-                        <button mat-button matStepperPrevious>Regresar</button>
+                        <ngx-set-conceptonuevarelacion></ngx-set-conceptonuevarelacion>
                     </div>
                 </mat-step>
-                <!-- Fin de Relación por concepto -->
-                <!-- Paso 3: Extracto de Desagregacion -->
-
-                <!-- Fin Extracto de Desagregacion -->
+                <!-- Fin de Autorización de solicitud de giro -->
+                <!-- Paso 3: Resumen de Solicitud de giro -->
+                <!-- <mat-step [stepControl]="resumenSolicitudGroup">
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-resumensolicitudgiro></ngx-show-resumensolicitudgiro>
+                    </div>
+                </mat-step> -->
+                <!-- Fin Resumen de solicitud de giro -->
             </mat-horizontal-stepper>
             <!-- Fin de "Stepper" -->
+
         </div>
     </div>
 </div>

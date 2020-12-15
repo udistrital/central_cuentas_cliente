@@ -11,11 +11,11 @@ const routes: Routes = [
     component: MenutiporelacionComponent,
   },
   {
-    path: 'lista/:id',
+    path: 'listar/:id',
     component: TableRelacionautorizacionComponent,
   },
   {
-    path: 'crear',
+    path: 'crear/:id',
     component: StepperRelacionautorizacionComponent,
   },
 ];

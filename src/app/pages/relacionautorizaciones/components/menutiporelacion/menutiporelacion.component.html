@@ -6,16 +6,15 @@
         </h5>
     </div>
     <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="card text-white text-center bg-info mb-3 mx-auto" style="width: 20rem;" *ngFor="let tiporelacion of relacion; let i = index">
+        <div class="card text-white text-center bg-info mb-3 mx-auto" style="width: 20rem;" *ngFor="let tiporelacion of relacion | keyvalue">
             <div class="card-body">
-                <h5 class="card-title text-white">{{ tiporelacion.nombreRelacion }}</h5>
+                <h5 class="card-title text-white">{{ tiporelacion.value.nombreRelacion }}</h5>
             </div>
-            <a [routerLink]="['/pages/relacionautorizaciones/lista',i]" class="btn btn-info text-white">
+            <a [routerLink]="['/pages/relacionautorizaciones/listar',tiporelacion.key]" class="btn btn-info text-white">
                 <div class="card-footer bg-transparent border-white">
                     Consultar
                 </div>
             </a>
         </div>
     </div>
-
 </div>

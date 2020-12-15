@@ -1,6 +1,6 @@
 <form [formGroup]="inforelacionGroup" (ngSubmit)="saveForm()">
     <!-- Campo: No. de Relación y Fecha -->
-    <div class="form-group row">
+    <div class="form-group row pt-3">
         <div class="col-md-3">
             <label>No. de Relacion</label>
             <input type="text" class="form-control" formControlName="numeroRelacion" readonly>
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h6 class="text-center">
-                    ***Autorízase al Pagador, para pagar con cargo al presupuesto de la vigencia 2020 y al PAC del mes correspondiente, la nómina de la entidad UNIVERSIDAD DISTRITAL FRANCISCO JOSE DE RECTOR PAGO NÓMINA DOCENTES
+                    {{ relacion.descripcionRelacion }}
                 </h6>
             </div>
         </div>
@@ -33,7 +33,7 @@
     <div class="container bg-white px-3">
         <div class="form-group row">
             <div class="col-md-3">
-                <label>Mes***</label>
+                <label>Mes</label>
                 <select class="custom-select" formControlName="mes" [class.is-invalid]="mesInvalid">
                     <option selected disabled value="">Seleccione...</option>
                     <option>Octubre</option>
@@ -43,7 +43,7 @@
                 <small *ngIf="mesInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-3">
-                <label>Quincena***</label>
+                <label>Quincena</label>
                 <input type="text" class="form-control" formControlName="quincena" [class.is-invalid]="quincenaInvalid">
                 <small *ngIf="quincenaInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
@@ -69,8 +69,8 @@
         <!-- Botones: Regresar, Siguiente -->
         <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
             <div class="form-group col-md-6">
-                <a routerLink="/pages/relacionautorizaciones/elegir">
-                    <button type="submit" class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+                <a routerLink='/pages/relacionautorizaciones/elegir'>
+                    <button type="submit" class="btn btn-primary text-white m-0 mt-4">Volver a registros</button>
                 </a>
             </div>
             <div class="form-group col-md-6">

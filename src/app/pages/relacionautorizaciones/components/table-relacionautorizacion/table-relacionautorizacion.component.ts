@@ -22,7 +22,7 @@ export class TableRelacionautorizacionComponent implements OnInit {
   stringBusqueda: string;
   // Variable local para mostrar datos desde servicio
   relacion: any = {};
-
+  id: string;
 
   constructor (
     private store: Store<any>,
@@ -36,10 +36,10 @@ export class TableRelacionautorizacionComponent implements OnInit {
     this.stringBusqueda = '';
     this.selectedAction = new EventEmitter<any>();
     // Configuracion de enrutamiento de datos (nomina o seguridad social)
-    this.activatedRoute.params.subscribe( params => {
-      this.relacion = this._relacionService.getTipoRelacion( params['id'] );
+    this.activatedRoute.paramMap.subscribe( params => {
+      this.relacion = this._relacionService.getTipoRelacion( params.get('id') );
+      this.id = params.get('id');
     });
-
   }
 
   ngOnInit() {
