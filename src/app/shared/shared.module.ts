@@ -17,7 +17,8 @@ import { NbTreeGridModule } from '@nebular/theme';
 import { SelectedRowDirective } from './directives/selected-row.directive';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { MultiPipePipe } from './pipes/multi-pipe.pipe';
-
+import { RechazarComponent } from './components/rechazar/rechazar.component';
+import { TableComponent } from './components/table/table.component';
 @NgModule({
   exports: [
     TranslateModule,
@@ -25,6 +26,8 @@ import { MultiPipePipe } from './pipes/multi-pipe.pipe';
     MouseOverDirective,
     ArbolRubroComponent,
     SelectedRowDirective,
+    RechazarComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,9 @@ import { MultiPipePipe } from './pipes/multi-pipe.pipe';
     ArbolRubroComponent,
     SelectedRowDirective,
     FileUploadComponent,
-    MultiPipePipe
+    MultiPipePipe,
+    RechazarComponent,
+    TableComponent
   ],
   providers: [
     CustomTablePipe,

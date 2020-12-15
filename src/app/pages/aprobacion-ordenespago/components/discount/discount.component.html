@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 class="card-title text-center text-primary">APROBACIÓN CONTABLE DE ÓRDENES DE PAGO</h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Aprobación contable
+                    </div>
+                    <div class="row">
+                        <div class="col consecutivo">
+                            <label for="nConsecutivo">No. de consecutivo </label> <br>
+                            <input id="nConsecutivo" type="number" disabled placeholder="{{consecutivo}}">
+                        </div>  
+                    </div>
+                    <hr> 
+                    <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosDescuentos"> </ngx-table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button mat-button type="button" class="btn btn-primary px-3 py-2 my-2 text-light" (click)="regresar()" >
+                        Volver al registro
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarDescuento()">
+                        Rechazar
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarDescuento()">
+                        Aprobar
+                    </button>
+                </div>
+            </div> 
+        </div>
+        <div *ngIf="form.rechazarFormulario">
+            <ngx-rechazar></ngx-rechazar>
+        </div>
+    </div>
+</div>
