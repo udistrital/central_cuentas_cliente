@@ -10,10 +10,16 @@ import { LayoutAnulacionesComponent } from './components/layout-anulaciones/layo
 import { ListComponent } from './components/list/list.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CreateAnulationComponent } from './components/create-anulation/create-anulation.component';
+import { DetailStepUnoComponent } from './components/detail-step-uno/detail-step-uno.component';
+import { DetailStepDosComponent } from './components/detail-step-dos/detail-step-dos.component';
+import { DetailStepTresComponent } from './components/detail-step-tres/detail-step-tres.component';
+import { DetailStepCuatroComponent } from './components/detail-step-cuatro/detail-step-cuatro.component';
+import { FormComponent } from './components/form/form.component';
+import { OrderAnulationComponent } from './components/order-anulation/order-anulation.component';
 
 
 @NgModule({
-  declarations: [LayoutAnulacionesComponent, ListComponent, CreateAnulationComponent],
+  declarations: [LayoutAnulacionesComponent, ListComponent, CreateAnulationComponent, DetailStepUnoComponent, DetailStepDosComponent, DetailStepTresComponent, DetailStepCuatroComponent, FormComponent, OrderAnulationComponent],
   imports: [
     CommonModule,
     AnulacionesRoutingModule,
