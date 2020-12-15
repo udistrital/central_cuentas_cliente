@@ -1,0 +1,45 @@
+<div style="overflow-x:auto">
+    <table class="table table-bordered table-hover">
+        <thead class="thead table-title">
+            <tr>
+                <th *ngIf="seleccion"> Selección </th>
+                <th *ngFor="let title of titles" scope="col"> {{title}} </th>
+                <th *ngIf="aprobacionContable"> Aprobación contable </th>
+                <th *ngIf="aprobacionPresupuestal"> Aprobación presupuestal </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of list">
+                <td *ngIf="seleccion"><label class="switch">
+                    <input type="checkbox" [checked]="item.status" (change)="seleccionar(item, $event.target.checked)">
+                    <span class="slider round"></span>
+                </label></td>
+
+                <ng-container *ngFor="let attribute of attributes">
+                    <ng-container *ngIf="attribute.length === 1">
+                    <td>{{item[attribute[0]]}}</td>
+                    </ng-container>
+                    <ng-container *ngIf="attribute.length > 1">
+                    <td>{{item[attribute[0]][attribute[1]]}}</td>
+                    </ng-container>
+                </ng-container>
+                
+                <ng-container *ngIf="aprobacionContable" >
+                    <td>
+                        <button class="btn btn-link" type="button" name="button" (click)="onClickContable(item)">
+                            <i class="far fa-hand-point-up"></i>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="aprobacionPresupuestal" >
+                    <td>
+                        <button class="btn btn-link" type="button" name="button" (click)="onClickPresupuestal(item)">
+                            <i class="far fa-hand-point-up"></i>
+                        </button>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    
