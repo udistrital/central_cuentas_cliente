@@ -22,26 +22,6 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
             }
         },
         {
-            key: 'Mes',
-            title: {
-                name: 'Mes',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-center',
-            }
-        },
-        {
-            key: 'Quincena',
-            title: {
-                name: 'Quincena',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-center',
-            }
-        },
-        {
             key: 'Estado',
             title: {
                 name: 'Estado',
@@ -78,36 +58,26 @@ export const DATOS_TABLAREGISTROS: any = [
     {
         NumeroOrden: '1',
         NombreBeneficiario: 'Dalia',
-        Mes: 'Enero',
-        Quincena: '1',
         Estado: 'Elaborado',
     },
     {
         NumeroOrden: '2',
         NombreBeneficiario: 'Marcela',
-        Mes: 'Febrero',
-        Quincena: '1',
         Estado: 'Elaborado',
     },
     {
         NumeroOrden: '3',
         NombreBeneficiario: 'Muñoz',
-        Mes: 'Marzo',
-        Quincena: '1',
         Estado: 'Elaborado',
     },
     {
         NumeroOrden: '4',
         NombreBeneficiario: 'Araque',
-        Mes: 'Abril',
-        Quincena: '2',
         Estado: 'Elaborado',
     },
     {
         NumeroOrden: '5',
         NombreBeneficiario: 'Cesar',
-        Mes: 'Mayo',
-        Quincena: '2',
         Estado: 'Elaborado',
     },
 ];
