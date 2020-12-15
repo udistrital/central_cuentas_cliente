@@ -1,0 +1,124 @@
+<form [formGroup]="autorizacionGroup" (ngSubmit)="saveForm()">
+    <!-- Grupo: Información del Beneficiario -->
+    <div class="container">
+        <div class="row px-3 pb-2">
+            <h6>Autorización a la Tesorería en general a girar a favor de:</h6>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Datos del Beneficiario
+                </h6>
+            </div>
+        </div>
+        <!-- Campos: Tipo de ID, Número de ID, Nombre -->
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>Tipo de ID</label>
+                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
+            </div>
+            <div class="col-md-4">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-10">
+                <label>Nombre (persona o entidad)</label>
+                <input type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
+            </div>
+        </div>
+        <!-- Fin Campos: Tipo de ID, Número de ID, Nombre -->
+    </div>
+    <!-- Fin Grupo: Información del Beneficiario -->
+
+    <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+
+    <!-- Grupo: Información Presupuestal -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Información Presupuestal
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: Elegir código del rubro, mostrar nombre del rubro -->
+        <div class="form-group row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
+                <i class="fas fa-plus"></i>Seleccionar Rubro</button>
+            </div>
+            <div class="col-md-4">
+                <label>Código del Rubro</label>
+                <span class="form-control overflow">
+                    {{autorizacionGroup.get('rubroSeleccionado').value ? autorizacionGroup.get('rubroSeleccionado').value.data.Codigo: ''}}
+                </span>
+            </div>
+            <div class="col-md-5">
+                <label>Nombre del Rubro</label>
+                <span class="form-control overflow">
+                    {{autorizacionGroup.get('rubroSeleccionado').value ? autorizacionGroup.get('rubroSeleccionado').value.data.Nombre: ''}}
+                </span>
+            </div>
+        </div>
+        <!-- Fin Campo: Elegir código del rubro, mostrar nombre del rubro -->
+        <!-- Campos: Valor en letras y/o números -->
+        <div class="form-group row">
+            <div class="col-md-7">
+                <label>Valor en Letras</label>
+                <input type="text" class="form-control" formControlName="valorLetras" [class.is-invalid]="valorLetrasInvalid">
+                <small *ngIf="valorLetrasInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+            <div class="col-md-5">
+                <label>Valor en Números</label>
+                <input type="text" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorNumeroInvalid">
+                <small *ngIf="valorNumeroInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+            <!-- Fin Campos: Valor en letras y/o números -->
+        </div>
+        <!-- Fin Grupo: Información Presupuestal -->
+
+        <!-- Botones: Regresar, Siguiente -->
+        <div class="container">
+            <div class="row pt-2 text-center">
+                <div class="col-md-6">
+                    <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+                </div>
+                <div class="col-md-6 form-group">
+                    <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Botones: Regresar, Siguiente -->
+    </div>
+</form>
+
+<!-- Modal: Seleccionar Rubro -->
+<div class="modal fade" id="ModalRubro" tabindex="-1" role="dialog" aria-labelledby="ModalRubroLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalRubroLabel">Seleccionar Rubro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-arbol-rubro></ngx-arbol-rubro>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal: Seleccionar Rubro -->

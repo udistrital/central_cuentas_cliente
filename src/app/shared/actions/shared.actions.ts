@@ -37,9 +37,28 @@ export const LoadFilaSeleccionada = createAction(
   props()
 );
 
-// Fila Seleccionado
+// Accion General de Tabla
 
 export const LoadAccionTabla = createAction(
   '[Shared] Load Accion Tabla',
+  props()
+);
+
+// Acciones Vigencia
+
+export const GetVigenciaActual = createAction(
+  '[Shared] Get Vigencia Actual',
+  props<{ offset: number }>()
+);
+
+export const LoadVigenciaActual = createAction(
+  '[Shared] Load Vigencia Actual',
+  props()
+);
+
+// Area Funcional
+
+export const LoadAreaFuncional = createAction(
+  '[Shared] Load Area Funcional',
   props()
 );

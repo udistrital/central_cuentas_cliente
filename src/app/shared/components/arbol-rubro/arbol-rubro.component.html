@@ -8,8 +8,7 @@
     <table [nbTreeGrid]="dataSource" nbSort (sort)="changeSort($event)" equalColumnsWidth>
 
         <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns" class="text-center bg-primary text-light"></tr>
-        <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" ngxSelectedRow [myRow]="row"
-            [selectedRow]="selectedTreeRow" (click)="onSelect(row)"></tr>
+        <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" ngxSelectedRow [myRow]="row" [selectedRow]="selectedTreeRow" (click)="onSelect(row)"></tr>
 
         <!-- Columna para Arbol -->
         <ng-container [nbTreeGridColumnDef]="customColumn">

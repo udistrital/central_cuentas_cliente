@@ -1,0 +1,103 @@
+<form [formGroup]="datosCompromiso">
+    <div class="container">
+        <div class="form-group row">
+            <div class="col">
+                <mat-card-header class="py-1">
+                    <mat-card-subtitle>
+                        <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                            Datos del Compromiso
+                        </h6>
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Compromiso a pagar</mat-label>
+                    <mat-select disableRipple matInput formControlName="compromiso">
+                        <mat-option value="2">Opcion 1</mat-option>
+                        <mat-option value="2">Opcion 2</mat-option>
+                        <mat-option value="3">Opcion 3</mat-option>
+                    </mat-select>
+                    <mat-hint>Elegir compromiso</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Número de compromiso</mat-label>
+                    <input matInput formControlName="numeroCompromiso">
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>No. Acta de Recibido</mat-label>
+                    <input matInput disabled>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>No. Entrada al Almacen</mat-label>
+                    <input matInput type="text" disabled>
+                </mat-form-field>
+            </div>
+            <!-- Fin Campos: Nombres, Apellidos, Cargo -->
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Nombre del Interventor</mat-label>
+                    <input matInput disabled>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Detalle</mat-label>
+                    <textarea matInput disabled></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Vigencia</mat-label>
+                    <mat-select disableRipple matInput formControlName="vigencia">
+                        <mat-option value="2">Opcion 1</mat-option>
+                        <mat-option value="2">Opcion 2</mat-option>
+                        <mat-option value="3">Opcion 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" [style.width.%]="100">
+                    <mat-label>Tipo de órden de pago</mat-label>
+                    <mat-select disableRipple matInput formControlName="tipoOrden">
+                        <mat-option value="2">Opcion 1</mat-option>
+                        <mat-option value="2">Opcion 2</mat-option>
+                        <mat-option value="3">Opcion 3</mat-option>
+                    </mat-select>
+                    <mat-hint>Tipo de órden de pago</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+
+    <!-- Grupo: Solicitante -->
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div class="col-md-6">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+            </div>
+            <div class="col-md-6 form-group">
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            </div>
+        </div>
+    </div>
+</form>
