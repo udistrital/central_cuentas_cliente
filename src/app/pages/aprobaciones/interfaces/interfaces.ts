@@ -199,5 +199,5 @@ export const DATOS_CREACION: any = [
             mes: 'enero',
             consecutivo: '1827',
             estado: 'activo'
-         }];
-
+         }
+];

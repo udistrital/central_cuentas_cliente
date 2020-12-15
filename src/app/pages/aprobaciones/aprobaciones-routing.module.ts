@@ -15,7 +15,12 @@ const routes: Routes = [
       },
       {
         path: 'crear',
-        component: CreateApprobationComponent, canActivate: []
+        component: CreateApprobationComponent,
+      },
+      {
+        path: 'orden',
+        loadChildren: () => import('../aprobacion-ordenespago/aprobacion-ordenespago.module')
+        .then(m => m.AprobacionOrdenespagoModule)
       },
       {
         path: '',
