@@ -11,13 +11,26 @@
             <mat-horizontal-stepper linear #stepper>
                 <mat-step>
                     <ng-template matStepLabel> Inicio </ng-template>
-                    <ngx-form-anulation></ngx-form-anulation>
+                    <ngx-form-anulation (eleccion)="eleccionAnulacion($event)"></ngx-form-anulation>
                 </mat-step>
-                <mat-step>                   
+                <mat-step>                 
+                    <div *ngIf="tipoAnulacion === 'Orden de pago'">
+                        <ngx-table [titles]="titlesOrden" [attributes]="attributesOrden" [list]="datosOrden" [seleccion]="true"></ngx-table>
+                    </div>
+                    <div *ngIf="tipoAnulacion === 'Relación de autorización'">
+                        <ngx-table [titles]="titlesRelacion" [attributes]="attributesRelacion" [list]="datosRelacion" [seleccion]="true"></ngx-table>
+                    </div>
                     <div class="row">
-                        <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
-                            Volver al registro
-                        </button>
+                        <div class="col">
+                            <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                                Volver al registro
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" routerLinkActive="active" routerLink="/pages/anulaciones/datos" [disabled]="form.aprobacionesElegidas.length === 0" >
+                                Siguiente
+                            </button>
+                        </div>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>   

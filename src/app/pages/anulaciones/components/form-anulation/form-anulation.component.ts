@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import {FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./form-anulation.component.scss']
 })
 export class FormAnulationComponent implements OnInit {
+
+  @Output () eleccion: EventEmitter <any>;
 
   nombreAprobacion: any;
   anulaciones: any;
@@ -25,13 +27,14 @@ export class FormAnulationComponent implements OnInit {
       areaFuncional: ['', Validators.required],
       tipoAnulacion: ['', Validators.required],
     });
+    this.eleccion = new EventEmitter;
   }
 
   ngOnInit() {
   }
 
   onSubmit (data: any) {
-    /* console.log(data); */
+    this.eleccion.emit(data);
   }
 
 }

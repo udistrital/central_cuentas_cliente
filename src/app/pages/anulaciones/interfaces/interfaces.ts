@@ -114,3 +114,84 @@ export const DATOS_PRUEBA: any = [
         tipoDocumento: 'Orden de pago'
     }
 ];
+export const DATOS_RELACION_AUTORIZACION: any = [
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'febrero',
+        consecutivo: '21783',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'junio',
+        consecutivo: '18293',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'julio',
+        consecutivo: '78231',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2020',
+        mes: 'agosto',
+        consecutivo: '89273',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2020',
+        mes: 'febrero',
+        consecutivo: '987123',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'enero',
+        consecutivo: '1827',
+        estado: 'activo'
+    }
+];
+export const DATOS_ORDENPAGO: any = [
+    {
+        vigencia: '2019',
+        consecutivo: '21783',
+        tipoID  : 'CC',
+        numeroID: '120398',
+        nombre: 'Ester'
+    },
+    {
+        vigencia: '2021',
+        consecutivo: '2453',
+        tipoID  : 'CC',
+        numeroID: '87324',
+        nombre: 'Juan'
+    },
+    {
+        vigencia: '2020',
+        consecutivo: '21783',
+        tipoID  : 'CC',
+        numeroID: '379989',
+        nombre: 'Lina'
+    },
+    {
+        vigencia: '2019',
+        consecutivo: '21233',
+        tipoID  : 'CC',
+        numeroID: '5465598',
+        nombre: 'Ana'
+    },
+    {
+        vigencia: '2019',
+        consecutivo: '21908',
+        tipoID  : 'CC',
+        numeroID: '120455',
+        nombre: 'Nancy'
+    },
+];
