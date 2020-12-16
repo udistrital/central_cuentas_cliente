@@ -54,8 +54,5 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     NgbModal,
     RelacionautorizacionesService
 ],
-  // exports: [
-  //   MatStepperModule
-  // ]
 })
 export class RelacionautorizacionesModule { }

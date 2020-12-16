@@ -1,4 +1,7 @@
 <div style="overflow-x:auto">
+    <div class="form-group mb-2" *ngIf="filtro">
+        <input type="text" class="form-control py-2 mb-3 mt-3" id="buscador-tabla" aria-describedby="search-table" placeholder="Buscar..." [(ngModel)]="stringBusqueda">
+    </div>
     <table class="table table-bordered table-hover">
         <thead class="thead table-title">
             <tr>
@@ -9,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of list">
+            <tr *ngFor="let item of list | filterTable:stringBusqueda">
                 <td *ngIf="seleccion"><label class="switch">
                     <input type="checkbox" [checked]="item.status" (change)="seleccionar(item, $event.target.checked)">
                     <span class="slider round"></span>
@@ -26,14 +29,14 @@
                 
                 <ng-container *ngIf="aprobacionContable" >
                     <td>
-                        <button type="button" name="button" (click)="onClick(item)">
+                        <button class="btn btn-link" type="button" name="button" (click)="onClickContable(item)">
                             <i class="far fa-hand-point-up"></i>
                         </button>
                     </td>
                 </ng-container>
                 <ng-container *ngIf="aprobacionPresupuestal" >
                     <td>
-                        <button type="button" name="button" (click)="onClick(item)">
+                        <button class="btn btn-link" type="button" name="button" (click)="onClickPresupuestal(item)">
                             <i class="far fa-hand-point-up"></i>
                         </button>
                     </td>

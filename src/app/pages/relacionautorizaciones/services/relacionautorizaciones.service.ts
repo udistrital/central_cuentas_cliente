@@ -32,9 +32,9 @@ export class RelacionautorizacionesService {
 
 export interface Relacion {
   nombreRelacion: string;
-  DescripcionRelacion: string;
-  MesRelacion: string;
-  QuincenaRelacion?: string;
-  CajaCompensacionRelacion?: string;
+  descripcionRelacion: string;
+  mesRelacion: string;
+  quincenaRelacion?: string;
+  cajaRelacion?: string;
 
 }

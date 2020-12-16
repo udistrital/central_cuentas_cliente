@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StepperSolicitudgiroComponent } from './stepper-solicitudgiro.component';
+import { StepperRelacionautorizacionComponent } from './stepper-relacionautorizacion.component';
 
-describe('stepper-solicitudgiroComponent', () => {
-  let component: StepperSolicitudgiroComponent;
-  let fixture: ComponentFixture<StepperSolicitudgiroComponent>;
+describe('stepper-relacionautorizacion.component', () => {
+  let component: StepperRelacionautorizacionComponent;
+  let fixture: ComponentFixture<StepperRelacionautorizacionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StepperSolicitudgiroComponent ]
+      declarations: [ StepperRelacionautorizacionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StepperSolicitudgiroComponent);
+    fixture = TestBed.createComponent(StepperRelacionautorizacionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

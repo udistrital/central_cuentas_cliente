@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { cargarDatosIniciales } from '../../actions/aprobaciones.actions';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-form',
   templateUrl: './form.component.html',
@@ -21,6 +22,7 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<any>,
+    private route: Router,
   ) {
 
    }
@@ -35,5 +37,8 @@ export class FormComponent implements OnInit {
 
   onSubmit (data: any) {
     this.store.dispatch(cargarDatosIniciales(data));
+    if (data.tipoAprobacion === 'Orden de pago') {
+      this.route.navigateByUrl('pages/aprobaciones/orden/lista');
+    }
   }
 }

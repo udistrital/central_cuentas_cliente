@@ -29,6 +29,11 @@ const routes: Routes = [
         .then(m => m.RelacionautorizacionesModule),
       },
       {
+        path: 'anulaciones',
+        loadChildren: () => import ('./anulaciones/anulaciones.module')
+        .then(m => m.AnulacionesModule),
+      },
+      {
         path: 'devoluciontributaria',
         loadChildren: () => import('./devoluciontributaria/devoluciontributaria.module')
         .then(m => m.DevoluciontributariaModule),
