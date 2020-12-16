@@ -7,6 +7,6 @@ export class FormService {
 
   constructor() { }
 
-  public rechazarFormulario: boolean;
-  public aprobacionesElegidas: Object [];
+  public rechazarFormulario?: boolean;
+  public aprobacionesElegidas?: Object [];
 }

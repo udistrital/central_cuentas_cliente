@@ -48,8 +48,5 @@ import { StepperRelacionautorizacionComponent } from './components/stepper-relac
     NgbModal,
     RelacionautorizacionesService
 ],
-  // exports: [
-  //   MatStepperModule
-  // ]
 })
 export class RelacionautorizacionesModule { }
