@@ -7,16 +7,30 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SetPdfviewComponent implements OnInit {
 
-  // @Input('enlacePDF') enlacePDF: string;
-  // @Input('tituloPDF') tituloPDF: string;
-  // @Output() goBack = new EventEmitter();
+  @Input() fileName = '';
+  @Input() currentPage: number;
+  @Input() totalPages: number;
+  @Input() zoomAmt: number;
+  @Input() zoomMax: number;
+  @Input() zoomMin: number;
 
-  constructor() { }
+  @Output() setZoom: EventEmitter<any> = new EventEmitter();
+  @Output() download: EventEmitter<any> = new EventEmitter();
+  @Output() print: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  onDownload(event: any): void {
+    this.download.emit();
   }
- 
-  // cambioTab () {
-  //   this.goBack.emit(false);
-  // }
+
+  onPrint(event: any): void {
+    this.print.emit();
+  }
+
+  zoom(type: string): void {
+    this.setZoom.emit(type);
+  }
 }

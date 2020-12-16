@@ -20,6 +20,7 @@ import { SetConceptonuevarelacionComponent } from './components/set-conceptonuev
 import { StepperRelacionautorizacionComponent } from './components/stepper-relacionautorizacion/stepper-relacionautorizacion.component';
 import { SetPdfviewComponent } from './components/set-pdfview/set-pdfview.component';
 import { SetExtractodesagregacionComponent } from './components/set-extractodesagregacion/set-extractodesagregacion.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { SetExtractodesagregacionComponent } from './components/set-extractodesa
     MatDividerModule,
     MatStepperModule,
     NgbModule,
+    PdfViewerModule,
     StoreModule.forFeature(fromRelacionautorizaciones.relacionautorizacionesFeatureKey, fromRelacionautorizaciones.reducer),
     EffectsModule.forFeature([RelacionautorizacionesEffects])
   ],

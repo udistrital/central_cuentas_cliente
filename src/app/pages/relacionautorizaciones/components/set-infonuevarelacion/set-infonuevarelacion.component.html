@@ -18,18 +18,17 @@
         </div>
     </div>
     <!-- Fin Campo: No. de Relación y Fecha -->
-    <!-- Texto: Exclusivo para nomina de funcionarios*** -->
+    <!-- Texto -->
     <div class="container bg-white p-5">
         <div class="row">
             <div class="col-md-12">
                 <h6 class="text-center">
                     {{ relacion.descripcionRelacion }}
-                    <!-- ***Autorízase al Pagador, para pagar con cargo al presupuesto de la vigencia 2020 y al PAC del mes correspondiente, la nómina de la entidad UNIVERSIDAD DISTRITAL FRANCISCO JOSE DE RECTOR PAGO NÓMINA DOCENTES -->
                 </h6>
             </div>
         </div>
-        <!-- Fin Texto: Exclusivo para nomina de funcionarios*** -->
     </div>
+    <!-- Fin Texto -->
     <!-- Campos: Mes, Quincena, No. de compromiso, tipo de compromiso -->
     <div class="container bg-white px-3">
         <div class="form-group row">
@@ -44,7 +43,7 @@
                 <small *ngIf="mesInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-3">
-                <label>Quincena</label>
+                <label>{{ relacion.etiqueta }}</label>
                 <input type="text" class="form-control" formControlName="quincena" [class.is-invalid]="quincenaInvalid">
                 <small *ngIf="quincenaInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
