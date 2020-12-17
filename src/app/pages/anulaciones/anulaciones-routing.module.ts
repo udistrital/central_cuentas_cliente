@@ -18,7 +18,7 @@ const routes: Routes = [{
         component: CreateAnulationComponent,
       },
       {
-        path: 'datos',
+        path: 'detalle/:tipo',
         component: OrderAnulationComponent,
       },
       {

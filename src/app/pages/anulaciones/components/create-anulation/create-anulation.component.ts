@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DATOS_ORDENPAGO, DATOS_RELACION_AUTORIZACION } from '../../interfaces/interfaces';
 import { FormService } from '../../../../shared/services/form.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ngx-create-anulation',
   templateUrl: './create-anulation.component.html',
@@ -20,11 +21,11 @@ export class CreateAnulationComponent implements OnInit {
 
   constructor(
     public form: FormService,
+    public route: Router,
   ) {
     this.datosOrden = DATOS_ORDENPAGO;
     this.datosRelacion = DATOS_RELACION_AUTORIZACION;
   }
-
 
   ngOnInit() {
     this.form.aprobacionesElegidas = [];
@@ -32,6 +33,14 @@ export class CreateAnulationComponent implements OnInit {
 
   eleccionAnulacion( data: any ) {
     this.tipoAnulacion = data.tipoAnulacion;
+  }
+
+  crear () {
+    if (this.tipoAnulacion === 'Orden de pago') {
+      this.route.navigateByUrl('/pages/anulaciones/detalle/opago');
+    } else if (this.tipoAnulacion === 'Relación de autorización') {
+      this.route.navigateByUrl('/pages/anulaciones/detalle/rautorizacion');
+    }
   }
 
 }

@@ -3,12 +3,12 @@
     text-align: center;
 }
 
-.card {
-    margin-top: 5%;
+.card-title {
+    margin-top: -5%;
 }
 
-.card-title {
-    margin-top: -2%;
+.card{
+    margin-top: 4%;
 }
 
 input{
@@ -23,3 +23,14 @@ label{
     padding: 0px;
     margin: 0px;
 }
+
+.row{
+    padding: 3%;
+    text-align: left;
+}
+
+textarea{
+    width: 70%;
+    height: 100%;
+}
+

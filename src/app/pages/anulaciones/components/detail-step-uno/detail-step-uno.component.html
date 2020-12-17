@@ -1,1 +1,43 @@
-<p>detail-step-uno works!</p>
+<form [formGroup]="acta" (ngSubmit)="onSubmit(acta.value)">
+    <div class="card mr-3 ml-3">   
+        <div class="card-body">
+            <div class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+                Detalle del acta
+            </div>  
+            <div class="row">
+                <div class="col">
+                    <label for=""> Justificación </label> <br>
+                    <textarea name="justificacion" id="justificacion" formControlName="justificacion" placeholder="Escribir..."> </textarea>
+                </div>
+            </div>
+            <hr>
+            <ngx-table [titles]="titles" [attributes]="attributes" [list]="datos" ></ngx-table>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <p> Funcionario </p>
+                </div>
+                <div class="col">
+                    <label for="nombre"> Nombre del funcionario </label> <br>
+                    <input id="nombre" name="nombre" formControlName="nombre" type="text">
+                </div>
+                <div class="col">
+                    <label for="cargo"> Cargo </label> <br>
+                    <input id="cargo" name="cargo" formControlName="cargo" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row group">
+        <div class="col">
+            <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                Volver
+            </button>
+        </div>
+        <div class="col">
+            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="acta.invalid">
+                Continuar
+            </button>
+        </div>
+    </div>                 
+</form>

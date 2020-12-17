@@ -160,6 +160,7 @@ export const DATOS_RELACION_AUTORIZACION: any = [
 ];
 export const DATOS_ORDENPAGO: any = [
     {
+        id: 1,
         vigencia: '2019',
         consecutivo: '21783',
         tipoID  : 'CC',
@@ -167,6 +168,7 @@ export const DATOS_ORDENPAGO: any = [
         nombre: 'Ester'
     },
     {
+        id: 2,
         vigencia: '2021',
         consecutivo: '2453',
         tipoID  : 'CC',
@@ -174,6 +176,7 @@ export const DATOS_ORDENPAGO: any = [
         nombre: 'Juan'
     },
     {
+        id: 3,
         vigencia: '2020',
         consecutivo: '21783',
         tipoID  : 'CC',
@@ -181,6 +184,7 @@ export const DATOS_ORDENPAGO: any = [
         nombre: 'Lina'
     },
     {
+        id: 4,
         vigencia: '2019',
         consecutivo: '21233',
         tipoID  : 'CC',
@@ -188,10 +192,18 @@ export const DATOS_ORDENPAGO: any = [
         nombre: 'Ana'
     },
     {
+        id: 5,
         vigencia: '2019',
         consecutivo: '21908',
         tipoID  : 'CC',
         numeroID: '120455',
         nombre: 'Nancy'
     },
+];
+export const DATOS_VALOR: any = [
+    {
+        id: 1,
+        nConcepto: 'Nómina CPS',
+        valor: '3000000',
+    }
 ];

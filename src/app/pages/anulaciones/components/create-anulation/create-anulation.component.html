@@ -27,7 +27,7 @@
                             </button>
                         </div>
                         <div class="col">
-                            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" routerLinkActive="active" routerLink="/pages/anulaciones/datos" [disabled]="form.aprobacionesElegidas.length === 0" >
+                            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" (click)="crear()" [disabled]="form.aprobacionesElegidas.length === 0" >
                                 Siguiente
                             </button>
                         </div>

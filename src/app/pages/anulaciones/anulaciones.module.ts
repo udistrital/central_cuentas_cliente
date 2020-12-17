@@ -27,6 +27,7 @@ import { MatCardModule,
   MatSelectModule,
   MatStepperModule,
   MatTableModule } from '@angular/material';
+import { FormDocumentComponent } from './components/form-document/form-document.component';
 
 @NgModule({
   declarations: [LayoutAnulacionesComponent,
@@ -37,7 +38,8 @@ import { MatCardModule,
     DetailStepTresComponent,
     DetailStepCuatroComponent,
     OrderAnulationComponent,
-    FormAnulationComponent],
+    FormAnulationComponent,
+    FormDocumentComponent],
   imports: [
     CommonModule,
     AnulacionesRoutingModule,
