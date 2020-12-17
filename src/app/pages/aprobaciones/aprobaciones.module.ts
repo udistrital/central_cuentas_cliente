@@ -6,11 +6,10 @@ import { StoreModule } from '@ngrx/store';
 import * as fromAprobaciones from './reducers/aprobaciones.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AprobacionesEffects } from './effects/aprobaciones.effects';
-import { TableComponent } from './components/table/table.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { CreateApprobationComponent } from './components/create-approbation/create-approbation.component';
 import { ListApprobationsComponent } from './components/list-approbations/list-approbations.component';
 import { RelationApprobationComponent } from './components/relation-approbation/relation-approbation.component';
-import { OrderApprobationComponent } from './components/order-approbation/order-approbation.component';
 import { SharedModule } from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
@@ -24,18 +23,13 @@ import { MatCardModule,
   MatSelectModule,
   MatStepperModule,
   MatTableModule } from '@angular/material';
-import { LayoutComponent } from './components/layout/layout.component';
-import { RechazarComponent } from './components/rechazar/rechazar.component';
-
-
 @NgModule({
   declarations: [
-    TableComponent,
     CreateApprobationComponent,
     ListApprobationsComponent,
     RelationApprobationComponent,
-    OrderApprobationComponent,
-    FormComponent, LayoutComponent, RechazarComponent],
+    FormComponent,
+    LayoutComponent, ],
   imports: [
     CommonModule,
     SharedModule,

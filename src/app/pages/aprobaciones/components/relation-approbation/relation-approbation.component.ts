@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DATOS_CREACION } from '../../interfaces/interfaces';
 import { getDatosIniciales } from '../../selectors/aprobaciones.selectors';
-import { FormService } from '../../services/form.service';
+import { FormService } from '../../../../shared/services/form.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 @Component({

@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TableAutorizacionnominaComponent } from './components/table-autorizacionnomina/table-autorizacionnomina.component';
-// import { StepperAutorizacionnominaComponent } from './components/stepper-autorizacionomina/stepper-autorizacionnomina.component';
-import { SetInfoautorizacionnominaComponent } from './components/set-infoautorizacionnomina/set-infoautorizacionnomina.component';
+import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
+import { TableRelacionautorizacionComponent } from './components/table-relacionautorizacion/table-relacionautorizacion.component';
+import { StepperRelacionautorizacionComponent } from './components/stepper-relacionautorizacion/stepper-relacionautorizacion.component';
 
 
 const routes: Routes = [
   {
-    path: 'lista',
-    component: TableAutorizacionnominaComponent,
+    path: 'elegir',
+    component: MenutiporelacionComponent,
   },
   {
-    path: 'crear',
-    component: SetInfoautorizacionnominaComponent,
+    path: 'listar/:id',
+    component: TableRelacionautorizacionComponent,
+  },
+  {
+    path: 'crear/:id',
+    component: StepperRelacionautorizacionComponent,
   },
 ];
 

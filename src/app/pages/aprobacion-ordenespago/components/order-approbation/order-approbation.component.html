@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 class="card-title text-center text-primary">APROBACIÓN DE ÓRDENES DE PAGO</h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Aprobación de órdenes de pago
+                    </div>
+                    <div class="row">
+                        <p> Seleccione las órdenes que desee aprobar: </p>
+                    </div>
+                    <div class="table">
+                        <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [seleccion]="true" [aprobacionContable]="true" [aprobacionPresupuestal]="true" [filtro]="true"> </ngx-table>
+                    </div>
+                    <div class="row">
+                        <div class="col align-items-center">
+                            <p> Aprobación masiva </p>
+                        </div>
+                        <div class="col">
+                            <button type="button" [disabled]="form.aprobacionesElegidas.length === 0" class="btn btn-success px-3 py-2 my-2" (click)="aprobacionContable()">
+                                Aprobación contable
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button type="button" [disabled]="form.aprobacionesElegidas.length === 0" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aprobacionPresupuestal()">
+                                Aprobación presupuestal
+                            </button>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <button mat-button type="button"  class="btn btn-primary px-3 py-2 my-2 text-light" routerLinkActive="active" routerLink="/pages/aprobaciones/crear">
+                            Volver al registro
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
