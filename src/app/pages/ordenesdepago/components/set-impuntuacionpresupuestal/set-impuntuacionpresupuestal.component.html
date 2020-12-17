@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="disponibilidad">Disponibilidad</label>
-            <select class="form-control" id="disponibilidad">
+            <select class="form-control" id="disponibilidad" formControlName="disponibilidad">
                 <option selected disabled>Elegir...</option>
                 <option value="111">111</option>
                 <option value="222">222</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label for="registro">Registro</label>
-            <select class="form-control" id="registro">
+            <select class="form-control" id="registro" formControlName="registro">
                 <option selected disabled>Elegir...</option>
                 <option value="123456">123456</option>
                 <option value="789001">789001</option>
@@ -54,7 +54,7 @@
         </div>
         <div class="col-md-4 form-group">
             <label for="valorAplicacion">Valor Aplicación (Gasto)</label>
-            <input currencyMask class="form-control" id="valorAplicacion">
+            <input currencyMask class="form-control" id="valorAplicacion" formControlName="valor">
         </div>
     </div>
     <div class="row justify-content-end">
