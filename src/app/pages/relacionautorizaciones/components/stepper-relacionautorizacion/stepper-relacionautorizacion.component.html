@@ -41,8 +41,27 @@
                 <mat-step>
                     <ng-template matStepLabel>Extracto</ng-template>
                     <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 bg-white py-3">
+                                <h6 class="card-title text-center text-primary">
+                                    EXTRACTO DE DESAGREGACIÓN CONTABLE
+                                </h6>
+                            </div>
+                        </div>
                         <ngx-set-extractodesagregacion></ngx-set-extractodesagregacion>
                     </div>
+                    <!-- Botones: Regresar, Siguiente -->
+                    <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
+                        <div class="form-group col-md-6">
+                            <a routerLink='/pages/relacionautorizaciones/elegir'>
+                                <button type="submit" class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+                            </a>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">GUARDAR</button>
+                        </div>
+                    </div>
+                    <!-- Fin Botones: Regresar, Siguiente -->
                 </mat-step>
                 <!-- Fin Extrato de desagregacion contable -->
             </mat-horizontal-stepper>

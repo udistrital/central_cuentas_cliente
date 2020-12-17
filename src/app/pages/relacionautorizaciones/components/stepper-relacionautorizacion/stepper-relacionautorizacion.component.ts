@@ -4,6 +4,7 @@ import { SetConceptonuevarelacionComponent } from '../set-conceptonuevarelacion/
 import { SetConsultanuevarelacionComponent } from '../set-consultanuevarelacion/set-consultanuevarelacion.component';
 import { RelacionautorizacionesService } from '../../services/relacionautorizaciones.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'ngx-stepper-relacionautorizacion',
@@ -19,8 +20,10 @@ export class StepperRelacionautorizacionComponent {
   // Variable local para mostrar datos desde servicio
   relacion: any = {};
 
-  constructor( private _relacionService: RelacionautorizacionesService,
-    private activatedRoute: ActivatedRoute ) {
+  constructor( 
+    private _relacionService: RelacionautorizacionesService,
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder ) {
 
     // Configuracion de enrutamiento de datos (nomina o seguridad social)
     this.activatedRoute.paramMap.subscribe( params => {
@@ -30,13 +33,13 @@ export class StepperRelacionautorizacionComponent {
   }
 
   get inforelacionGroup() {
-    return this.SetInfoautorizacionnominaComponent ? this.SetInfoautorizacionnominaComponent.inforelacionGroup : null ;
+    return this.SetInfoautorizacionnominaComponent ? this.SetInfoautorizacionnominaComponent.inforelacionGroup : this.fb.group({});
   }
   get consultaGroup() {
-    return this.SetConsultanuevarelacionComponent ? this.SetConsultanuevarelacionComponent.consultaGroup : null;
+    return this.SetConsultanuevarelacionComponent ? this.SetConsultanuevarelacionComponent.consultaGroup : this.fb.group({});
   }
   get conceptoGroup() {
-    return this.SetConceptonuevarelacionComponent ? this.SetConceptonuevarelacionComponent.conceptoGroup : null;
+    return this.SetConceptonuevarelacionComponent ? this.SetConceptonuevarelacionComponent.conceptoGroup : this.fb.group({});
   }
 }
 

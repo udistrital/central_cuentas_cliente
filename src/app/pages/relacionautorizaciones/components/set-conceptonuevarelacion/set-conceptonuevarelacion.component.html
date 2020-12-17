@@ -13,6 +13,23 @@
         </div>
     </div>
     <!-- Fin Tabla -->
+    <!-- Modal -->
+    <ng-template #verDesagregacionModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="modal-verDesagregacion">ANEXOS DE RELACIONES POR CONCEPTO</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <h6>Nómina por Pagar - Docentes</h6>
+            <ngx-set-extractodesagregacion></ngx-set-extractodesagregacion>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary text-light" (click)="modal.close('Close click')">Volver</button>
+        </div>
+    </ng-template>
+    <!-- Fin Modal -->
     <!-- Botones: regresar, Siguiente -->
     <div class="row text-center">
         <div class="col-4">

@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-md-2 d-flex align-items-center">
-            <button type="button" class="btn btn-primary btn-block text-white">Mostrar</button>
+            <button class="btn btn-primary text-white btn-block" type="button" (click)="mostrarDatos()">Mostrar Datos</button>
         </div>
     </div>
     <!-- Fin Campo: Elegir código del rubro, mostrar nombre del rubro -->
@@ -43,12 +43,29 @@
         <ngx-general-table [config]="configuracion" [datos]="datosConsulta"></ngx-general-table>
     </div>
     <!-- Fin Tabla -->
+    <!-- Modal: Eliminar registros de la tabla -->
+    <ng-template #eliminarDatoModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-borrarDato">Borrar</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            ¿Desea borrar el registro?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancelar</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
+        </div>
+    </ng-template>
+    <!-- Fin Modal -->
     <!-- Campo: Total relacion autorización -->
     <div class="container-fluid">
         <div class="row justify-content-end align-items-end pl-5 pb-5 pt-2">
-            <div class="col-4">
+            <div class="col-3">
             </div>
-            <div class="col-3 pl-7">
+            <div class="col-4 pl-7 py-2">
                 <label>Total Relación de Autorización</label>
             </div>
             <div class="col-4 px-4">
@@ -59,12 +76,11 @@
         </div>
     </div>
     <!-- Fin Campo: Total relacion autorización -->
-
     <!-- Campo: Fuentes afectables -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                <h6 class="card-title col-md-4 bg-dark text-white text-center py-2 px-2 rounded">
                     Fuentes Afectables
                 </h6>
             </div>
@@ -75,9 +91,9 @@
             </div>
         </div>
         <div class="row justify-content-end align-items-end pl-5 pb-5 pt-1">
-            <div class="col-4">
+            <div class="col-3">
             </div>
-            <div class="col-3 pl-7 px-4">
+            <div class="col-4 pl-7 py-2">
                 <label>Total Fuentes de Financiación</label>
             </div>
             <div class="col-5 px-4">
@@ -97,33 +113,4 @@
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
-
-    <!-- Modal: Seleccionar Rubro -->
-    <!-- <div class="modal fade" id="ModalRubro" tabindex="-1" role="dialog" aria-labelledby="ModalRubroLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalRubroLabel">CDP - Disponibilidad</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <div class="col">
-                        <label>Código de CDP<small>Ingrese el número de disponibilidad</small></label>
-                        <input type="text" class="form-control">
-                        <input type="text" class="form-control" formControlName="codigoDisponibilidad" [class.is-invalid]="disponibilidadInvalid">
-                        <small *ngIf="disponibilidadInvalid" class="text-danger">Ingrese números en este campo</small>
-                        <span class="form-control overflow"> Descripción del CDP </span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Fin Modal: Seleccionar Rubro -->
-
 </form>

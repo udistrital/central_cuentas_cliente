@@ -182,7 +182,7 @@ export const CONFIGURACION_TABLACONSULTA: any = {
         },
         actions: [
             {
-                name: 'ver',
+                name: 'Borrar',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Borrar',

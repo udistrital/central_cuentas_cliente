@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CONFIGURACION_TABLACONSULTA, DATOS_TABLACONSULTA } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ngx-set-consultanuevarelacion',
@@ -11,16 +12,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./set-consultanuevarelacion.component.scss']
 })
 export class SetConsultanuevarelacionComponent implements OnInit {
+  @ViewChild('eliminarDatoModal', { static: false }) eliminarDatoModal: ElementRef;
 
   consultaGroup: FormGroup;
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosConsulta: any;
   subscription$: any;
-  @Output() selectedAction: EventEmitter<any>;
+  subscription: any;
   stringBusqueda: string;
+  @Output() selectedAction: EventEmitter<any>;
 
-  constructor( private fb: FormBuilder, private store: Store<any>) {
+  constructor( private fb: FormBuilder, private store: Store<any>, private modalService: NgbModal) {
         // Datos de ejemplo q se muestran en la tabla
         this.datosConsulta = DATOS_TABLACONSULTA;
         this.configuracion = CONFIGURACION_TABLACONSULTA;
@@ -40,7 +43,16 @@ export class SetConsultanuevarelacionComponent implements OnInit {
   }
 
   ngOnInit() {
-       // Tabla
+    // Eliminar datos que se encuentran en la tabla
+    this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
+      if (accion) {
+        if (accion.accion.name === 'Borrar') {
+          this.modalEliminar(accion.fila);
+        } 
+      }
+    })
+    // Mostrar datos ingresados en la tabla
+    this.mostrarDatos();
        this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
         if (fila) {
           this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
@@ -70,6 +82,25 @@ export class SetConsultanuevarelacionComponent implements OnInit {
         control.markAsTouched();
       });
     }
+  }
+
+  // Evento con el boton mostrar datos en la tabla
+  mostrarDatos() {
+    this.datosConsulta.push(DATOS_TABLACONSULTA[0]);
+  }
+
+  // Modal acciones sobre la tabla: eliminar registros
+  modalEliminar(fila: any) {
+    this.modalService.open(this.eliminarDatoModal).result.then((result) => {
+      if (`${result}`) {
+        this.datosConsulta.splice(this.datosConsulta.findIndex(
+          (element: any) => element.codigo === fila.codigo
+          && element.disponibilidad === fila.disponibilidad
+          && element.registro === fila.registro
+          && element.valor === fila.valor
+          ), 1);
+      }
+    });
   }
 
 }
