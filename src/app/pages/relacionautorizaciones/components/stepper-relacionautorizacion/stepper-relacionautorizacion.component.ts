@@ -20,7 +20,7 @@ export class StepperRelacionautorizacionComponent {
   // Variable local para mostrar datos desde servicio
   relacion: any = {};
 
-  constructor( 
+  constructor(
     private _relacionService: RelacionautorizacionesService,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder ) {

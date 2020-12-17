@@ -48,9 +48,9 @@ export class SetConsultanuevarelacionComponent implements OnInit {
       if (accion) {
         if (accion.accion.name === 'Borrar') {
           this.modalEliminar(accion.fila);
-        } 
+        }
       }
-    })
+    });
     // Mostrar datos ingresados en la tabla
     this.mostrarDatos();
        this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
