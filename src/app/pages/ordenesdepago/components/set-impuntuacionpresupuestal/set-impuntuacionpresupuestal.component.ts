@@ -43,7 +43,9 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
 
   ngOnInit() {
     this.impuntuacionPresupuestal = this.fb.group({
-      firstCtrl: ['', Validators.required]
+      disponibilidad: [''],
+      registro: [''],
+      valor: [''],
     });
     this.mostrarOcultarHistoria('');
     this.agregar(); // TODO
