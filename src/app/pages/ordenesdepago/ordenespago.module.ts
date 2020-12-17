@@ -20,6 +20,7 @@ import { MatCardModule,
   MatSelectModule,
   MatStepperModule,
   MatTableModule } from '@angular/material';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiario/set-datosbeneficiario.component';
 import { SetDatoscompromisoComponent } from './components/set-datoscompromiso/set-datoscompromiso.component';
 import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
@@ -49,6 +50,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     MatDividerModule,
     MatTableModule,
     MatExpansionModule,
+    ScrollingModule,
     StoreModule.forFeature(fromOrdenespago.ordenespagoFeatureKey, fromOrdenespago.reducer),
     EffectsModule.forFeature([OrdenespagoEffects])
   ]

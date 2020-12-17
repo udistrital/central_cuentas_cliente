@@ -6,9 +6,16 @@
             <label for="concepto" class="m-0">Concepto</label>
         </div>
         <div class="col-md-6">
-            <select class="form-control" id="concepto">
-                <option>Seleccione un concepto contable...</option>
-            </select>
+            <ng-container *ngIf="conceptosContables">
+                <mat-select class="form-control" placeholder="Seleccione concepto contable..."
+                    formControlName="conceptoContable">
+                    <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let concepto of conceptosContables" class="vs-item"
+                            [value]="concepto">
+                            {{concepto.Nombre}}</mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+            </ng-container>
         </div>
     </div>
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
