@@ -64,14 +64,14 @@
             </button>
         </div>
     </div>
-    <div id="tablaImputacion" class="container pt-1 px-0">
+    <div id="tablaImputacion" class="container py-2 px-0">
         <ngx-general-table [config]="configTableImpuntuacion" [datos]="datosTableImputacion"></ngx-general-table>
     </div>
     <div class="row form-group justify-content-md-center">
         <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Valor Total</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalGasto|currency}}">
+            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
         </div>
     </div>
     <ng-template #eliminarModal let-modal>
