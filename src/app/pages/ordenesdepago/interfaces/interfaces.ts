@@ -190,12 +190,14 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Fuentes',
+                idStep: 3
             },
             {
                 name: 'modificar',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
+                idStep: 3
             }
         ],
     },
@@ -284,6 +286,7 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
+                idStep: 4
             }
         ],
     },
