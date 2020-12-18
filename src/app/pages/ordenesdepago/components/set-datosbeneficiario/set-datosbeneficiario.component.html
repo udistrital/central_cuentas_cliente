@@ -30,8 +30,7 @@
     <div class="row">
         <div class="col-md-2 form-group">
             <label for="tipoId">Tipo de ID</label>
-            <select class="form-control" id="tipoId" formControlName="tipoId"
-            [class.is-invalid]="esInvalido('tipoId')">
+            <select class="form-control" id="tipoId" formControlName="tipoId" [class.is-invalid]="esInvalido('tipoId')">
                 <option>CC</option>
                 <option>CE</option>
                 <option>NIT</option>
@@ -40,7 +39,7 @@
         <div class="col-md-4 form-group">
             <label for="numeroId">No. de ID</label>
             <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
-            [class.is-invalid]="esInvalido('numeroId')">
+                [class.is-invalid]="esInvalido('numeroId')">
         </div>
         <div class="col-md-6 form-group">
             <label for="nombre">Nombre</label>
@@ -64,29 +63,23 @@
     <div class="row">
         <div class="col-md-6 form-group">
             <label for="banco">Banco / Sucursal</label>
-            <input class="form-control" id="banco" formControlName="banco"
-            [class.is-invalid]="esInvalido('banco')">
+            <input class="form-control" id="banco" formControlName="banco" [class.is-invalid]="esInvalido('banco')">
         </div>
         <div class="col-md-6 form-group">
             <label for="cuenta">No. de Cuenta</label>
             <input type="number" class="form-control" id="cuenta" formControlName="cuenta"
-            [class.is-invalid]="esInvalido('cuenta')">
+                [class.is-invalid]="esInvalido('cuenta')">
         </div>
     </div>
 
-
-    <div class="row pt-2 text-center">
-        <div class="col-md-6">
-            <a routerLink="../../ordenespago/lista">
-                <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
-                    <div class="d-flex flex-row justify-content-around align-middle">
-                        <span>Volver a registros</span>
-                    </div>
-                </button>
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white">
+                Volver a registros
             </a>
         </div>
-        <div class="col-md-6">
-            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-3">
+        <div class="col-md-3 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success">
                 Siguiente
             </button>
         </div>
