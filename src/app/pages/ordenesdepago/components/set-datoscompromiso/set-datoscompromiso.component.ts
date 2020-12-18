@@ -12,6 +12,10 @@ export class SetDatoscompromisoComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.crearFormulario();
+  }
+
+  crearFormulario() {
     this.datosCompromiso = this.fb.group({
       compromiso: ['', Validators.required],
       numeroCompromiso: ['', [
@@ -21,5 +25,21 @@ export class SetDatoscompromisoComponent implements OnInit {
       vigencia: ['', Validators.required],
       tipoOrden: ['', Validators.required],
     });
+  }
+
+  esInvalido(nombre: string) {
+    var input = this.datosCompromiso.get(nombre);
+    if (input)
+      return input.invalid && (input.touched || input.dirty);
+    else
+      return true;
+  }
+
+  validarFormulario() {
+    if (this.datosCompromiso.invalid) {
+      return Object.values(this.datosCompromiso.controls).forEach(control => {
+        control.markAsDirty();
+      });
+    }
   }
 }
