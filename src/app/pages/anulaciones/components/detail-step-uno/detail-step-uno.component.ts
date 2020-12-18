@@ -44,7 +44,7 @@ export class DetailStepUnoComponent implements OnInit {
     );
   }
 
-  onSubmit() {
+  onSubmit(data: any) {
   }
 
 }

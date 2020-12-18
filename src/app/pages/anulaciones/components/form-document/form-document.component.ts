@@ -37,7 +37,7 @@ export class FormDocumentComponent implements OnInit {
     );
   }
 
-  onSubmit () {
+  onSubmit (data: any) {
 
   }
 
