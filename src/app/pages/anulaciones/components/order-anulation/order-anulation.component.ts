@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AnyFn } from '@ngrx/store/src/selector';
 
 @Component({
   selector: 'ngx-order-anulation',
@@ -9,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 export class OrderAnulationComponent implements OnInit {
 
   tipoAnulacion: any;
-  primerFiltro: boolean = false;
+  primerForm: boolean = false;
+  segundoForm: boolean = false;
 
   constructor(
     private routeActived: ActivatedRoute,
@@ -21,6 +23,14 @@ export class OrderAnulationComponent implements OnInit {
 
   getTipo (): void {
     this.tipoAnulacion = this.routeActived.snapshot.paramMap.get('tipo');
+  }
+
+  validarPrimerForm (data: any) {
+    this.primerForm = data;
+  }
+
+  validarSegundoForm (data: any) {
+    this.segundoForm = data;
   }
 
 }

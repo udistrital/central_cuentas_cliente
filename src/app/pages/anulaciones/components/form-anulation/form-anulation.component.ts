@@ -9,6 +9,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 export class FormAnulationComponent implements OnInit {
 
   @Output () eleccion: EventEmitter <any>;
+  @Output () anulacionForm: EventEmitter <any>;
 
   nombreAprobacion: any;
   anulaciones: any;
@@ -22,15 +23,28 @@ export class FormAnulationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
   ) {
+    this.eleccion = new EventEmitter;
+    this.anulacionForm = new EventEmitter;
+  }
+
+  ngOnInit() {
     this.anulaciones = this.formBuilder.group({
       fecha: ['', Validators.required],
       areaFuncional: ['', Validators.required],
       tipoAnulacion: ['', Validators.required],
     });
-    this.eleccion = new EventEmitter;
+    this.handleFormChanges();
   }
 
-  ngOnInit() {
+  handleFormChanges() {
+    this.anulaciones.statusChanges.subscribe(
+      (result: any) => {if (result === 'VALID') {
+        this.anulacionForm.emit(true);
+        } else if (result === 'INVALID') {
+          this.anulacionForm.emit(false);
+        }
+      }
+    );
   }
 
   onSubmit (data: any) {

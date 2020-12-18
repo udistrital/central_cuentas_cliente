@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DATOS_VALOR } from '../../interfaces/interfaces';
 
 @Component({
@@ -9,7 +9,9 @@ import { DATOS_VALOR } from '../../interfaces/interfaces';
 })
 export class DetailStepUnoComponent implements OnInit {
 
-  acta: any;
+  @Output () segundoForm: EventEmitter <any>;
+
+  acta: FormGroup;
   datos: any;
 
   titles: String[] = ['Nombre del concepto', 'Valor'];
@@ -19,14 +21,27 @@ export class DetailStepUnoComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.datos = DATOS_VALOR;
+    this.segundoForm = new EventEmitter;
+  }
+
+  ngOnInit() {
     this.acta = this.formBuilder.group({
       justificacion: ['', Validators.required],
       nombre: ['', Validators.required],
       cargo: ['', Validators.required],
     });
+    this.handleFormChanges();
   }
 
-  ngOnInit() {
+  handleFormChanges() {
+    this.acta.statusChanges.subscribe(
+      (result: any) => {if (result === 'VALID') {
+        this.segundoForm.emit(true);
+        } else if (result === 'INVALID') {
+          this.segundoForm.emit(false);
+        }
+      }
+    );
   }
 
   onSubmit() {

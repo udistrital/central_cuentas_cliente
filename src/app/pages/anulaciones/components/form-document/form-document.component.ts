@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-form-document',
@@ -7,22 +7,38 @@ import {FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./form-document.component.scss']
 })
 export class FormDocumentComponent implements OnInit {
-  oficio: any;
+  @Output () primerForm: EventEmitter <any>;
+
+  oficioForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
   ) {
-    this.oficio = this.formBuilder.group({
+    this.primerForm = new EventEmitter;
+   }
+
+  ngOnInit() {
+    this.oficioForm = this.formBuilder.group({
       oficio: ['', Validators.required],
       fecha: ['', Validators.required],
       descripcion: ['', Validators.required],
     });
-   }
+    this.handleFormChanges();
+  }
 
-  ngOnInit() {
+  handleFormChanges() {
+    this.oficioForm.statusChanges.subscribe(
+      (result: any) => {if (result === 'VALID') {
+        this.primerForm.emit(true);
+        } else if (result === 'INVALID') {
+          this.primerForm.emit(false);
+        }
+      }
+    );
   }
 
   onSubmit () {
 
   }
+
 }

@@ -13,14 +13,14 @@
                     </h5>
                 </div>
             </div>      
-            <mat-horizontal-stepper #stepper>
-                <mat-step>
+            <mat-horizontal-stepper linear #stepper>
+                <mat-step [completed]="primerForm">
                     <ng-template matStepLabel> Anulación </ng-template>
-                    <ngx-form-document></ngx-form-document>
+                    <ngx-form-document (primerForm)="validarPrimerForm($event)"></ngx-form-document>
                 </mat-step>
-                <mat-step>       
+                <mat-step [completed]="segundoForm">       
                     <ng-template matStepLabel> Detalle </ng-template>          
-                    <ngx-detail-step-uno></ngx-detail-step-uno>
+                    <ngx-detail-step-uno (segundoForm)="validarSegundoForm($event)"></ngx-detail-step-uno>
                 </mat-step>
                 <mat-step>
                     <ng-template matStepLabel> Información del pago </ng-template>

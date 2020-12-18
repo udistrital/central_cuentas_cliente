@@ -12,6 +12,7 @@ export class CreateAnulationComponent implements OnInit {
   tipoAnulacion: any;
   datosOrden: any;
   datosRelacion: any;
+  anulacionForm: boolean = false;
 
   titlesOrden: String[] = ['Vigencia', 'Consecutivo', 'Tipo ID', 'No. ID', 'Nombre'];
   attributesOrden: any[] = [['vigencia'], ['consecutivo'], ['tipoID'], ['numeroID'], ['nombre']];
@@ -33,6 +34,10 @@ export class CreateAnulationComponent implements OnInit {
 
   eleccionAnulacion( data: any ) {
     this.tipoAnulacion = data.tipoAnulacion;
+  }
+
+  validarForm ( data: any ) {
+    this.anulacionForm = data;
   }
 
   crear () {
