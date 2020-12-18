@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'ngx-set-datoscompromiso',
@@ -28,7 +28,7 @@ export class SetDatoscompromisoComponent implements OnInit {
   }
 
   esInvalido(nombre: string) {
-    var input = this.datosCompromiso.get(nombre);
+    const input = this.datosCompromiso.get(nombre);
     if (input)
       return input.invalid && (input.touched || input.dirty);
     else

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 
 @Component({
@@ -40,7 +40,7 @@ export class SetDatosbeneficiarioComponent implements OnInit {
   }
 
   esInvalido(nombre: string) {
-    var input = this.datosBeneficiario.get(nombre);
+    const input = this.datosBeneficiario.get(nombre);
     if (input)
       return input.invalid && (input.touched || input.dirty);
     else
