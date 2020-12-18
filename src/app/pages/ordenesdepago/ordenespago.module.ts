@@ -26,6 +26,8 @@ import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuac
 import { SetMovimientocontableComponent } from './components/set-movimientocontable/set-movimientocontable.component';
 import { ShowResumenordenpagoComponent } from './components/show-resumenordenpago/show-resumenordenpago.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [TableListaordenesComponent, CrearOrdenpagoComponent,
@@ -33,6 +35,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent,
     ShowResumenordenpagoComponent],
   imports: [
+    NgbModule,
     CurrencyMaskModule,
     CommonModule,
     OrdenespagoRoutingModule,

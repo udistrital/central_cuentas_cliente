@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 
 @Component({
@@ -11,10 +11,14 @@ export class SetDatosbeneficiarioComponent implements OnInit {
   datosBeneficiario: FormGroup;
   opcionesAreaFuncional: Array<any>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+    this.crearFormulario();
+  }
+
+  crearFormulario() {
     this.datosBeneficiario = this.fb.group({
       numeroOrden: ['',
         [
@@ -33,6 +37,22 @@ export class SetDatosbeneficiarioComponent implements OnInit {
       ],
       ]
     });
+  }
+
+  esInvalido(nombre: string) {
+    var input = this.datosBeneficiario.get(nombre);
+    if (input)
+      return input.invalid && (input.touched || input.dirty);
+    else
+      return true;
+  }
+
+  validarFormulario() {
+    if (this.datosBeneficiario.invalid) {
+      return Object.values(this.datosBeneficiario.controls).forEach(control => {
+        control.markAsDirty();
+      });
+    }
   }
 
 }
