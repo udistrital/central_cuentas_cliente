@@ -27,7 +27,7 @@ export class SetMovimientocontableComponent implements OnInit {
 
   ngOnInit() {
     this.movimientoContable = this.fb.group({
-      firstCtrl: ['', Validators.required]
+      firstCtrl: ['']
     });
     this.agregar(); // TODO
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
