@@ -1,15 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
-import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
-import { CONFIGURACION_TABLAREGISTROS, DATOS_TABLAREGISTROS } from '../../interfaces/interfaces';
+import { DATOS_TABLAREGISTROS, CONFIGURACION_TABLAREGISTROS } from '../../interfaces/interfaces';
+import { getFilaSeleccionada, getAccionTabla } from '../../../../shared/selectors/shared.selectors';
+import { loadDevoluciontributariaSeleccionado } from '../../../devoluciontributaria/actions/devoluciontributaria.actions';
 
 @Component({
-  selector: 'ngx-table-autorizacionnomina',
-  templateUrl: './table-autorizacionnomina.component.html',
-  styleUrls: ['./table-autorizacionnomina.component.scss']
+  selector: 'ngx-table-devoluciontributaria',
+  templateUrl: './table-devoluciontributaria.component.html',
+  styleUrls: ['./table-devoluciontributaria.component.scss']
 })
-export class TableAutorizacionnominaComponent implements OnInit {
+export class TableDevoluciontributariaComponent implements OnInit {
 
   configuracion: any;
   datosTabla: any;
@@ -33,12 +33,12 @@ export class TableAutorizacionnominaComponent implements OnInit {
 
       if (fila) {
 
-        this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
+        this.store.dispatch(loadDevoluciontributariaSeleccionado(fila.fila));
       }
     });
     this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
 
-      this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
+      this.store.dispatch(loadDevoluciontributariaSeleccionado(null));
     });
   }
 }

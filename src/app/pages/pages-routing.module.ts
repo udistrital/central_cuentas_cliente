@@ -14,11 +14,6 @@ const routes: Routes = [
           .then(m => m.SolicitudesgirosModule),
       },
       {
-        path: 'anulaciones',
-        loadChildren: () => import ('./anulaciones/anulaciones.module')
-        .then(m => m.AnulacionesModule),
-      },
-      {
         path: 'aprobaciones',
         loadChildren: () => import('./aprobaciones/aprobaciones.module')
           .then(m => m.AprobacionesModule)
@@ -34,10 +29,16 @@ const routes: Routes = [
         .then(m => m.RelacionautorizacionesModule),
       },
       {
-        path: 'prueba',
-        loadChildren: () => import('./primer-modulo/primer-modulo.module')
-          .then(m => m.PrimerModuloModule),
-      }]
+        path: 'anulaciones',
+        loadChildren: () => import ('./anulaciones/anulaciones.module')
+        .then(m => m.AnulacionesModule),
+      },
+      {
+        path: 'devoluciontributaria',
+        loadChildren: () => import('./devoluciontributaria/devoluciontributaria.module')
+        .then(m => m.DevoluciontributariaModule),
+      },
+    ]
   }
 ];
 
