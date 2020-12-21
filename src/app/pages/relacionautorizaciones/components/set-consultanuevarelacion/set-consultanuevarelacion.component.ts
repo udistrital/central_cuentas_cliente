@@ -46,7 +46,7 @@ export class SetConsultanuevarelacionComponent implements OnInit {
     // Eliminar datos que se encuentran en la tabla
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion) {
-        if (accion.accion.name === 'Borrar') {
+        if (accion.accion.name === 'BorrarRegistroConsulta' && accion.accion.idStep === 2) {
           this.modalEliminar(accion.fila);
         }
       }
@@ -61,6 +61,10 @@ export class SetConsultanuevarelacionComponent implements OnInit {
       this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
         this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   createForm() {
@@ -94,10 +98,8 @@ export class SetConsultanuevarelacionComponent implements OnInit {
     this.modalService.open(this.eliminarDatoModal).result.then((result) => {
       if (`${result}`) {
         this.datosConsulta.splice(this.datosConsulta.findIndex(
-          (element: any) => element.codigo === fila.codigo
-          && element.disponibilidad === fila.disponibilidad
+          (element: any) => element.disponibilidad === fila.disponibilidad
           && element.registro === fila.registro
-          && element.valor === fila.valor
           ), 1);
       }
     });

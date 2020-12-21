@@ -44,9 +44,15 @@
             </div>
             <div class="col-md-3">
                 <label>{{ relacion.etiqueta }}</label>
-                <input type="text" class="form-control" formControlName="quincena" [class.is-invalid]="quincenaInvalid">
-                <small *ngIf="quincenaInvalid" class="text-danger">Ingrese números en este campo</small>
+                <select class="custom-select" formControlName="etiqueta" [class.is-invalid]="etiquetaInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="etiquetaInvalid" class="text-danger">Complete este campo</small>
             </div>
+
             <div class="col-md-3">
                 <label>No. de Compromiso</label>
                 <select class="custom-select" formControlName="numeroCompromiso" [class.is-invalid]="numeroCompromisoInvalid">
@@ -70,7 +76,7 @@
         <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
             <div class="form-group col-md-6">
                 <a routerLink='/pages/relacionautorizaciones/elegir'>
-                    <button type="submit" class="btn btn-primary text-white m-0 mt-4">Volver a registros</button>
+                    <button type="submit" class="btn btn-primary text-white m-0 mt-4">Volver</button>
                 </a>
             </div>
             <div class="form-group col-md-6">

@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SetConceptonuevarelacionComponent implements OnInit {
   @ViewChild('verDesagregacionModal', { static: false }) verDesagregacionModal: ElementRef;
-
+  closeResult: string;
   conceptoGroup: FormGroup;
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
@@ -47,11 +47,15 @@ export class SetConceptonuevarelacionComponent implements OnInit {
     // Modal de la tabla para ver informacion de los registros
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion) {
-        if (accion.accion.name === 'ver') {
+        if (accion.accion.name === 'verDesagregacion' && accion.accion.idStep === 3) {
           this.modalService.open(this.verDesagregacionModal, { size: 'xl' });
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   createForm() {

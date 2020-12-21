@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { RelacionautorizacionesEffects } from './effects/relacionautorizaciones.effects';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatStepperModule } from '@angular/material';
+import { MatDividerModule, MatStepperModule, } from '@angular/material';
 import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
 import { RelacionautorizacionesService } from './services/relacionautorizaciones.service';
@@ -45,6 +45,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MatDividerModule,
     MatStepperModule,
     NgbModule,
+    NgbDatepickerModule,
     PdfViewerModule,
     StoreModule.forFeature(fromRelacionautorizaciones.relacionautorizacionesFeatureKey, fromRelacionautorizaciones.reducer),
     EffectsModule.forFeature([RelacionautorizacionesEffects])

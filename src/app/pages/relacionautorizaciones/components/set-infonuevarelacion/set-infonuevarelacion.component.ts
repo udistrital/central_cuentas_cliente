@@ -36,8 +36,8 @@ export class SetInfonuevarelacionComponent {
   get mesInvalid() {
     return this.inforelacionGroup.get('mes').invalid && this.inforelacionGroup.get('mes').touched;
   }
-  get quincenaInvalid() {
-    return this.inforelacionGroup.get('quincena').invalid && this.inforelacionGroup.get('quincena').touched;
+  get etiquetaInvalid() {
+    return this.inforelacionGroup.get('etiqueta').invalid && this.inforelacionGroup.get('etiqueta').touched;
   }
   get numeroCompromisoInvalid() {
     return this.inforelacionGroup.get('numeroCompromiso').invalid && this.inforelacionGroup.get('numeroCompromiso').touched;
@@ -48,9 +48,7 @@ export class SetInfonuevarelacionComponent {
       numeroRelacion: ['001', ],
       fechaRelacion: ['', Validators.required],
       mes: ['', Validators.required],
-      quincena: ['',
-      [Validators.required,
-        Validators.pattern('^[0-9]*$')]],
+      etiqueta: ['', Validators.required],
       numeroCompromiso: ['', Validators.required],
       tipoCompromiso: ['', ],
     });
