@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CONFIGURACION_TABLACONCEPTOS, DATOS_TABLACONCEPTOS } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './set-conceptonuevarelacion.component.html',
   styleUrls: ['./set-conceptonuevarelacion.component.scss']
 })
-export class SetConceptonuevarelacionComponent implements OnInit {
+export class SetConceptonuevarelacionComponent implements OnInit, OnDestroy {
   @ViewChild('verDesagregacionModal', { static: false }) verDesagregacionModal: ElementRef;
   closeResult: string;
   conceptoGroup: FormGroup;
