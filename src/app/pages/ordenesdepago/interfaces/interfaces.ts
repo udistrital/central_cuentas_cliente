@@ -190,12 +190,14 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Fuentes',
+                idStep: 3
             },
             {
                 name: 'modificar',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
+                idStep: 3
             }
         ],
     },
@@ -215,3 +217,93 @@ export const DATOS_IMPUNTUACION: any = [
         valor: 3000000.00
     }
 ];
+export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'nombre',
+            title: {
+                name: 'Nombre Retención',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'descuento',
+            title: {
+                name: 'Descuento',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'base',
+            title: {
+                name: 'Base de Retención',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'codigo',
+            title: {
+                name: 'Código Contable',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'valor',
+            title: {
+                name: 'Valor',
+                class: 'text-center',
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-center align-middle',
+            }
+        },
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'modificar',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Modificar',
+                idStep: 4
+            }
+        ],
+    },
+    noData: {
+        name: 'No existen elementos asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    maxHeight: 200
+};
+export const DATOS_MOVIMIENTO_CONTABLE: any = [
+    {
+        nombre: 'Valor Bruto',
+        descuento: '',
+        base: '',
+        codigo: '111-222-333',
+        valor: 3000000.00
+    }
+];
+

@@ -28,7 +28,6 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
   datosTableImputacion: any;
   mostrarOcultar: string;
   mostrarOcultarIcono: string;
-  totalGasto: number;
   subscription: any;
 
   constructor(private fb: FormBuilder, private store: Store<any>, private modalService: NgbModal) {
@@ -40,18 +39,19 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
     this.datosTableImputacion = [];
     this.mostrarOcultar = 'Mostrar';
     this.mostrarOcultarIcono = 'fa-eye';
-    this.totalGasto = 0.00;
   }
 
   ngOnInit() {
     this.impuntuacionPresupuestal = this.fb.group({
-      firstCtrl: ['', Validators.required]
+      disponibilidad: [''],
+      registro: [''],
+      valor: [''],
     });
     this.mostrarOcultarHistoria('');
     this.agregar(); // TODO
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion) {
-        if (accion.accion.name === 'modificar') {
+        if (accion.accion.idStep === 3 && accion.accion.name === 'modificar') {
           this.modalEliminar(accion.fila);
         } else if (accion.accion.name === 'ver') {
           this.modalService.open(this.fuentesFinanciamientoModal);
@@ -86,8 +86,10 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
   agregar() {
     // TODO
     this.datosTableImputacion.push(DATOS_IMPUNTUACION[0]);
-    // Valor total
-    this.totalGasto = this.datosTableImputacion.reduce((a, b) => a + b.valor, 0);
+  }
+
+  totalGasto() {
+    return this.datosTableImputacion.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
   }
 
 }
