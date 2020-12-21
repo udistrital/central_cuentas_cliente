@@ -15,21 +15,25 @@ export class TableComponent implements OnInit {
   @Input() seleccion: boolean = false;
   @Input() aprobacionContable: boolean = false;
   @Input() aprobacionPresupuestal: boolean = false;
+  @Input() filtro: boolean = false;
 
   aprobacionesElegidas = [];
   row: any;
   consecutivo: any;
+  stringBusqueda: any;
 
   constructor( private form: FormService,
-    private route: Router) { }
+    private route: Router) {
+      this.stringBusqueda = '';
+     }
 
   ngOnInit() {
     this.form.aprobacionesElegidas = this.aprobacionesElegidas;
   }
 
   onClickContable( row: any ) {
-    this.row = row;
-    this.route.navigateByUrl('pages/aprobaciones/orden/contable');
+    this.consecutivo = row.consecutivo;
+    this.route.navigateByUrl('pages/aprobaciones/orden/contable/' + this.consecutivo);
   }
 
   onClickPresupuestal( row: any ) {

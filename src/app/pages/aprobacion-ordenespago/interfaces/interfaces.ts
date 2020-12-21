@@ -82,3 +82,26 @@ export const DATOS_ORDENPAGO: any = [
        nombre: 'Nancy'
     },
 ];
+export const DATOS_ORDENPRESUPUESTAL: any = [
+   {
+      cuenta: '234234-2',
+      descuento: '781623',
+      concepto  : 'Bienestar',
+      valorRetencion: '1233432',
+      valor: '213123'
+   },
+   {
+      cuenta: '567567-2',
+      descuento: '213132',
+      concepto  : 'Otros',
+      valorRetencion: '72349',
+      valor: '345345'
+   },
+   {
+      cuenta: '123123-5',
+      descuento: '83948',
+      concepto  : 'Servicios',
+      valorRetencion: '38945',
+      valor: '2349234'
+   }
+];

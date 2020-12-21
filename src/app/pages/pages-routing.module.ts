@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren: () => import ('./anulaciones/anulaciones.module')
         .then(m => m.AnulacionesModule),
       },
+      {
+        path: 'devoluciontributaria',
+        loadChildren: () => import('./devoluciontributaria/devoluciontributaria.module')
+        .then(m => m.DevoluciontributariaModule),
+      },
     ]
   }
 ];

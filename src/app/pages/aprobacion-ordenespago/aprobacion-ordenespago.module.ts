@@ -7,13 +7,15 @@ import { AccountantApprobationComponent } from './components/accountant-approbat
 import { BudgetApprobationComponent } from './components/budget-approbation/budget-approbation.component';
 import { OrderApprobationComponent } from './components/order-approbation/order-approbation.component';
 import { SharedModule } from '../../shared/shared.module';
+import { DiscountComponent } from './components/discount/discount.component';
 
 
 @NgModule({
   declarations: [LayoutAprobacionordenComponent,
     AccountantApprobationComponent,
     BudgetApprobationComponent,
-    OrderApprobationComponent],
+    OrderApprobationComponent,
+    DiscountComponent],
   imports: [
     CommonModule,
     SharedModule,

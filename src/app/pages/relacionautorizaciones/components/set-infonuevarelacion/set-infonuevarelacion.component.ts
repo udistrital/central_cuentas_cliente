@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { RelacionautorizacionesService } from '../../services/relacionautorizaciones.service';
 
 
 @Component({
@@ -11,7 +13,19 @@ export class SetInfonuevarelacionComponent {
 
   public inforelacionGroup: FormGroup;
 
-  constructor( private fb: FormBuilder) {
+  relacion: any = {};
+  id: string;
+
+  constructor( private fb: FormBuilder,
+    private _relacionService: RelacionautorizacionesService,
+    private activatedRoute: ActivatedRoute) {
+
+    // Configuracion de enrutamiento de datos (nomina o seguridad social)
+    this.activatedRoute.paramMap.subscribe( params => {
+      this.relacion = this._relacionService.getTipoRelacion( params.get('id') );
+      this.id = params.get('id');
+    });
+
     this.createForm();
   }
 
