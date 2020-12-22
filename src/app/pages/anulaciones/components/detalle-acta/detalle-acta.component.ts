@@ -54,7 +54,7 @@ export class DetalleActaComponent implements OnInit {
   }
 
   onSubmit(data: any) {
-    if (this.tipoAnulacion === 'rautorizacion'){
+    if (this.tipoAnulacion === 'rautorizacion') {
       Swal.fire({
         type: 'success',
         title: '¡Proceso exitoso!',
