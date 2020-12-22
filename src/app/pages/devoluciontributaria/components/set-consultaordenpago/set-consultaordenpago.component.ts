@@ -14,13 +14,10 @@ export class SetConsultaordenpagoComponent implements OnInit {
   consultaOPGroup: FormGroup;
 
   constructor(private fb: FormBuilder) {
-            // Datos de ejemplo q se muestran en la tabla
-            this.datosConsultaOP = DATOS_CONSULTAOP;
-            this.configConsultaOP = CONFIGURACION_CONSULTAOP;
-            // Configuracion de la tabla
-            // this.stringBusqueda = '';
-            // this.selectedAction = new EventEmitter<any>();
-            this.createForm();
+    // Datos de ejemplo q se muestran en la tabla
+    this.datosConsultaOP = DATOS_CONSULTAOP;
+    this.configConsultaOP = CONFIGURACION_CONSULTAOP;
+    this.createForm();
   }
 
   ngOnInit() {

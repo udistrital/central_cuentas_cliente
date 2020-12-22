@@ -17,10 +17,10 @@ import { SetConsultaordenpagoComponent } from './components/set-consultaordenpag
 
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     TableDevoluciontributariaComponent,
-    StepperDevoluciontributariaComponent, 
-    SetInfodevoluciontributariaComponent, 
+    StepperDevoluciontributariaComponent,
+    SetInfodevoluciontributariaComponent,
     SetConsultaordenpagoComponent],
   imports: [
     CommonModule,

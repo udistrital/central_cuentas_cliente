@@ -51,7 +51,7 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
   get razonDevolucionInvalid() {
     return this.infoDevolucionGroup.get('razonDevolucion').invalid && this.infoDevolucionGroup.get('razonDevolucion').touched;
   }
-    
+
 
   createForm() {
     this.infoDevolucionGroup = this.fb.group({

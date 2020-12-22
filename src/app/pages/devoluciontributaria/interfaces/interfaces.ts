@@ -113,15 +113,36 @@ export const DATOS_TABLAREGISTROS: any = [
 ];
 export const CONFIGURACION_CONSULTAOP: any = {
     showColumnTitle: true,
+    checkElement: {
+        title: 'string', // column title
+        pipe: {
+            type: 'string', // date, currency, decimal, percent, custom ( optional )
+            config: [
+                'string', // array like pipe, no custom
+                () => { }, // only custom pipe
+            ], //  ( optional )
+            class: 'string', // bootstrap class
+        }
+    },
     dataConfig: [
         {
-            key: 'codigoPresupuestal',
+            key: 'vigencia',
             title: {
-                name: 'Código Presupuestal',
+                name: 'Vigencia',
                 class: 'text-center',
             },
             pipe: {
                 class: '',
+            }
+        },
+        {
+            key: 'consecutivo',
+            title: {
+                name: 'Consecutivo',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
             }
         },
         {
@@ -145,9 +166,19 @@ export const CONFIGURACION_CONSULTAOP: any = {
             }
         },
         {
-            key: 'concepto',
+            key: 'documentoId',
             title: {
-                name: 'Concepto',
+                name: 'Documento ID',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'nombreBeneficiario',
+            title: {
+                name: 'Beneficiario',
                 class: 'text-center',
             },
             pipe: {
@@ -157,7 +188,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
         {
             key: 'total',
             title: {
-                name: 'Total',
+                name: 'Valor Total',
                 class: 'text-center',
             },
             pipe: {
@@ -173,11 +204,10 @@ export const CONFIGURACION_CONSULTAOP: any = {
         },
         actions: [
             {
-                name: 'BorrarRegistroConsulta',
-                icon: 'fas fa-trash-alt',
+                name: 'verOrden',
+                icon: 'fas fa-eye',
                 class: 'p-2',
-                title: 'Borrar',
-                idStep: 2
+                title: 'Ver Orden de Pago',
             },
         ],
     },
@@ -186,28 +216,34 @@ export const CONFIGURACION_CONSULTAOP: any = {
         class: 'text-center',
     },
     sort: true,
-    filter: false,
+    filter: true,
 };
 export const DATOS_CONSULTAOP: any = [
     {
-        codigoPresupuestal: '001',
-        disponibilidad: '202',
-        registro: '202011-20',
-        concepto: 'Concepto1',
+        vigencia: '001',
+        consecutivo: '202',
+        disponibilidad: '202011-23',
+        registro: '326589',
+        documentoId: '4587963',
+        nombreBeneficiario: 'William',
         total: '$1.000.000',
     },
     {
-        codigoPresupuestal: '012',
-        disponibilidad: '203',
-        registro: '20201-12',
-        concepto: 'Concepto2',
+        vigencia: '010',
+        consecutivo: '220',
+        disponibilidad: '202011-20',
+        registro: '748596',
+        documentoId: '4569324',
+        nombreBeneficiario: 'Andres',
         total: '$1.000.000',
     },
     {
-        codigoPresupuestal: '002',
-        disponibilidad: '302',
-        registro: '2020112-02',
-        concepto: 'Concepto3',
+        vigencia: '100',
+        consecutivo: '22',
+        disponibilidad: '202011-10',
+        registro: '125487',
+        documentoId: '1245639',
+        nombreBeneficiario: 'Carlos',
         total: '$1.000.000',
     }
 ];
