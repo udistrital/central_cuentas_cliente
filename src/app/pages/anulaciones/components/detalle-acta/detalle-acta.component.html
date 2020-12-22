@@ -34,9 +34,14 @@
                 Volver
             </button>
         </div>
-        <div class="col">
+        <div *ngIf="tipoAnulacion === 'opago'" class="col">
             <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="acta.invalid">
                 Continuar
+            </button>
+        </div>
+        <div *ngIf="tipoAnulacion === 'rautorizacion'" class="col">
+            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="acta.invalid">
+                Anular
             </button>
         </div>
     </div>                 

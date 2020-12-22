@@ -22,10 +22,16 @@
                     <ng-template matStepLabel> Detalle </ng-template>          
                     <ngx-detalle-acta (segundoForm)="validarSegundoForm($event)"></ngx-detalle-acta>
                 </mat-step>
-                <mat-step>
-                    <ng-template matStepLabel> Información del pago </ng-template>
-                    <ngx-detalle-info-pago></ngx-detalle-info-pago>
-                </mat-step>
+                <div *ngIf="tipoAnulacion === 'opago'">
+                    <mat-step>
+                        <ng-template matStepLabel> Información del pago </ng-template>
+                        <ngx-detalle-info-pago></ngx-detalle-info-pago>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel> Información adicional </ng-template>
+                        <ngx-detalle-info-presupuestal> </ngx-detalle-info-presupuestal>
+                    </mat-step>
+                </div>          
             </mat-horizontal-stepper>   
         </div>
     </div>
