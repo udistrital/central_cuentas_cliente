@@ -111,3 +111,103 @@ export const DATOS_TABLAREGISTROS: any = [
         NumeroSolicitud: '67890',
     }
 ];
+export const CONFIGURACION_CONSULTAOP: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'codigoPresupuestal',
+            title: {
+                name: 'Código Presupuestal',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'disponibilidad',
+            title: {
+                name: 'CDP',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'registro',
+            title: {
+                name: 'RP',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'concepto',
+            title: {
+                name: 'Concepto',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'total',
+            title: {
+                name: 'Total',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'BorrarRegistroConsulta',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Borrar',
+                idStep: 2
+            },
+        ],
+    },
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    filter: false,
+};
+export const DATOS_CONSULTAOP: any = [
+    {
+        codigoPresupuestal: '001',
+        disponibilidad: '202',
+        registro: '202011-20',
+        concepto: 'Concepto1',
+        total: '$1.000.000',
+    },
+    {
+        codigoPresupuestal: '012',
+        disponibilidad: '203',
+        registro: '20201-12',
+        concepto: 'Concepto2',
+        total: '$1.000.000',
+    },
+    {
+        codigoPresupuestal: '002',
+        disponibilidad: '302',
+        registro: '2020112-02',
+        concepto: 'Concepto3',
+        total: '$1.000.000',
+    }
+];
