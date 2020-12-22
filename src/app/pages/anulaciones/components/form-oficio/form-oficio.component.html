@@ -1,0 +1,37 @@
+<form [formGroup]="oficioForm" (ngSubmit)="onSubmit(oficioForm.value)">
+    <div class="card mr-3 ml-3">   
+        <div class="card-body">
+            <div class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+                Anulación
+             </div>  
+            <div class="row">
+                <div class="col">
+                    <label for="oficio"> Oficio </label> <br>
+                    <input name="oficio" id="oficio" type="text" formControlName="oficio" placeholder="Escribir...">
+                </div>
+                <div class="col">
+                    <label for="fecha"> Fecha de oficio </label> <br>
+                    <input class="form-control" type="date" name="fecha" id="fecha" formControlName="fecha">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for=""> Descripción</label> <br>
+                    <textarea name="descripcion" id="descripcion" formControlName="descripcion" placeholder="Escribir descripción..."> </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row group">
+        <div class="col">
+            <button routerLinkActive="active" routerLink="/pages/anulaciones/crear" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                Volver al registro
+            </button>
+        </div>
+        <div class="col">
+            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="oficioForm.invalid">
+                Siguiente
+            </button>
+        </div>
+    </div>                 
+</form>

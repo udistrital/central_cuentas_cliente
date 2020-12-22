@@ -1,0 +1,78 @@
+<div>
+    <div class="card mr-3 ml-3">
+        <div class="card-body">
+            <div class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+                Información del girador
+            </div> 
+            <div class="row">
+                <div class="col">
+                    <label for="fPagoGirador"> Forma de pago </label> <br>
+                    <input id="fPagoGirador" name="fPagoGirador" type="text" disabled>
+                </div>
+                <div class="col">
+                    <label for="nombreGirador"> Nombre </label> <br>
+                    <input id="nombreGirador" name="nombreGirador" type="text" disabled>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="tipoCuentaGirador"> Tipo de cuenta </label> <br>
+                    <input id="tipoCuentaGirador" name="tipoCuentaGirador" type="text" disabled>
+                </div>
+                <div class="col">
+                    <label for="nCuentaGirador"> Número de cuenta </label> <br>
+                    <input id="nCuentaGirador" name="nCuentaGirador" type="text" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mr-3 ml-3 my-4">
+        <div class="card-body">
+            <div class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+                Información del beneficiario del giro
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="nombreBeneficiario"> Nombre </label> <br>
+                    <input id="nombreBeneficiario" name="nombreBeneficiario" type="text" disabled>
+                </div>
+                <div class="col">
+                    <label for="bancoBeneficiario"> Banco receptor </label> <br>
+                    <input id="bancoBeneficiario" name="bancoBeneficiario" type="text" disabled>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="tipoCuentaBeneficiario"> Tipo de cuenta </label> <br>
+                    <input id="tipoCuentaBeneficiario" name="tipoCuentaBeneficiario" type="text" disabled>
+                </div>
+                <div class="col">
+                    <label for="nCuentaBeneficiario"> Número de cuenta </label> <br>
+                    <input id="nCuentaBeneficiario" name="nCuentaBeneficiario" type="text" disabled>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="chequeBeneficiario"> Cheque </label> <br>
+                    <input id="chequeBeneficiario" name="chequeBeneficiario" type="text" disabled>
+                </div>
+                <div class="col">
+                    <label for="valorBeneficiario"> Valor </label> <br>
+                    <input id="valorBeneficiario" name="valorBeneficiario" type="text" disabled>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="row group">
+        <div class="col">
+            <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                Volver
+            </button>
+        </div>
+        <div class="col">
+            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit">
+                Continuar
+            </button>
+        </div>
+    </div>      
+</div>

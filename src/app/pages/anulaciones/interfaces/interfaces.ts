@@ -114,3 +114,96 @@ export const DATOS_PRUEBA: any = [
         tipoDocumento: 'Orden de pago'
     }
 ];
+export const DATOS_RELACION_AUTORIZACION: any = [
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'febrero',
+        consecutivo: '21783',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'junio',
+        consecutivo: '18293',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'julio',
+        consecutivo: '78231',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2020',
+        mes: 'agosto',
+        consecutivo: '89273',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2020',
+        mes: 'febrero',
+        consecutivo: '987123',
+        estado: 'activo'
+    },
+    {
+        areaFuncional: '2020',
+        vigencia: '2019',
+        mes: 'enero',
+        consecutivo: '1827',
+        estado: 'activo'
+    }
+];
+export const DATOS_ORDENPAGO: any = [
+    {
+        id: 1,
+        vigencia: '2019',
+        consecutivo: '21783',
+        tipoID  : 'CC',
+        numeroID: '120398',
+        nombre: 'Ester'
+    },
+    {
+        id: 2,
+        vigencia: '2021',
+        consecutivo: '2453',
+        tipoID  : 'CC',
+        numeroID: '87324',
+        nombre: 'Juan'
+    },
+    {
+        id: 3,
+        vigencia: '2020',
+        consecutivo: '21783',
+        tipoID  : 'CC',
+        numeroID: '379989',
+        nombre: 'Lina'
+    },
+    {
+        id: 4,
+        vigencia: '2019',
+        consecutivo: '21233',
+        tipoID  : 'CC',
+        numeroID: '5465598',
+        nombre: 'Ana'
+    },
+    {
+        id: 5,
+        vigencia: '2019',
+        consecutivo: '21908',
+        tipoID  : 'CC',
+        numeroID: '120455',
+        nombre: 'Nancy'
+    },
+];
+export const DATOS_VALOR: any = [
+    {
+        id: 1,
+        nConcepto: 'Nómina CPS',
+        valor: '3000000',
+    }
+];
