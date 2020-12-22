@@ -39,8 +39,13 @@
             <input type="text" class="form-control" id="nombre" disabled>
         </div>
         <div class="col-md-3 form-group">
-            <label for="descuento">Descuento</label>
-            <input type="text" class="form-control" id="descuento" disabled>
+            <label for="descuento">% de Descuento</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="descuento" disabled formControlName="porcentajeDescuento">
+                <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
         </div>
         <div class="col-md-4 form-group">
             <label for="codigoContable">Código Contable</label>
@@ -50,11 +55,11 @@
     <div class="row">
         <div class="col-md-5 form-group">
             <label for="baseRetencion">Base de Retención</label>
-            <input type="number" class="form-control" id="baseRetencion">
+            <input currencyMask class="form-control" id="baseRetencion" formControlName="baseRetencion">
         </div>
         <div class="col-md-5 form-group">
-            <label for="valor">Valor (con descuento)</label>
-            <input type="number" class="form-control" id="valor">
+            <label for="valorDescuento">Valor de descuento</label>
+            <input class="form-control" id="valorDescuento" disabled value="{{valorDescuento|currency}}">
         </div>
         <div class="col-md-2 form-group d-flex align-items-end">
             <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
@@ -72,7 +77,7 @@
             <label for="valorTotal" class="m-0 ml-auto">Valor Total Descuentos</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{valorTotal()|currency}}">
+            <input class="form-control" id="valorTotal" disabled value="{{valorTotal|currency}}">
         </div>
     </div>
     <div class="row">
@@ -86,7 +91,7 @@
             <label for="valorNeto" class="m-0 ml-auto">Valor Neto a Girar</label>
         </div>
         <div class="col-md-4 d-flex align-items-center">
-            <input class="form-control" id="valorNeto" disabled value="{{valorNeto()|currency}}">
+            <input class="form-control" id="valorNeto" disabled value="{{valorNeto|currency}}">
         </div>
     </div>
     <ng-template #eliminarModal let-modal>

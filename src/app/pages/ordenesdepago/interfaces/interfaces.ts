@@ -237,7 +237,10 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'percent',
+                config: [
+                ],
+                class: 'text-center align-middle',
             }
         },
         {
@@ -247,7 +250,10 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-center align-middle',
             }
         },
         {
