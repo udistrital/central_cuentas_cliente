@@ -1,1 +1,74 @@
-<p>accountant-approbation works!</p>
+
+<div class="containter-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 class="card-title text-center text-primary">APROBACIÓN CONTABLE DE ÓRDENES DE PAGO</h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Aprobación contable
+                    </div>
+                    <div class="row">
+                        <div class="col consecutivo">
+                            <label for="nConsecutivo">No. de consecutivo </label> <br>
+                            <input id="nConsecutivo" type="number" disabled placeholder="{{consecutivo}}">
+                        </div>  
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label for="vBruto"> Valor bruto </label>
+                            <input id="vBruto" type="number" disabled> <br>
+                            <label for="descuentos"> Descuentos </label>
+                            <input id="descuentos" type="number" disabled>
+                            <button class="btn btn-link" type="button" name="button" (click)="openDescuentos()">
+                            <i class="far fa-hand-point-up"></i>
+                            </button> <br>
+                            <label for="vEndosos">Valor endosos </label>
+                            <input id="vEndosos" type="number" disabled> <br>
+                            <label for="vEmbargos"> Valor embargos </label>
+                            <input id="vEmbargos" type="number" disabled> <br>
+                            <label for="vNeto"> Valor neto </label>
+                            <input id="vNeto" type="number" disabled> <br>
+                        </div>
+                        <div class="col">
+                            <label for="cContableDebito"> Código contable: Débito </label>
+                            <input id="cContableDebito" type="number" disabled> <br>
+                            <label for="nombreDebito"> Nombre </label>
+                            <input id="nombreDebito" type="number" disabled> <br>
+                            <label for="cContableCredito"> Código contable: Crédito </label>
+                            <input id="cContableCredito" type="number" disabled> <br>
+                            <label for="nombreCredito"> Nombre </label>
+                            <input id="nombreCredito" type="number" disabled> <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button mat-button type="button" class="btn btn-primary px-3 py-2 my-2 text-light" routerLinkActive="active" routerLink="/pages/aprobaciones/orden/lista" >
+                        Volver al registro
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarContable()">
+                        Rechazar
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarContable()">
+                        Aprobar
+                    </button>
+                </div>
+            </div> 
+        </div>
+        <div *ngIf="form.rechazarFormulario">
+            <ngx-rechazar></ngx-rechazar>
+        </div>
+    </div>
+</div>
+
