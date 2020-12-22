@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormAnulationComponent } from './form-anulation.component';
+import { DetalleInfoPagoComponent } from './detalle-info-pago.component';
 
-describe('FormAnulationComponent', () => {
-  let component: FormAnulationComponent;
-  let fixture: ComponentFixture<FormAnulationComponent>;
+describe('DetailStepDosComponent', () => {
+  let component: DetalleInfoPagoComponent;
+  let fixture: ComponentFixture<DetalleInfoPagoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormAnulationComponent ]
+      declarations: [ DetalleInfoPagoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormAnulationComponent);
+    fixture = TestBed.createComponent(DetalleInfoPagoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

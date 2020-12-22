@@ -9,13 +9,13 @@ import { AnulacionesEffects } from './effects/anulaciones.effects';
 import { LayoutAnulacionesComponent } from './components/layout-anulaciones/layout-anulaciones.component';
 import { ListComponent } from './components/list/list.component';
 import { SharedModule } from '../../shared/shared.module';
-import { FormAnulationComponent } from './components/form-anulation/form-anulation.component';
-import { CreateAnulationComponent } from './components/create-anulation/create-anulation.component';
-import { DetailStepUnoComponent } from './components/detail-step-uno/detail-step-uno.component';
-import { DetailStepDosComponent } from './components/detail-step-dos/detail-step-dos.component';
-import { DetailStepTresComponent } from './components/detail-step-tres/detail-step-tres.component';
-import { DetailStepCuatroComponent } from './components/detail-step-cuatro/detail-step-cuatro.component';
-import { OrderAnulationComponent } from './components/order-anulation/order-anulation.component';
+import { FormAnulacionComponent } from './components/form-anulacion/form-anulacion.component';
+import { CrearAnulacionComponent } from './components/crear-anulacion/crear-anulacion.component';
+import { DetalleActaComponent } from './components/detalle-acta/detalle-acta.component';
+import { DetalleInfoPagoComponent } from './components/detalle-info-pago/detalle-info-pago.component';
+import { DetalleInfoPresupuestalComponent } from './components/detalle-info-presupuestal/detalle-info-presupuestal.component';
+import { DetalleInfoFinancieraComponent } from './components/detalle-info-financiera/detalle-info-financiera.component';
+import { NuevaAnulacionComponent } from './components/nueva-anulacion/nueva-anulacion.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatCardModule,
   MatDatepickerModule,
@@ -27,19 +27,19 @@ import { MatCardModule,
   MatSelectModule,
   MatStepperModule,
   MatTableModule } from '@angular/material';
-import { FormDocumentComponent } from './components/form-document/form-document.component';
+import { FormOficioComponent } from './components/form-oficio/form-oficio.component';
 
 @NgModule({
   declarations: [LayoutAnulacionesComponent,
     ListComponent,
-    CreateAnulationComponent,
-    DetailStepUnoComponent,
-    DetailStepDosComponent,
-    DetailStepTresComponent,
-    DetailStepCuatroComponent,
-    OrderAnulationComponent,
-    FormAnulationComponent,
-    FormDocumentComponent],
+    CrearAnulacionComponent,
+    DetalleActaComponent,
+    DetalleInfoPagoComponent,
+    DetalleInfoPresupuestalComponent,
+    DetalleInfoFinancieraComponent,
+    NuevaAnulacionComponent,
+    FormAnulacionComponent,
+    FormOficioComponent],
   imports: [
     CommonModule,
     AnulacionesRoutingModule,

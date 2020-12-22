@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailStepTresComponent } from './detail-step-tres.component';
+import { DetalleActaComponent } from './detalle-acta.component';
 
-describe('DetailStepTresComponent', () => {
-  let component: DetailStepTresComponent;
-  let fixture: ComponentFixture<DetailStepTresComponent>;
+describe('DetailStepUnoComponent', () => {
+  let component: DetalleActaComponent;
+  let fixture: ComponentFixture<DetalleActaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailStepTresComponent ]
+      declarations: [ DetalleActaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetailStepTresComponent);
+    fixture = TestBed.createComponent(DetalleActaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

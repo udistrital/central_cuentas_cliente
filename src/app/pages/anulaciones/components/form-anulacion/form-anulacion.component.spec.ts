@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAnulationComponent } from './create-anulation.component';
+import { FormAnulacionComponent } from './form-anulacion.component';
 
-describe('CreateAnulationComponent', () => {
-  let component: CreateAnulationComponent;
-  let fixture: ComponentFixture<CreateAnulationComponent>;
+describe('FormAnulationComponent', () => {
+  let component: FormAnulacionComponent;
+  let fixture: ComponentFixture<FormAnulacionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateAnulationComponent ]
+      declarations: [ FormAnulacionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateAnulationComponent);
+    fixture = TestBed.createComponent(FormAnulacionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

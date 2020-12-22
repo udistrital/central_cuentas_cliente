@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderAnulationComponent } from './order-anulation.component';
+import { FormOficioComponent } from './form-oficio.component';
 
-describe('OrderAnulationComponent', () => {
-  let component: OrderAnulationComponent;
-  let fixture: ComponentFixture<OrderAnulationComponent>;
+describe('FormDocumentComponent', () => {
+  let component: FormOficioComponent;
+  let fixture: ComponentFixture<FormOficioComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderAnulationComponent ]
+      declarations: [ FormOficioComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderAnulationComponent);
+    fixture = TestBed.createComponent(FormOficioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,11 +3,11 @@ import { DATOS_ORDENPAGO, DATOS_RELACION_AUTORIZACION } from '../../interfaces/i
 import { FormService } from '../../../../shared/services/form.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'ngx-create-anulation',
-  templateUrl: './create-anulation.component.html',
-  styleUrls: ['./create-anulation.component.scss']
+  selector: 'ngx-crear-anulacion',
+  templateUrl: './crear-anulacion.component.html',
+  styleUrls: ['./crear-anulacion.component.scss']
 })
-export class CreateAnulationComponent implements OnInit {
+export class CrearAnulacionComponent implements OnInit {
 
   tipoAnulacion: any;
   datosOrden: any;

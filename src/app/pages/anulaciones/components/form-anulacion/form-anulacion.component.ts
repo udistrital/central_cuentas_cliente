@@ -2,11 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'ngx-form-anulation',
-  templateUrl: './form-anulation.component.html',
-  styleUrls: ['./form-anulation.component.scss']
+  selector: 'ngx-form-anulacion',
+  templateUrl: './form-anulacion.component.html',
+  styleUrls: ['./form-anulacion.component.scss']
 })
-export class FormAnulationComponent implements OnInit {
+export class FormAnulacionComponent implements OnInit {
 
   @Output () eleccion: EventEmitter <any>;
   @Output () anulacionForm: EventEmitter <any>;

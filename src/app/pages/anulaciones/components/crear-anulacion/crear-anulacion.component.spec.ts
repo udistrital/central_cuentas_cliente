@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailStepDosComponent } from './detail-step-dos.component';
+import { CrearAnulacionComponent } from './crear-anulacion.component';
 
-describe('DetailStepDosComponent', () => {
-  let component: DetailStepDosComponent;
-  let fixture: ComponentFixture<DetailStepDosComponent>;
+describe('CreateAnulationComponent', () => {
+  let component: CrearAnulacionComponent;
+  let fixture: ComponentFixture<CrearAnulacionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailStepDosComponent ]
+      declarations: [ CrearAnulacionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetailStepDosComponent);
+    fixture = TestBed.createComponent(CrearAnulacionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

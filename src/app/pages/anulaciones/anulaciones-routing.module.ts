@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutAnulacionesComponent } from './components/layout-anulaciones/layout-anulaciones.component';
 import { ListComponent } from './components/list/list.component';
-import { CreateAnulationComponent } from './components/create-anulation/create-anulation.component';
-import { OrderAnulationComponent } from './components/order-anulation/order-anulation.component';
+import { CrearAnulacionComponent } from './components/crear-anulacion/crear-anulacion.component';
+import { NuevaAnulacionComponent } from './components/nueva-anulacion/nueva-anulacion.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,11 +15,11 @@ const routes: Routes = [{
       },
       {
         path: 'crear',
-        component: CreateAnulationComponent,
+        component: CrearAnulacionComponent,
       },
       {
         path: 'detalle/:tipo',
-        component: OrderAnulationComponent,
+        component: NuevaAnulacionComponent,
       },
       {
         path: '',

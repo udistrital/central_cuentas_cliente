@@ -11,7 +11,7 @@
             <mat-horizontal-stepper linear #stepper>
                 <mat-step [completed]="anulacionForm">
                     <ng-template matStepLabel> Inicio </ng-template>
-                    <ngx-form-anulation (eleccion)="eleccionAnulacion($event)" (anulacionForm)="validarForm($event)"></ngx-form-anulation>
+                    <ngx-form-anulacion (eleccion)="eleccionAnulacion($event)" (anulacionForm)="validarForm($event)"></ngx-form-anulacion>
                 </mat-step>
                 <mat-step>                 
                     <div *ngIf="tipoAnulacion === 'Orden de pago'">

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AnyFn } from '@ngrx/store/src/selector';
 
 @Component({
-  selector: 'ngx-order-anulation',
-  templateUrl: './order-anulation.component.html',
-  styleUrls: ['./order-anulation.component.scss']
+  selector: 'ngx-nueva-anulacion',
+  templateUrl: './nueva-anulacion.component.html',
+  styleUrls: ['./nueva-anulacion.component.scss']
 })
-export class OrderAnulationComponent implements OnInit {
+export class NuevaAnulacionComponent implements OnInit {
 
   tipoAnulacion: any;
   primerForm: boolean = false;

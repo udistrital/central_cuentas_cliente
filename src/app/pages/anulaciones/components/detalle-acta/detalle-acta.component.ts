@@ -3,11 +3,11 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DATOS_VALOR } from '../../interfaces/interfaces';
 
 @Component({
-  selector: 'ngx-detail-step-uno',
-  templateUrl: './detail-step-uno.component.html',
-  styleUrls: ['./detail-step-uno.component.scss']
+  selector: 'ngx-detalle-acta',
+  templateUrl: './detalle-acta.component.html',
+  styleUrls: ['./detalle-acta.component.scss']
 })
-export class DetailStepUnoComponent implements OnInit {
+export class DetalleActaComponent implements OnInit {
 
   @Output () segundoForm: EventEmitter <any>;
 
