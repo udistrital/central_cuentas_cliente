@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="anulaciones" (ngSubmit)="onSubmit(anulaciones.value)">
+                <div class="card">
+                    <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Seleccione tipo de anulación
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <label for="rAutorizacion"> 
+                                    <input id="rAutorizacion" name="tipoAnulacion" value="Relación de autorización" type="radio" formControlName="tipoAnulacion" [(ngModel)]="nombreAprobacion">                                                            
+                                    Relación de autorización</label>                                                                                                               
+                            </div>
+                            <div class="col">                                                                                                                                                                                                                               
+                                <label for="oPago">
+                                    <input id="oPago" name="tipoAnulacion" value="Orden de pago" type="radio" formControlName="tipoAnulacion" [(ngModel)]="nombreAprobacion">
+                                    Orden de pago</label>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+
+                <div *ngIf= "!!nombreAprobacion" class="card">
+                    <div *ngIf = "nombreAprobacion === 'Relación de autorización'" class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Relación de autorización
+                    </div>
+                    <div *ngIf = "nombreAprobacion === 'Orden de pago'" class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Orden de pago
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <mat-label for="areaFuncional"> Área funcional </mat-label> <br>
+                                <select name="areaFuncional" id="areaFuncional" class="form-control" formControlName="areaFuncional">
+                                    <option *ngFor="let area of areaFuncional" value={{area}}>{{area}}</option>
+                                </select>
+                            </div>
+                            <div class="col"> 
+                                <label for="fecha"> Fecha </label> <br>
+                                <input type="date" name="fecha" id="fecha" formControlName="fecha"> 
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="row group">
+                    <div class="col">
+                        <button routerLinkActive="active" routerLink="pages/anulaciones/lista" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                            Volver al registro
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="anulaciones.invalid">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

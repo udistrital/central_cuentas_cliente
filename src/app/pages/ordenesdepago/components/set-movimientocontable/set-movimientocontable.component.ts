@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE
 } from '../../interfaces/interfaces';
 import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFilaSeleccionada, getConceptosContables } from '../../../../shared/selectors/shared.selectors';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
 
 @Component({
@@ -32,7 +32,8 @@ export class SetMovimientocontableComponent implements OnInit {
   ngOnInit() {
     // Form
     this.movimientoContable = this.fb.group({
-      conceptoContable: [null, [Validators.required]]
+      baseRetencion: ['1500000'],
+      porcentajeDescuento: ['20'],
     });
     // Conceptos contables
     this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
@@ -64,14 +65,22 @@ export class SetMovimientocontableComponent implements OnInit {
 
   agregar() {
     // TODO
-    this.datosTableMovimientoContable.push(DATOS_MOVIMIENTO_CONTABLE[0]);
+    const elemento = Object.assign({}, DATOS_MOVIMIENTO_CONTABLE[0]);
+    elemento.descuento = this.movimientoContable.get('porcentajeDescuento').value / 100;
+    elemento.base = this.movimientoContable.get('baseRetencion').value;
+    elemento.valor = this.valorDescuento;
+    this.datosTableMovimientoContable.push(elemento);
   }
 
-  valorNeto() {
+  get valorNeto() {
     return this.datosTableMovimientoContable.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
   }
 
-  valorTotal() {
+  get valorTotal() {
     return this.datosTableMovimientoContable.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
+  }
+
+  get valorDescuento() {
+    return this.movimientoContable.get('baseRetencion').value * this.movimientoContable.get('porcentajeDescuento').value / 100;
   }
 }

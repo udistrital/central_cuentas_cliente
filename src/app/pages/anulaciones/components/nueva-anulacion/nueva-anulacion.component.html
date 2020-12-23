@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div *ngIf="tipoAnulacion === 'opago'" class="col py-2">
+                    <h5 class="card-title text-center text-primary">
+                        NUEVA ANULACIÓN DE ORDEN DE PAGO
+                    </h5>
+                </div>
+                <div *ngIf="tipoAnulacion === 'rautorizacion'" class="col py-2">
+                    <h5 class="card-title text-center text-primary">
+                        NUEVA ANULACIÓN DE RELACIÓN DE AUTORIZACIÓN
+                    </h5>
+                </div>
+            </div>      
+            <mat-horizontal-stepper linear #stepper>
+                <mat-step [completed]="primerForm">
+                    <ng-template matStepLabel> Anulación </ng-template>
+                    <ngx-form-oficio (primerForm)="validarPrimerForm($event)"></ngx-form-oficio>
+                </mat-step>
+                <mat-step [completed]="segundoForm">       
+                    <ng-template matStepLabel> Detalle </ng-template>          
+                    <ngx-detalle-acta (segundoForm)="validarSegundoForm($event)"></ngx-detalle-acta>
+                </mat-step>
+                <div *ngIf="tipoAnulacion === 'opago'">
+                    <mat-step>
+                        <ng-template matStepLabel> Información del pago </ng-template>
+                        <ngx-detalle-info-pago></ngx-detalle-info-pago>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel> Información adicional </ng-template>
+                        <ngx-detalle-info-presupuestal> </ngx-detalle-info-presupuestal>
+                    </mat-step>
+                </div>
+            </mat-horizontal-stepper>   
+        </div>
+    </div>
+    
+</div> 
