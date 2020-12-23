@@ -212,6 +212,6 @@ export const DATOS_PRESUPUESTAL: any = [
         id: 1,
         codigo: '111-222-333',
         nombreConcepto: 'Servicios de consultoría',
-        valorAplicacion: '$ 3.000.000, 00' 
+        valorAplicacion: '$ 3.000.000, 00',
     }
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DATOS_PRESUPUESTAL } from '../../interfaces/interfaces'
+import { DATOS_PRESUPUESTAL } from '../../interfaces/interfaces';
 @Component({
   selector: 'ngx-detalle-info-presupuestal',
   templateUrl: './detalle-info-presupuestal.component.html',
