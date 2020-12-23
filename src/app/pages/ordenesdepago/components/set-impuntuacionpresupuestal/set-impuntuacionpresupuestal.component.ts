@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_CONCEPTO_VALOR, DATOS_CONCEPTO_VALOR,
   CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION
@@ -7,8 +7,7 @@ import {
 import { Store } from '@ngrx/store';
 import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { ElementRef } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { CONFIGURACION_DOCUMENTOS } from '../../../solicitudesgiros/interfaces/interfaces';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ngx-set-impuntuacionpresupuestal',
