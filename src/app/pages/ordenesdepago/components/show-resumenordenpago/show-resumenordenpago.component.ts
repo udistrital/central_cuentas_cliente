@@ -18,8 +18,8 @@ export class ShowResumenordenpagoComponent implements OnInit {
   datosTableMovimientoContable: any;
 
   constructor(private fb: FormBuilder) {
-    this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION); 
-    this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE); 
+    this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION);
+    this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE);
     this.configTableImpuntuacion.rowActions = null;
     this.configTableMovimientoContable.rowActions = null;
     this.datosTableImputacion = DATOS_IMPUNTUACION;
