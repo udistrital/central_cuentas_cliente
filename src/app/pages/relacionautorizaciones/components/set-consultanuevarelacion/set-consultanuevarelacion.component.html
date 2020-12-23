@@ -47,7 +47,7 @@
     <ng-template #eliminarDatoModal let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="BorrarDatoModal">Borrar Registro</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -55,7 +55,7 @@
             ¿Desea borrar el registro?
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancelar</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Cancelar</button>
             <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
         </div>
     </ng-template>

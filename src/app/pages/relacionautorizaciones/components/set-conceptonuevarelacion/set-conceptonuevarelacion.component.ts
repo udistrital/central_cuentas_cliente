@@ -5,6 +5,7 @@ import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selector
 import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-conceptonuevarelacion',
@@ -46,7 +47,7 @@ export class SetConceptonuevarelacionComponent implements OnInit, OnDestroy {
     });
     // Modal de la tabla para ver informacion de los registros
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
-      if (accion) {
+      if (accion && accion.accion) {
         if (accion.accion.name === 'verDesagregacion' && accion.accion.idStep === 3) {
           this.modalService.open(this.verDesagregacionModal, { size: 'xl' });
         }
@@ -56,7 +57,10 @@ export class SetConceptonuevarelacionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
+    this.subscription$.unsubscribe();
   }
+
 
   createForm() {
     this.conceptoGroup = this.fb.group({

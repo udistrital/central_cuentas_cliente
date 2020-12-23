@@ -4,7 +4,8 @@ import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-consultanuevarelacion',
@@ -15,6 +16,7 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarDatoModal', { static: false }) eliminarDatoModal: ElementRef;
 
   consultaGroup: FormGroup;
+  closeResult = '';
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosConsulta: any;
@@ -45,7 +47,7 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Eliminar datos que se encuentran en la tabla
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
-      if (accion) {
+      if (accion && accion.accion) {
         if (accion.accion.name === 'BorrarRegistroConsulta' && accion.accion.idStep === 2) {
           this.modalEliminar(accion.fila);
         }
@@ -53,18 +55,20 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
     });
     // Mostrar datos ingresados en la tabla
     this.mostrarDatos();
-       this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
-        if (fila) {
-          this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
-        }
-      });
-      this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
-        this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
-      });
+    this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
+      if (fila) {
+        this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
+      }
+    });
+    this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
+      this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
+    });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
+    this.subscription$.unsubscribe();
   }
 
   createForm() {
@@ -100,9 +104,20 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
         this.datosConsulta.splice(this.datosConsulta.findIndex(
           (element: any) => element.disponibilidad === fila.disponibilidad
           && element.registro === fila.registro
-          ), 1);
+          ), 1); 
       }
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }
