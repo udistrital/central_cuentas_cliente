@@ -31,6 +31,12 @@
                         <ngx-set-movimientocontable></ngx-set-movimientocontable>
                     </div>
                 </mat-step>
+                <mat-step [stepControl]="resumenGroup">
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-resumenordenpago></ngx-show-resumenordenpago>
+                    </div>
+                </mat-step>
             </mat-horizontal-stepper>
         </div>
     </div>
