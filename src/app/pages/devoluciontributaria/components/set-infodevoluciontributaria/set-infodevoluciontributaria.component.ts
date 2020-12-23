@@ -30,8 +30,8 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
   get areaFuncionalInvalid() {
     return this.infoDevolucionGroup.get('areaFuncional').invalid && this.infoDevolucionGroup.get('areaFuncional').touched;
   }
-  get fechaDevolucionInvalid() {
-    return this.infoDevolucionGroup.get('fechaDevolucion').invalid && this.infoDevolucionGroup.get('fechaDevolucion').touched;
+  get fechaSolicitudInvalid() {
+    return this.infoDevolucionGroup.get('fechaSolicitud').invalid && this.infoDevolucionGroup.get('fechaSolicitud').touched;
   }
   get tipoComprobanteInvalid() {
     return this.infoDevolucionGroup.get('tipoComprobante').invalid && this.infoDevolucionGroup.get('tipoComprobante').touched;
@@ -45,6 +45,9 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
   get requerimientoInvalid() {
     return this.infoDevolucionGroup.get('requerimiento').invalid && this.infoDevolucionGroup.get('requerimiento').touched;
   }
+  get fechaInvalid() {
+    return this.infoDevolucionGroup.get('fecha').invalid && this.infoDevolucionGroup.get('fecha').touched;
+  }
   get conceptoInvalid() {
     return this.infoDevolucionGroup.get('concepto').invalid && this.infoDevolucionGroup.get('concepto').touched;
   }
@@ -56,7 +59,7 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
   createForm() {
     this.infoDevolucionGroup = this.fb.group({
       areaFuncional: ['', Validators.required],
-      fechaDevolucion: ['', Validators.required],
+      fechaSolicitud: ['', Validators.required],
       numeroComprobante: ['001', ],
       tipoComprobante: ['', Validators.required],
       tipoId: ['', Validators.required],
@@ -66,6 +69,7 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
       requerimiento: ['',
       [Validators.required,
       Validators.pattern('^[0-9]*$')]],
+      fecha: ['', Validators.required],
       concepto: ['', Validators.required],
       razonDevolucion: ['', Validators.required],
     });

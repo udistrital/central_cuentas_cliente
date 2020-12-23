@@ -10,7 +10,7 @@
         </div>
         <!-- Campo: Area funcinal, fecha -->
         <div class="form-group row">
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <label>Área Funcional</label>
                 <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
                     <option selected disabled value="">Seleccione...</option>
@@ -20,17 +20,19 @@
                 </select>
                 <small *ngIf="areaFuncionalInvalid" class="text-danger">Complete este campo</small>
             </div>
+            <div class="col-md-2">
+            </div>
             <div class="col-md-5">
-                <label>Fecha</label>
+                <label>Fecha de Solicitud</label>
                 <div class="input-group">
-                    <input name="fechaDevolucion" class="form-control" formControlName="fechaDevolucion" [class.is-invalid]="fechaDevolucionInvalid" ngbDatepicker #d="ngbDatepicker">
+                    <input name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" ngbDatepicker #d2="ngbDatepicker">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
                             <i class="fas fa-calendar"></i>
                         </button>
                     </div>
                 </div>
-                <small *ngIf="fechaDevolucionInvalid" class="text-danger">Seleccione la fecha</small>
+                <small *ngIf="fechaSolicitudInvalid" class="text-danger">Seleccione la fecha</small>
             </div>
         </div>
         <!-- Fin Campo: Area funcinal, fecha -->
@@ -64,38 +66,49 @@
                 </h6>
             </div>
         </div>
-        <!-- Campo: Tipo id, numero id, numero requerimiento -->
+        <!-- Campo: numero requerimiento, fecha -->
         <div class="form-group row">
-            <div class="col-md-4">
-                <label>Tipo de ID</label>
-                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
-                </select>
-                <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
-            </div>
-            <div class="col-md-4">
-                <label>Número de ID</label>
-                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
-                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
-            </div>
             <div class="col-md-4">
                 <label>Número de Requerimiento</label>
                 <input type="text" class="form-control" formControlName="requerimiento" [class.is-invalid]="requerimientoInvalid">
                 <small *ngIf="requerimientoInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-5">
+                <label>Fecha de Requerimiento</label>
+                <div class="input-group">
+                    <input name="fecha" class="form-control" formControlName="fecha" [class.is-invalid]="fechaInvalid" ngbDatepicker #d1="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                    </div>
+                </div>
+                <small *ngIf="fechaInvalid" class="text-danger">Seleccione la fecha</small>
+            </div>
         </div>
-        <!-- Fin Campo: Tipo id, numero id, numero requerimiento -->
-        <!-- Campos: Nombre -->
+        <!-- Fin Campo: numero requerimiento, fecha -->
+        <!-- Campo: Tipo id, numero id, nombre -->
         <div class="form-group row">
-            <div class="col">
+            <div class="col-md-2">
+                <label>Tipo de ID</label>
+                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
+                    <option>CC</option>
+                    <option>NIT</option>
+                    <option>CE</option>
+                </select>
+                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
+            </div>
+            <div class="col-md-3">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+            <div class="col-md-7">
                 <label>Nombre</label>
                 <input type="text" class="form-control" readonly>
             </div>
         </div>
-        <!-- Fin Campo: Nombre -->
+        <!-- Fin Campo: Tipo id, numero id, nombre -->
         <!-- Campo: Concepto -->
         <div class="form-group row">
             <div class="col">
@@ -115,7 +128,7 @@
             <div class="col">
                 <label>Razón de la Devolución</label>
                 <textarea class="form-control" formControlName="razonDevolucion" rows="1" [class.is-invalid]="razonDevolucionInvalid"></textarea>
-                <small *ngIf="razonDevolucionInvalid" class="text-danger">Complete este campo</small>
+                <small *ngIf="razonDevolucionInvalid" class="text-danger">Describa la razón de la devolución</small>
             </div>
         </div>
         <!-- Fin Campo: Razón de la Devolución -->
