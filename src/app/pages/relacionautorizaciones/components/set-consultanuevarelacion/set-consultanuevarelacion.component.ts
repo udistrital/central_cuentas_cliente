@@ -104,7 +104,7 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
         this.datosConsulta.splice(this.datosConsulta.findIndex(
           (element: any) => element.disponibilidad === fila.disponibilidad
           && element.registro === fila.registro
-          ), 1); 
+          ), 1);
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
