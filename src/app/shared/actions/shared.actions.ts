@@ -62,3 +62,15 @@ export const LoadAreaFuncional = createAction(
   '[Shared] Load Area Funcional',
   props()
 );
+
+// Conceptos Contables
+
+export const GetConceptosContables = createAction(
+  '[Shared] Get Conceptos Contables',
+  props<{ id: any }>()
+);
+
+export const LoadConceptosContables = createAction(
+  '[Shared] Load Conceptos Contables',
+  props()
+);

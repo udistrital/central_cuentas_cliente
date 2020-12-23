@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE
- } from '../../interfaces/interfaces';
-import { ConceptoHelper } from '../../../../@core/helpers/concepto/conceptoHelper';
+} from '../../interfaces/interfaces';
 import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
+import { getFilaSeleccionada, getConceptosContables } from '../../../../shared/selectors/shared.selectors';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-movimientocontable',
@@ -21,23 +21,25 @@ export class SetMovimientocontableComponent implements OnInit {
   datosTableMovimientoContable: any;
   conceptosContables: any;
   subscription: any;
+  subscriptionConceptos: any;
 
-  constructor(private fb: FormBuilder, private modalService: NgbModal, private store: Store<any>, private conceptoHelper: ConceptoHelper) {
+  constructor(private fb: FormBuilder, private modalService: NgbModal, private store: Store<any>) {
     this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
     this.datosTableMovimientoContable = [];
+    this.store.dispatch(GetConceptosContables({ id: '' }));
   }
 
   ngOnInit() {
-    this.conceptoHelper.getConceptos('').subscribe(res => {
-        if (res) {
-          this.conceptosContables = res;
-        }
-      }
-    );
+    // Form
     this.movimientoContable = this.fb.group({
       conceptoContable: [null, [Validators.required]]
     });
-    this.agregar(); // TODO
+    // Conceptos contables
+    this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
+      this.conceptosContables = conceptos[0];
+    });
+    this.agregar(); // TODO: Eliminar
+    // Fila seleccionada
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion) {
         if (accion.accion.idStep === 4 && accion.accion.name === 'modificar') {
@@ -52,10 +54,10 @@ export class SetMovimientocontableComponent implements OnInit {
       if (`${result}`) {
         this.datosTableMovimientoContable.splice(this.datosTableMovimientoContable.findIndex(
           (element: any) => element.codigo === fila.codigo
-          && element.descuento === fila.descuento
-          && element.base === fila.base
-          && element.valor === fila.valor
-          ), 1);
+            && element.descuento === fila.descuento
+            && element.base === fila.base
+            && element.valor === fila.valor
+        ), 1);
       }
     });
   }
