@@ -94,3 +94,58 @@ export const DATOS_TABLA_SOLICITUDES: any = [
     { vigencia: '000', numeroSolicitud: '', numeroDevolucion: '', areaFuncional: '', tipoDevolucion: '', },
     { vigencia: '000', numeroSolicitud: '', numeroDevolucion: '', areaFuncional: '', tipoDevolucion: '', },
 ];
+
+export const CONFIGURACION_TABLA_ANEXOS: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'nombre',
+            title: {
+                name: 'Nombre del Documento',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'estado',
+            title: {
+                name: 'Estado',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center',
+            }
+        },
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'modificar',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Eliminar anexo',
+            }
+        ],
+    },
+    noData: {
+        name: 'No existen elementos asociados',
+        class: 'text-center',
+    },
+};
+export const DATOS_TABLA_ANEXOS: any = [
+    {
+        nombre: 'Copia de la orden de contrato',
+        estado: '',
+    },
+    {
+        nombre: 'Documento 1',
+        estado: '',
+    },
+];

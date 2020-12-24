@@ -6,14 +6,15 @@ import { TableSolicitudesDevolucionComponent } from './components/table-solicitu
 import { CrearSolicitudesDevolucionComponent } from './components/crear-solicitudes-devolucion/crear-solicitudes-devolucion.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SetInfosolicitudComponent } from './components/set-infosolicitud/set-infosolicitud.component';
-import { MatStepperModule } from '@angular/material';
+import { MatStepperModule, MatTabsModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SetInfosolicitanteComponent } from './components/set-infosolicitante/set-infosolicitante.component';
+import { SetAnexosimpuestosComponent } from './components/set-anexosimpuestos/set-anexosimpuestos.component';
 
 
 @NgModule({
-  declarations: [TableSolicitudesDevolucionComponent, CrearSolicitudesDevolucionComponent, SetInfosolicitudComponent, SetInfosolicitanteComponent],
+  declarations: [TableSolicitudesDevolucionComponent, CrearSolicitudesDevolucionComponent, SetInfosolicitudComponent, SetInfosolicitanteComponent, SetAnexosimpuestosComponent],
   imports: [
     CommonModule,
     SolicitudDevolucionRoutingModule,
@@ -21,7 +22,8 @@ import { SetInfosolicitanteComponent } from './components/set-infosolicitante/se
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    MatTabsModule
   ]
 })
 export class SolicitudDevolucionModule { }
