@@ -1,0 +1,20 @@
+<div class="container bg-white p-5 border rounded">
+    <div class="row">
+        <div class="col py-2">
+            <h5 class="card-title text-center text-primary text-uppercase">Lista de solicitudes de devolución</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12  d-flex justify-content-end">
+            <a role="button" routerLink="../../solicituddevolucion/crear" class="btn btn-primary mb-3 mt-3 text-white">
+                <i class="fas fa-plus py-1 px-2"></i>
+                Crear Nueva Solicitud de Devolución
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col px-0">
+            <ngx-general-table [config]="configuracionTabla" [datos]="datosSolicitudes"></ngx-general-table>
+        </div>
+    </div>
+</div>
