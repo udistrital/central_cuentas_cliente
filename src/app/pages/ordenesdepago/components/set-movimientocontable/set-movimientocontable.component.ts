@@ -42,7 +42,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.agregar(); // TODO: Eliminar
     // Fila seleccionada
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
-      if (accion) {
+      if (accion && accion.accion) {
         if (accion.accion.idStep === 4 && accion.accion.name === 'modificar') {
           this.modalEliminar(accion.fila);
         }

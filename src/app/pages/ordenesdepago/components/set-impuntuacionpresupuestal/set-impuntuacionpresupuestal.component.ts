@@ -50,8 +50,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.mostrarOcultarHistoria('');
     this.agregar(); // TODO
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
-      if (accion) {
-        if (accion.accion.idStep === 3 && accion.accion.name === 'modificar') {
+      if (accion && accion.accion && accion.accion.idStep === 3) {
+        if (accion.accion.name === 'modificar') {
           this.modalEliminar(accion.fila);
         } else if (accion.accion.name === 'ver') {
           this.modalService.open(this.fuentesFinanciamientoModal);
