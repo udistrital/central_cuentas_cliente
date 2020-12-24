@@ -13,6 +13,12 @@
                         <ngx-set-infosolicitud></ngx-set-infosolicitud>
                     </div>
                 </mat-step>
+                <mat-step [stepControl]="infoSolicitanteGroup">
+                    <ng-template matStepLabel>Datos del Solicitante</ng-template>
+                    <div class="container">
+                        <ngx-set-infosolicitante></ngx-set-infosolicitante>
+                    </div>
+                </mat-step>
             </mat-horizontal-stepper>
         </div>
     </div>
