@@ -34,6 +34,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.movimientoContable = this.fb.group({
       baseRetencion: ['1500000'],
       porcentajeDescuento: ['20'],
+      conceptoContable: [''],
     });
     // Conceptos contables
     this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
