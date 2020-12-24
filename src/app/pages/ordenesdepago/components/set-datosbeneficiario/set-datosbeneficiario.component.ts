@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'ngx-set-datosbeneficiario',
@@ -10,11 +11,15 @@ import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interface
 export class SetDatosbeneficiarioComponent implements OnInit {
   datosBeneficiario: FormGroup;
   opcionesAreaFuncional: Array<any>;
+  configTableEstados: any;
+  datosTableEstados: any;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+    this.configTableEstados = CONFIGURACION_TABLA_ESTADOS;
+    this.datosTableEstados = DATOS_ESTADOS;
     this.crearFormulario();
   }
 
