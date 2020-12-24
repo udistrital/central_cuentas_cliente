@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE
@@ -7,14 +7,14 @@ import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFilaSeleccionada, getConceptosContables } from '../../../../shared/selectors/shared.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
+import { GetConceptosContables, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-movimientocontable',
   templateUrl: './set-movimientocontable.component.html',
   styleUrls: ['./set-movimientocontable.component.scss']
 })
-export class SetMovimientocontableComponent implements OnInit {
+export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarModal', { static: false }) eliminarModal: ElementRef;
   movimientoContable: FormGroup;
   configTableMovimientoContable: any;
@@ -48,6 +48,12 @@ export class SetMovimientocontableComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.subscriptionConceptos.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
   }
 
   modalEliminar(fila: any) {
