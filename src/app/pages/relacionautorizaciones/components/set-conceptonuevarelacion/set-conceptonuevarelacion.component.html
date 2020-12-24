@@ -1,3 +1,10 @@
+<div class="row">
+    <div class="col-md-12 bg-white py-3">
+        <h6 class="card-title text-center text-primary">
+            RELACIÓN POR CONCEPTO
+        </h6>
+    </div>
+</div>
 <form [formGroup]="conceptoGroup" (ngSubmit)="saveForm()">
     <!-- Tabla-->
     <div class="row pt-3">
@@ -6,14 +13,21 @@
         </div>
     </div>
     <!-- Fin Tabla -->
-    <!-- Botones: regresar, Siguiente -->
-    <div class="row text-center">
-        <div class="col-4">
-            <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
+    <!-- Modal -->
+    <ng-template #verDesagregacionModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="modal-verDesagregacion">ANEXOS DE RELACIONES POR CONCEPTO</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group col-8">
-            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">GENERAR EXTRATO DE DESAGREGACIÓN CONTABLE</button>
+        <div class="modal-body">
+            <h6>Nómina por Pagar - Docentes</h6>
+            <ngx-set-extractodesagregacion></ngx-set-extractodesagregacion>
         </div>
-    </div>
-    <!-- Fin Botones: Regresar, Siguiente -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary text-light" (click)="modal.close('Close click')">Volver</button>
+        </div>
+    </ng-template>
+    <!-- Fin Modal -->
 </form>
