@@ -11,7 +11,7 @@
             <!-- Inicio de "Stepper" -->
             <mat-horizontal-stepper linear #stepper>
                 <!-- Paso 1: Inicio (información de devolucion tributaria) -->
-                <mat-step [stepControl]="infoDevolucionGroup">
+                <mat-step [stepControl]="infoDevolucionGroup" optional>
                     <ng-template matStepLabel>Inicio</ng-template>
                     <div class="container">
                         <ngx-set-infodevoluciontributaria></ngx-set-infodevoluciontributaria>
@@ -27,6 +27,12 @@
                 </mat-step>
                 <!-- Fin de Consulta Orden de Pago -->
                 <!-- Paso 3:  -->
+                <mat-step>
+                    <ng-template matStepLabel>Contabilización</ng-template>
+                    <div class="container">
+                        <ngx-set-contabilizacion></ngx-set-contabilizacion>
+                    </div>
+                </mat-step>
                 <!-- Fin de -->
             </mat-horizontal-stepper>
             <!-- Fin de "Stepper" -->
