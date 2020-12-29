@@ -1,0 +1,61 @@
+<form [formGroup]="datosSolicitud">
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Información de Solicitud
+    </h6>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="numeroSolicitud">No. de Solicitud</label>
+            <input type="number" class="form-control" id="numeroSolicitud" formControlName="numeroSolicitud"
+                [class.is-invalid]="esInvalido('numeroSolicitud')">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="areaFuncional">Área Funcional</label>
+            <select class="form-control" id="areaFuncional" formControlName="areaFuncional"
+                [class.is-invalid]="esInvalido('areaFuncional')">
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="fechaSolicitud">Fecha</label>
+            <div class="input-group-append">
+                <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="fechaSolicitud"
+                    formControlName="fechaSolicitud" [class.is-invalid]="esInvalido('fechaSolicitud')">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                        class="fas fa-calendar"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <span>Tipo de devolución</span>
+        </div>
+        <div class="col-md-4 form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline1">Impuestos</label>
+            </div>
+        </div>
+        <div class="col-md-4 form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline2">Otros Conceptos</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <a routerLink="../../solicituddevolucion/lista" role="button" class="btn btn-primary text-white w-100">
+                Volver a registros
+            </a>
+        </div>
+        <div class="col-md-2 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success w-100">
+                Siguiente
+            </button>
+        </div>
+    </div>
+</form>
