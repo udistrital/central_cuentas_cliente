@@ -8,14 +8,20 @@ import { DevoluciontributariaEffects } from './effects/devoluciontributaria.effe
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule, MatStepperModule } from '@angular/material';
-import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DevoluciontributariaRoutingModule } from './devoluciontributaria-routing.module';
-// import { StepperDevoluciontributariaComponent } from './components/stepper-devoluciontributaria/';
+import { StepperDevoluciontributariaComponent } from './components/stepper-devoluciontributaria/stepper-devoluciontributaria.component';
 import { TableDevoluciontributariaComponent } from './components/table-devoluciontributaria/table-devoluciontributaria.component';
+import { SetInfodevoluciontributariaComponent } from './components/set-infodevoluciontributaria/set-infodevoluciontributaria.component';
+import { SetConsultaordenpagoComponent } from './components/set-consultaordenpago/set-consultaordenpago.component';
 
 
 @NgModule({
-  declarations: [ TableDevoluciontributariaComponent],
+  declarations: [
+    TableDevoluciontributariaComponent,
+    StepperDevoluciontributariaComponent,
+    SetInfodevoluciontributariaComponent,
+    SetConsultaordenpagoComponent],
   imports: [
     CommonModule,
     DevoluciontributariaRoutingModule,

@@ -1,26 +1,31 @@
-import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CONFIGURACION_TABLACONSULTA, DATOS_TABLACONSULTA } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadRelacionautorizacionesSeleccionado } from '../../actions/relacionautorizaciones.actions';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-consultanuevarelacion',
   templateUrl: './set-consultanuevarelacion.component.html',
   styleUrls: ['./set-consultanuevarelacion.component.scss']
 })
-export class SetConsultanuevarelacionComponent implements OnInit {
+export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
+  @ViewChild('eliminarDatoModal', { static: false }) eliminarDatoModal: ElementRef;
 
   consultaGroup: FormGroup;
+  closeResult = '';
   // Configuracion de datos ejemplo en la tabla
   configuracion: any;
   datosConsulta: any;
   subscription$: any;
-  @Output() selectedAction: EventEmitter<any>;
+  subscription: any;
   stringBusqueda: string;
+  @Output() selectedAction: EventEmitter<any>;
 
-  constructor( private fb: FormBuilder, private store: Store<any>) {
+  constructor( private fb: FormBuilder, private store: Store<any>, private modalService: NgbModal) {
         // Datos de ejemplo q se muestran en la tabla
         this.datosConsulta = DATOS_TABLACONSULTA;
         this.configuracion = CONFIGURACION_TABLACONSULTA;
@@ -40,15 +45,30 @@ export class SetConsultanuevarelacionComponent implements OnInit {
   }
 
   ngOnInit() {
-       // Tabla
-       this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
-        if (fila) {
-          this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
+    // Eliminar datos que se encuentran en la tabla
+    this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
+      if (accion && accion.accion) {
+        if (accion.accion.name === 'BorrarRegistroConsulta' && accion.accion.idStep === 2) {
+          this.modalEliminar(accion.fila);
         }
-      });
-      this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
-        this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
-      });
+      }
+    });
+    // Mostrar datos ingresados en la tabla
+    this.mostrarDatos();
+    this.subscription$ = this.store.select(getFilaSeleccionada).subscribe((fila: any) => {
+      if (fila) {
+        this.store.dispatch(loadRelacionautorizacionesSeleccionado(fila.fila));
+      }
+    });
+    this.subscription$ = this.store.select(getAccionTabla).subscribe((accion: any) => {
+      this.store.dispatch(loadRelacionautorizacionesSeleccionado(null));
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
+    this.subscription$.unsubscribe();
   }
 
   createForm() {
@@ -72,4 +92,32 @@ export class SetConsultanuevarelacionComponent implements OnInit {
     }
   }
 
+  // Evento con el boton mostrar datos en la tabla
+  mostrarDatos() {
+    this.datosConsulta.push(DATOS_TABLACONSULTA[0]);
+  }
+
+  // Modal acciones sobre la tabla: eliminar registros
+  modalEliminar(fila: any) {
+    this.modalService.open(this.eliminarDatoModal).result.then((result) => {
+      if (`${result}`) {
+        this.datosConsulta.splice(this.datosConsulta.findIndex(
+          (element: any) => element.disponibilidad === fila.disponibilidad
+          && element.registro === fila.registro
+          ), 1);
+      }
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }
