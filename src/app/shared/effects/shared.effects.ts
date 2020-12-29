@@ -37,4 +37,16 @@ export class SharedEffects {
       )
     );
   });
+
+  GetConceptosContables$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.GetConceptosContables),
+      mergeMap((id) =>
+        this.sharedService.getConceptos(id.id)
+          .pipe(
+            map(data => SharedActions.LoadConceptosContables([data])),
+            catchError(data => of(SharedActions.CatchError(data))))
+      )
+    );
+  });
 }

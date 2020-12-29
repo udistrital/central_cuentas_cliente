@@ -5,8 +5,9 @@ import {
 } from '../../interfaces/interfaces';
 import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
+import { getFilaSeleccionada, getConceptosContables } from '../../../../shared/selectors/shared.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-movimientocontable',
@@ -18,19 +19,29 @@ export class SetMovimientocontableComponent implements OnInit {
   movimientoContable: FormGroup;
   configTableMovimientoContable: any;
   datosTableMovimientoContable: any;
+  conceptosContables: any;
   subscription: any;
+  subscriptionConceptos: any;
 
   constructor(private fb: FormBuilder, private modalService: NgbModal, private store: Store<any>) {
     this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
     this.datosTableMovimientoContable = [];
+    this.store.dispatch(GetConceptosContables({ id: '' }));
   }
 
   ngOnInit() {
+    // Form
     this.movimientoContable = this.fb.group({
       baseRetencion: ['1500000'],
       porcentajeDescuento: ['20'],
+      conceptoContable: [''],
     });
-    this.agregar(); // TODO
+    // Conceptos contables
+    this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
+      this.conceptosContables = conceptos[0];
+    });
+    this.agregar(); // TODO: Eliminar
+    // Fila seleccionada
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion) {
         if (accion.accion.idStep === 4 && accion.accion.name === 'modificar') {

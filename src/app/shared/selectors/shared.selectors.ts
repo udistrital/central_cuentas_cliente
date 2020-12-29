@@ -25,3 +25,7 @@ export const getAccionTabla = createSelector(
   (state: fromShared.State) => state.AccionTabla
 );
 
+export const getConceptosContables = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.ConceptosContables
+);
