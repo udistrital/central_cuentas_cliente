@@ -1,1 +1,31 @@
-<p>detail-step-cuatro works!</p>
+<div class="card">
+    <div class="card-body">
+        <div class="titles">
+            <div class="card-title bg-primary col-md-4 text-light text-center py-1 ml-2 rounded">
+                Información financiera y contable
+            </div>
+            <button mat-button matStepperPrevious class="card-title info col-md-4 text-light text-center py-1 ml-2 rounded">
+                Información presupuestal
+            </button>
+        </div>
+        <ngx-table [titles]="titles" [attributes]="attributes" [list]="datos"></ngx-table>
+        <hr>
+        <div class="row float-right">
+            <label for="valorNeto" class="align-middle"> Valor bruto </label>
+            <input id="valorNeto" name="valorNeto" class="px-2 ml-3 mr-3" type="text" placeholder="$ 6.000.000,00">
+        </div>
+    </div>
+</div>
+<div class="row text-center px-5">
+    <div class="col">
+        <button mat-button matStepperPrevious type="button" class="btn btn-primary px-3 py-2 my-2 text-light" >
+            Volver
+        </button>
+    </div>
+    <div class="col">
+        <button class="btn btn-success px-3 py-2 my-2 text-light" (click)="onSubmit()">
+            Anular
+        </button>
+    </div>
+</div>
+

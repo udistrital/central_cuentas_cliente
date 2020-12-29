@@ -75,6 +75,7 @@
     "ng2-ckeditor": "^1.2.6",
     "ng2-completer": "2.0.8",
     "ng2-currency-mask": "^5.3.1",
+    "ng2-pdf-viewer": "^6.3.2",
     "ng2-smart-table": "1.3.5",
     "ngx-echarts": "^4.2.2",
     "node-sass": "^4.13.0",
@@ -95,7 +96,7 @@
   },
   "devDependencies": {
     "@angular-builders/jest": "^8.3.0",
-    "@angular-devkit/build-angular": "~0.800.2",
+    "@angular-devkit/build-angular": "^0.803.29",
     "@angular/cli": "^8.3.19",
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "8.0.0",

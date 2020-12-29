@@ -68,7 +68,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
         },
         actions: [
             {
-                name: 'ver',
+                name: 'verResumenSolicitud',
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Resumen de Solicitud',
@@ -182,10 +182,11 @@ export const CONFIGURACION_TABLACONSULTA: any = {
         },
         actions: [
             {
-                name: 'ver',
+                name: 'BorrarRegistroConsulta',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Borrar',
+                idStep: 2
             },
         ],
     },
@@ -262,10 +263,11 @@ export const CONFIGURACION_TABLACONCEPTOS: any = {
         },
         actions: [
             {
-                name: 'ver',
+                name: 'verDesagregacion',
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Desagregación',
+                idStep: 3
             },
         ],
     },

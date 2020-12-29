@@ -53,6 +53,22 @@ export class SharedService {
 
   }
 
+  /**
+   * Gets Conceptos
+   * @param [id] Identificador del concepto o vacio para todos los conceptos
+   * @returns  Información de conceptos
+   */
+  public getConceptos(id?: any) {
+
+    this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+    const params = {
+      id: id,
+    };
+    // call request manager for the tree's data.
+    return this.rqManager.get(`concepto/${id}`, params);
+
+  }
+
   public getRubro(codigo: string) {
     this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
     return this.rqManager.get(`arbol_rubro/arbol/${codigo}`);
