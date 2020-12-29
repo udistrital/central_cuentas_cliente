@@ -14,11 +14,13 @@
                     <ngx-form-borrado (eleccionCuenta)="eleccionBorrado($event)" (borradoForm)="validarForm($event)"></ngx-form-borrado>
                 </mat-step>
                 <mat-step>
+                  <p *ngIf="tipoBorrado === 'Orden de pago'"> Seleccione las órdenes de pago que desea borrar: </p>
+                  <p *ngIf="tipoBorrado === 'Relación de autorización'"> Seleccione las relaciones de autorización que desea borrar: </p>
                     <div *ngIf="tipoBorrado === 'Orden de pago'">
-                        <ngx-table [titles]="titlesOrden" [attributes]="attributesOrden" [list]="datosOrden" [seleccion]="true"></ngx-table>
+                        <ngx-table [titles]="titlesOrden" [attributes]="attributesOrden" [list]="datosOrden" [seleccion]="true" [filtro]="true"></ngx-table>
                     </div>
                     <div *ngIf="tipoBorrado === 'Relación de autorización'">
-                        <ngx-table [titles]="titlesRelacion" [attributes]="attributesRelacion" [list]="datosRelacion" [seleccion]="true"></ngx-table>
+                        <ngx-table [titles]="titlesRelacion" [attributes]="attributesRelacion" [list]="datosRelacion" [seleccion]="true" [filtro]="true"></ngx-table>
                     </div>                 
                     <div class="row text-center px-5">
                         <div class="col">
@@ -27,8 +29,8 @@
                             </button>
                         </div>
                         <div class="col">
-                            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" (click)="crear()" [disabled]="form.aprobacionesElegidas.length === 0">
-                                Siguiente
+                            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" data-toggle="modal" data-target="#exampleModal" [disabled]="form.aprobacionesElegidas.length === 0">
+                                Continuar
                             </button>
                         </div>
                     </div>
@@ -36,5 +38,32 @@
             </mat-horizontal-stepper>   
         </div>
     </div>
-    
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Borrar órdenes de pago seleccionadas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nombre del responsable: </label>
+              <input type="text" class="form-control" id="recipient-name" placeholder="Escribir...">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Justificación:</label>
+              <textarea class="form-control" id="message-text" placeholder="Escribir..."></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+          <button type="button" class="btn btn-primary">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
