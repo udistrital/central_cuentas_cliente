@@ -314,7 +314,7 @@ export const DATOS_MOVIMIENTO_CONTABLE: any = [
 ];
 
 export const CONFIGURACION_TABLA_ESTADOS: any = {
-    showColumnTitle: true,
+    showColumnTitle: false,
     dataConfig: [
         {
             key: 'estado',
@@ -339,9 +339,9 @@ export const CONFIGURACION_TABLA_ESTADOS: any = {
 };
 export const DATOS_ESTADOS: any = [
     {
-        estado: ''
+        estado: 'elaborado'
     },
     {
-        estado: ''
+        estado: 'aprobado'
     }
 ];
