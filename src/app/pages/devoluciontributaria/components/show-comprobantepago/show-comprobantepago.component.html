@@ -1,5 +1,5 @@
 <form [formGroup]="comprobantepagoGroup" (ngSubmit)="saveForm()">
-    <!-- Grupo: Información de Solicitud -->
+    <!-- Grupo: Comprobante de Pago -->
     <div class="container pb-3">
         <div class="row">
             <div class="col">
@@ -39,23 +39,23 @@
             </div>
         </div>
     </div>
-    <!-- Fin Grupo: Solicitante -->
+    <!-- Fin Grupo: Comprobante de pago -->
     <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
     <!-- Campo: Observaciones -->
     <div class="form-group row py-2">
         <div class="col">
-            <label>Observaciones *</label>
-            <textarea class="form-control" formControlName="observacion" rows="1" [class.is-invalid]="observacionInvalid"></textarea>
-            <small *ngIf="observacionInvalid" class="text-danger">Describa la razón de la devolución</small>
+            <p class="pb-1">Por favor, diligenciar los siguientes campos:</p>
+            <label>Observaciones</label>
+            <textarea class="form-control" placeholder="Comentarios de la solicitud" formControlName="observacion" rows="1" [class.is-invalid]="observacionInvalid"></textarea>
+            <small *ngIf="observacionInvalid" class="text-danger">Ingrese mínimo 5 caracteres</small>
         </div>
     </div>
     <div class="form-group row justify-content-md-end">
         <div class="col-md-7">
-            <label>Nombre de la persona que autoriza: *</label>
-            <input type="text" class="form-control" formControlName="nombreAutoriza" [class.is-invalid]="nombreAutorizaInvalid">
-            <small *ngIf="nombreAutorizaInvalid" class="text-danger">Ingrese números en este campo</small>
+            <label>Nombre de la persona que autoriza:</label>
+            <input type="text" class="form-control" placeholder="Escriba su nombre" formControlName="nombreAutoriza" [class.is-invalid]="nombreAutorizaInvalid">
+            <small *ngIf="nombreAutorizaInvalid" class="text-danger">Ingrese mínimo 5 - máximo 30 caracteres</small>
         </div>
-
     </div>
     <!-- Fin Campo: Observaciones -->
     <!-- Botones: Regresar, Siguiente -->
@@ -65,14 +65,10 @@
                 <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
             </div>
             <div class="col-md-6 form-group">
-                <button type="submit" [disabled]="!comprobantepagoGroup.valid" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#guardarDevolucion">
+                <button type="button" [disabled]="!comprobantepagoGroup.valid" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#guardarDevolucion">
                 GUARDAR
                 </button>
             </div>
-            <!-- <div class="col-md-4 form-group">
-                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#guardarDevolucion">
-                    GUARDAR</button>
-            </div> -->
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->

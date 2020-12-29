@@ -345,24 +345,21 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
         class: 'text-center',
     },
     endSubtotal: {
-        property: 'string', // key object
+        property: 'valorTotal', // key object
         items: [
             {
-                colspan: '5', // relative offset number
+                colspan: 5, // relative offset number
                 name: 'Sumatoria', // title item
                 class: 'text-right', // bootstrap class
             },
         ],
         last: {
-            name: 'string', // if fixed name ( optional )
-            class: 'string',
+            class: 'text-left',
             pipe: {
-                type: 'string', // date, currency, decimal, percent, custom ( optional )
+                type: 'currency',
                 config: [
-                    'string', // array like pipe, no custom
-                    () => { }, // only custom pipe
-                ], //  ( optional )
-                class: 'string', // bootstrap class
+                ],
+                class: '',
             }
         }
     },
@@ -487,24 +484,21 @@ export const CONFIGURACION_TABLABANCOS: any = {
         class: 'text-center',
     },
     endSubtotal: {
-        property: 'string', // key object
+        property: 'Total', // key object
         items: [
             {
-                colspan: '5', // relative offset number
+                colspan: 5, // relative offset number
                 name: 'Sumatoria', // title item
                 class: 'text-right', // bootstrap class
             },
         ],
         last: {
-            name: 'string', // if fixed name ( optional )
-            class: 'string',
+            class: 'text-left',
             pipe: {
-                type: 'string', // date, currency, decimal, percent, custom ( optional )
+                type: 'currency',
                 config: [
-                    'string', // array like pipe, no custom
-                    () => { }, // only custom pipe
-                ], //  ( optional )
-                class: 'string', // bootstrap class
+                ],
+                class: '',
             }
         }
     },

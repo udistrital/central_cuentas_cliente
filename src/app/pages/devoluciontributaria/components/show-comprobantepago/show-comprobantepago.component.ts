@@ -27,8 +27,13 @@ export class ShowComprobantepagoComponent implements OnInit {
 
   createForm() {
     this.comprobantepagoGroup = this.fb.group({
-      observacion: ['', Validators.required],
-      nombreAutoriza: ['', Validators.required]
+      observacion: ['',
+      [Validators.required,
+      Validators.minLength(5)]],
+      nombreAutoriza: ['',
+      [Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(25)]]
     });
   }
 
