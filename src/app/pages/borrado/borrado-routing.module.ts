@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutBorradoComponent } from './components/layout-borrado/layout-borrado.component';
 import { ListComponent } from './components/list/list.component';
 import { CrearBorradoComponent } from './components/crear-borrado/crear-borrado.component';
+import { DetalleBorradoComponent } from './components/detalle-borrado/detalle-borrado.component';
 
 
 const routes: Routes = [{
@@ -16,6 +17,10 @@ const routes: Routes = [{
       {
         path: 'crear',
         component: CrearBorradoComponent,
+      },
+      {
+        path: 'detalle/:tipo',
+        component: DetalleBorradoComponent,
       },
       {
         path: '',

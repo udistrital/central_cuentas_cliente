@@ -11,7 +11,7 @@ export class BorradoEffects {
 
 
   loadBorrados$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
       ofType(BorradoActions.loadBorrados),
       /** An EMPTY observable only emits completion. Replace with your own observable API request */
       concatMap(() => EMPTY)

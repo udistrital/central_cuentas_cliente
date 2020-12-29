@@ -14,9 +14,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatStepperModule,
   MatInputModule, } from '@angular/material';
 import { FormBorradoComponent } from './components/form-borrado/form-borrado.component';
+import { DetalleBorradoComponent } from './components/detalle-borrado/detalle-borrado.component';
 
 @NgModule({
-  declarations: [LayoutBorradoComponent, ListComponent, CrearBorradoComponent, FormBorradoComponent],
+  declarations: [LayoutBorradoComponent, ListComponent, CrearBorradoComponent, FormBorradoComponent, DetalleBorradoComponent],
   imports: [
     CommonModule,
     SharedModule,

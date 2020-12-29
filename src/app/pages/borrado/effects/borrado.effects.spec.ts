@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { BorradoEffects } from './borrado.effects';
 
 describe('BorradoEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = new Observable();
   let effects: BorradoEffects;
 
   beforeEach(() => {

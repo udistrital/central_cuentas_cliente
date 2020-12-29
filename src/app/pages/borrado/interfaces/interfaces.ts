@@ -154,3 +154,46 @@ export const DATOS_RELACION_AUTORIZACION: any = [
         estado: 'activo'
     }
 ];
+export const DATOS_ORDENPAGO: any = [
+    {
+        id: 1,
+        vigencia: '2019',
+        consecutivo: '21783',
+        tipoID  : 'CC',
+        numeroID: '120398',
+        nombre: 'Ester'
+    },
+    {
+        id: 2,
+        vigencia: '2021',
+        consecutivo: '2453',
+        tipoID  : 'CC',
+        numeroID: '87324',
+        nombre: 'Juan'
+    },
+    {
+        id: 3,
+        vigencia: '2020',
+        consecutivo: '21783',
+        tipoID  : 'CC',
+        numeroID: '379989',
+        nombre: 'Lina'
+    },
+    {
+        id: 4,
+        vigencia: '2019',
+        consecutivo: '21233',
+        tipoID  : 'CC',
+        numeroID: '5465598',
+        nombre: 'Ana'
+    },
+    {
+        id: 5,
+        vigencia: '2019',
+        consecutivo: '21908',
+        tipoID  : 'CC',
+        numeroID: '120455',
+        nombre: 'Nancy'
+    },
+];
+
