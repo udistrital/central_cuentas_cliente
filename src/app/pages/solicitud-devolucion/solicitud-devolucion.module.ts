@@ -11,6 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SetInfosolicitanteComponent } from './components/set-infosolicitante/set-infosolicitante.component';
 import { SetAnexosimpuestosComponent } from './components/set-anexosimpuestos/set-anexosimpuestos.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromSolicitudDevolucion from './reducers/solicitud-devolucion.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { SolicitudDevolucionEffects } from './effects/solicitud-devolucion.effects';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -23,7 +28,10 @@ import { SetAnexosimpuestosComponent } from './components/set-anexosimpuestos/se
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    MatTabsModule
+    MatTabsModule,
+    StoreModule.forFeature(fromSolicitudDevolucion.solicitudDevolucionFeatureKey, fromSolicitudDevolucion.reducer),
+    EffectsModule.forFeature([SolicitudDevolucionEffects]),
+    CurrencyMaskModule
   ]
 })
 export class SolicitudDevolucionModule { }
