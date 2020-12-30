@@ -80,6 +80,7 @@ steps:
   - npm run build:test
   when:
     branch:
+    - develop
     - release/*
     event:
     - push
