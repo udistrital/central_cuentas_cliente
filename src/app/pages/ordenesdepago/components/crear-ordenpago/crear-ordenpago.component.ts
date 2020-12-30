@@ -5,6 +5,7 @@ import {SetDatoscompromisoComponent} from '../set-datoscompromiso/set-datoscompr
 import {SetImpuntuacionpresupuestalComponent} from '../set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
 import {SetMovimientocontableComponent} from '../set-movimientocontable/set-movimientocontable.component';
 import {ShowResumenordenpagoComponent} from '../show-resumenordenpago/show-resumenordenpago.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-crear-ordenpago',
@@ -17,8 +18,12 @@ export class CrearOrdenpagoComponent implements OnInit {
   @ViewChild(SetImpuntuacionpresupuestalComponent, {static: false}) setImpuntuacionpresupuestalComponent: SetImpuntuacionpresupuestalComponent;
   @ViewChild(SetMovimientocontableComponent, {static: false}) setMovimientocontableComponent: SetMovimientocontableComponent;
   @ViewChild(ShowResumenordenpagoComponent, {static: false}) showResumenordenpagoComponent: ShowResumenordenpagoComponent;
+  tituloAccion: string;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute) {
+    // Título, editar o crear
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+  }
 
   ngOnInit() {
   }

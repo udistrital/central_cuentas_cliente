@@ -9,7 +9,8 @@ import { TableListaordenesComponent } from './components/table-listaordenes/tabl
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
-import { MatStepperModule } from '@angular/material';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatStepperModule, MatSelectModule } from '@angular/material';
 import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiario/set-datosbeneficiario.component';
 import { SetDatoscompromisoComponent } from './components/set-datoscompromiso/set-datoscompromiso.component';
 import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
@@ -33,6 +34,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     MatStepperModule,
+    MatSelectModule,
+    ScrollingModule,
     StoreModule.forFeature(fromOrdenespago.ordenespagoFeatureKey, fromOrdenespago.reducer),
     EffectsModule.forFeature([OrdenespagoEffects])
   ]

@@ -1,0 +1,26 @@
+<div class="container pt-3">
+    <div class="row">
+        <div class="col-md-5 px-3">
+            <span>{{ fileName }}</span>
+        </div>
+        <div class="col-md-3 text-center">
+            <span class="header__page-indicator-current">- {{ currentPage }}</span>
+            <span class="header__page-indicator-separator">/</span>
+            <span class="header__page-indicator-total">{{ totalPages }} -</span>
+        </div>
+        <div class="col-md-4 d-flex list-unstyled list ml-auto block justify-content-end pb-3">
+            <button type="button" class="btn btn-secondary mx-1" (click)="zoom('increment')" [disabled]="zoomAmt >= zoomMax">
+                <i class="fas fa-search-plus text-white"></i> <!-- zoom in -->
+              </button>
+            <button type="button" class="btn btn-secondary mx-1" (click)="zoom('decrement')" [disabled]="zoomMin >= zoomAmt">
+                <i class="fas fa-search-minus text-white"></i> <!-- zoom out -->
+              </button>
+            <button type="button" class="btn btn-secondary mx-1" (click)="onPrint($event)">
+                <i class="fas fa-print text-white"></i><!-- print -->
+            </button>
+            <button type="button" class="btn btn-secondary mx-1" (click)="onDownload($event)">
+                <i class="fas fa-file-download text-white"></i> <!-- download -->
+            </button>
+        </div>
+    </div>
+</div>

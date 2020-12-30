@@ -215,3 +215,17 @@ export const DATOS_PRESUPUESTAL: any = [
         valorAplicacion: '$ 3.000.000, 00',
     }
 ];
+export const DATOS_FINANCIERA: any = [
+    {
+        id: 1,
+        valorBruto: 'Estam-ProCultura',
+        codigoContable: '111-222-333',
+        valor: '$ 3.000.000, 00',
+    },
+    {
+        id: 2,
+        valorBruto: 'Estam-ProAdulto',
+        codigoContable: '111-222-333',
+        valor: '$ 3.000.000, 00',
+    }
+];
