@@ -13,7 +13,7 @@ export class SetConsultaordenpagoComponent implements OnInit {
   datosConsultaOP: any;
   consultaOPGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor( private fb: FormBuilder ) {
     // Datos de ejemplo q se muestran en la tabla
     this.datosConsultaOP = DATOS_CONSULTAOP;
     this.configConsultaOP = CONFIGURACION_CONSULTAOP;

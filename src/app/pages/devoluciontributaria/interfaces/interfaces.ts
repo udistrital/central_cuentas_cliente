@@ -247,3 +247,281 @@ export const DATOS_CONSULTAOP: any = [
         total: '$1.000.000',
     }
 ];
+export const CONFIGURACION_TABLAIMPUESTO: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'tercero',
+            title: {
+                name: 'Tercero',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'numeroCuenta',
+            title: {
+                name: 'No. de Cuenta',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'nombreCuenta',
+            title: {
+                name: 'Nombre de Cuenta',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center',
+            }
+        },
+        {
+            key: 'porcentaje',
+            title: {
+                name: 'Porcentaje',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'baseRetencion',
+            title: {
+                name: 'Base de Retención',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'debito',
+            title: {
+                name: 'Débito',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'credito',
+            title: {
+                name: 'Crédito',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+    ],
+    subtitle: {
+        name: 'Retención - Estampilla', // name subtitle
+        class: 'text-center bg-primary text-white', // bootstrap class
+    },
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'ver',
+                icon: 'fas fa-eye',
+                class: 'p-2',
+                title: 'Ver Resumen de Devolución',
+            },
+        ],
+    },
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    endSubtotal: {
+        property: 'valorTotal', // key object
+        items: [
+            {
+                colspan: 5, // relative offset number
+                name: 'Sumatoria', // title item
+                class: 'text-right', // bootstrap class
+            },
+        ],
+        last: {
+            class: 'text-left',
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: '',
+            }
+        }
+    },
+    sort: true,
+    filter: false,
+};
+export const DATOS_TABLAIMPUESTO: any = [
+    {
+        tercero: '2020',
+        numeroCuenta: '000326',
+        nombreCuenta: 'Estampilla',
+        porcentaje: '2',
+        baseRetencion: '$67890',
+        debito: '$67890',
+        credito: '',
+    },
+    {
+        tercero: '2020',
+        numeroCuenta: '000326',
+        nombreCuenta: 'Retencion',
+        porcentaje: '2',
+        baseRetencion: '$67890',
+        debito: '$67890',
+        credito: '',
+    },
+];
+export const CONFIGURACION_TABLABANCOS: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'tercero',
+            title: {
+                name: 'Tercero',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'numeroCuenta',
+            title: {
+                name: 'No. de Cuenta',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'nombreCuenta',
+            title: {
+                name: 'Nombre de Cuenta',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center',
+            }
+        },
+        {
+            key: 'porcentaje',
+            title: {
+                name: 'Porcentaje',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'baseRetencion',
+            title: {
+                name: 'Base de Retención',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'debito',
+            title: {
+                name: 'Débito',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'credito',
+            title: {
+                name: 'Crédito',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+    ],
+    subtitle: {
+        name: 'Bancos', // name subtitle
+        class: 'text-center bg-primary text-white', // bootstrap class
+    },
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'ver',
+                icon: 'fas fa-eye',
+                class: 'p-2',
+                title: 'Ver Resumen de Devolución',
+            },
+        ],
+    },
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    endSubtotal: {
+        property: 'Total', // key object
+        items: [
+            {
+                colspan: 5, // relative offset number
+                name: 'Sumatoria', // title item
+                class: 'text-right', // bootstrap class
+            },
+        ],
+        last: {
+            class: 'text-left',
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: '',
+            }
+        }
+    },
+    sort: true,
+    filter: false,
+};
+export const DATOS_TABLABANCOS: any = [
+    {
+        tercero: '2020',
+        numeroCuenta: '000326',
+        nombreCuenta: 'Banco Popular',
+        porcentaje: '',
+        baseRetencion: '',
+        debito: '',
+        credito: '$67890',
+    },
+    {
+        tercero: '2020',
+        numeroCuenta: '000326',
+        nombreCuenta: 'Banco Colpatria',
+        porcentaje: '',
+        baseRetencion: '',
+        debito: '',
+        credito: '$67890',
+    },
+];

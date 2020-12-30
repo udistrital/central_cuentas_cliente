@@ -14,6 +14,8 @@ import { StepperDevoluciontributariaComponent } from './components/stepper-devol
 import { TableDevoluciontributariaComponent } from './components/table-devoluciontributaria/table-devoluciontributaria.component';
 import { SetInfodevoluciontributariaComponent } from './components/set-infodevoluciontributaria/set-infodevoluciontributaria.component';
 import { SetConsultaordenpagoComponent } from './components/set-consultaordenpago/set-consultaordenpago.component';
+import { SetContabilizacionComponent } from './components/set-contabilizacion/set-contabilizacion.component';
+import { ShowComprobantepagoComponent } from './components/show-comprobantepago/show-comprobantepago.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { SetConsultaordenpagoComponent } from './components/set-consultaordenpag
     TableDevoluciontributariaComponent,
     StepperDevoluciontributariaComponent,
     SetInfodevoluciontributariaComponent,
-    SetConsultaordenpagoComponent],
+    SetConsultaordenpagoComponent,
+    SetContabilizacionComponent,
+    ShowComprobantepagoComponent],
   imports: [
     CommonModule,
     DevoluciontributariaRoutingModule,
