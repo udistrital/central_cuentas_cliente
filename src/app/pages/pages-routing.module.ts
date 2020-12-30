@@ -38,6 +38,11 @@ const routes: Routes = [
         loadChildren: () => import('./devoluciontributaria/devoluciontributaria.module')
         .then(m => m.DevoluciontributariaModule),
       },
+      {
+        path: 'solicituddevolucion',
+        loadChildren: () => import('./solicitud-devolucion/solicitud-devolucion.module')
+        .then(m => m.SolicitudDevolucionModule),
+      },
     ]
   }
 ];

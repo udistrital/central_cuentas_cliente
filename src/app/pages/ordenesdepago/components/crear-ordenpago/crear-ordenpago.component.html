@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
-            <h5 class="card-title text-center text-primary">CREAR ORDEN DE PAGO</h5>
+            <h5 class="card-title text-center text-primary text-uppercase">{{ tituloAccion }} Orden de pago</h5>
         </div>
     </div>
     <div class="row">
@@ -23,6 +23,18 @@
                     <ng-template matStepLabel>Imputación Presupuestal</ng-template>
                     <div class="container">
                         <ngx-set-impuntuacionpresupuestal></ngx-set-impuntuacionpresupuestal>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="movimientoContableGroup">
+                    <ng-template matStepLabel>Movimiento Contable</ng-template>
+                    <div class="container">
+                        <ngx-set-movimientocontable></ngx-set-movimientocontable>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="resumenGroup">
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-resumenordenpago></ngx-show-resumenordenpago>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>

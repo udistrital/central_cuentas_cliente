@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAnulationComponent } from './create-anulation.component';
+import { SetAnexosimpuestosComponent } from './set-anexosimpuestos.component';
 
-describe('CreateAnulationComponent', () => {
-  let component: CreateAnulationComponent;
-  let fixture: ComponentFixture<CreateAnulationComponent>;
+describe('SetAnexosimpuestosComponent', () => {
+  let component: SetAnexosimpuestosComponent;
+  let fixture: ComponentFixture<SetAnexosimpuestosComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateAnulationComponent ]
+      declarations: [ SetAnexosimpuestosComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateAnulationComponent);
+    fixture = TestBed.createComponent(SetAnexosimpuestosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

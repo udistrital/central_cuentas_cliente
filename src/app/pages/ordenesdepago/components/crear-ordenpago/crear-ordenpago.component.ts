@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {SetDatosbeneficiarioComponent} from '../set-datosbeneficiario/set-datosbeneficiario.component';
 import {SetDatoscompromisoComponent} from '../set-datoscompromiso/set-datoscompromiso.component';
 import {SetImpuntuacionpresupuestalComponent} from '../set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
 import {SetMovimientocontableComponent} from '../set-movimientocontable/set-movimientocontable.component';
 import {ShowResumenordenpagoComponent} from '../show-resumenordenpago/show-resumenordenpago.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-crear-ordenpago',
@@ -17,8 +18,12 @@ export class CrearOrdenpagoComponent implements OnInit {
   @ViewChild(SetImpuntuacionpresupuestalComponent, {static: false}) setImpuntuacionpresupuestalComponent: SetImpuntuacionpresupuestalComponent;
   @ViewChild(SetMovimientocontableComponent, {static: false}) setMovimientocontableComponent: SetMovimientocontableComponent;
   @ViewChild(ShowResumenordenpagoComponent, {static: false}) showResumenordenpagoComponent: ShowResumenordenpagoComponent;
+  tituloAccion: string;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute) {
+    // Título, editar o crear
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+  }
 
   ngOnInit() {
   }

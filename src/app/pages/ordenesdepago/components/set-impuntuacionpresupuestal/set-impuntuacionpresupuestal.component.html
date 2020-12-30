@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="disponibilidad">Disponibilidad</label>
-            <select class="form-control" id="disponibilidad">
+            <select class="form-control" id="disponibilidad" formControlName="disponibilidad">
                 <option selected disabled>Elegir...</option>
                 <option value="111">111</option>
                 <option value="222">222</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label for="registro">Registro</label>
-            <select class="form-control" id="registro">
+            <select class="form-control" id="registro" formControlName="registro">
                 <option selected disabled>Elegir...</option>
                 <option value="123456">123456</option>
                 <option value="789001">789001</option>
@@ -54,7 +54,7 @@
         </div>
         <div class="col-md-4 form-group">
             <label for="valorAplicacion">Valor Aplicación (Gasto)</label>
-            <input currencyMask class="form-control" id="valorAplicacion">
+            <input currencyMask class="form-control" id="valorAplicacion" formControlName="valor">
         </div>
     </div>
     <div class="row justify-content-end">
@@ -64,14 +64,14 @@
             </button>
         </div>
     </div>
-    <div id="tablaImputacion" class="container pt-1 px-0">
+    <div id="tablaImputacion" class="container py-2 px-0">
         <ngx-general-table [config]="configTableImpuntuacion" [datos]="datosTableImputacion"></ngx-general-table>
     </div>
     <div class="row form-group justify-content-md-center">
         <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Valor Total</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalGasto|currency}}">
+            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
         </div>
     </div>
     <ng-template #eliminarModal let-modal>
@@ -104,14 +104,14 @@
         </div>
     </ng-template>
 
-    <div class="container">
-        <div class="row pt-2 text-center">
-            <div class="col-md-6">
-                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
-            </div>
-            <div class="col-md-6 form-group">
-                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
-            </div>
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+        </div>
+        <div class="col-md-3 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success">
+                Siguiente
+            </button>
         </div>
     </div>
 </form>

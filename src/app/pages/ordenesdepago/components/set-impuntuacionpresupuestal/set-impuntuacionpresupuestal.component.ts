@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_CONCEPTO_VALOR, DATOS_CONCEPTO_VALOR,
   CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION
@@ -7,8 +7,8 @@ import {
 import { Store } from '@ngrx/store';
 import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { ElementRef } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { CONFIGURACION_DOCUMENTOS } from '../../../solicitudesgiros/interfaces/interfaces';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-impuntuacionpresupuestal',
@@ -16,7 +16,7 @@ import { CONFIGURACION_DOCUMENTOS } from '../../../solicitudesgiros/interfaces/i
   styleUrls: ['./set-impuntuacionpresupuestal.component.scss']
 })
 
-export class SetImpuntuacionpresupuestalComponent implements OnInit {
+export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarModal', { static: false }) eliminarModal: ElementRef;
   @ViewChild('fuentesFinanciamientoModal', { static: false }) fuentesFinanciamientoModal: ElementRef;
   impuntuacionPresupuestal: FormGroup;
@@ -28,7 +28,6 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
   datosTableImputacion: any;
   mostrarOcultar: string;
   mostrarOcultarIcono: string;
-  totalGasto: number;
   subscription: any;
 
   constructor(private fb: FormBuilder, private store: Store<any>, private modalService: NgbModal) {
@@ -40,17 +39,18 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
     this.datosTableImputacion = [];
     this.mostrarOcultar = 'Mostrar';
     this.mostrarOcultarIcono = 'fa-eye';
-    this.totalGasto = 0.00;
   }
 
   ngOnInit() {
     this.impuntuacionPresupuestal = this.fb.group({
-      firstCtrl: ['', Validators.required]
+      disponibilidad: [''],
+      registro: [''],
+      valor: [''],
     });
     this.mostrarOcultarHistoria('');
     this.agregar(); // TODO
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
-      if (accion) {
+      if (accion && accion.accion && accion.accion.idStep === 3) {
         if (accion.accion.name === 'modificar') {
           this.modalEliminar(accion.fila);
         } else if (accion.accion.name === 'ver') {
@@ -60,15 +60,20 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
+  }
+
   modalEliminar(fila: any) {
     this.modalService.open(this.eliminarModal).result.then((result) => {
       if (`${result}`) {
         this.datosTableImputacion.splice(this.datosTableImputacion.findIndex(
           (element: any) => element.codigo === fila.codigo
-          && element.disponibilidad === fila.disponibilidad
-          && element.registro === fila.registro
-          && element.valor === fila.valor
-          ), 1);
+            && element.disponibilidad === fila.disponibilidad
+            && element.registro === fila.registro
+            && element.valor === fila.valor
+        ), 1);
       }
     });
   }
@@ -86,8 +91,10 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
   agregar() {
     // TODO
     this.datosTableImputacion.push(DATOS_IMPUNTUACION[0]);
-    // Valor total
-    this.totalGasto = this.datosTableImputacion.reduce((a, b) => a + b.valor, 0);
+  }
+
+  totalGasto() {
+    return this.datosTableImputacion.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
   }
 
 }
