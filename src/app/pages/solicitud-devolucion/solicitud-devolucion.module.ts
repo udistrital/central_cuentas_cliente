@@ -9,10 +9,11 @@ import { SetInfosolicitudComponent } from './components/set-infosolicitud/set-in
 import { MatStepperModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SetInfosolicitanteComponent } from './components/set-infosolicitante/set-infosolicitante.component';
 
 
 @NgModule({
-  declarations: [TableSolicitudesDevolucionComponent, CrearSolicitudesDevolucionComponent, SetInfosolicitudComponent],
+  declarations: [TableSolicitudesDevolucionComponent, CrearSolicitudesDevolucionComponent, SetInfosolicitudComponent, SetInfosolicitanteComponent],
   imports: [
     CommonModule,
     SolicitudDevolucionRoutingModule,

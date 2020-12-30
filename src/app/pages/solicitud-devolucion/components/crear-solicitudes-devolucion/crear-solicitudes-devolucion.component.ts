@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { SetInfosolicitanteComponent } from '../set-infosolicitante/set-infosolicitante.component';
 import { SetInfosolicitudComponent } from '../set-infosolicitud/set-infosolicitud.component';
 
 @Component({
@@ -9,6 +10,7 @@ import { SetInfosolicitudComponent } from '../set-infosolicitud/set-infosolicitu
 })
 export class CrearSolicitudesDevolucionComponent implements OnInit {
   @ViewChild(SetInfosolicitudComponent, {static: false}) setInfosolicitudComponent: SetInfosolicitudComponent;
+  @ViewChild(SetInfosolicitanteComponent, {static: false}) setInfosolicitanteComponent: SetInfosolicitanteComponent;
 
   constructor(private fb: FormBuilder) { }
 
@@ -17,6 +19,10 @@ export class CrearSolicitudesDevolucionComponent implements OnInit {
 
   get infoSolicitudGroup() {
     return this.setInfosolicitudComponent ? this.setInfosolicitudComponent.datosSolicitud : this.fb.group({});
+  }
+
+  get infoSolicitanteGroup() {
+    return this.setInfosolicitanteComponent ? this.setInfosolicitanteComponent.datosSolicitante : this.fb.group({});
   }
 
 }

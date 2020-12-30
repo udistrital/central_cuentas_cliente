@@ -31,4 +31,12 @@ export class SetInfosolicitudComponent implements OnInit {
       return true;
   }
 
+  validarFormulario() {
+    if (this.datosSolicitud.invalid) {
+      return Object.values(this.datosSolicitud.controls).forEach(control => {
+        control.markAsDirty();
+      });
+    }
+  }
+
 }
