@@ -19,7 +19,8 @@ export class SetInfosolicitudComponent implements OnInit {
     this.datosSolicitud = this.fb.group({
       numeroSolicitud: ['', Validators.required],
       areaFuncional: ['', Validators.required],
-      fechaSolicitud: ['', Validators.required]
+      fechaSolicitud: ['', Validators.required],
+      tipoDevolucion: ['', Validators.required],
     });
   }
 
