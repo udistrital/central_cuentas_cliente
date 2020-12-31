@@ -5,7 +5,7 @@ export const loadSolicitudDevolucions = createAction(
 );
 
 export const seleccionarTipoDevolucion = createAction(
-  '[TipoDevolucion] Seleccionar TipoDevolucion',
+  '[SolicitudDevolucion] Seleccionar TipoDevolucion',
   props()
 );
 
