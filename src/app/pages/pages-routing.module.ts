@@ -43,6 +43,11 @@ const routes: Routes = [
         loadChildren: () => import('./solicitud-devolucion/solicitud-devolucion.module')
         .then(m => m.SolicitudDevolucionModule),
       },
+      {
+        path: 'borrado',
+        loadChildren: () => import ('./borrado/borrado.module')
+        .then(m => m.BorradoModule),
+      },
     ]
   }
 ];
