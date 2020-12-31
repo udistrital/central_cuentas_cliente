@@ -2,12 +2,7 @@
     <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex">
         <mat-tab label="Anexos">
             <div class="container pt-4">
-                <div class="row">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Adjuntar Archivo</label>
-                    </div>
-                </div>
+                <ngx-file-upload (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
                 <div class="container py-2 px-0">
                     <ngx-general-table [config]="configTablaAnexos" [datos]="datosAnexos"></ngx-general-table>
                 </div>

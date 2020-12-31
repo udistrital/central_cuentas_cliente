@@ -19,6 +19,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { MultiPipePipe } from './pipes/multi-pipe.pipe';
 import { RechazarComponent } from './components/rechazar/rechazar.component';
 import { TableComponent } from './components/table/table.component';
+import { FileUploadDirective } from './directives/file-upload.directive';
 @NgModule({
   exports: [
     TranslateModule,
@@ -27,7 +28,8 @@ import { TableComponent } from './components/table/table.component';
     ArbolRubroComponent,
     SelectedRowDirective,
     RechazarComponent,
-    TableComponent
+    TableComponent,
+    FileUploadComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { TableComponent } from './components/table/table.component';
     FileUploadComponent,
     MultiPipePipe,
     RechazarComponent,
-    TableComponent
+    TableComponent,
+    FileUploadDirective
   ],
   providers: [
     CustomTablePipe,

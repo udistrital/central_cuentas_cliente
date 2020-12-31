@@ -148,4 +148,10 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
     }, () => { });
   }
 
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      this.datosAnexos.push({ nombre: item.name, estado: '', file: item });
+    }
+  }
+
 }
