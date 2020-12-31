@@ -1,0 +1,97 @@
+<form [formGroup]="comprobantepagoGroup" (ngSubmit)="saveForm()">
+    <!-- Grupo: Comprobante de Pago -->
+    <div class="container pb-3">
+        <div class="row">
+            <div class="col">
+                <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
+                    Comprobante de Pago
+                </h6>
+            </div>
+        </div>
+        <div class="row pt-2 d-flex justify-content-center">
+            <div class="col-md-5">
+                <label>Número de Comprobante</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-5">
+                <label>Fecha de Comprobante</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row pt-2 d-flex justify-content-center">
+            <div class="col-md-5">
+                <label>Tipo de Cuenta</label>
+                <input type="text" class="form-control" value="001" readonly>
+            </div>
+            <div class="col-md-5">
+                <label>Número de Cuenta</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row pt-2 d-flex justify-content-center">
+            <div class="col-md-5">
+                <label>Entidad</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <div class="col-md-5">
+                <label>Valor</label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Grupo: Comprobante de pago -->
+    <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
+    <!-- Campo: Observaciones -->
+    <div class="form-group row py-2">
+        <div class="col">
+            <p class="pb-1">Por favor, diligenciar los siguientes campos:</p>
+            <label>Observaciones</label>
+            <textarea class="form-control" placeholder="Comentarios de la solicitud" formControlName="observacion" rows="1" [class.is-invalid]="observacionInvalid"></textarea>
+            <small *ngIf="observacionInvalid" class="text-danger">Ingrese mínimo 5 caracteres</small>
+        </div>
+    </div>
+    <div class="form-group row justify-content-md-end">
+        <div class="col-md-7">
+            <label>Nombre de la persona que autoriza:</label>
+            <input type="text" class="form-control" placeholder="Escriba su nombre" formControlName="nombreAutoriza" [class.is-invalid]="nombreAutorizaInvalid">
+            <small *ngIf="nombreAutorizaInvalid" class="text-danger">Ingrese mínimo 5 - máximo 30 caracteres</small>
+        </div>
+    </div>
+    <!-- Fin Campo: Observaciones -->
+    <!-- Botones: Regresar, Siguiente -->
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div class="col-md-6">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+            </div>
+            <div class="col-md-6 form-group">
+                <button type="button" [disabled]="!comprobantepagoGroup.valid" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#guardarDevolucion">
+                GUARDAR
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Botones: Regresar, Siguiente -->
+</form>
+
+
+<!-- Modal: Solicitud Guardada -->
+<div class="modal fade" id="guardarDevolucion" tabindex="-1" aria-labelledby="guardarDevolucionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="guardarDevolucionLabel"><i class="fas fa-check text-success"></i>¡Guardado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Se ha guardado la Solicitud de Devolución Tributaria No. 001.</p>
+            </div>
+            <div class="modal-footer">
+                <a routerLink="../../devoluciontributaria/lista" role="button" class="btn btn-primary" data-dismiss="modal">Aceptar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal: Solicitud Guardada -->
