@@ -16,7 +16,7 @@ const solicitudDevolucionReducer = createReducer(
 
   on(SolicitudDevolucionActions.loadSolicitudDevolucions, state => state),
   on(SolicitudDevolucionActions.seleccionarTipoDevolucion, (state, action) => ({
-    ...state, ConceptosContables: state.TipoDevolucion = action
+    ...state, TipoDevolucion: state.TipoDevolucion = action
   })),
 
 );
