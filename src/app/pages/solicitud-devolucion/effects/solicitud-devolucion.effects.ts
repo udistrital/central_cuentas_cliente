@@ -12,7 +12,7 @@ export class SolicitudDevolucionEffects {
 
 
   loadSolicitudDevolucions$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(SolicitudDevolucionActions.loadSolicitudDevolucions),
       /** An EMPTY observable only emits completion. Replace with your own observable API request */
@@ -21,6 +21,6 @@ export class SolicitudDevolucionEffects {
   });
 
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions) { }
 
 }

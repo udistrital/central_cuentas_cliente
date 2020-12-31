@@ -16,7 +16,7 @@ export class FileUploadComponent implements OnInit {
   onFileDropped($event: any[]) {
     this.prepareFilesList.emit($event);
   }
-  
+
   fileBrowseHandler(files: any[]) {
     this.prepareFilesList.emit(files);
   }

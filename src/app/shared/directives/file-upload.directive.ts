@@ -28,7 +28,7 @@ export class FileUploadDirective {
     evt.preventDefault();
     evt.stopPropagation();
     this.fileOver = false;
-    let files = evt.dataTransfer.files;
+    const files = evt.dataTransfer.files;
     if (files.length > 0) {
       this.fileDropped.emit(files);
     }

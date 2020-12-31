@@ -27,8 +27,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
   configTablaImpuestos: any;
   datosTablaImpuestos: any;
   selectedIndex: number;
-  subscriptionAnexos$: any;
-  subscriptionImpuestos$: any;
+  subscription2$: any;
 
 
   constructor(private store: Store<any>, private fb: FormBuilder, private modalService: NgbModal) {
@@ -47,7 +46,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
       }
     });
     this.crearFormulario();
-    this.subscriptionAnexos$ = this.store.select(getFilaSeleccionada).subscribe((accion) => {
+    this.subscription2$ = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion && accion.accion && accion.fila && accion.accion.idTable) {
         if (accion.accion.idTable === 'anexos') {
           this.eliminarAnexo(accion.fila);
@@ -87,8 +86,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.subscriptionAnexos$.unsubscribe();
-    this.subscriptionImpuestos$.unsubscribe();
+    this.subscription2$.unsubscribe();
     this.store.dispatch(LoadFilaSeleccionada(null));
   }
 

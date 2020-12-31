@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { SolicitudDevolucionEffects } from './solicitud-devolucion.effects';
 
 describe('SolicitudDevolucionEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = new Observable();
   let effects: SolicitudDevolucionEffects;
 
   beforeEach(() => {
