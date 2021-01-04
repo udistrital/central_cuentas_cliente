@@ -19,8 +19,8 @@
                         <ngx-set-infosolicitante></ngx-set-infosolicitante>
                     </div>
                 </mat-step>
-                <mat-step>
-                    <ng-template matStepLabel>Anexos</ng-template>
+                <mat-step [stepControl]="impuestosAnexosGroup">
+                    <ng-template matStepLabel>{{impuestos}} Anexos</ng-template>
                     <div class="container">
                         <ngx-set-anexosimpuestos></ngx-set-anexosimpuestos>
                     </div>
