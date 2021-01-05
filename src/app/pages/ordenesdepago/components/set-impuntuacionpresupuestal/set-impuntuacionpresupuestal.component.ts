@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_CONCEPTO_VALOR, DATOS_CONCEPTO_VALOR,
@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-impuntuacionpresupuestal',
@@ -15,7 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./set-impuntuacionpresupuestal.component.scss']
 })
 
-export class SetImpuntuacionpresupuestalComponent implements OnInit {
+export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarModal', { static: false }) eliminarModal: ElementRef;
   @ViewChild('fuentesFinanciamientoModal', { static: false }) fuentesFinanciamientoModal: ElementRef;
   impuntuacionPresupuestal: FormGroup;
@@ -49,8 +50,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
     this.mostrarOcultarHistoria('');
     this.agregar(); // TODO
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
-      if (accion) {
-        if (accion.accion.idStep === 3 && accion.accion.name === 'modificar') {
+      if (accion && accion.accion && accion.accion.idStep === 3) {
+        if (accion.accion.name === 'modificar') {
           this.modalEliminar(accion.fila);
         } else if (accion.accion.name === 'ver') {
           this.modalService.open(this.fuentesFinanciamientoModal);
@@ -59,15 +60,20 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
+  }
+
   modalEliminar(fila: any) {
     this.modalService.open(this.eliminarModal).result.then((result) => {
       if (`${result}`) {
         this.datosTableImputacion.splice(this.datosTableImputacion.findIndex(
           (element: any) => element.codigo === fila.codigo
-          && element.disponibilidad === fila.disponibilidad
-          && element.registro === fila.registro
-          && element.valor === fila.valor
-          ), 1);
+            && element.disponibilidad === fila.disponibilidad
+            && element.registro === fila.registro
+            && element.valor === fila.valor
+        ), 1);
       }
     });
   }

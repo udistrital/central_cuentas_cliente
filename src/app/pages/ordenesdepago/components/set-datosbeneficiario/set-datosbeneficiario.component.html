@@ -71,6 +71,11 @@
                 [class.is-invalid]="esInvalido('cuenta')">
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <ngx-general-table [config]="configTableEstados" [datos]="datosTableEstados"></ngx-general-table>
+        </div>
+    </div>
 
     <div class="row justify-content-between">
         <div class="col-md-3">

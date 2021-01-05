@@ -1,0 +1,83 @@
+<form [formGroup]="contabilizacionGroup" (ngSubmit)="saveForm()">
+    <!-- Grupo: Información de la Solicitud -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Contabilización
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 px-4">
+            </div>
+            <div class="col-md-5 px-4">
+                <label>Concepto</label>
+                <input type="text" class="form-control" formControlName="concepto" readonly>
+            </div>
+        </div>
+        <!-- Tabla-->
+        <div class="row pt-1">
+            <div class="col-md-12 bg-white px-2 pb-3">
+                <ngx-general-table [config]="configImpuesto" [datos]="datosImpuesto"></ngx-general-table>
+            </div>
+        </div>
+        <!-- Fin Tabla -->
+
+        <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="py-2 px-2">Seleccione el banco:</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-5 px-4">
+                <label>Banco</label>
+                <select class="custom-select" formControlName="banco" [class.is-invalid]="bancoInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="bancoInvalid" class="text-danger">Complete este campo</small>
+            </div>
+            <div class="col-md-4">
+                <label>Valor</label>
+                <input type="text" class="form-control" formControlName="valor" [class.is-invalid]="valorInvalid">
+                <small *ngIf="valorInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+            <div class="col-md-2 bg-white px-5 d-flex flex-row justify-content-end">
+                <div class="d-flex flex-row align-items-end">
+                    <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                        <span>Agregar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Tabla-->
+        <div class="row pt-1">
+            <div class="col-md-12 bg-white px-2 pb-3">
+                <ngx-general-table [config]="configBancos" [datos]="datosBancos"></ngx-general-table>
+            </div>
+        </div>
+        <!-- Fin Tabla -->
+        <div class="row form-group justify-content-md-end px-2">
+            <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Total</label>
+            </div>
+            <div class="col-md-4">
+                <input class="form-control" id="valorTotal" disabled value="{{ totalGasto | currency }}">
+            </div>
+        </div>
+    </div>
+    <!-- Botones: Volver, siguiente -->
+    <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
+        <div class="form-group col-md-6">
+            <button mat-button matStepperPrevious type="submit" class="btn btn-primary text-white m-0 mt-4">Volver</button>
+        </div>
+        <div class="form-group col-md-6">
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+        </div>
+    </div>
+    <!-- Fin Botones: Volver, siguiente -->
+</form>
