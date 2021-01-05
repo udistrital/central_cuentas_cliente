@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-detalle-borrado',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetalleBorradoComponent implements OnInit {
 
-  constructor() { }
+  tipoBorrado: any;
+
+  constructor(private routeActived: ActivatedRoute,) { }
 
   ngOnInit() {
+    this.getTipo ();
   }
 
+  getTipo () {
+    this.tipoBorrado = this.routeActived.snapshot.paramMap.get('tipo');
+  }
 }

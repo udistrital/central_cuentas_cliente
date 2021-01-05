@@ -29,7 +29,7 @@
                             </button>
                         </div>
                         <div class="col">
-                            <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" data-toggle="modal" data-target="#exampleModal" [disabled]="form.aprobacionesElegidas.length === 0">
+                            <button class="btn btn-success px-3 py-2 my-2 text-light" type="submit" (click)="open(modal)" [disabled]="form.aprobacionesElegidas.length === 0">
                                 Continuar
                             </button>
                         </div>
@@ -37,33 +37,35 @@
                 </mat-step>
             </mat-horizontal-stepper>   
         </div>
-    </div>
+    </div> 
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Borrar órdenes de pago seleccionadas</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Nombre del responsable: </label>
-              <input type="text" class="form-control" id="recipient-name" placeholder="Escribir...">
-            </div>
-            <div class="form-group">
-              <label for="message-text" class="col-form-label">Justificación:</label>
-              <textarea class="form-control" id="message-text" placeholder="Escribir..."></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-          <button type="button" class="btn btn-primary">Continuar</button>
-        </div>
+
+<ng-template #modal let-modal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="material-icons m-3 help text-center align-middle">
+          help
+          </span>
+        <h5 class="modal-title" id="exampleModalLabel">Borrar órdenes de pago seleccionadas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </div>
-  </div>
+      <form [formGroup]="justificacionBorrado" (ngSubmit)="crear(justificacionBorrado.value)">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="nombreResponsable">Nombre del responsable: </label>
+            <input formControlName="nombreResponsable" type="text" class="form-control" id="nombreResponsable" placeholder="Escribir...">
+          </div>
+          <div class="form-group">
+            <label for="justificacion">Justificación:</label>
+            <textarea formControlName="justificacion" class="form-control" id="justificacion" placeholder="Escribir..."></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+        <button mat-button type="submit" class="btn btn-primary" [disabled]="justificacionBorrado.invalid">Continuar</button>
+      </div>
+    </form>
+</div> 
+</ng-template>

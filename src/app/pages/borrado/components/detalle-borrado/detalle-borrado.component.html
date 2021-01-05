@@ -1,1 +1,25 @@
-<p>detalle-borrado works!</p>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 *ngIf="tipoBorrado === 'Orden de pago'" class="title text-center text-primary">
+                        DETALLE DE ÓRDENES DE PAGO A BORRAR
+                    </h5>
+                    <h5 *ngIf="tipoBorrado === 'Relación de autorización'" class="title text-center text-primary">
+                        DETALLE DE RELACIÓN DE AUTORIACIÓN
+                    </h5>
+                </div>
+                
+            </div>
+            
+            <div class="card">
+                <div class="card-title">
+            
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
