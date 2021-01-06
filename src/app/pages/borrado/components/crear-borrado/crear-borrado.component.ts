@@ -42,7 +42,7 @@ export class CrearBorradoComponent implements OnInit, OnDestroy {
   }
 
   open (content: any) {
-  this.modal = this.modalService.open(content)
+    this.modal = this.modalService.open(content);
   }
 
   close () {
@@ -55,20 +55,6 @@ export class CrearBorradoComponent implements OnInit, OnDestroy {
       nombreResponsable: ['', Validators.required],
       justificacion: ['', Validators.required],
     });
-    this.handleFormChanges();
-  }
-
-  handleFormChanges() {
-    this.justificacionBorrado.statusChanges.subscribe(
-      (result: any) => {
-        console.log(result);
-      }
-    );
-    this.justificacionBorrado.valueChanges.subscribe(
-      (result: any) => {
-        console.log(result);
-      }
-    )
   }
 
   eleccionBorrado (data: any) {

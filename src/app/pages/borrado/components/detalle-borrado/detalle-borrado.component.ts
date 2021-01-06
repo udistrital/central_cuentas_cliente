@@ -9,8 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 export class DetalleBorradoComponent implements OnInit {
 
   tipoBorrado: any;
+  detalle: boolean = false;
 
-  constructor(private routeActived: ActivatedRoute,) { }
+  constructor(private routeActived: ActivatedRoute,
+    ) { }
 
   ngOnInit() {
     this.getTipo ();
@@ -18,5 +20,9 @@ export class DetalleBorradoComponent implements OnInit {
 
   getTipo () {
     this.tipoBorrado = this.routeActived.snapshot.paramMap.get('tipo');
+  }
+
+  mostrarDetalle () {
+    this.detalle = !this.detalle;
   }
 }
