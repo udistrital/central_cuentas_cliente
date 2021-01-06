@@ -69,6 +69,32 @@ export class SharedService {
 
   }
 
+  /**
+   * Gets TiposID
+   * @returns  Tipos de identificacion de terceros
+   */
+
+  public getTiposID() {
+    this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
+    return this.rqManager.get('tipo_documento');
+
+  }
+
+  /**
+   * Gets DatosIdentificacion
+   * @returns  Datos de identificacion de terceros
+   */
+
+  public getDatosID(clave?: string, numero?: string, tipo?: number, limit?: number, fields?: string) {
+    this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
+    const params = {
+      query : `Numero:${numero},TipoDocumentoId.Id:${tipo}`,
+      limit : limit ? limit : 1,
+      fields : fields ? fields : 'TerceroId'
+    };
+    return this.rqManager.get('datos_identificacion', params);
+  }
+
   public getRubro(codigo: string) {
     this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
     return this.rqManager.get(`arbol_rubro/arbol/${codigo}`);
