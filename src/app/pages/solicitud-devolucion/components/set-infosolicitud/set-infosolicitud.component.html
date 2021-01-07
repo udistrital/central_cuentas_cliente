@@ -12,9 +12,7 @@
             <label for="areaFuncional">Área Funcional</label>
             <select class="form-control" id="areaFuncional" formControlName="areaFuncional"
                 [class.is-invalid]="esInvalido('areaFuncional')">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
+                <option [ngValue]="opcion" *ngFor="let opcion of opcionesAreaFuncional">{{opcion?.label}}</option>
             </select>
         </div>
         <div class="col-md-4 form-group">
@@ -31,7 +29,7 @@
     <div class="row">
         <div class="col-md-4 form-group">
             <span>Tipo de devolución</span>
-            <div class="invalid-feedback" [class.d-block]="esInvalido('tipoDevolucion')">Debe elegir el tipo de devolución</div>
+            <div class="invalid-feedback" [class.d-block]="esInvalido('tipoDevolucion')">Complete este campo</div>
         </div>
         <div class="col-md-4 form-group">
             <div class="custom-control custom-radio custom-control-inline">

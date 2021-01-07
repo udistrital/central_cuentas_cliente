@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { seleccionarTipoDevolucion } from '../../actions/solicitud-devolucion.actions';
 
 @Component({
@@ -10,8 +11,11 @@ import { seleccionarTipoDevolucion } from '../../actions/solicitud-devolucion.ac
 })
 export class SetInfosolicitudComponent implements OnInit {
   datosSolicitud: FormGroup;
+  opcionesAreaFuncional: Array<any>;
 
-  constructor(private fb: FormBuilder, private store: Store<any>) { }
+  constructor(private fb: FormBuilder, private store: Store<any>) {
+    this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+  }
 
   ngOnInit() {
     this.crearFormulario();
@@ -25,7 +29,7 @@ export class SetInfosolicitudComponent implements OnInit {
       tipoDevolucion: ['', Validators.required],
     });
     this.datosSolicitud.get('tipoDevolucion').valueChanges.subscribe(valor => {
-      this.store.dispatch(seleccionarTipoDevolucion({tipoDevolucion: valor}));
+      this.store.dispatch(seleccionarTipoDevolucion({ tipoDevolucion: valor }));
     });
   }
 
