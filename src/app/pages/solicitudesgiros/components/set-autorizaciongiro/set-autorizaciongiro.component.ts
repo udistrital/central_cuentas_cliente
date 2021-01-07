@@ -4,7 +4,6 @@ import { getNodoSeleccionado, selectTiposID, selectDatosID } from '../../../../s
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { getDatosID } from '../../../../shared/actions/shared.actions';
 import { combineLatest } from 'rxjs';
-import { loadAutorizaciongiro } from '../../actions/solicitudesgiros.actions';
 
 @Component({
   selector: 'ngx-set-autorizaciongiro',
@@ -115,8 +114,6 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
       return Object.values( this.autorizacionGroup.controls ).forEach( control => {
         control.markAsTouched();
       });
-    } else {
-      this.store.dispatch(loadAutorizaciongiro({ autorizaciongiro: this.autorizacionGroup.value }));
     }
   }
 

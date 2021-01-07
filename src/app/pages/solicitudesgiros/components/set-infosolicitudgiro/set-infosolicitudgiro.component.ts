@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { getDatosID } from '../../../../shared/actions/shared.actions';
 import { selectTiposID, selectDatosID } from '../../../../shared/selectors/shared.selectors';
 import { combineLatest } from 'rxjs';
-import { loadInfosolicitudgiro } from '../../actions/solicitudesgiros.actions';
 
 
 @Component({
@@ -96,8 +95,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       return Object.values( this.infoSolicitudGroup.controls ).forEach( control => {
         control.markAsTouched();
       });
-    } else {
-      this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: this.infoSolicitudGroup.value }));
     }
   }
 
