@@ -1,17 +1,18 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { loadSolicitudgiroSeleccionado, loadDocumentos } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_DOCUMENTOS, DATOS_DOCUMENTOS } from '../../interfaces/interfaces';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
   templateUrl: './set-cargardocumentos.component.html',
   styleUrls: ['./set-cargardocumentos.component.scss']
 })
-export class SetCargardocumentosComponent implements OnInit {
+export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarDatoModal', { static: false }) eliminarDatoModal: ElementRef;
 
   configuracion: any;
@@ -19,7 +20,6 @@ export class SetCargardocumentosComponent implements OnInit {
   closeResult = '';
   cargarDatos: any;
   subscription$: any;
-  // subscription$: any;
   subscriptionEliminarDato$: any;
 
   documentosGroup: FormGroup;
@@ -60,6 +60,12 @@ export class SetCargardocumentosComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+    this.store.dispatch(LoadFilaSeleccionada(null));
+    this.subscriptionEliminarDato$.unsubscribe();
+  }
+
   // Validacion de formulario
   get documentosInvalid() {
     return this.documentosGroup.get('documentos').invalid && this.documentosGroup.get('documentos').touched;
@@ -81,19 +87,20 @@ export class SetCargardocumentosComponent implements OnInit {
 
     // Evento con el boton mostrar datos en la tabla
     mostrarDatos() {
-      // this.cargarDatos.push(this.datosDocumentos);
+      this.cargarDatos.push(DATOS_DOCUMENTOS[0]);
       // this.store.dispatch()
     }
 
    // Modal acciones sobre la tabla: eliminar registros
    modalEliminar(fila: any) {
     this.modalService.open(this.eliminarDatoModal).result.then((result) => {
-      // if (`${result}`) {
-      //   this.cargarDatos.splice(this.cargarDatos.findIndex(
-      //     (element: any) => element.nombreDocumento === fila.nombreDocumento && element.nombreArchivo === fila.nombreArchivo
-      //     ), 1);
-      //     // this.store.dispatch()
-      // }
+      if (`${result}`) {
+        this.cargarDatos.splice(this.cargarDatos.findIndex(
+          (element: any) => element.nombreDocumento === fila.nombreDocumento
+          && element.nombreArchivo === fila.nombreArchivo
+          ), 1);
+          // this.store.dispatch()
+      }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
