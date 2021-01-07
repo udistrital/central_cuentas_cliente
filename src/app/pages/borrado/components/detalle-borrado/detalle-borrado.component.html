@@ -26,11 +26,11 @@
                         </div>
                         <div class="col mx-0 px-0 lista">
                             <label class="ml-3 mt-3" for="consecutivo"> No. de consecutivo </label>
-                            <input class="mx-3 my-2" type="number" name="consecutivo" id="consecutivo" disabled> <br>
+                            <input *ngIf="!!datosCuenta" class="mx-3 my-2" type="number" name="consecutivo" id="consecutivo" disabled> <br>
                             <label class="ml-3" for="areaFuncional"> Área funcional </label>
-                            <input class="mx-3 my-2" type="text" name="areaFuncional" id="areaFuncional" disabled> <br>
+                            <input *ngIf="!!datosCuenta" class="mx-3 my-2" type="text" name="areaFuncional" id="areaFuncional" disabled placeholder="{{datosCuenta.areaFuncional}}"> <br>
                             <label class="ml-3" for="fecha"> Fecha </label>
-                            <input class="mb-3 mx-3 my-2" type="date" name="feacha" id="fecha" disabled> <br>
+                            <input *ngIf="!!datosCuenta" class="mb-3 mx-3 my-2" type="text" name="fecha" id="fecha" disabled placeholder="{{datosCuenta.fecha}}"> <br>
                         </div>
                     </div>
                     <div class="row">
@@ -48,7 +48,31 @@
                         </div>
                     </div>
                     <div *ngIf="detalle">
-                        <ngx-table> </ngx-table>
+                        <ngx-table *ngIf="!!cuentasElegidas" [titles]="titles" [attributes]="attributes" [list]="cuentasElegidas"> </ngx-table>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 px-0 justificacion"> 
+                            <p class="text-center p-2"> Nombre del responsable </p>
+                        </div>
+                        <div *ngIf="!!datosJustificacion" class="col">
+                            {{datosJustificacion.nombreResponsable}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 px-0 justificacion">
+                            <p class="text-center p-2"> Justificación </p> 
+                        </div>
+                        <div *ngIf="!!datosJustificacion" class="col">
+                            {{datosJustificacion.justificacion}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button> Volver </button>
+                        </div>
+                        <div class="col">
+                            <button> Borrar </button>
+                        </div>
                     </div>
                 </div>
             </div>

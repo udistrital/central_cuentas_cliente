@@ -4,6 +4,8 @@ import { FormService } from '../../../../shared/services/form.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { cargarDatosElegidos, cargarDatosJustificacion } from '../../actions/borrado.actions';
 @Component({
   selector: 'ngx-crear-borrado',
   templateUrl: './crear-borrado.component.html',
@@ -31,7 +33,8 @@ export class CrearBorradoComponent implements OnInit, OnDestroy {
     public form: FormService,
     public route: Router,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private store: Store<any>,
   ) {
     this.datosOrden = DATOS_ORDENPAGO;
     this.datosRelacion = DATOS_RELACION_AUTORIZACION;
@@ -42,6 +45,7 @@ export class CrearBorradoComponent implements OnInit, OnDestroy {
   }
 
   open (content: any) {
+    this.store.dispatch(cargarDatosElegidos(this.form.aprobacionesElegidas));
     this.modal = this.modalService.open(content);
   }
 
@@ -66,6 +70,7 @@ export class CrearBorradoComponent implements OnInit, OnDestroy {
   }
 
   crear (data: any) {
+    this.store.dispatch(cargarDatosJustificacion(data));
     if (this.tipoBorrado === 'Orden de pago') {
       this.route.navigateByUrl('/pages/borrado/detalle/opago');
     } else if (this.tipoBorrado === 'Relación de autorización') {

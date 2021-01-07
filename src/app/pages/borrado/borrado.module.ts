@@ -15,9 +15,10 @@ import { MatStepperModule,
   MatInputModule, } from '@angular/material';
 import { FormBorradoComponent } from './components/form-borrado/form-borrado.component';
 import { DetalleBorradoComponent } from './components/detalle-borrado/detalle-borrado.component';
+import { CuentasComponent } from './cuentas/cuentas.component';
 
 @NgModule({
-  declarations: [LayoutBorradoComponent, ListComponent, CrearBorradoComponent, FormBorradoComponent, DetalleBorradoComponent],
+  declarations: [LayoutBorradoComponent, ListComponent, CrearBorradoComponent, FormBorradoComponent, DetalleBorradoComponent, CuentasComponent],
   imports: [
     CommonModule,
     SharedModule,
