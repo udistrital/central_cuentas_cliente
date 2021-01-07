@@ -1,36 +1,117 @@
-<form>
-    <mat-tab-group mat-align-tabs="start">
+<form [formGroup]="datosImpuestos" (ngSubmit)="validarFormulario()">
+    <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex">
         <mat-tab label="Anexos">
-            <div class="container">
-                <div class="row">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Adjuntar Archivo</label>
-                    </div>
-                </div>
+            <div class="container pt-4">
+                <ngx-file-upload (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
                 <div class="container py-2 px-0">
                     <ngx-general-table [config]="configTablaAnexos" [datos]="datosAnexos"></ngx-general-table>
                 </div>
-                <div class="row form-group justify-content-md-center">
-                    <div class="col-md-3 d-flex align-items-center"><label class="m-0 ml-auto" for="valorDevolucion">Valor
+                <div *ngIf="tipoDevolucion==='conceptos'" class="row form-group justify-content-md-center">
+                    <div class="col-md-3 d-flex align-items-center"><label class="m-0 ml-auto"
+                            for="valorDevolucion">Valor
                             de la Devolución</label>
                     </div>
                     <div class="col-md-4">
-                        <input class="form-control" id="valorDevolucion" disabled value="{{valorDevolucion|currency}}">
+                        <input currencyMask class="form-control" id="valorDevolucion" formControlName="valorDevolucion"
+                            [class.is-invalid]="esInvalido('valorDevolucion')">
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col-md-2">
+                        <button mat-button matStepperPrevious class="btn btn-primary text-white w-100">Anterior</button>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <button *ngIf="tipoDevolucion==='impuestos'" class="btn btn-success w-100"
+                            (click)="selectTab(0,1)">
+                            Siguiente
+                        </button>
+                        <button *ngIf="tipoDevolucion==='conceptos'" mat-button matStepperNext type="submit"
+                            class="btn btn-success w-100">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Impuestos" *ngIf="tipoDevolucion==='impuestos'">
+            <div class="container pt-4">
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        <label for="nombreImpuesto">Nombre del Impuesto</label>
+                        <select class="form-control" id="nombreImpuesto" formControlName="nombreImpuesto"
+                            [class.is-invalid]="esInvalido('nombreImpuesto')">
+                            <option>Opcion 1</option>
+                            <option>Opcion 2</option>
+                            <option>Opcion 3</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="porcentaje">Porcentaje</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="porcentaje" formControlName="porcentaje">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="base">Base</label>
+                        <input currencyMask class="form-control" id="base" formControlName="base">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="valorCifras">Valor en Cifras</label>
+                        <input class="form-control" id="valorCifras" disabled value="{{valorCifras|currency}}">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="valorLetras">Valor en Letras</label>
+                        <input type="text" class="form-control" id="valorLetras" formControlName="valorLetras">
+                    </div>
+                    <div class="col-md-2 form-group d-flex align-items-end">
+                        <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
+                            <i class="fas fa-plus"></i> Agregar
+                        </button>
+                    </div>
+                </div>
+                <div class="container py-2 px-0">
+                    <ngx-general-table [config]="configTablaImpuestos" [datos]="datosTablaImpuestos">
+                    </ngx-general-table>
+                </div>
+                <div class="row form-group justify-content-md-center">
+                    <div class="col-md-4 d-flex align-items-center"><label class="m-0 ml-auto"
+                            for="totalImpuestos">Total de Impuestos Solicitados</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" id="totalImpuestos" disabled value="{{totalImpuestos|currency}}">
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary text-white w-100" (click)="selectTab(1,0)">Anterior</button>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <button mat-button matStepperNext type="submit" class="btn btn-success w-100">
+                            Siguiente
+                        </button>
                     </div>
                 </div>
             </div>
         </mat-tab>
     </mat-tab-group>
-
-    <div class="row justify-content-between">
-        <div class="col-md-2">
-            <button mat-button matStepperPrevious class="btn btn-primary text-white w-100">Anterior</button>
-        </div>
-        <div class="col-md-2 text-right">
-            <button mat-button matStepperNext type="submit" class="btn btn-success w-100">
-                Siguiente
-            </button>
-        </div>
-    </div>
 </form>
+<ng-template #eliminarModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Borrar</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ¿Desea borrar el registro?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
+    </div>
+</ng-template>

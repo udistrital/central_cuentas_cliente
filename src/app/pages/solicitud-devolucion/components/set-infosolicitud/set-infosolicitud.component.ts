@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { seleccionarTipoDevolucion } from '../../actions/solicitud-devolucion.actions';
 
 @Component({
   selector: 'ngx-set-infosolicitud',
@@ -9,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SetInfosolicitudComponent implements OnInit {
   datosSolicitud: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store<any>) { }
 
   ngOnInit() {
     this.crearFormulario();
@@ -19,7 +21,11 @@ export class SetInfosolicitudComponent implements OnInit {
     this.datosSolicitud = this.fb.group({
       numeroSolicitud: ['', Validators.required],
       areaFuncional: ['', Validators.required],
-      fechaSolicitud: ['', Validators.required]
+      fechaSolicitud: ['', Validators.required],
+      tipoDevolucion: ['', Validators.required],
+    });
+    this.datosSolicitud.get('tipoDevolucion').valueChanges.subscribe(valor => {
+      this.store.dispatch(seleccionarTipoDevolucion({tipoDevolucion: valor}));
     });
   }
 
