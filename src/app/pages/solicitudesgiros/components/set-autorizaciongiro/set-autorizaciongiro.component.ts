@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getNodoSeleccionado } from '../../../../shared/selectors/shared.selectors';
+import { getNodoSeleccionado, selectTiposID, selectDatosID } from '../../../../shared/selectors/shared.selectors';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { getDatosID } from '../../../../shared/actions/shared.actions';
+import { combineLatest } from 'rxjs';
+import { loadAutorizaciongiro } from '../../actions/solicitudesgiros.actions';
 
 @Component({
   selector: 'ngx-set-autorizaciongiro',
   templateUrl: './set-autorizaciongiro.component.html',
   styleUrls: ['./set-autorizaciongiro.component.scss']
 })
-export class SetAutorizaciongiroComponent implements OnInit {
+export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
 
   autorizacionGroup: FormGroup;
 
   subscription$: any;
+  subscriptionTipoId$: any;
+  subscriptionDatosId$: any;
+  subscriptionfilter$: any;
+  tiposID: any;
+  datosID: any;
 
   constructor( private fb: FormBuilder, private store: Store<any> ) {
-
-   this.createForm();
+    this.createForm();
+    this.tiposID = [];
    }
 
   ngOnInit() {
@@ -38,6 +46,33 @@ export class SetAutorizaciongiroComponent implements OnInit {
     }
   });
 
+  // Cargar datos Tipo ID y Numero ID
+  this.subscriptionTipoId$ = this.store.select(selectTiposID).subscribe((action) => {
+    if (action && action[0]) {
+      this.tiposID = action[0];
+    }
+  });
+
+  this.subscriptionDatosId$ = this.store.select(selectDatosID, 'beneficiario').subscribe((action) => {
+    if (action && action.datosId && action.datosId[0]) {
+      this.datosID = action.datosId[0];
+      }
+  });
+
+  this.subscriptionfilter$ = combineLatest([
+    this.autorizacionGroup.get('numeroId').valueChanges,
+    this.autorizacionGroup.get('tipoId').valueChanges,
+    ]).subscribe(([numeroId, tipoId]) => {
+      if ( numeroId && tipoId ) {
+        this.store.dispatch(getDatosID({ clave: 'beneficiario', numero: numeroId, tipo: tipoId.Id }));
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionTipoId$.unsubscribe();
+    this.subscriptionDatosId$.unsubscribe();
+    this.subscriptionfilter$.unsubscribe();
   }
 
   // Validacion del Formulario
@@ -65,10 +100,8 @@ export class SetAutorizaciongiroComponent implements OnInit {
         Validators.pattern('^[0-9]*$')]
       ],
       nombreBeneficiario: ['', ],
-      rubroSeleccionado: [null, [Validators.required]],
-      valorLetras: ['',
-        Validators.pattern('^[a-zA-Z]*$')
-      ],
+      rubroSeleccionado: [null, Validators.required],
+      valorLetras: ['', Validators.required],
       valorNumero: ['',
         [Validators.required,
         Validators.pattern('^[0-9]*$')]
@@ -82,6 +115,8 @@ export class SetAutorizaciongiroComponent implements OnInit {
       return Object.values( this.autorizacionGroup.controls ).forEach( control => {
         control.markAsTouched();
       });
+    } else {
+      this.store.dispatch(loadAutorizaciongiro({ autorizaciongiro: this.autorizacionGroup.value }));
     }
   }
 

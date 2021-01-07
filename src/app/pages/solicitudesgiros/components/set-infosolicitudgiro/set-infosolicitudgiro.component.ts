@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getDatosID } from '../../../../shared/actions/shared.actions';
-import { selectTiposID, selectDatosIDMap } from '../../../../shared/selectors/shared.selectors';
+import { selectTiposID, selectDatosID } from '../../../../shared/selectors/shared.selectors';
 import { combineLatest } from 'rxjs';
-import { selectSolicitudesgirosState } from '../../selectors/solicitudesgiros.selectors';
+import { loadInfosolicitudgiro } from '../../actions/solicitudesgiros.actions';
 
 
 @Component({
@@ -18,10 +18,8 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   subscriptionTipoId$: any;
   subscriptionDatosId$: any;
   subscriptionfilter$: any;
-  subscriptionResumen$: any;
   tiposID: any;
   datosID: any;
-  resumen: any;
 
   constructor( private fb: FormBuilder, private store: Store<any> ) {
 
@@ -36,9 +34,9 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscriptionDatosId$ = this.store.select(selectDatosIDMap).subscribe((action) => {
-      if (action && action[0] && action[0][0]) {
-        this.datosID = action[0][0];
+    this.subscriptionDatosId$ = this.store.select(selectDatosID, 'solicitante').subscribe((action) => {
+      if (action && action.datosId && action.datosId[0]) {
+        this.datosID = action.datosId[0];
         }
     });
 
@@ -47,11 +45,8 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       this.infoSolicitudGroup.get('tipoId').valueChanges,
     ]).subscribe(([numeroId, tipoId]) => {
       if ( numeroId && tipoId ) {
-        this.store.dispatch(getDatosID({ numero: numeroId, tipo: tipoId.Id }));
+        this.store.dispatch(getDatosID({ clave: 'solicitante', numero: numeroId, tipo: tipoId.Id }));
       }
-    });
-
-    this.subscriptionResumen$ = this.store.select(selectSolicitudesgirosState).subscribe((action) => {
     });
 
   }
@@ -75,6 +70,9 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   get numeroIdInvalid() {
     return this.infoSolicitudGroup.get('numeroId').invalid && this.infoSolicitudGroup.get('numeroId').touched;
   }
+  get cargoInvalid() {
+    return this.infoSolicitudGroup.get('cargo').invalid && this.infoSolicitudGroup.get('cargo').touched;
+  }
 
   createForm() {
     this.infoSolicitudGroup = this.fb.group({
@@ -88,7 +86,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
         Validators.pattern('^[0-9]*$')]],
       nombres: ['', ],
       apellidos: ['', ],
-      cargo: ['', ],
+      cargo: ['', Validators.required],
 
     });
   }
@@ -98,6 +96,8 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       return Object.values( this.infoSolicitudGroup.controls ).forEach( control => {
         control.markAsTouched();
       });
+    } else {
+      this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: this.infoSolicitudGroup.value }));
     }
   }
 

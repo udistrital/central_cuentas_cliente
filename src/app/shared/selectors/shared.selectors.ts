@@ -37,24 +37,5 @@ export const selectTiposID = createSelector(
 
 export const selectDatosID = createSelector(
   selectSharedState,
-  (state: fromShared.State) => state.DatosID
-);
-
-export const selectDatosIDMap = createSelector(
-  selectSharedState,
-  (state: fromShared.State) => {
-    if (state.DatosID && state.DatosID[0])
-    state.DatosID[0] = state.DatosID[0].map((tercero) => {
-      return {
-        TerceroId: {
-          NombreCompleto: tercero.TerceroId.NombreCompleto,
-          PrimerNombre: tercero.TerceroId.PrimerNombre,
-          SegundoNombre: tercero.TerceroId.SegundoNombre,
-          PrimerApellido: tercero.TerceroId.PrimerApellido,
-          SegundoApellido: tercero.TerceroId.SegundoApellido,
-        },
-      };
-    });
-    return state.DatosID;
-  }
+  (state: fromShared.State, clave: string) => state.DatosID[clave]
 );

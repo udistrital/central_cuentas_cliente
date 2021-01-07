@@ -14,9 +14,9 @@
                 <label>Concepto</label>
                 <select class="custom-select" formControlName="concepto" [class.is-invalid]="conceptoInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option>001</option>
+                    <option>012</option>
+                    <option>120</option>
                 </select>
                 <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
             </div>
@@ -32,9 +32,9 @@
                 <label>Área Funcional</label>
                 <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
                 </select>
                 <small *ngIf="areaInvalid" class="text-danger">Complete este campo</small>
             </div>
@@ -93,8 +93,9 @@
                 <input value="{{ datosID?.TerceroId?.PrimerApellido }} {{ datosID?.TerceroId?.SegundoApellido }}" type="text" class="form-control" formControlName="apellidos" readonly>
             </div>
             <div class="col-md-4">
-                <label>Cargo</label>
-                <input type="text" class="form-control" formControlName="cargo" readonly>
+                <label><small>Cargo</small></label>
+                <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid">
+                <small *ngIf="cargoInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
             <!-- Fin Campos: Nombres, Apellidos, Cargo -->
         </div>

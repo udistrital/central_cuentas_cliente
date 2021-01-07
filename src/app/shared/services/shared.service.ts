@@ -85,7 +85,7 @@ export class SharedService {
    * @returns  Datos de identificacion de terceros
    */
 
-  public getDatosID(clave?: string, numero?: string, tipo?: number, limit?: number, fields?: string) {
+  public getDatosID(numero?: string, tipo?: number, limit?: number, fields?: string) {
     this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
     const params = {
       query : `Numero:${numero},TipoDocumentoId.Id:${tipo}`,

@@ -90,11 +90,11 @@ export const loadTiposID = createAction(
 
 export const getDatosID = createAction(
   '[Shared] Get Datos Identificacion',
-  props<{ numero?: string, tipo?: string, limit?: number, fields?: string }>()
+  props<{ clave: string, numero?: string, tipo?: number, limit?: number, fields?: string }>()
 );
 
 export const loadDatosID = createAction(
   '[Shared] Load Datos Identificacion',
-  props()
+  props<{ clave: string, datosId: any }>()
 );
 

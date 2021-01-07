@@ -7,7 +7,7 @@ import { EMPTY, of } from 'rxjs';
 import * as SharedActions from '../actions/shared.actions';
 import { SharedService } from '../services/shared.service';
 import { Store } from '@ngrx/store';
-import { selectDatosIDMap, selectTiposID } from '../selectors/shared.selectors';
+import { selectDatosID, selectTiposID } from '../selectors/shared.selectors';
 
 
 @Injectable()
@@ -59,12 +59,12 @@ export class SharedEffects {
       withLatestFrom(this.store.select(selectTiposID)),
       mergeMap((action) => {
         if (!action || !action[1])
-        return this.sharedService.getTiposID()
-          .pipe(
-            map(data => SharedActions.loadTiposID([data])),
-            catchError(data => of(SharedActions.CatchError(data))));
+          return this.sharedService.getTiposID()
+            .pipe(
+              map(data => SharedActions.loadTiposID([data])),
+              catchError(data => of(SharedActions.CatchError(data))));
         else
-        return of(SharedActions.loadTiposID(action[1]));
+          return of(SharedActions.loadTiposID(action[1]));
       }
       )
     );
@@ -74,9 +74,23 @@ export class SharedEffects {
     return this.actions$.pipe(
       ofType(SharedActions.getDatosID),
       mergeMap((params) =>
-        this.sharedService.getDatosID( params.numero, params.tipo, params.limit, params.fields )
+        this.sharedService.getDatosID(params.numero, params.tipo, params.limit, params.fields)
           .pipe(
-            map(data => SharedActions.loadDatosID([data])),
+            map(data => {
+              if (data)
+                data = data.map((tercero) => (
+                  {
+                    TerceroId: {
+                      NombreCompleto: tercero.TerceroId.NombreCompleto,
+                      PrimerNombre: tercero.TerceroId.PrimerNombre,
+                      SegundoNombre: tercero.TerceroId.SegundoNombre,
+                      PrimerApellido: tercero.TerceroId.PrimerApellido,
+                      SegundoApellido: tercero.TerceroId.SegundoApellido,
+                    },
+                  }
+                ));
+              return SharedActions.loadDatosID({ clave: params.clave, datosId: data });
+            }),
             catchError(data => of(SharedActions.CatchError(data))))
       )
     );
