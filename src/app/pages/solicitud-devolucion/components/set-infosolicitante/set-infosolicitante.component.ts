@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
 import { getConceptosContables } from '../../../../shared/selectors/shared.selectors';
+import { seleccionarDatosSolicitante } from '../../actions/solicitud-devolucion.actions';
 
 @Component({
   selector: 'ngx-set-infosolicitante',
@@ -13,6 +14,7 @@ export class SetInfosolicitanteComponent implements OnInit, OnDestroy {
   datosSolicitante: FormGroup;
   subscriptionConceptos$: any;
   conceptosContables: any;
+  susDatosSolicitante$: any;
 
   constructor(private fb: FormBuilder, private store: Store<any>) {
     this.conceptosContables = [];
@@ -29,6 +31,7 @@ export class SetInfosolicitanteComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionConceptos$.unsubscribe();
+    this.susDatosSolicitante$.unsubscribe();
   }
 
   crearFormulario() {
@@ -37,6 +40,10 @@ export class SetInfosolicitanteComponent implements OnInit, OnDestroy {
       numeroId: ['', Validators.required],
       concepto: ['', Validators.required],
       razon: ['', Validators.required]
+    });
+    this.susDatosSolicitante$ = this.datosSolicitante.valueChanges.subscribe(valor => {
+      if (this.datosSolicitante.valid)
+        this.store.dispatch(seleccionarDatosSolicitante({ datosSolicitante: valor }));
     });
   }
 
