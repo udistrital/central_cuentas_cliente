@@ -9,50 +9,50 @@
             </div>
         </div>
         <!-- Campo: Elegir Tipo de Documento -->
-        <div class="form-group row">
+        <div class="form-group row text-center">
             <div class="col-md-10">
                 <select class="custom-select" formControlName="documentos" [class.is-invalid]="documentosInvalid">
                     <option selected disabled value="">Seleccione un documento...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option>Contrato</option>
+                    <option>Planilla</option>
+                    <option>Certificado de Disponibilidad</option>
                 </select>
-                <small *ngIf="documentosInvalid" class="text-danger">Seleccione mínimo un documento y oprima el botón "Cargar Archivo"</small>
+                <small *ngIf="documentosInvalid" class="text-danger">Seleccione mínimo un documento y luego en la opción "Cargar Archivo"</small>
             </div>
             <!-- Fin Campo: Elegir Tipo de Documento -->
             <!-- Boton: Agregar Documento-->
             <div class="col-md-2">
                 <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
-                    Cargar Archivo
-                  </button>
+                Cargar Archivo</button>
             </div>
             <!-- Fin Boton: Agregar Documento-->
         </div>
     </div>
     <!-- Fin Grupo: Agregar Documentos -->
+
+    <mat-divider class="col-md-12 pt-2 py-2 border-warning"></mat-divider>
+
+    <div class="container">
+        <!-- Tabla General Adaptada -->
+        <div class="row">
+            <div class="col-md-12 bg-white pb-3">
+                <ngx-general-table [config]="configuracion" [datos]="datosDocumentos"></ngx-general-table>
+            </div>
+        </div>
+        <!-- Fin Tabla General Adaptada -->
+
+        <!-- Botones: regresar, Siguiente -->
+        <div class="row text-center">
+            <div class="col-6">
+                <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
+            </div>
+            <div class="form-group col-6">
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            </div>
+        </div>
+        <!-- Fin Botones: Regresar, Siguiente -->
+    </div>
 </form>
-<mat-divider class="col-md-12 pt-2 py-2 border-warning"></mat-divider>
-
-<div class="container">
-    <!-- Tabla General Adaptada -->
-    <div class="row">
-        <div class="col-md-12 bg-white pb-3">
-            <ngx-general-table [config]="configuracion" [datos]="datosDocumentos"></ngx-general-table>
-        </div>
-    </div>
-    <!-- Fin Tabla General Adaptada -->
-
-    <!-- Botones: regresar, Siguiente -->
-    <div class="row text-center">
-        <div class="col-6">
-            <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
-        </div>
-        <div class="form-group col-6">
-            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
-        </div>
-    </div>
-    <!-- Fin Botones: Regresar, Siguiente -->
-</div>
 
 <!-- Modal: Cargar Documentos -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,9 +73,26 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Aceptar</button>
+                <button type="button" class="btn btn-primary" (click)="mostrarDatos()">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
 <!-- Fin Modal: Cargar Documentos -->
+<!-- Modal: Eliminar registros de la tabla -->
+<ng-template #eliminarDatoModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="BorrarDatoModal">Borrar Registro</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        ¿Desea borrar el registro?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
+    </div>
+</ng-template>
+<!-- Fin Modal -->

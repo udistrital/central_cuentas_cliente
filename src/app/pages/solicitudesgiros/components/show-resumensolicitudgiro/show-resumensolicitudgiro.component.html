@@ -18,21 +18,21 @@
         <div class="row pt-2">
             <div class="col-md-4">
                 <label>No. Solicitud</label>
-                <input type="text" class="form-control" value="001" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.numeroSolicitud }}" readonly>
             </div>
             <div class="col-md-4">
                 <label>Área Funcional</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.areaFuncional }}" readonly>
             </div>
             <div class="col-md-4">
                 <label>Fecha</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.fechaSolicitud | date:'dd/MM/yyyy'}}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-12">
                 <label>Concepto</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.concepto }}" readonly>
             </div>
         </div>
     </div>
@@ -49,21 +49,21 @@
         <div class="row pt-2">
             <div class="col-md-12">
                 <label>Nombre Completo</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ datosSolicitante?.TerceroId?.NombreCompleto }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-4">
                 <label>Tipo de ID</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.tipoId.CodigoAbreviacion }}" readonly>
             </div>
             <div class="col-md-4">
                 <label>Número de ID</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.numeroId }}" readonly>
             </div>
             <div class="col-md-4">
                 <label>Cargo</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.cargo }}" readonly>
             </div>
         </div>
     </div>
@@ -72,29 +72,20 @@
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-12">
-                <button class="card-title col-md-12 btn btn-primary-800 text-white" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Lista de Documentos </button>
+                <button #btnDocumentos class="card-title col-md-12 btn btn-primary-800 text-dark" type="button" data-toggle="collapse" data-target="#collapseDocumentos" aria-expanded="false" aria-controls="collapseDocumentos" (click)="mostrarOcultarDocumentos(btnDocumentos.getAttribute('aria-expanded'))">
+                    Lista de Documentos
+                    <i class="fas {{mostrarOcultarIcono}} text-ligth"></i>
+                </button>
             </div>
         </div>
         <!-- Tabla: Listado de Documentos Agregados-->
         <div class="row">
             <div class="col-md-12">
-                <div class="collapse" id="collapseExample">
+                <div class="collapse" id="collapseDocumentos">
                     <div class="card card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nombre del Documento</th>
-                                    <th scope="col">Nombre del Archivo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>documento1</th>
-                                    <td>doc1.pdf</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <!-- Tabla General Adaptada -->
+                        <ngx-general-table [config]="configuracion" [datos]="datosDocumentos"></ngx-general-table>
+                        <!-- Fin Tabla General Adaptada -->
                     </div>
                 </div>
             </div>
@@ -114,17 +105,17 @@
         <div class="row pt-2">
             <div class="col-md-6">
                 <label>Tipo de ID</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ autorizacionGiro?.tipoId.CodigoAbreviacion }}" readonly>
             </div>
             <div class="col-md-6">
                 <label>Número de ID</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ autorizacionGiro?.numeroId }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-12">
                 <label>Nombre Completo</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ datosBeneficiario?.TerceroId?.NombreCompleto }}" readonly>
             </div>
         </div>
     </div>
@@ -141,21 +132,21 @@
         <div class="row pt-2">
             <div class="col-md-6">
                 <label>Código del Rubro</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ autorizacionGiro?.rubroSeleccionado.data.Codigo }}" readonly>
             </div>
             <div class="col-md-6">
                 <label>Nombre del Rubro</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ autorizacionGiro?.rubroSeleccionado.data.Nombre }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-8">
                 <label>Valor en Letras</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ autorizacionGiro?.valorLetras }}" readonly>
             </div>
             <div class="col-md-4">
                 <label>Valor en Número</label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control" value="{{ autorizacionGiro?.valorNumero }}" readonly>
             </div>
         </div>
     </div>
@@ -164,11 +155,11 @@
     <!-- Botones: Regresar, Siguiente -->
     <div class="container">
         <div class="row pt-2 text-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
             </div>
-            <div class="col-md-4 form-group">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+            <div class="col-md-6 form-group">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#exampleModal2">
                     GUARDAR</button>
             </div>
         </div>

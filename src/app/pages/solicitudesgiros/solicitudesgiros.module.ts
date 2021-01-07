@@ -11,7 +11,7 @@ import { SetInfosolicitudgiroComponent } from './components/set-infosolicitudgir
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule, MatStepperModule } from '@angular/material';
-import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModal, NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
 import { SetAutorizaciongiroComponent } from './components/set-autorizaciongiro/set-autorizaciongiro.component';
 import { ShowResumensolicitudgiroComponent } from './components/show-resumensolicitudgiro/show-resumensolicitudgiro.component';
@@ -41,9 +41,13 @@ import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgir
     StoreModule.forFeature(fromSolicitudesgiros.solicitudesgirosFeatureKey, fromSolicitudesgiros.reducer),
     EffectsModule.forFeature([SolicitudesgirosEffects])
   ],
+
   providers: [
     NgbModalConfig,
     NgbModal,
+    { provide: NgbDateAdapter,
+    useClass: NgbDateNativeAdapter
+  }
 ],
   exports: [
     MatStepperModule,
