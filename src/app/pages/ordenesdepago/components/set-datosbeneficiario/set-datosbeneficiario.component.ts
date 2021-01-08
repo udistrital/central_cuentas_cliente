@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
-
+import { Store } from '@ngrx/store';
+import { cargarDatosBeneficiario, cargarDatosAlmacenadosBeneficiario } from '../../actions/ordenespago.actions';
+import { DATOS_BENEFICIARIO } from '../../interfaces/interfaces';
 @Component({
   selector: 'ngx-set-datosbeneficiario',
   templateUrl: './set-datosbeneficiario.component.html',
@@ -10,12 +12,42 @@ import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interface
 export class SetDatosbeneficiarioComponent implements OnInit {
   datosBeneficiario: FormGroup;
   opcionesAreaFuncional: Array<any>;
+  datosAlmacenadosBeneficiarios: any;
+  datosAlmacenadosBeneficiario: any;
 
-  constructor(private fb: FormBuilder) { }
+  nombre: any;
+  regimen: any;
+  direccion: any;
+  telefono: any;
+
+  constructor(private fb: FormBuilder,
+    private store: Store<any>,
+    ) {
+      this.datosAlmacenadosBeneficiarios = DATOS_BENEFICIARIO;
+     }
 
   ngOnInit() {
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.crearFormulario();
+    this.handleFormChanges();
+  }
+
+  handleFormChanges() {
+    this.datosBeneficiario.valueChanges.subscribe(
+      (result: any) => {
+        if (result.numeroId !== '') {
+          this.datosAlmacenadosBeneficiarios.filter(
+            (data: any) => {
+              if (data.numeroId === result.numeroId) {
+                this.datosAlmacenadosBeneficiario = data;
+                this.nombre = data.nombre;
+                this.regimen = data.regimen;
+                this.direccion = data.direccion;
+                this.telefono = data.telefono;
+              }});
+        }
+      }
+    );
   }
 
   crearFormulario() {
@@ -47,11 +79,14 @@ export class SetDatosbeneficiarioComponent implements OnInit {
       return true;
   }
 
-  validarFormulario() {
+  validarFormulario(data: any ) {
     if (this.datosBeneficiario.invalid) {
       return Object.values(this.datosBeneficiario.controls).forEach(control => {
         control.markAsDirty();
       });
+    } else {
+      this.store.dispatch(cargarDatosBeneficiario(data));
+      this.store.dispatch(cargarDatosAlmacenadosBeneficiario(this.datosAlmacenadosBeneficiario));
     }
   }
 

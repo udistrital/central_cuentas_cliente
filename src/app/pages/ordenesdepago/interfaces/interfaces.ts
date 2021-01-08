@@ -312,4 +312,14 @@ export const DATOS_MOVIMIENTO_CONTABLE: any = [
         valor: 3000000.00
     }
 ];
+export const DATOS_BENEFICIARIO: any = [
+    {
+        numeroId: 43,
+        nombre: 'Ana',
+        regimen: 'Contributivo',
+        direccion: 'Cra 8 # 10-20',
+        telefono: '32131',
+    }
+];
+
 

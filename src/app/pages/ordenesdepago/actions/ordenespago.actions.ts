@@ -9,6 +9,16 @@ export const loadOrdenPagoSeleccionado = createAction(
   props(),
 );
 
+export const cargarDatosBeneficiario = createAction(
+  '[OrdenesPago] Cargar DatosBeneficiario',
+  props(),
+);
+
+export const cargarDatosAlmacenadosBeneficiario = createAction(
+  '[OrdenesPago] Cargar DatosAlmacenadosBeneficiario',
+  props(),
+);
+
 
 
 

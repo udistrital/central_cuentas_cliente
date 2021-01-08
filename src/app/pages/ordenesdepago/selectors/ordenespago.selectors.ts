@@ -9,3 +9,13 @@ export const getOrdenpagoSeleccionado = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.OrdenpagoSeleccionado
 );
+
+export const getDatosBeneficiario = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosBeneficiario
+);
+
+export const getDatosAlmacenadosBeneficiario = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosAlmacenadosBeneficiario
+);
