@@ -39,3 +39,8 @@ export const selectDatosID = createSelector(
   selectSharedState,
   (state: fromShared.State, clave: string) => state.DatosID[clave]
 );
+
+export const getUsuario = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Usuario
+);

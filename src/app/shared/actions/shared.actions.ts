@@ -98,3 +98,10 @@ export const loadDatosID = createAction(
   props<{ clave: string, datosId: any }>()
 );
 
+// obtener numero de documento de usuario logueado
+
+export const loadUsuario = createAction(
+  '[Shared] Load Usuario',
+  props()
+);
+
