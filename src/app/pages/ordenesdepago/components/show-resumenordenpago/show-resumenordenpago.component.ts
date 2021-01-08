@@ -4,7 +4,7 @@ import {
   CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE,
   CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION,
 } from '../../interfaces/interfaces';
-import { getDatosAlmacenadosBeneficiario, getDatosBeneficiario } from '../../selectors/ordenespago.selectors';
+import { getDatosAlmacenadosBeneficiario, getDatosBeneficiario, getDatosCompromiso, getDatosAlmacenadosCompromiso } from '../../selectors/ordenespago.selectors';
 import { Store } from '@ngrx/store';
 @Component({
   selector: 'ngx-show-resumenordenpago',
@@ -20,9 +20,13 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
 
   datosBeneficiario: any;
   datosAlmacenadosBeneficiario: any;
+  datosCompromiso: any;
+  datosAlmacenadosCompromiso: any;
 
   subscriptionDatosBeneficiario$: any;
   subscriptionDatosAlmacenadosBeneficiario$: any;
+  subscriptionDatosCompromiso$: any;
+  subscriptionDatosAlmacenadosCompromiso$: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -38,6 +42,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   ngOnDestroy () {
     this.subscriptionDatosAlmacenadosBeneficiario$.unsubscribe();
     this.subscriptionDatosBeneficiario$.unsubscribe();
+    this.subscriptionDatosAlmacenadosCompromiso$.unsubscribe();
+    this.subscriptionDatosCompromiso$.unsubscribe();
   }
 
   ngOnInit() {
@@ -55,6 +61,20 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       data => {
         if (data !== null) {
           this.datosAlmacenadosBeneficiario = data;
+        }
+      }
+    );
+    this.subscriptionDatosCompromiso$ = this.store.select(getDatosCompromiso).subscribe(
+      data => {
+        if (data !== null) {
+          this.datosCompromiso = data;
+        }
+      }
+    );
+    this.subscriptionDatosAlmacenadosCompromiso$ = this.store.select(getDatosAlmacenadosCompromiso).subscribe(
+      data => {
+        if (data !== null) {
+          this.datosAlmacenadosCompromiso = data;
         }
       }
     );

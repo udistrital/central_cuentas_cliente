@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { cargarDatosCompromiso } from '../../actions/ordenespago.actions';
+import { cargarDatosCompromiso, cargarDatosAlmacenadosCompromiso } from '../../actions/ordenespago.actions';
 import { DATOS_COMPROMISO } from '../../interfaces/interfaces';
 
 @Component({
@@ -69,6 +69,7 @@ export class SetDatoscompromisoComponent implements OnInit {
         control.markAsDirty();
       });
     } else {
+      this.store.dispatch(cargarDatosAlmacenadosCompromiso(this.datosAlmacenadosCompromiso));
       this.store.dispatch(cargarDatosCompromiso(data));
     }
   }
