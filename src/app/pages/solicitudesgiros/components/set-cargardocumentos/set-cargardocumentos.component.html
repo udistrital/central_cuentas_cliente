@@ -1,6 +1,6 @@
 <form [formGroup]="documentosGroup" (ngSubmit)="saveForm()">
+    <!-- Grupo: Agregar Documentos -->
     <div class="container">
-        <!-- Grupo: Agregar Documentos -->
         <div class="row">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
@@ -9,24 +9,25 @@
             </div>
         </div>
         <!-- Campo: Elegir Tipo de Documento -->
-        <div class="form-group row text-center">
-            <div class="col-md-10">
-                <select class="custom-select" formControlName="documentos" [class.is-invalid]="documentosInvalid">
-                    <option selected disabled value="">Seleccione un documento...</option>
-                    <option>Contrato</option>
-                    <option>Planilla</option>
-                    <option>Certificado de Disponibilidad</option>
-                </select>
-                <small *ngIf="documentosInvalid" class="text-danger">Seleccione mínimo un documento y luego en la opción "Cargar Archivo"</small>
+        <div class="form-group row px-5 py-2">
+            <div class="col text-center">
+                <span>Seleccione los documentos necesarios para la solicitud</span>
+                <div class="row px-5 py-2">
+                    <select class="custom-select" formControlName="documentos" [class.is-invalid]="documentosInvalid">
+                        <option selected disabled value="">Seleccione un tipo de documento...</option>
+                        <option value="Contrato">Contrato</option>
+                        <option value="Planilla">Planilla</option>
+                        <option value="Certificado de Disponibilidad">Certificado de Disponibilidad</option>
+                    </select>
+                    <small *ngIf="documentosInvalid" class="text-danger">Debe seleccionar al menos un tipo de documentos
+                        para adjuntarlo</small>
+                </div>
             </div>
-            <!-- Fin Campo: Elegir Tipo de Documento -->
-            <!-- Boton: Agregar Documento-->
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#exampleModal">
-                Cargar Archivo</button>
-            </div>
-            <!-- Fin Boton: Agregar Documento-->
         </div>
+        <!-- Fin Campo: Elegir Tipo de Documento -->
+        <!-- Contenedor: Adjuntar Documento -->
+        <ngx-file-upload *ngIf="documentosValid" (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
+        <!-- Fin Adjuntar Documento -->
     </div>
     <!-- Fin Grupo: Agregar Documentos -->
 
@@ -54,38 +55,13 @@
     </div>
 </form>
 
-<!-- Modal: Cargar Documentos -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cargar Archivo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                <p>Seleccione el archivo desde su dispositivo</p>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFileLang" lang="en">
-                    <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="mostrarDatos()">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fin Modal: Cargar Documentos -->
 <!-- Modal: Eliminar registros de la tabla -->
 <ng-template #eliminarDatoModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="BorrarDatoModal">Borrar Registro</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
-            </button>
+        </button>
     </div>
     <div class="modal-body">
         ¿Desea borrar el registro?

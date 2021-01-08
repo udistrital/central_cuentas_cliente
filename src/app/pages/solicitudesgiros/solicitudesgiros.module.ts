@@ -16,6 +16,7 @@ import { SetCargardocumentosComponent } from './components/set-cargardocumentos/
 import { SetAutorizaciongiroComponent } from './components/set-autorizaciongiro/set-autorizaciongiro.component';
 import { ShowResumensolicitudgiroComponent } from './components/show-resumensolicitudgiro/show-resumensolicitudgiro.component';
 import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgiro/stepper-solicitudgiro.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgir
     MatStepperModule,
     MatDividerModule,
     NgbModule,
+    CurrencyMaskModule,
     StoreModule.forFeature(fromSolicitudesgiros.solicitudesgirosFeatureKey, fromSolicitudesgiros.reducer),
     EffectsModule.forFeature([SolicitudesgirosEffects])
   ],

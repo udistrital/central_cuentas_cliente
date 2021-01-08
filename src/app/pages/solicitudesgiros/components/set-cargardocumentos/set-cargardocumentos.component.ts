@@ -15,13 +15,15 @@ import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions'
 export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarDatoModal', { static: false }) eliminarDatoModal: ElementRef;
 
+  // Configuracion y datos de la tabla
   configuracion: any;
   datosDocumentos: any;
+  // Modal Eliminar Registros
   closeResult = '';
-  cargarDatos: any;
+  // Cambios en la tabla
   subscription$: any;
   subscriptionEliminarDato$: any;
-
+  // Formulario
   documentosGroup: FormGroup;
 
   constructor(private store: Store<any>, private fb: FormBuilder, private modalService: NgbModal) {
@@ -29,8 +31,6 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     // Datos y configuracion de Tabla
     this.datosDocumentos = DATOS_DOCUMENTOS;
     this.configuracion = CONFIGURACION_DOCUMENTOS;
-    this.store.dispatch(loadDocumentos({ datosDocumentos: this.datosDocumentos }));
-
     this.createForm();
   }
 
@@ -46,17 +46,14 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadSolicitudgiroSeleccionado(null));
     });
 
-     // Eliminar datos que se encuentran en la tabla
-     this.subscriptionEliminarDato$ = this.store.select(getFilaSeleccionada).subscribe((accion) => {
+    // Eliminar datos que se encuentran en la tabla
+    this.subscriptionEliminarDato$ = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion && accion.accion) {
         if (accion.accion.name === 'BorrarRegistro') {
           this.modalEliminar(accion.fila);
         }
       }
     });
-
-    // Mostrar datos ingresados en la tabla
-    this.mostrarDatos();
 
   }
 
@@ -69,6 +66,9 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   // Validacion de formulario
   get documentosInvalid() {
     return this.documentosGroup.get('documentos').invalid && this.documentosGroup.get('documentos').touched;
+  }
+  get documentosValid() {
+    return this.documentosGroup.get('documentos').valid;
   }
 
   createForm() {
@@ -85,21 +85,15 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     }
   }
 
-    // Evento con el boton mostrar datos en la tabla
-    mostrarDatos() {
-      this.cargarDatos.push(DATOS_DOCUMENTOS[0]);
-      // this.store.dispatch()
-    }
-
-   // Modal acciones sobre la tabla: eliminar registros
-   modalEliminar(fila: any) {
+  // Modal acciones sobre la tabla: eliminar registros
+  modalEliminar(fila: any) {
     this.modalService.open(this.eliminarDatoModal).result.then((result) => {
       if (`${result}`) {
-        this.cargarDatos.splice(this.cargarDatos.findIndex(
+        this.datosDocumentos.splice(this.datosDocumentos.findIndex(
           (element: any) => element.nombreDocumento === fila.nombreDocumento
-          && element.nombreArchivo === fila.nombreArchivo
-          ), 1);
-          // this.store.dispatch()
+            && element.nombreArchivo === fila.nombreArchivo && element.estado === fila.estado
+        ), 1);
+        this.store.dispatch(loadDocumentos({ datosDocumentos: this.datosDocumentos }));
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -116,4 +110,11 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Envio de datos de la tabla al Store
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      this.datosDocumentos.push({ nombreDocumento: this.documentosGroup.get('documentos').value, nombreArchivo: item.name, estado: 'Listo', file: item });
+      this.store.dispatch(loadDocumentos({ datosDocumentos: this.datosDocumentos }));
+    }
+  }
 }

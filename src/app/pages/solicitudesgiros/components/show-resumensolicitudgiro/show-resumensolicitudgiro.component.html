@@ -1,5 +1,4 @@
 <form [formGroup]="resumenSolicitudGroup">
-    <!-- Grupo: Información de Solicitud -->
     <div class="row">
         <div class="col-md-12">
             <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
@@ -7,6 +6,7 @@
             </h6>
         </div>
     </div>
+    <!-- Grupo: Información de Solicitud -->
     <div class="container">
         <div class="row">
             <div class="col">
@@ -146,7 +146,7 @@
             </div>
             <div class="col-md-4">
                 <label>Valor en Número</label>
-                <input type="text" class="form-control" value="{{ autorizacionGiro?.valorNumero }}" readonly>
+                <input class="form-control" value="${{ autorizacionGiro?.valorNumero }}" readonly>
             </div>
         </div>
     </div>
@@ -175,8 +175,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModal2Label"><i class="fas fa-check text-success"></i>¡Guardado!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <p class="text-center">Se ha guardado la Solicitud de Autorización de Giro No. 001.</p>

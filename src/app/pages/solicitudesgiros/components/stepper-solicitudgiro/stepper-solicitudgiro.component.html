@@ -11,7 +11,7 @@
             <!-- Inicio de "Stepper" -->
             <mat-horizontal-stepper [linear]="true" #stepper>
                 <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
-                <mat-step [stepControl]="infoSolicitudGroup" optional>
+                <mat-step [stepControl]="infoSolicitudGroup">
                     <ng-template matStepLabel>Inicio</ng-template>
                     <div class="container">
                         <ngx-set-infosolicitudgiro></ngx-set-infosolicitudgiro>
@@ -27,14 +27,14 @@
                 </mat-step>
                 <!-- Fin de Carga de Documentos -->
                 <!-- Paso 3: Autorización de solicitud de giro -->
-                <mat-step [stepControl]="autorizacionGroup" optional>
+                <mat-step [stepControl]="autorizacionGroup">
                     <ng-template matStepLabel>Autorización</ng-template>
                     <div class="container">
                         <ngx-set-autorizaciongiro></ngx-set-autorizaciongiro>
                     </div>
                 </mat-step>
                 <!-- Fin de Autorización de solicitud de giro -->
-                <!-- Paso 3: Resumen de Solicitud de giro -->
+                <!-- Paso 4: Resumen de Solicitud de giro -->
                 <mat-step [stepControl]="resumenSolicitudGroup">
                     <ng-template matStepLabel>Guardar</ng-template>
                     <div class="container">
