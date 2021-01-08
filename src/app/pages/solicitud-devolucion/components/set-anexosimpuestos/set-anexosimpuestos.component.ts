@@ -6,7 +6,7 @@ import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions'
 import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { cambiarTotalSolicitado, seleccionarDatosTablaAnexos, seleccionarDatosTablaImpuestos } from '../../actions/solicitud-devolucion.actions';
 import {
-  CONFIGURACION_TABLA_ANEXOS, DATOS_TABLA_ANEXOS,
+  CONFIGURACION_TABLA_ANEXOS,
   CONFIGURACION_TABLA_IMPUESTOS, DATOS_TABLA_IMPUESTOS
 } from '../../interfaces/interfaces';
 import { getTipoDevolucion } from '../../selectors/solicitud-devolucion.selectors';
