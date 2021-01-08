@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getDatosElegidos, getDatosCuenta, getDatosJustificacion } from '../../selectors/borrado.selectors';
+import { Location } from '@angular/common';
+import Swal from 'sweetalert2';
 import { DATOS_ORDENPAGO } from '../../interfaces/interfaces';
 @Component({
   selector: 'ngx-detalle-borrado',
@@ -10,8 +12,8 @@ import { DATOS_ORDENPAGO } from '../../interfaces/interfaces';
 })
 export class DetalleBorradoComponent implements OnInit, OnDestroy {
 
-  titles: String[] = ['Consecutivo', 'No. ID', 'Nombre'];
-  attributes: any[] = [['consecutivo'], ['numeroID'], ['nombre']];
+  titles: String[];
+  attributes: any[];
 
   tipoBorrado: any;
   detalle: boolean = false;
@@ -27,6 +29,8 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
 
   constructor(private routeActived: ActivatedRoute,
     private store: Store<any>,
+    private location: Location,
+    private route: Router
     ) {
       this.lista = [];
      }
@@ -39,6 +43,13 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getTipo ();
+    if (this.tipoBorrado == 'opago') {
+      this.titles = ['Consecutivo', 'No. ID', 'Nombre'];
+      this.attributes = [['consecutivo'], ['numeroID'], ['nombre']];
+    } else if ( this.tipoBorrado == 'rautorizacion' ) {
+      this.titles = ['Consecutivo', 'Vigencia', 'Mes'];
+      this.attributes = [['consecutivo'], ['vigencia'], ['mes']];
+    }
     this.subscriptionDatosCuenta$ = this.store.select(getDatosCuenta).subscribe(
       data => {
         if (data !== null) {
@@ -48,9 +59,13 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
     this.subscriptionOrdenes$ = this.store.select(getDatosElegidos).subscribe(
       data => {
         if (data !== null) {
-          this.lista.push(data);
+          let i = 0;
+          while (data[i] !== undefined) {
+            this.lista.push(data[i]);
+            i++;
+          };
           this.cuentasElegidas = this.lista;
-        } 
+        }
       }
     );
     this.subscriptionJustificacion$ = this.store.select(getDatosJustificacion).subscribe(
@@ -60,8 +75,6 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
         }
       }
     );
-    console.log(this.cuentasElegidas);
-    console.log(DATOS_ORDENPAGO);
   }
 
   getTipo () {
@@ -70,5 +83,28 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
 
   mostrarDetalle () {
     this.detalle = !this.detalle;
+  }
+
+  retornar () {
+    this.location.back();
+  }
+
+  borrar () {
+    if ( this.tipoBorrado == 'rautorizacion'){
+      Swal.fire({
+        type: 'success',
+        title: '¡Proceso exitoso!',
+        text: 'Se ha borrado la relación de autorización con consecutivo',
+        confirmButtonText: 'Aceptar',
+      });
+    } else if ( this.tipoBorrado == 'opago') {
+      Swal.fire({
+        type: 'success',
+        title: '¡Proceso exitoso!',
+        text: 'Se ha borrado la órden de pago con consecutivo',
+        confirmButtonText: 'Aceptar',
+      });
+    }
+    this.route.navigateByUrl('/pages/borrado/lista');
   }
 }

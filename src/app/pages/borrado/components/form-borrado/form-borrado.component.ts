@@ -9,7 +9,6 @@ import { cargarDatosCuenta } from '../../actions/borrado.actions';
 })
 export class FormBorradoComponent implements OnInit {
 
-  @Output () borradoForm: EventEmitter <any>;
   @Output () eleccionCuenta: EventEmitter <any>;
 
   areaFuncional: String [] = [
@@ -25,7 +24,6 @@ export class FormBorradoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private store: Store<any>,
   ) {
-    this.borradoForm = new EventEmitter;
     this.eleccionCuenta = new EventEmitter;
    }
 
@@ -35,23 +33,11 @@ export class FormBorradoComponent implements OnInit {
       areaFuncional: ['', Validators.required],
       tipoBorrado: ['', Validators.required],
     });
-    this.handleFormChanges();
-  }
-
-  handleFormChanges() {
-    this.borrado.statusChanges.subscribe(
-      (result: any) => {if (result === 'VALID') {
-        this.borradoForm.emit(true);
-        } else if (result === 'INVALID') {
-          this.borradoForm.emit(false);
-        }
-      }
-    );
   }
 
   onSubmit (data: any) {
     this.eleccionCuenta.emit(data);
-    this.store.dispatch(cargarDatosCuenta(data)); 
+    this.store.dispatch(cargarDatosCuenta(data));
   }
 
 }

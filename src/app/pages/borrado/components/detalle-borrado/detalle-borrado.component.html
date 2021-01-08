@@ -10,7 +10,7 @@
                     </div>
                     <div *ngIf="tipoBorrado === 'rautorizacion'">
                         <h5 class="title text-center text-primary">
-                            DETALLE DE RELACIÓN DE AUTORIACIÓN
+                            DETALLE DE RELACIÓN DE AUTORIZACIÓN
                         </h5>
                     </div>
                 </div>
@@ -43,18 +43,18 @@
                             <div class="d-flex justify-content-center" *ngIf="tipoBorrado === 'rautorizacion'">
                                 <span class="material-icons" *ngIf="!detalle" (click)="mostrarDetalle()"> add_box </span> 
                                 <span class="material-icons" *ngIf="detalle" (click)="mostrarDetalle()"> indeterminate_check_box </span> 
-                                <p class="text-center mx-3" > Relaciones de autorixación seleccionadas </p> 
+                                <p class="text-center mx-3" > Relaciones de autorización seleccionadas </p> 
                             </div>                           
                         </div>
                     </div>
-                    <div *ngIf="detalle">
+                    <div *ngIf="detalle" class="mt-3">
                         <ngx-table *ngIf="!!cuentasElegidas" [titles]="titles" [attributes]="attributes" [list]="cuentasElegidas"> </ngx-table>
                     </div>
                     <div class="row">
                         <div class="col-5 px-0 justificacion"> 
                             <p class="text-center p-2"> Nombre del responsable </p>
                         </div>
-                        <div *ngIf="!!datosJustificacion" class="col">
+                        <div *ngIf="!!datosJustificacion" class="col datosJustificacion p-2">
                             {{datosJustificacion.nombreResponsable}}
                         </div>
                     </div>
@@ -62,16 +62,16 @@
                         <div class="col-5 px-0 justificacion">
                             <p class="text-center p-2"> Justificación </p> 
                         </div>
-                        <div *ngIf="!!datosJustificacion" class="col">
+                        <div *ngIf="!!datosJustificacion" class="col datosJustificacion p-2">
                             {{datosJustificacion.justificacion}}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-3 text-center">
                         <div class="col">
-                            <button> Volver </button>
+                            <button class="btn btn-primary px-3 py-2 my-2 text-light" (click)="retornar()"> Volver </button>
                         </div>
                         <div class="col">
-                            <button> Borrar </button>
+                            <button class="btn btn-success px-3 py-2 my-2 text-light" (click)="borrar()"> Borrar </button>
                         </div>
                     </div>
                 </div>

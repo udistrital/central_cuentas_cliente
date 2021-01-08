@@ -4,9 +4,9 @@ import * as BorradoActions from '../actions/borrado.actions';
 export const borradoFeatureKey = 'borrado';
 
 export interface State {
-  DatosCuenta: any,
-  DatosEligidos: any,
-  DatosJustificacion: any,
+  DatosCuenta: any;
+  DatosEligidos: any;
+  DatosJustificacion: any;
 }
 
 export const initialState: State = {
