@@ -43,10 +43,10 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getTipo ();
-    if (this.tipoBorrado == 'opago') {
+    if (this.tipoBorrado === 'opago') {
       this.titles = ['Consecutivo', 'No. ID', 'Nombre'];
       this.attributes = [['consecutivo'], ['numeroID'], ['nombre']];
-    } else if ( this.tipoBorrado == 'rautorizacion' ) {
+    } else if ( this.tipoBorrado === 'rautorizacion' ) {
       this.titles = ['Consecutivo', 'Vigencia', 'Mes'];
       this.attributes = [['consecutivo'], ['vigencia'], ['mes']];
     }
@@ -63,7 +63,7 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
           while (data[i] !== undefined) {
             this.lista.push(data[i]);
             i++;
-          };
+          }
           this.cuentasElegidas = this.lista;
         }
       }
@@ -90,14 +90,14 @@ export class DetalleBorradoComponent implements OnInit, OnDestroy {
   }
 
   borrar () {
-    if ( this.tipoBorrado == 'rautorizacion'){
+    if (this.tipoBorrado === 'rautorizacion') {
       Swal.fire({
         type: 'success',
         title: '¡Proceso exitoso!',
         text: 'Se ha borrado la relación de autorización con consecutivo',
         confirmButtonText: 'Aceptar',
       });
-    } else if ( this.tipoBorrado == 'opago') {
+    } else if ( this.tipoBorrado === 'opago') {
       Swal.fire({
         type: 'success',
         title: '¡Proceso exitoso!',

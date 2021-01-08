@@ -14,9 +14,7 @@ export class CrearBorradoComponent implements OnInit {
     public route: Router,
   ) {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   eleccionBorrado (data: any) {
     this.tipoBorrado = data.tipoBorrado;

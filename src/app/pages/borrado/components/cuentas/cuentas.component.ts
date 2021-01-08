@@ -13,7 +13,6 @@ import { cargarDatosElegidos, cargarDatosJustificacion } from '../../actions/bor
   styleUrls: ['./cuentas.component.scss']
 })
 export class CuentasComponent implements OnInit, OnDestroy {
-  
   borradoForm: boolean = false;
 
   justificacionBorrado: FormGroup;
@@ -37,13 +36,14 @@ export class CuentasComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public form: FormService,
-    private store: Store<any>,) {
+    private store: Store<any>
+    ) {
     this.datosOrden = DATOS_ORDENPAGO;
     this.datosRelacion = DATOS_RELACION_AUTORIZACION;
    }
 
   ngOnDestroy () {
-    if (this.modal !== undefined){
+    if (this.modal !== undefined) {
       this.modal.close();
     }
   }
