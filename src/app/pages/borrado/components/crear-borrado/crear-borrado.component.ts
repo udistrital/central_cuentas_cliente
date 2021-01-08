@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { cargarDatosCuenta } from '../../actions/borrado.actions';
 
 @Component({
   selector: 'ngx-crear-borrado',
@@ -12,11 +14,13 @@ export class CrearBorradoComponent implements OnInit {
 
   constructor(
     public route: Router,
+    private store: Store<any>,
   ) {}
 
   ngOnInit() {}
 
   eleccionBorrado (data: any) {
+    this.store.dispatch(cargarDatosCuenta(data));
     this.tipoBorrado = data.tipoBorrado;
     if (this.tipoBorrado === 'Orden de pago') {
       this.route.navigateByUrl('/pages/borrado/cuentas/opago');
