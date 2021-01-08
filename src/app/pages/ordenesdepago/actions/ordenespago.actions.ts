@@ -19,6 +19,15 @@ export const cargarDatosAlmacenadosBeneficiario = createAction(
   props(),
 );
 
+export const cargarDatosCompromiso = createAction(
+  '[OrdenesPago] Cargar DatosCompromiso',
+  props(),
+);
+
+export const cargarDatosAlmacenadosCompromiso = createAction(
+  '[OrdenesPago] Cargar DatosAlmacenadosCompromiso',
+  props(),
+);
 
 
 

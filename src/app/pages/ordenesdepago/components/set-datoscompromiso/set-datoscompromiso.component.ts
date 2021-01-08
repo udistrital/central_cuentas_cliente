@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { cargarDatosCompromiso } from '../../actions/ordenespago.actions';
+import { DATOS_COMPROMISO } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'ngx-set-datoscompromiso',
@@ -8,11 +11,36 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 })
 export class SetDatoscompromisoComponent implements OnInit {
   datosCompromiso: FormGroup;
+  datosAlmacenadosCompromisos: any;
+  datosAlmacenadosCompromiso: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+    private store: Store<any>,
+    ) {
+      this.datosAlmacenadosCompromisos = DATOS_COMPROMISO;
+      this.datosAlmacenadosCompromiso = [];
+    }
 
   ngOnInit() {
     this.crearFormulario();
+    this.handleFormChanges();
+  }
+
+  handleFormChanges() {
+    this.datosCompromiso.valueChanges.subscribe(
+      (result: any) => {
+        if (result.numeroCompromiso !== '') {
+          this.datosAlmacenadosCompromisos.filter(
+            (data: any) => {
+              if (data.numeroCompromiso === result.numeroCompromiso) {
+                this.datosAlmacenadosCompromiso = data;
+              } else {
+                this.datosAlmacenadosCompromiso = [];
+              }
+            });
+        }
+      }
+    );
   }
 
   crearFormulario() {
@@ -35,11 +63,13 @@ export class SetDatoscompromisoComponent implements OnInit {
       return true;
   }
 
-  validarFormulario() {
+  validarFormulario(data: any) {
     if (this.datosCompromiso.invalid) {
       return Object.values(this.datosCompromiso.controls).forEach(control => {
         control.markAsDirty();
       });
+    } else {
+      this.store.dispatch(cargarDatosCompromiso(data));
     }
   }
 }

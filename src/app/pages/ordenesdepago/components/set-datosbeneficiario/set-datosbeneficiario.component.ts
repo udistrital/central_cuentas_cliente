@@ -15,11 +15,6 @@ export class SetDatosbeneficiarioComponent implements OnInit {
   datosAlmacenadosBeneficiarios: any;
   datosAlmacenadosBeneficiario: any;
 
-  nombre: any;
-  regimen: any;
-  direccion: any;
-  telefono: any;
-
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     ) {
@@ -40,11 +35,10 @@ export class SetDatosbeneficiarioComponent implements OnInit {
             (data: any) => {
               if (data.numeroId === result.numeroId) {
                 this.datosAlmacenadosBeneficiario = data;
-                this.nombre = data.nombre;
-                this.regimen = data.regimen;
-                this.direccion = data.direccion;
-                this.telefono = data.telefono;
-              }});
+              } else {
+                this.datosAlmacenadosBeneficiario = [];
+              }
+            });
         }
       }
     );

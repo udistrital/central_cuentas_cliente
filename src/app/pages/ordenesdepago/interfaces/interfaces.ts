@@ -321,5 +321,15 @@ export const DATOS_BENEFICIARIO: any = [
         telefono: '32131',
     }
 ];
+export const DATOS_COMPROMISO: any = [
+    {
+        numeroCompromiso: 16,
+        numeroActa: 44,
+        numeroEntradaAlmacen: 345,
+        nombreInterventor: 'Fernando',
+        detalle: 'Datos de prueba',
+    }
+];
+
 
 

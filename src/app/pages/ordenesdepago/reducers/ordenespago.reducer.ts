@@ -7,12 +7,16 @@ export interface State {
   OrdenpagoSeleccionado: any;
   DatosBeneficiario: any;
   DatosAlmacenadosBeneficiario: any;
+  DatosCompromiso: any;
+  DatosAlmacenadosCompromiso: any;
 }
 
 export const initialState: State = {
   OrdenpagoSeleccionado: null,
   DatosBeneficiario: null,
   DatosAlmacenadosBeneficiario: null,
+  DatosCompromiso: null,
+  DatosAlmacenadosCompromiso: null,
 };
 
 const ordenespagoReducer = createReducer(
@@ -27,6 +31,12 @@ const ordenespagoReducer = createReducer(
   })),
   on(OrdenespagoActions.cargarDatosAlmacenadosBeneficiario, (state, action) => ({
     ...state, DatosAlmacenadosBeneficiario: state.DatosAlmacenadosBeneficiario = action
+  })),
+  on(OrdenespagoActions.cargarDatosCompromiso, (state, action) => ({
+    ...state, DatosCompromiso: state.DatosCompromiso = action
+  })),
+  on(OrdenespagoActions.cargarDatosAlmacenadosCompromiso, (state, action) => ({
+    ...state, DatosAlmacenadosCompromiso: state.DatosAlmacenadosCompromiso = action
   })),
 
 );

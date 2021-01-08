@@ -5,19 +5,19 @@
     <div class="row">
         <div class="col-md-4 form-group">
             <label for="numeroOrden">No. Orden</label>
-            <input class="form-control" id="numeroOrden" disabled>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroOrden" disabled placeholder="{{datosBeneficiario.numeroOrden}}">
         </div>
         <div class="col-md-4 form-group">
             <label for="fechaOrden">Fecha</label>
             <div class="input-group-append">
-                <input class="form-control" ngbDatepicker id="fechaOrden" disabled>
+                <input *ngIf="!!datosBeneficiario" class="form-control" ngbDatepicker id="fechaOrden" disabled>
                 <button class="btn btn-outline-secondary calendar" type="button" disabled><i
                         class="fas fa-calendar"></i></button>
             </div>
         </div>
         <div class="col-md-4 form-group">
             <label for="unidadEjecutora">Unidad Ejecutora</label>
-            <input class="form-control" id="unidadEjecutora" disabled>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="unidadEjecutora" disabled placeholder="{{datosBeneficiario.unidadEjecutora}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
@@ -26,39 +26,39 @@
     <div class="row">
         <div class="col-md-2 form-group">
             <label for="tipoId">Tipo de ID</label>
-            <input class="form-control" id="tipoId" disabled>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoId" disabled placeholder="{{datosBeneficiario.tipoId}}">
         </div>
         <div class="col-md-4 form-group">
             <label for="numeroId">No. de ID</label>
-            <input class="form-control" id="numeroId" disabled>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroId" disabled placeholder="{{datosBeneficiario.numeroId}}">
         </div>
         <div class="col-md-6 form-group">
             <label for="nombre">Nombre</label>
-            <input class="form-control" id="nombre" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosAlmacenadosBeneficiario.nombre}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="regimen">Régimen</label>
-            <input class="form-control" id="regimen" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosAlmacenadosBeneficiario.regimen}}">
         </div>
         <div class="col-md-6 form-group">
             <label for="direccion">Dirección</label>
-            <input class="form-control" id="direccion" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosAlmacenadosBeneficiario.direccion}}">
         </div>
         <div class="col-md-3 form-group">
             <label for="telefono">Teléfono</label>
-            <input class="form-control" id="telefono" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="telefono" disabled placeholder="{{datosAlmacenadosBeneficiario.telefono}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 form-group">
             <label for="banco">Banco / Sucursal</label>
-            <input class="form-control" id="banco" disabled>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="banco" disabled placeholder="{{datosBeneficiario.banco}}">
         </div>
         <div class="col-md-6 form-group">
             <label for="cuenta">No. de Cuenta</label>
-            <input class="form-control" id="cuenta" disabled>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="cuenta" disabled placeholder="{{datosBeneficiario.cuenta}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">

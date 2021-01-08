@@ -19,3 +19,13 @@ export const getDatosAlmacenadosBeneficiario = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.DatosAlmacenadosBeneficiario
 );
+
+export const getDatosCompromiso = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosCompromiso
+);
+
+export const getDatosAlmacenadosCompromiso = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosAlmacenadosCompromiso
+);
