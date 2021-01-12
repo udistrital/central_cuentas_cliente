@@ -5,10 +5,12 @@ export const ordenespagoFeatureKey = 'ordenespago';
 
 export interface State {
   OrdenpagoSeleccionado: any;
+  AreaFuncional: any;
 }
 
 export const initialState: State = {
   OrdenpagoSeleccionado: null,
+  AreaFuncional: null
 };
 
 const ordenespagoReducer = createReducer(
@@ -17,6 +19,9 @@ const ordenespagoReducer = createReducer(
   on(OrdenespagoActions.loadOrdenesdepago, state => state),
   on(OrdenespagoActions.loadOrdenPagoSeleccionado, (state, action) => ({
     ...state, OrdenpagoSeleccionado: state.OrdenpagoSeleccionado = action
+  })),
+  on(OrdenespagoActions.seleccionarAreaFuncional, (state, action) => ({
+    ...state, AreaFuncional: state.AreaFuncional = action
   })),
 
 );
