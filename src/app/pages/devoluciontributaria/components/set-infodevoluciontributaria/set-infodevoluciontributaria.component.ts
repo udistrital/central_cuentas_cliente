@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP } from '../../interfaces/interfaces';
+import { Store } from '@ngrx/store';
+import { cargarDatosSolicitud } from '../../actions/devoluciontributaria.actions';
 
 @Component({
   selector: 'ngx-set-infodevoluciontributaria',
@@ -13,7 +15,9 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
   datosConsultaOP: any;
   infoDevolucionGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private store: Store <any>,
+    ) {
             // Datos de ejemplo q se muestran en la tabla
             this.datosConsultaOP = DATOS_CONSULTAOP;
             this.configConsultaOP = CONFIGURACION_CONSULTAOP;
@@ -75,11 +79,13 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
     });
   }
 
-  saveForm() {
+  saveForm(data: any) {
     if ( this.infoDevolucionGroup.invalid ) {
       return Object.values( this.infoDevolucionGroup.controls ).forEach( control => {
         control.markAsTouched();
-      });
+      }); 
+    } else {
+      this.store.dispatch(cargarDatosSolicitud(data));
     }
   }
 

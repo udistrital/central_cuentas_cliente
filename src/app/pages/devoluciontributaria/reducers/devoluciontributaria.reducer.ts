@@ -5,10 +5,12 @@ export const devoluciontributariaFeatureKey = 'solicitudesgiros';
 
 export interface State {
   DevoluciontributariaSeleccionado: any;
+  DatosDevolucion: any;
 }
 
 export const initialState: State = {
   DevoluciontributariaSeleccionado: null,
+  DatosDevolucion: null,
 };
 
 const solicitudesgirosReducer = createReducer(
@@ -17,6 +19,9 @@ const solicitudesgirosReducer = createReducer(
   on(DevoluciontributariaActions.loadDevoluciontributaria, state => state),
   on(DevoluciontributariaActions.loadDevoluciontributariaSeleccionado, (state, action) => ({
     ...state, DevoluciontributariaSeleccionado: state.DevoluciontributariaSeleccionado = action
+  })),
+  on(DevoluciontributariaActions.cargarDatosSolicitud, (state, action) => ({
+    ...state, DatosDevolucion: state.DatosDevolucion = action
   })),
 
 );
