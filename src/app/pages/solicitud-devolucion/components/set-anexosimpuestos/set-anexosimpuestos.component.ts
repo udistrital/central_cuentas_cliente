@@ -58,7 +58,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
       }
     });
     this.susTotalSolicitado$ = this.datosImpuestos.get('valorDevolucion').valueChanges.subscribe(valor => {
-      if (this.datosImpuestos.valid)
+      if (this.datosImpuestos.get('valorDevolucion').valid)
         this.store.dispatch(cambiarTotalSolicitado({ totalSolicitado: valor }));
     });
     this.agregar(); // Eliminar

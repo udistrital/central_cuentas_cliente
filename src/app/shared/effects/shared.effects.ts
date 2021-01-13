@@ -45,7 +45,7 @@ export class SharedEffects {
     return this.actions$.pipe(
       ofType(SharedActions.GetConceptosContables),
       mergeMap((id) =>
-        this.sharedService.getConceptos(id.id)
+        this.sharedService.getConceptos(id ? id.id : id)
           .pipe(
             map(data => SharedActions.LoadConceptosContables([data])),
             catchError(data => of(SharedActions.CatchError(data))))

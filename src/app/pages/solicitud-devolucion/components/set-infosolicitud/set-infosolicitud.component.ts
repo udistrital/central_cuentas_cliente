@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { seleccionarDatosSolicitud, seleccionarTipoDevolucion } from '../../actions/solicitud-devolucion.actions';
 
 @Component({
@@ -10,10 +11,13 @@ import { seleccionarDatosSolicitud, seleccionarTipoDevolucion } from '../../acti
 })
 export class SetInfosolicitudComponent implements OnInit, OnDestroy {
   datosSolicitud: FormGroup;
+  opcionesAreaFuncional: Array<any>;
   susTipoDevolucion$: any;
   susDatosSolicitud$: any;
 
-  constructor(private fb: FormBuilder, private store: Store<any>) { }
+  constructor(private fb: FormBuilder, private store: Store<any>) {
+    this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+  }
 
   ngOnInit() {
     this.crearFormulario();

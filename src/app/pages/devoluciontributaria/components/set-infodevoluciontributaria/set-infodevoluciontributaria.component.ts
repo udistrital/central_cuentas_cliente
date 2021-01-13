@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
+import { getConceptosContables } from '../../../../shared/selectors/shared.selectors';
 import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP } from '../../interfaces/interfaces';
 
 @Component({
@@ -7,13 +10,15 @@ import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP } from '../../interfaces/int
   templateUrl: './set-infodevoluciontributaria.component.html',
   styleUrls: ['./set-infodevoluciontributaria.component.scss']
 })
-export class SetInfodevoluciontributariaComponent implements OnInit {
+export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
 
   configConsultaOP: any;
   datosConsultaOP: any;
   infoDevolucionGroup: FormGroup;
+  subscriptionConceptos$: any;
+  conceptosContables: any;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store<any>) {
             // Datos de ejemplo q se muestran en la tabla
             this.datosConsultaOP = DATOS_CONSULTAOP;
             this.configConsultaOP = CONFIGURACION_CONSULTAOP;
@@ -21,9 +26,18 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
             // this.stringBusqueda = '';
             // this.selectedAction = new EventEmitter<any>();
             this.createForm();
+            this.store.dispatch(GetConceptosContables({}));
   }
 
   ngOnInit() {
+    // Conceptos contables
+    this.subscriptionConceptos$ = this.store.select(getConceptosContables).subscribe((accion) => {
+      if (accion && accion[0]) this.conceptosContables = accion[0];
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionConceptos$.unsubscribe();
   }
 
   // Validacion del Formulario

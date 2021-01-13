@@ -113,12 +113,16 @@
         <div class="form-group row">
             <div class="col">
                 <label>Concepto</label>
-                <select class="custom-select" formControlName="concepto" [class.is-invalid]="conceptoInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
-                </select>
+                <ng-container *ngIf="conceptosContables">
+                    <mat-select class="form-control" placeholder="Seleccione concepto contable..."
+                        formControlName="concepto">
+                        <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" class="vs-viewport">
+                            <mat-option *cdkVirtualFor="let concepto of conceptosContables" class="vs-item"
+                                [value]="concepto">
+                                {{concepto.Nombre}}</mat-option>
+                        </cdk-virtual-scroll-viewport>
+                    </mat-select>
+                </ng-container>
                 <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
             </div>
         </div>

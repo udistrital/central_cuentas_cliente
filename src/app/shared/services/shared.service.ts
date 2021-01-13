@@ -59,14 +59,9 @@ export class SharedService {
    * @returns  Información de conceptos
    */
   public getConceptos(id?: any) {
-
     this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
-    const params = {
-      id: id,
-    };
-    // call request manager for the tree's data.
-    return this.rqManager.get(`concepto/${id}`, params);
-
+    id = id ? id : '';
+    return this.rqManager.get(`concepto/${id}`);
   }
 
   public getRubro(codigo: string) {

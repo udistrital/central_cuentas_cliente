@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label>Área Funcional</label>
-            <input class="form-control" disabled>
+            <input class="form-control" disabled value="{{datosSolicitud?.areaFuncional?.label}}">
         </div>
         <div class="col-md-3 form-group">
             <label>Fecha</label>
@@ -52,7 +52,7 @@
     <div class="row">
         <div class="col form-group">
             <label>Concepto</label>
-            <input class="form-control" disabled>
+            <input class="form-control" disabled value="{{datosSolicitante?.concepto?.Nombre}}">
         </div>
     </div>
     <div class="row">
@@ -78,7 +78,7 @@
             <input class="form-control" id="totalImpuestos" disabled value="{{totalSolicitado | currency}}">
         </div>
     </div>
-    
+
     <div class="row justify-content-between">
         <div class="col-md-2">
             <button mat-button matStepperPrevious class="btn btn-primary text-white w-100">Anterior</button>
@@ -106,7 +106,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a routerLink="../../solicituddevolucion/lista" role="button" class="btn btn-primary text-white" data-dismiss="modal">
+                    <a routerLink="../../solicituddevolucion/lista" role="button" class="btn btn-primary text-white"
+                        data-dismiss="modal">
                         Guardar
                     </a>
                 </div>
