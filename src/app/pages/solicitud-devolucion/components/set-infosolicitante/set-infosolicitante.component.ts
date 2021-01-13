@@ -1,18 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
+import { getConceptosContables } from '../../../../shared/selectors/shared.selectors';
+import { seleccionarDatosSolicitante } from '../../actions/solicitud-devolucion.actions';
 
 @Component({
   selector: 'ngx-set-infosolicitante',
   templateUrl: './set-infosolicitante.component.html',
   styleUrls: ['./set-infosolicitante.component.scss']
 })
-export class SetInfosolicitanteComponent implements OnInit {
+export class SetInfosolicitanteComponent implements OnInit, OnDestroy {
   datosSolicitante: FormGroup;
+  subscriptionConceptos$: any;
+  conceptosContables: any;
+  susDatosSolicitante$: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store<any>) {
+    this.conceptosContables = [];
+    this.store.dispatch(GetConceptosContables({}));
+  }
 
   ngOnInit() {
     this.crearFormulario();
+    // Conceptos contables
+    this.subscriptionConceptos$ = this.store.select(getConceptosContables).subscribe((accion) => {
+      if (accion && accion[0]) this.conceptosContables = accion[0];
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionConceptos$.unsubscribe();
+    this.susDatosSolicitante$.unsubscribe();
   }
 
   crearFormulario() {
@@ -21,6 +40,10 @@ export class SetInfosolicitanteComponent implements OnInit {
       numeroId: ['', Validators.required],
       concepto: ['', Validators.required],
       razon: ['', Validators.required]
+    });
+    this.susDatosSolicitante$ = this.datosSolicitante.valueChanges.subscribe(valor => {
+      if (this.datosSolicitante.valid)
+        this.store.dispatch(seleccionarDatosSolicitante({ datosSolicitante: valor }));
     });
   }
 

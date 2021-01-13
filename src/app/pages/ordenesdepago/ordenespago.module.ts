@@ -18,13 +18,15 @@ import { SetMovimientocontableComponent } from './components/set-movimientoconta
 import { ShowResumenordenpagoComponent } from './components/show-resumenordenpago/show-resumenordenpago.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TipoOrdenVigenciaPipe } from './pipes/tipo-orden-vigencia.pipe';
 
 
 @NgModule({
   declarations: [TableListaordenesComponent, CrearOrdenpagoComponent,
     SetDatosbeneficiarioComponent, SetDatoscompromisoComponent,
     SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent,
-    ShowResumenordenpagoComponent],
+    ShowResumenordenpagoComponent,
+    TipoOrdenVigenciaPipe],
   imports: [
     NgbModule,
     CurrencyMaskModule,
