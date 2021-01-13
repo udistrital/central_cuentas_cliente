@@ -11,6 +11,8 @@ export interface State {
   VigenciaActual: any;
   AreaFuncional: any;
   CentroGestor: any;
+  ConceptosContables: any;
+  Vigencias: any;
 }
 
 export const initialState: State = {
@@ -20,7 +22,9 @@ export const initialState: State = {
   AccionTabla: null,
   VigenciaActual: null,
   AreaFuncional: null,
-  CentroGestor: null
+  CentroGestor: null,
+  ConceptosContables: [],
+  Vigencias: null
 };
 
 const sharedReducer = createReducer(
@@ -44,6 +48,12 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.LoadAreaFuncional, (state, action) => ({
     ...state, AreaFuncional: state.AreaFuncional = action
+  })),
+  on(SharedActions.LoadConceptosContables, (state, action) => ({
+    ...state, ConceptosContables: state.ConceptosContables = action
+  })),
+  on(SharedActions.loadVigencias, (state, action) => ({
+    ...state, Vigencias: state.Vigencias = action
   })),
 );
 

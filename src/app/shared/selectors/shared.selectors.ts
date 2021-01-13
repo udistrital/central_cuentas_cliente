@@ -25,3 +25,22 @@ export const getAccionTabla = createSelector(
   (state: fromShared.State) => state.AccionTabla
 );
 
+export const getConceptosContables = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.ConceptosContables
+);
+
+export const selectVigencias = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Vigencias
+);
+
+export const selectVigenciasNoFuturas = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => {
+    if (state.Vigencias && state.Vigencias[0])
+      state.Vigencias[0] = state.Vigencias[0].filter(
+        vigencia => vigencia.estado !== 'Futura');
+    return state.Vigencias;
+  }
+);

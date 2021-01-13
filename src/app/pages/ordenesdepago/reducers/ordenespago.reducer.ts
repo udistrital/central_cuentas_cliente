@@ -9,6 +9,7 @@ export interface State {
   DatosAlmacenadosBeneficiario: any;
   DatosCompromiso: any;
   DatosAlmacenadosCompromiso: any;
+  AreaFuncional: any;
 }
 
 export const initialState: State = {
@@ -17,6 +18,7 @@ export const initialState: State = {
   DatosAlmacenadosBeneficiario: null,
   DatosCompromiso: null,
   DatosAlmacenadosCompromiso: null,
+  AreaFuncional: null
 };
 
 const ordenespagoReducer = createReducer(
@@ -37,6 +39,9 @@ const ordenespagoReducer = createReducer(
   })),
   on(OrdenespagoActions.cargarDatosAlmacenadosCompromiso, (state, action) => ({
     ...state, DatosAlmacenadosCompromiso: state.DatosAlmacenadosCompromiso = action
+  })),
+  on(OrdenespagoActions.seleccionarAreaFuncional, (state, action) => ({
+    ...state, AreaFuncional: state.AreaFuncional = action
   })),
 
 );

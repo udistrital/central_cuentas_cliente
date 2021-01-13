@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'crear',
     component: CrearOrdenpagoComponent,
+  },
+  {
+    path: 'editar',
+    component: CrearOrdenpagoComponent,
   }
 ];
 

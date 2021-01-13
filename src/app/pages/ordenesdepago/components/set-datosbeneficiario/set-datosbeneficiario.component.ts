@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { Store } from '@ngrx/store';
+import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { cargarDatosBeneficiario, cargarDatosAlmacenadosBeneficiario } from '../../actions/ordenespago.actions';
 import { DATOS_BENEFICIARIO } from '../../interfaces/interfaces';
+import { seleccionarAreaFuncional } from '../../actions/ordenespago.actions';
+import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
+
 @Component({
   selector: 'ngx-set-datosbeneficiario',
   templateUrl: './set-datosbeneficiario.component.html',
   styleUrls: ['./set-datosbeneficiario.component.scss']
 })
-export class SetDatosbeneficiarioComponent implements OnInit {
+export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   datosBeneficiario: FormGroup;
   opcionesAreaFuncional: Array<any>;
   datosAlmacenadosBeneficiarios: any;
   datosAlmacenadosBeneficiario: any;
+  configTableEstados: any;
+  datosTableEstados: any;
+  susUnidadEjecutora$: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -23,6 +29,8 @@ export class SetDatosbeneficiarioComponent implements OnInit {
 
   ngOnInit() {
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+    this.configTableEstados = CONFIGURACION_TABLA_ESTADOS;
+    this.datosTableEstados = DATOS_ESTADOS;
     this.crearFormulario();
     this.handleFormChanges();
   }
@@ -44,6 +52,10 @@ export class SetDatosbeneficiarioComponent implements OnInit {
     );
   }
 
+  ngOnDestroy() {
+    this.susUnidadEjecutora$.unsubscribe();
+  }
+
   crearFormulario() {
     this.datosBeneficiario = this.fb.group({
       numeroOrden: ['',
@@ -62,6 +74,9 @@ export class SetDatosbeneficiarioComponent implements OnInit {
         Validators.pattern('^[0-9]*$')
       ],
       ]
+    });
+    this.susUnidadEjecutora$ = this.datosBeneficiario.get('unidadEjecutora').valueChanges.subscribe(valor => {
+      this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));
     });
   }
 

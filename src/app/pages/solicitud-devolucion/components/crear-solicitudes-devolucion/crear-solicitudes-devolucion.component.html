@@ -1,0 +1,31 @@
+<div class="container bg-white p-5 border rounded">
+    <div class="row">
+        <div class="col py-2">
+            <h5 class="card-title text-center text-primary text-uppercase">Nueva Solicitud de Devolución</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-horizontal-stepper linear #stepper>
+                <mat-step [stepControl]="infoSolicitudGroup">
+                    <ng-template matStepLabel>Solicitud</ng-template>
+                    <div class="container">
+                        <ngx-set-infosolicitud></ngx-set-infosolicitud>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="infoSolicitanteGroup">
+                    <ng-template matStepLabel>Datos del Solicitante</ng-template>
+                    <div class="container">
+                        <ngx-set-infosolicitante></ngx-set-infosolicitante>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="impuestosAnexosGroup">
+                    <ng-template matStepLabel>{{impuestos}} Anexos</ng-template>
+                    <div class="container">
+                        <ngx-set-anexosimpuestos></ngx-set-anexosimpuestos>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>

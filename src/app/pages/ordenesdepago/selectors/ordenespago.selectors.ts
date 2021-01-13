@@ -29,3 +29,7 @@ export const getDatosAlmacenadosCompromiso = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.DatosAlmacenadosCompromiso
 );
+export const getAreaFuncional = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.AreaFuncional
+);

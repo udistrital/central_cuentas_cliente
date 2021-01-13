@@ -9,7 +9,8 @@ import { TableListaordenesComponent } from './components/table-listaordenes/tabl
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
-import { MatStepperModule } from '@angular/material';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatStepperModule, MatSelectModule } from '@angular/material';
 import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiario/set-datosbeneficiario.component';
 import { SetDatoscompromisoComponent } from './components/set-datoscompromiso/set-datoscompromiso.component';
 import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
@@ -17,13 +18,15 @@ import { SetMovimientocontableComponent } from './components/set-movimientoconta
 import { ShowResumenordenpagoComponent } from './components/show-resumenordenpago/show-resumenordenpago.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TipoOrdenVigenciaPipe } from './pipes/tipo-orden-vigencia.pipe';
 
 
 @NgModule({
   declarations: [TableListaordenesComponent, CrearOrdenpagoComponent,
     SetDatosbeneficiarioComponent, SetDatoscompromisoComponent,
     SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent,
-    ShowResumenordenpagoComponent],
+    ShowResumenordenpagoComponent,
+    TipoOrdenVigenciaPipe],
   imports: [
     NgbModule,
     CurrencyMaskModule,
@@ -33,6 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     MatStepperModule,
+    MatSelectModule,
+    ScrollingModule,
     StoreModule.forFeature(fromOrdenespago.ordenespagoFeatureKey, fromOrdenespago.reducer),
     EffectsModule.forFeature([OrdenespagoEffects])
   ]

@@ -333,3 +333,35 @@ export const DATOS_COMPROMISO: any = [
 
 
 
+export const CONFIGURACION_TABLA_ESTADOS: any = {
+    showColumnTitle: false,
+    dataConfig: [
+        {
+            key: 'estado',
+            title: {
+                name: 'Estado',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+    ],
+    noData: {
+        name: 'No existen elementos asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    title: {
+        name: 'ESTADOS',
+        class: 'text-center text-uppercase'
+    }
+};
+export const DATOS_ESTADOS: any = [
+    {
+        estado: 'elaborado'
+    },
+    {
+        estado: 'aprobado'
+    }
+];

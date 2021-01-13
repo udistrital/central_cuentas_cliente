@@ -18,9 +18,7 @@
             <label for="unidadEjecutora">Unidad Ejecutora</label>
             <select class="form-control" id="unidadEjecutora" formControlName="unidadEjecutora"
                 [class.is-invalid]="esInvalido('unidadEjecutora')">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
+                <option [ngValue]="opcion" *ngFor="let opcion of opcionesAreaFuncional">{{opcion?.label}}</option>
             </select>
         </div>
     </div>
@@ -69,6 +67,11 @@
             <label for="cuenta">No. de Cuenta</label>
             <input type="number" class="form-control" id="cuenta" formControlName="cuenta"
                 [class.is-invalid]="esInvalido('cuenta')">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <ngx-general-table [config]="configTableEstados" [datos]="datosTableEstados"></ngx-general-table>
         </div>
     </div>
 
