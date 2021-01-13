@@ -86,7 +86,14 @@ export class SharedService {
     return this.rqManager.get(`vigencia/vigencia_actual_area/1${query}`, params);
   }
 
-
+  /**
+   * Gets Vigencias
+   * @returns Listado de todas las vigencias
+   */
+  public getVigencias() {
+    this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+    return this.rqManager.get('vigencia/vigencias_total');
+  }
 
   /**
      * getScreenSize

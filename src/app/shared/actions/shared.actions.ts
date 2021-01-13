@@ -74,3 +74,14 @@ export const LoadConceptosContables = createAction(
   '[Shared] Load Conceptos Contables',
   props()
 );
+
+// Vigencias
+
+export const getVigencias = createAction(
+  '[Shared] Get Vigencias'
+);
+
+export const loadVigencias = createAction(
+  '[Shared] Load Vigencias',
+  props()
+);

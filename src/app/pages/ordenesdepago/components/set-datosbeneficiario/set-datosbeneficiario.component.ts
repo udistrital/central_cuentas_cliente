@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { seleccionarAreaFuncional } from '../../actions/ordenespago.actions';
 import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
 
 @Component({
@@ -8,19 +10,24 @@ import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/int
   templateUrl: './set-datosbeneficiario.component.html',
   styleUrls: ['./set-datosbeneficiario.component.scss']
 })
-export class SetDatosbeneficiarioComponent implements OnInit {
+export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   datosBeneficiario: FormGroup;
   opcionesAreaFuncional: Array<any>;
   configTableEstados: any;
   datosTableEstados: any;
+  susUnidadEjecutora$: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store<any>) { }
 
   ngOnInit() {
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.configTableEstados = CONFIGURACION_TABLA_ESTADOS;
     this.datosTableEstados = DATOS_ESTADOS;
     this.crearFormulario();
+  }
+
+  ngOnDestroy() {
+    this.susUnidadEjecutora$.unsubscribe();
   }
 
   crearFormulario() {
@@ -41,6 +48,9 @@ export class SetDatosbeneficiarioComponent implements OnInit {
         Validators.pattern('^[0-9]*$')
       ],
       ]
+    });
+    this.susUnidadEjecutora$ = this.datosBeneficiario.get('unidadEjecutora').valueChanges.subscribe(valor => {
+      this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));
     });
   }
 
