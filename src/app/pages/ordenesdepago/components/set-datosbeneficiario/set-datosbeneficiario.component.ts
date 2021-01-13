@@ -79,6 +79,7 @@ export class SetDatosbeneficiarioComponent implements OnInit {
         control.markAsDirty();
       });
     } else {
+      data.fechaOrden = new Date (data.fechaOrden.year, data.fechaOrden.month, data.fechaOrden.day);
       this.store.dispatch(cargarDatosBeneficiario(data));
       this.store.dispatch(cargarDatosAlmacenadosBeneficiario(this.datosAlmacenadosBeneficiario));
     }
