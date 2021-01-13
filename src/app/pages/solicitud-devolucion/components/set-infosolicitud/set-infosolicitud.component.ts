@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { seleccionarTipoDevolucion } from '../../actions/solicitud-devolucion.actions';
+import { seleccionarDatosSolicitud, seleccionarTipoDevolucion } from '../../actions/solicitud-devolucion.actions';
 
 @Component({
   selector: 'ngx-set-infosolicitud',
   templateUrl: './set-infosolicitud.component.html',
   styleUrls: ['./set-infosolicitud.component.scss']
 })
-export class SetInfosolicitudComponent implements OnInit {
+export class SetInfosolicitudComponent implements OnInit, OnDestroy {
   datosSolicitud: FormGroup;
+  susTipoDevolucion$: any;
+  susDatosSolicitud$: any;
 
   constructor(private fb: FormBuilder, private store: Store<any>) { }
 
   ngOnInit() {
     this.crearFormulario();
+  }
+
+  ngOnDestroy() {
+    this.susDatosSolicitud$.unsubscribe();
+    this.susTipoDevolucion$.unsubscribe();
   }
 
   crearFormulario() {
@@ -24,8 +31,13 @@ export class SetInfosolicitudComponent implements OnInit {
       fechaSolicitud: ['', Validators.required],
       tipoDevolucion: ['', Validators.required],
     });
-    this.datosSolicitud.get('tipoDevolucion').valueChanges.subscribe(valor => {
-      this.store.dispatch(seleccionarTipoDevolucion({tipoDevolucion: valor}));
+    this.susTipoDevolucion$ = this.datosSolicitud.get('tipoDevolucion').valueChanges.subscribe(valor => {
+      if (this.datosSolicitud.get('tipoDevolucion').valid)
+        this.store.dispatch(seleccionarTipoDevolucion({ tipoDevolucion: valor }));
+    });
+    this.susDatosSolicitud$ = this.datosSolicitud.valueChanges.subscribe(valor => {
+      if (this.datosSolicitud.valid)
+        this.store.dispatch(seleccionarDatosSolicitud({ datosSolicitud: valor }));
     });
   }
 

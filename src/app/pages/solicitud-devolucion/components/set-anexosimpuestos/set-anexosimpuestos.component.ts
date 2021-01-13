@@ -4,8 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
+import { cambiarTotalSolicitado, seleccionarDatosTablaAnexos, seleccionarDatosTablaImpuestos } from '../../actions/solicitud-devolucion.actions';
 import {
-  CONFIGURACION_TABLA_ANEXOS, DATOS_TABLA_ANEXOS,
+  CONFIGURACION_TABLA_ANEXOS,
   CONFIGURACION_TABLA_IMPUESTOS, DATOS_TABLA_IMPUESTOS
 } from '../../interfaces/interfaces';
 import { getTipoDevolucion } from '../../selectors/solicitud-devolucion.selectors';
@@ -28,11 +29,12 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
   datosTablaImpuestos: any;
   selectedIndex: number;
   subscription2$: any;
+  susTotalSolicitado$: any;
 
 
   constructor(private store: Store<any>, private fb: FormBuilder, private modalService: NgbModal) {
     this.configTablaAnexos = CONFIGURACION_TABLA_ANEXOS;
-    this.datosAnexos = DATOS_TABLA_ANEXOS;
+    this.datosAnexos = [];
     this.configTablaImpuestos = CONFIGURACION_TABLA_IMPUESTOS;
     this.datosTablaImpuestos = [];
     this.tipoDevolucion = null;
@@ -54,6 +56,10 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
           this.eliminarImpuesto(accion.fila);
         }
       }
+    });
+    this.susTotalSolicitado$ = this.datosImpuestos.get('valorDevolucion').valueChanges.subscribe(valor => {
+      if (this.datosImpuestos.valid)
+        this.store.dispatch(cambiarTotalSolicitado({ totalSolicitado: valor }));
     });
     this.agregar(); // Eliminar
   }
@@ -87,6 +93,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscription2$.unsubscribe();
+    this.susTotalSolicitado$.unsubscribe();
     this.store.dispatch(LoadFilaSeleccionada(null));
   }
 
@@ -98,6 +105,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
     elemento.valorLetras = this.datosImpuestos.get('valorLetras').value;
     elemento.valorCifras = this.valorCifras;
     this.datosTablaImpuestos.push(elemento);
+    this.store.dispatch(seleccionarDatosTablaImpuestos({ datosTablaImpuestos: this.datosTablaImpuestos }));
   }
 
   get valorCifras() {
@@ -112,10 +120,6 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
     return total;
   }
 
-  get ImpuestosSeleccionados() {
-    return this.datosTablaImpuestos.length >= 0;
-  }
-
   selectTab(current: number, index: number) {
     const dif = this.selectedIndex - index;
     this.selectedIndex -= dif !== 0 ? dif : current - index;
@@ -128,6 +132,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
           (element: any) => element.nombre === fila.nombre
             && element.estado === fila.estado
         ), 1);
+        this.store.dispatch(seleccionarDatosTablaAnexos({ datosTablaAnexos: this.datosAnexos }));
       }
     }, () => { });
   }
@@ -142,6 +147,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
             && element.valorLetras === fila.valorLetras
             && element.valorCifras === fila.valorCifras
         ), 1);
+        this.store.dispatch(seleccionarDatosTablaImpuestos({ datosTablaImpuestos: this.datosTablaImpuestos }));
       }
     }, () => { });
   }
@@ -149,6 +155,7 @@ export class SetAnexosimpuestosComponent implements OnInit, OnDestroy {
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       this.datosAnexos.push({ nombre: item.name, estado: '', file: item });
+      this.store.dispatch(seleccionarDatosTablaAnexos({ datosTablaAnexos: this.datosAnexos }));
     }
   }
 
