@@ -32,7 +32,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.crearFormulario();
-    this.handleVigencias()
+    this.handleVigencias();
     this.handleFormChanges();
   }
 
@@ -68,7 +68,6 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
       }
     );
     }
-    
 
   ngOnDestroy() {
     this.susVigencias$.unsubscribe();
