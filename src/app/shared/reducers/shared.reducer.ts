@@ -14,6 +14,7 @@ export interface State {
   ConceptosContables: any;
   TiposID: any;
   DatosID: any;
+  Usuario: any;
   Vigencias: any;
 }
 
@@ -28,6 +29,7 @@ export const initialState: State = {
   ConceptosContables: [],
   TiposID: null,
   DatosID: {},
+  Usuario: null,
   Vigencias: null
 };
 
@@ -61,10 +63,13 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.loadDatosID, (state, action) => {
     state.DatosID[action.clave] = action;
-  return  ({
-    ...state, DatosID: state.DatosID = Object.assign({}, state.DatosID)
-  });
-}),
+    return ({
+      ...state, DatosID: state.DatosID = Object.assign({}, state.DatosID)
+    });
+  }),
+  on(SharedActions.loadUsuario, (state, action) => ({
+    ...state, Usuario: state.Usuario = action
+  })),
   on(SharedActions.loadVigencias, (state, action) => ({
     ...state, Vigencias: state.Vigencias = action
   })),

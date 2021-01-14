@@ -19,7 +19,7 @@
                 </mat-step>
                 <!-- Fin de Información de solicitud y solicitante -->
                 <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
-                <mat-step [stepControl]="documentosGroup" optional>
+                <mat-step [stepControl]="documentosGroup">
                     <ng-template matStepLabel>Documentos</ng-template>
                     <div class="container">
                         <ngx-set-cargardocumentos></ngx-set-cargardocumentos>
@@ -34,7 +34,7 @@
                     </div>
                 </mat-step>
                 <!-- Fin de Autorización de solicitud de giro -->
-                <!-- Paso 3: Resumen de Solicitud de giro -->
+                <!-- Paso 4: Resumen de Solicitud de giro -->
                 <mat-step [stepControl]="resumenSolicitudGroup">
                     <ng-template matStepLabel>Guardar</ng-template>
                     <div class="container">

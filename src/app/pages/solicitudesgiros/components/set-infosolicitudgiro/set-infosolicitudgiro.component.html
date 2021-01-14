@@ -26,7 +26,7 @@
         <div class="form-group row">
             <div class="col-md-3">
                 <label>No. Solicitud</label>
-                <input type="number" class="form-control" formControlName="numeroSolicitud" readonly>
+                <input type="text" class="form-control" formControlName="numeroSolicitud" readonly>
             </div>
             <div class="col-md-4">
                 <label>Área Funcional</label>
@@ -41,7 +41,7 @@
             <div class="col-md-5">
                 <label>Fecha de Solicitud</label>
                 <div class="input-group">
-                    <input name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" ngbDatepicker #d="ngbDatepicker">
+                    <input type="date" name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                             <i class="fas fa-calendar"></i>
@@ -93,7 +93,7 @@
                 <input value="{{ datosID?.TerceroId?.PrimerApellido }} {{ datosID?.TerceroId?.SegundoApellido }}" type="text" class="form-control" formControlName="apellidos" readonly>
             </div>
             <div class="col-md-4">
-                <label><small>Cargo</small></label>
+                <label>Cargo</label>
                 <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid">
                 <small *ngIf="cargoInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>

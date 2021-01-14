@@ -3,7 +3,7 @@ import { SetInfosolicitudgiroComponent } from '../set-infosolicitudgiro/set-info
 import { SetCargardocumentosComponent } from '../set-cargardocumentos/set-cargardocumentos.component';
 import { SetAutorizaciongiroComponent } from '../set-autorizaciongiro/set-autorizaciongiro.component';
 import { ShowResumensolicitudgiroComponent } from '../show-resumensolicitudgiro/show-resumensolicitudgiro.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getTiposID } from '../../../../shared/actions/shared.actions';
 
