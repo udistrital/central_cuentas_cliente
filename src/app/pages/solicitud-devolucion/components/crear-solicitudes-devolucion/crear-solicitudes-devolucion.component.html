@@ -1,4 +1,4 @@
-<div class="container bg-white p-5 border rounded">
+<div class="container bg-white p-3 border rounded">
     <div class="row">
         <div class="col py-2">
             <h5 class="card-title text-center text-primary text-uppercase">Nueva Solicitud de Devolución</h5>
@@ -23,6 +23,12 @@
                     <ng-template matStepLabel>{{impuestos}} Anexos</ng-template>
                     <div class="container">
                         <ngx-set-anexosimpuestos></ngx-set-anexosimpuestos>
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-resumen></ngx-show-resumen>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>

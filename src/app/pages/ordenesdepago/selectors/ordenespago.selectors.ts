@@ -9,3 +9,8 @@ export const getOrdenpagoSeleccionado = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.OrdenpagoSeleccionado
 );
+
+export const getAreaFuncional = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.AreaFuncional
+);

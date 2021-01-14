@@ -95,6 +95,7 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
   // Evento con el boton mostrar datos en la tabla
   mostrarDatos() {
     this.datosConsulta.push(DATOS_TABLACONSULTA[0]);
+    // this.store.dispatch()
   }
 
   // Modal acciones sobre la tabla: eliminar registros
@@ -105,6 +106,7 @@ export class SetConsultanuevarelacionComponent implements OnInit, OnDestroy {
           (element: any) => element.disponibilidad === fila.disponibilidad
           && element.registro === fila.registro
           ), 1);
+          // this.store.dispatch()
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

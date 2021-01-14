@@ -9,6 +9,9 @@ export const loadOrdenPagoSeleccionado = createAction(
   props(),
 );
 
-
+export const seleccionarAreaFuncional = createAction(
+  '[OrdenesPago] Seleccionar area funcional',
+  props(),
+);
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { concatMap } from 'rxjs/operators';
+import { concatMap, mergeMap } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 
 import * as SolicitudesgirosActions from '../actions/solicitudesgiros.actions';
@@ -19,7 +19,6 @@ export class SolicitudesgirosEffects {
       concatMap(() => EMPTY)
     );
   });
-
 
   constructor(private actions$: Actions) { }
 
