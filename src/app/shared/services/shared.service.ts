@@ -69,9 +69,16 @@ export class SharedService {
    * @returns  Tipos de identificacion de terceros
    */
 
-  public getTiposID() {
+  public getTiposID(activo?: boolean) {
     this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
-    return this.rqManager.get('tipo_documento');
+    let query = '';
+    if (activo !== null && activo !== undefined)
+      query = `Activo:${activo}`;
+    const params = {
+      fields: 'Nombre,Id',
+      query: query,
+    };
+    return this.rqManager.get('tipo_documento', params);
 
   }
 

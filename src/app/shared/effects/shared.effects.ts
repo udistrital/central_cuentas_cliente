@@ -60,7 +60,7 @@ export class SharedEffects {
       withLatestFrom(this.store.select(selectTiposID)),
       mergeMap((action) => {
         if (!action || !action[1])
-          return this.sharedService.getTiposID()
+          return this.sharedService.getTiposID(true)
             .pipe(
               map(data => SharedActions.loadTiposID([data])),
               catchError(data => of(SharedActions.CatchError(data))));
@@ -81,13 +81,7 @@ export class SharedEffects {
               if (data)
                 data = data.map((tercero) => (
                   {
-                    TerceroId: {
-                      NombreCompleto: tercero.TerceroId.NombreCompleto,
-                      PrimerNombre: tercero.TerceroId.PrimerNombre,
-                      SegundoNombre: tercero.TerceroId.SegundoNombre,
-                      PrimerApellido: tercero.TerceroId.PrimerApellido,
-                      SegundoApellido: tercero.TerceroId.SegundoApellido,
-                    },
+                    TerceroId: tercero.TerceroId
                   }
                 ));
               return SharedActions.loadDatosID({ clave: params.clave, datosId: data });
