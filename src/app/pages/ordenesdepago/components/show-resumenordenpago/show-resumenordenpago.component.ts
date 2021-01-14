@@ -4,7 +4,7 @@ import {
   CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE,
   CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION,
 } from '../../interfaces/interfaces';
-import { getDatosAlmacenadosBeneficiario, getDatosBeneficiario, getDatosCompromiso, getDatosAlmacenadosCompromiso } from '../../selectors/ordenespago.selectors';
+import { getDatosAlmacenadosBeneficiario, getDatosBeneficiario, getDatosCompromiso, getDatosAlmacenadosCompromiso, getDatosImputacionPresupuestal, getDatosMovimientoContable } from '../../selectors/ordenespago.selectors';
 import { Store } from '@ngrx/store';
 @Component({
   selector: 'ngx-show-resumenordenpago',
@@ -27,6 +27,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   subscriptionDatosAlmacenadosBeneficiario$: any;
   subscriptionDatosCompromiso$: any;
   subscriptionDatosAlmacenadosCompromiso$: any;
+  subscriptionDatosImputacion$: any;
+  subscriptionDatosMovimiento$: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -35,8 +37,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE);
     this.configTableImpuntuacion.rowActions = null;
     this.configTableMovimientoContable.rowActions = null;
-    this.datosTableImputacion = DATOS_IMPUNTUACION;
-    this.datosTableMovimientoContable = DATOS_MOVIMIENTO_CONTABLE;
+    this.datosTableImputacion = [];
+    this.datosTableMovimientoContable = [];
   }
 
   ngOnDestroy () {
@@ -44,6 +46,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosBeneficiario$.unsubscribe();
     this.subscriptionDatosAlmacenadosCompromiso$.unsubscribe();
     this.subscriptionDatosCompromiso$.unsubscribe();
+    this.subscriptionDatosImputacion$.unsubscribe();
+    this.subscriptionDatosMovimiento$.unsubscribe();
   }
 
   ngOnInit() {
@@ -75,6 +79,28 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       data => {
         if (data !== null) {
           this.datosAlmacenadosCompromiso = data;
+        }
+      }
+    );
+    this.subscriptionDatosImputacion$ = this.store.select(getDatosImputacionPresupuestal).subscribe(
+      data => {
+        if (data !== null) {
+          let i = 0;
+          while (data[i] !== undefined) {
+            this.datosTableImputacion.push(data[i]);
+            i++;
+          }
+        }
+      }
+    );
+    this.subscriptionDatosMovimiento$ = this.store.select(getDatosMovimientoContable).subscribe(
+      data => {
+        if (data !== null) {
+          let i = 0;
+          while (data[i] !== undefined) {
+            this.datosTableMovimientoContable.push(data[i]);
+            i++;
+          }
         }
       }
     );

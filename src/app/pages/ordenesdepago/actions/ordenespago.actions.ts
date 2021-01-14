@@ -34,4 +34,12 @@ export const seleccionarAreaFuncional = createAction(
   props(),
 );
 
+export const cargarDatosImputacionPresupuestal = createAction(
+  '[OrdenesPago] Cargar DatosImputacionPresupuestal',
+  props(),
+);
 
+export const cargarDatosMovimientoContable = createAction(
+  '[OrdenesPago] Cargar DatosMovimientoContable',
+  props(),
+);

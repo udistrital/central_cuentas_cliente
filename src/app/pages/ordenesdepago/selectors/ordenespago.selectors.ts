@@ -33,3 +33,12 @@ export const getAreaFuncional = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.AreaFuncional
 );
+
+export const getDatosImputacionPresupuestal = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosImputacionPresupuestal
+);
+export const getDatosMovimientoContable = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosMovimientoContable
+);

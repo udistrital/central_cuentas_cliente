@@ -9,6 +9,7 @@ import { getFilaSeleccionada } from '../../../../shared/selectors/shared.selecto
 import { ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
+import { cargarDatosImputacionPresupuestal } from '../../actions/ordenespago.actions';
 
 @Component({
   selector: 'ngx-set-impuntuacionpresupuestal',
@@ -95,6 +96,10 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
 
   totalGasto() {
     return this.datosTableImputacion.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
+  }
+
+  cargarImputacion() {
+    this.store.dispatch(cargarDatosImputacionPresupuestal(this.datosTableImputacion));
   }
 
 }
