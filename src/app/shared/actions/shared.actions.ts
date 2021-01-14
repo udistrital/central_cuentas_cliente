@@ -75,6 +75,29 @@ export const LoadConceptosContables = createAction(
   props()
 );
 
+// Tipos ID de terceros
+
+export const getTiposID = createAction(
+  '[Shared] Get Tipos Identificacion'
+);
+
+export const loadTiposID = createAction(
+  '[Shared] Load Tipos Identificacion',
+  props()
+);
+
+// Datos de ID de terceros
+
+export const getDatosID = createAction(
+  '[Shared] Get Datos Identificacion',
+  props<{ clave: string, numero?: string, tipo?: number, limit?: number, fields?: string }>()
+);
+
+export const loadDatosID = createAction(
+  '[Shared] Load Datos Identificacion',
+  props<{ clave: string, datosId: any }>()
+);
+
 // Vigencias
 
 export const getVigencias = createAction(

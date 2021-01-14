@@ -17,22 +17,20 @@
                 <label>Tipo de ID</label>
                 <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option [ngValue]="tipoId" *ngFor="let tipoId of tiposID">{{ tipoId.Nombre }}</option>
                 </select>
                 <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-4">
                 <label>Número de ID</label>
-                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
                 <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-10">
                 <label>Nombre (persona o entidad)</label>
-                <input type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
+                <input value="{{ datosID?.TerceroId?.NombreCompleto }}" type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
             </div>
         </div>
         <!-- Fin Campos: Tipo de ID, Número de ID, Nombre -->
@@ -51,6 +49,9 @@
             </div>
         </div>
         <!-- Campo: Elegir código del rubro, mostrar nombre del rubro -->
+        <div class="col">
+            <p class="pb-1">Por favor, seleccione el rubro para continuar:</p>
+        </div>
         <div class="form-group row">
             <div class="col-md-3">
                 <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
@@ -75,11 +76,11 @@
             <div class="col-md-7">
                 <label>Valor en Letras</label>
                 <input type="text" class="form-control" formControlName="valorLetras" [class.is-invalid]="valorLetrasInvalid">
-                <small *ngIf="valorLetrasInvalid" class="text-danger">Ingrese números en este campo</small>
+                <small *ngIf="valorLetrasInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-5">
                 <label>Valor en Números</label>
-                <input type="text" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorNumeroInvalid">
+                <input type="number" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorNumeroInvalid">
                 <small *ngIf="valorNumeroInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
             <!-- Fin Campos: Valor en letras y/o números -->

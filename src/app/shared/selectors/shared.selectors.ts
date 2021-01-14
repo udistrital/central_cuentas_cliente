@@ -30,6 +30,15 @@ export const getConceptosContables = createSelector(
   (state: fromShared.State) => state.ConceptosContables
 );
 
+export const selectTiposID = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.TiposID
+);
+
+export const selectDatosID = createSelector(
+  selectSharedState,
+  (state: fromShared.State, clave: string) => state.DatosID[clave]
+);
 export const selectVigencias = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.Vigencias

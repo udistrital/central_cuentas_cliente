@@ -64,6 +64,39 @@ export class SharedService {
     return this.rqManager.get(`concepto/${id}`);
   }
 
+  /**
+   * Gets TiposID
+   * @returns  Tipos de identificacion de terceros
+   */
+
+  public getTiposID(activo?: boolean) {
+    this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
+    let query = '';
+    if (activo !== null && activo !== undefined)
+      query = `Activo:${activo}`;
+    const params = {
+      fields: 'Nombre,Id',
+      query: query,
+    };
+    return this.rqManager.get('tipo_documento', params);
+
+  }
+
+  /**
+   * Gets DatosIdentificacion
+   * @returns  Datos de identificacion de terceros
+   */
+
+  public getDatosID(numero?: string, tipo?: number, limit?: number, fields?: string) {
+    this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
+    const params = {
+      query : `Numero:${numero},TipoDocumentoId.Id:${tipo}`,
+      limit : limit ? limit : 1,
+      fields : fields ? fields : 'TerceroId'
+    };
+    return this.rqManager.get('datos_identificacion', params);
+  }
+
   public getRubro(codigo: string) {
     this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
     return this.rqManager.get(`arbol_rubro/arbol/${codigo}`);

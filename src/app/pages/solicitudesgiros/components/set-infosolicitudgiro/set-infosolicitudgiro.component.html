@@ -14,9 +14,9 @@
                 <label>Concepto</label>
                 <select class="custom-select" formControlName="concepto" [class.is-invalid]="conceptoInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option>001</option>
+                    <option>012</option>
+                    <option>120</option>
                 </select>
                 <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
             </div>
@@ -26,24 +26,26 @@
         <div class="form-group row">
             <div class="col-md-3">
                 <label>No. Solicitud</label>
-                <input type="text" class="form-control" formControlName="numeroSolicitud" readonly>
+                <input type="number" class="form-control" formControlName="numeroSolicitud" readonly>
             </div>
             <div class="col-md-4">
                 <label>Área Funcional</label>
                 <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
                 </select>
                 <small *ngIf="areaInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-5">
-                <label>Fecha</label>
+                <label>Fecha de Solicitud</label>
                 <div class="input-group">
-                    <input class="form-control" ngbDatepicker #d="ngbDatepicker">
+                    <input name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                            <i class="fas fa-calendar"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -69,15 +71,13 @@
                 <label>Tipo de ID</label>
                 <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
+                    <option [ngValue]="tipoId" *ngFor="let tipoId of tiposID">{{ tipoId.Nombre }}</option>
                 </select>
                 <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-4">
                 <label>Número de ID</label>
-                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
                 <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
         </div>
@@ -86,15 +86,16 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label>Nombres</label>
-                <input type="text" class="form-control" formControlName="nombres" readonly>
+                <input value="{{ datosID?.TerceroId?.PrimerNombre }} {{ datosID?.TerceroId?.SegundoNombre }}" type="text" class="form-control" formControlName="nombres" readonly>
             </div>
             <div class="col-md-4">
                 <label>Apellidos</label>
-                <input type="text" class="form-control" formControlName="apellidos" readonly>
+                <input value="{{ datosID?.TerceroId?.PrimerApellido }} {{ datosID?.TerceroId?.SegundoApellido }}" type="text" class="form-control" formControlName="apellidos" readonly>
             </div>
             <div class="col-md-4">
-                <label>Cargo</label>
-                <input type="text" class="form-control" formControlName="cargo" readonly>
+                <label><small>Cargo</small></label>
+                <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid">
+                <small *ngIf="cargoInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
             <!-- Fin Campos: Nombres, Apellidos, Cargo -->
         </div>
