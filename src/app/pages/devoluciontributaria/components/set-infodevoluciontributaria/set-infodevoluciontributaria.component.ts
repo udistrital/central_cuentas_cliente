@@ -83,7 +83,7 @@ export class SetInfodevoluciontributariaComponent implements OnInit {
     if ( this.infoDevolucionGroup.invalid ) {
       return Object.values( this.infoDevolucionGroup.controls ).forEach( control => {
         control.markAsTouched();
-      }); 
+      });
     } else {
       this.store.dispatch(cargarDatosSolicitud(data));
     }
