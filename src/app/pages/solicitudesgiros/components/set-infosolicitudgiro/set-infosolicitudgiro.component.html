@@ -71,7 +71,7 @@
                 <label>Tipo de ID</label>
                 <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
                     <option selected disabled value="">Seleccione...</option>
-                    <option [ngValue]="tipoId" *ngFor="let tipoId of tiposID">{{ tipoId.CodigoAbreviacion }}</option>
+                    <option [ngValue]="tipoId" *ngFor="let tipoId of tiposID">{{ tipoId.Nombre }}</option>
                 </select>
                 <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
             </div>

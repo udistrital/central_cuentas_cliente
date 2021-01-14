@@ -6,6 +6,7 @@ import { getDatosID } from '../../../../shared/actions/shared.actions';
 import { combineLatest } from 'rxjs';
 import { loadAutorizaciongiro } from '../../actions/solicitudesgiros.actions';
 
+
 @Component({
   selector: 'ngx-set-autorizaciongiro',
   templateUrl: './set-autorizaciongiro.component.html',

@@ -44,3 +44,17 @@ export const getUsuario = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.Usuario
 );
+export const selectVigencias = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Vigencias
+);
+
+export const selectVigenciasNoFuturas = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => {
+    if (state.Vigencias && state.Vigencias[0])
+      state.Vigencias[0] = state.Vigencias[0].filter(
+        vigencia => vigencia.estado !== 'Futura');
+    return state.Vigencias;
+  }
+);

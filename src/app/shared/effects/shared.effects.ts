@@ -8,6 +8,7 @@ import * as SharedActions from '../actions/shared.actions';
 import { SharedService } from '../services/shared.service';
 import { Store } from '@ngrx/store';
 import { selectDatosID, selectTiposID } from '../selectors/shared.selectors';
+import { selectVigencias } from '../selectors/shared.selectors';
 
 
 @Injectable()
@@ -45,7 +46,7 @@ export class SharedEffects {
     return this.actions$.pipe(
       ofType(SharedActions.GetConceptosContables),
       mergeMap((id) =>
-        this.sharedService.getConceptos(id.id)
+        this.sharedService.getConceptos(id ? id.id : id)
           .pipe(
             map(data => SharedActions.LoadConceptosContables([data])),
             catchError(data => of(SharedActions.CatchError(data))))
@@ -59,7 +60,7 @@ export class SharedEffects {
       withLatestFrom(this.store.select(selectTiposID)),
       mergeMap((action) => {
         if (!action || !action[1])
-          return this.sharedService.getTiposID()
+          return this.sharedService.getTiposID(true)
             .pipe(
               map(data => SharedActions.loadTiposID([data])),
               catchError(data => of(SharedActions.CatchError(data))));
@@ -76,23 +77,31 @@ export class SharedEffects {
       mergeMap((params) =>
         this.sharedService.getDatosID(params.numero, params.tipo, params.limit, params.fields)
           .pipe(
-            map(data => {
+            map((data: any[]) => {
               if (data)
                 data = data.map((tercero) => (
                   {
-                    TerceroId: {
-                      NombreCompleto: tercero.TerceroId.NombreCompleto,
-                      PrimerNombre: tercero.TerceroId.PrimerNombre,
-                      SegundoNombre: tercero.TerceroId.SegundoNombre,
-                      PrimerApellido: tercero.TerceroId.PrimerApellido,
-                      SegundoApellido: tercero.TerceroId.SegundoApellido,
-                    },
+                    TerceroId: tercero.TerceroId
                   }
                 ));
               return SharedActions.loadDatosID({ clave: params.clave, datosId: data });
             }),
             catchError(data => of(SharedActions.CatchError(data))))
-      )
+      ) );
+    });
+
+  getVigencias$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getVigencias),
+      withLatestFrom(this.store.select(selectVigencias)),
+      mergeMap((accion) => {
+        if (!accion || !accion[1])
+          return this.sharedService.getVigencias()
+            .pipe(map(data => SharedActions.loadVigencias([data])),
+              catchError(data => of(SharedActions.CatchError(data))));
+        else
+          return of(SharedActions.loadVigencias(accion[1]));
+      })
     );
   });
 }

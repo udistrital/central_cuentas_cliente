@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DevoluciontributariaEffects } from './effects/devoluciontributaria.effects';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatStepperModule } from '@angular/material';
+import { MatDividerModule, MatSelectModule, MatStepperModule } from '@angular/material';
 import { NgbModalConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DevoluciontributariaRoutingModule } from './devoluciontributaria-routing.module';
 import { StepperDevoluciontributariaComponent } from './components/stepper-devoluciontributaria/stepper-devoluciontributaria.component';
@@ -16,6 +16,7 @@ import { SetInfodevoluciontributariaComponent } from './components/set-infodevol
 import { SetConsultaordenpagoComponent } from './components/set-consultaordenpago/set-consultaordenpago.component';
 import { SetContabilizacionComponent } from './components/set-contabilizacion/set-contabilizacion.component';
 import { ShowComprobantepagoComponent } from './components/show-comprobantepago/show-comprobantepago.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -39,7 +40,9 @@ import { ShowComprobantepagoComponent } from './components/show-comprobantepago/
     MatDividerModule,
     NgbModule,
     StoreModule.forFeature(fromDevoluciontributaria.devoluciontributariaFeatureKey, fromDevoluciontributaria.reducer),
-    EffectsModule.forFeature([DevoluciontributariaEffects])
+    EffectsModule.forFeature([DevoluciontributariaEffects]),
+    MatSelectModule,
+    ScrollingModule
   ],
   providers: [
     NgbModule,

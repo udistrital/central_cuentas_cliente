@@ -59,14 +59,9 @@ export class SharedService {
    * @returns  Información de conceptos
    */
   public getConceptos(id?: any) {
-
     this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
-    const params = {
-      id: id,
-    };
-    // call request manager for the tree's data.
-    return this.rqManager.get(`concepto/${id}`, params);
-
+    id = id ? id : '';
+    return this.rqManager.get(`concepto/${id}`);
   }
 
   /**
@@ -74,9 +69,16 @@ export class SharedService {
    * @returns  Tipos de identificacion de terceros
    */
 
-  public getTiposID() {
+  public getTiposID(activo?: boolean) {
     this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
-    return this.rqManager.get('tipo_documento');
+    let query = '';
+    if (activo !== null && activo !== undefined)
+      query = `Activo:${activo}`;
+    const params = {
+      fields: 'Nombre,Id',
+      query: query,
+    };
+    return this.rqManager.get('tipo_documento', params);
 
   }
 
@@ -117,7 +119,14 @@ export class SharedService {
     return this.rqManager.get(`vigencia/vigencia_actual_area/1${query}`, params);
   }
 
-
+  /**
+   * Gets Vigencias
+   * @returns Listado de todas las vigencias
+   */
+  public getVigencias() {
+    this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+    return this.rqManager.get('vigencia/vigencias_total');
+  }
 
   /**
      * getScreenSize
