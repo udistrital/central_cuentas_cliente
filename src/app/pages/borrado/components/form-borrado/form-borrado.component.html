@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <form [formGroup]="borrado" (ngSubmit)="onSubmit(borrado.value)">
-                <div class="card">
+                <div class="card mt-5">
                     <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
                         Seleccione tipo de cuenta
                     </div>
@@ -20,7 +20,7 @@
                     </div>    
                 </div>
 
-                <div *ngIf= "!!tipoCuenta" class="card">
+                <div *ngIf= "!!tipoCuenta" class="card mt-5">
                     <div *ngIf = "tipoCuenta === 'Relación de autorización'" class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
                         Relación de autorización
                     </div>
@@ -43,14 +43,14 @@
                     </div>
                 </div>        
                 
-                <div class="row group">
+                <div class="row group mt-3">
                     <div class="col">
                         <button routerLinkActive="active" routerLink="pages/borrado/lista" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
                             Volver al registro
                         </button>
                     </div>
                     <div class="col">
-                        <button mat-button matStepperNext class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="borrado.invalid">
+                        <button mat-button class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="borrado.invalid">
                             Siguiente
                         </button>
                     </div>
