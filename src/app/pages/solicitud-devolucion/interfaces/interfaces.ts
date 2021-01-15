@@ -141,16 +141,6 @@ export const CONFIGURACION_TABLA_ANEXOS: any = {
     },
     maxHeight: 200
 };
-export const DATOS_TABLA_ANEXOS: any = [
-    {
-        nombre: 'Copia de la orden de contrato',
-        estado: '',
-    },
-    {
-        nombre: 'Documento 1',
-        estado: '',
-    },
-];
 
 
 export const CONFIGURACION_TABLA_IMPUESTOS: any = {

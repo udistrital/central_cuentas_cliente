@@ -46,19 +46,12 @@
             <label for="vigencia">Vigencia</label>
             <select class="form-control" id="vigencia" formControlName="vigencia"
                 [class.is-invalid]="esInvalido('vigencia')">
-                <option>Opcion 1</option>
-                <option>Opcion 2</option>
-                <option>Opcion 3</option>
+                <option [ngValue]="vigencia" *ngFor="let vigencia of vigencias">{{vigencia?.valor}}</option>
             </select>
         </div>
         <div class="col-md-6 form-group">
             <label for="tipoOrden">Tipo de Orden de Pago</label>
-            <select class="form-control" id="tipoOrden" formControlName="tipoOrden"
-                [class.is-invalid]="esInvalido('tipoOrden')">
-                <option>Opcion 1</option>
-                <option>Opcion 2</option>
-                <option>Opcion 3</option>
-            </select>
+            <input id="tipoOrden" class="form-control" disabled value="{{vigenciaSeleccionada | tipoOrdenVigencia: vigenciaActual }}">
         </div>
     </div>
 
