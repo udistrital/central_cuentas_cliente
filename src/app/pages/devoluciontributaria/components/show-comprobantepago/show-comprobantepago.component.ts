@@ -23,7 +23,8 @@ export class ShowComprobantepagoComponent implements OnInit, OnDestroy {
    }
 
   ngOnDestroy() {
-
+    this.subscriptionDatosDevolucion$.unsubscribe();
+    this.subscriptionDatosAlmacenadosDevolucion$.unsubscribe();
   }
 
   ngOnInit() {
