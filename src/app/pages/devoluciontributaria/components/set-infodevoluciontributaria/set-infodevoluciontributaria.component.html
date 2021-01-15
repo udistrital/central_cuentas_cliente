@@ -105,7 +105,7 @@
             </div>
             <div class="col-md-7">
                 <label>Nombre</label>
-                <input type="text" class="form-control" readonly>
+                <input *ngIf="!!datoAlmacenadoDevolucion" type="text" class="form-control" readonly placeholder="{{datoAlmacenadoDevolucion.nombre}}">
             </div>
         </div>
         <!-- Fin Campo: Tipo id, numero id, nombre -->

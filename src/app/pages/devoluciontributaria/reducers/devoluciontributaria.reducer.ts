@@ -1,16 +1,19 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as DevoluciontributariaActions from '../actions/devoluciontributaria.actions';
+import { cargarDatosAlmacenadosSolicitud } from '../actions/devoluciontributaria.actions';
 
 export const devoluciontributariaFeatureKey = 'solicitudesgiros';
 
 export interface State {
   DevoluciontributariaSeleccionado: any;
   DatosDevolucion: any;
+  DatosAlmacenadosSolicitud: any;
 }
 
 export const initialState: State = {
   DevoluciontributariaSeleccionado: null,
   DatosDevolucion: null,
+  DatosAlmacenadosSolicitud: null,
 };
 
 const solicitudesgirosReducer = createReducer(
@@ -22,6 +25,9 @@ const solicitudesgirosReducer = createReducer(
   })),
   on(DevoluciontributariaActions.cargarDatosSolicitud, (state, action) => ({
     ...state, DatosDevolucion: state.DatosDevolucion = action
+  })),
+  on(DevoluciontributariaActions.cargarDatosAlmacenadosSolicitud, (state, action) => ({
+    ...state, DatosAlmacenadosSolicitud: state.DatosAlmacenadosSolicitud = action
   })),
 
 );

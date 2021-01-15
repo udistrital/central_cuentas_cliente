@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GetConceptosContables } from '../../../../shared/actions/shared.actions';
 import { getConceptosContables } from '../../../../shared/selectors/shared.selectors';
-import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP } from '../../interfaces/interfaces';
+import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP, DATOS_SOLICITUD} from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
-import { cargarDatosSolicitud } from '../../actions/devoluciontributaria.actions';
+import { cargarDatosSolicitud, cargarDatosAlmacenadosSolicitud } from '../../actions/devoluciontributaria.actions';
 
 @Component({
   selector: 'ngx-set-infodevoluciontributaria',
@@ -18,18 +18,21 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
   infoDevolucionGroup: FormGroup;
   subscriptionConceptos$: any;
   conceptosContables: any;
+  datosAlmacenadosDevolucion: any;
+  datoAlmacenadoDevolucion: any;
 
   constructor(private fb: FormBuilder,
     private store: Store <any>,
     ) {
             // Datos de ejemplo q se muestran en la tabla
-            this.datosConsultaOP = DATOS_CONSULTAOP;
-            this.configConsultaOP = CONFIGURACION_CONSULTAOP;
+        this.datosConsultaOP = DATOS_CONSULTAOP;
+        this.configConsultaOP = CONFIGURACION_CONSULTAOP;
+        this.datosAlmacenadosDevolucion = DATOS_SOLICITUD;
             // Configuracion de la tabla
             // this.stringBusqueda = '';
             // this.selectedAction = new EventEmitter<any>();
-            this.createForm();
-            this.store.dispatch(GetConceptosContables({}));
+        this.createForm();
+        this.store.dispatch(GetConceptosContables({}));
   }
 
   ngOnInit() {
@@ -37,6 +40,24 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
     this.subscriptionConceptos$ = this.store.select(getConceptosContables).subscribe((accion) => {
       if (accion && accion[0]) this.conceptosContables = accion[0];
     });
+    this.handleFormChanges();
+  }
+
+  handleFormChanges() {
+    this.infoDevolucionGroup.valueChanges.subscribe(
+      (result: any) => {
+        if (result.numeroId !== '') {
+          this.datosAlmacenadosDevolucion.filter(
+            (data: any) => {
+              if (data.numeroId === result.numeroId) {
+                this.datoAlmacenadoDevolucion = data;
+              } else {
+                this.datoAlmacenadoDevolucion = [];
+              }
+            });
+        }
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -98,7 +119,9 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
         control.markAsTouched();
       });
     } else {
+      data.fecha = new Date (data.fecha.year, data.fecha.month, data.fecha.day);
       this.store.dispatch(cargarDatosSolicitud(data));
+      this.store.dispatch(cargarDatosAlmacenadosSolicitud(this.datoAlmacenadoDevolucion));
     }
   }
 

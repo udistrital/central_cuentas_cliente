@@ -525,3 +525,19 @@ export const DATOS_TABLABANCOS: any = [
         credito: '$67890',
     },
 ];
+export const DATOS_SOLICITUD: any = [
+    {
+        nombre: 'Ana Prueba',
+        numeroCuenta: '345234',
+        tipoCuenta: 'corriente',
+        numeroId: '345',
+        entidad: 'Banco X'
+    },
+    {
+        nombre: 'Otro Prueba',
+        numeroCuenta: '345567',
+        tipoCuenta: 'corriente',
+        numeroId: '567',
+        entidad: 'Banco Y'
+    },
+];

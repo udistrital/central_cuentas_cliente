@@ -1,21 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { getDatosDevolucion, getDatosAlmacenadosSolicitud } from '../../selectors/devoluciontributaria.selectors';
 
 @Component({
   selector: 'ngx-show-comprobantepago',
   templateUrl: './show-comprobantepago.component.html',
   styleUrls: ['./show-comprobantepago.component.scss']
 })
-export class ShowComprobantepagoComponent implements OnInit {
+export class ShowComprobantepagoComponent implements OnInit, OnDestroy {
 
   comprobantepagoGroup: FormGroup;
 
-  constructor( private fb: FormBuilder) {
+  subscriptionDatosDevolucion$: any;
+  subscriptionDatosAlmacenadosDevolucion$: any;
+  datosDevolucion: any;
+  datosAlmacenadosDevolucion: any;
 
+  constructor( private fb: FormBuilder,
+    private store: Store<any>) {
     this.createForm();
    }
 
+  ngOnDestroy() {
+
+  }
+
   ngOnInit() {
+    this.subscriptionDatosDevolucion$ = this.store.select(getDatosDevolucion).subscribe(
+      data => {
+        if (data !== null) {
+          this.datosDevolucion = data;
+        }
+      }
+    );
+    this.subscriptionDatosAlmacenadosDevolucion$ = this.store.select(getDatosAlmacenadosSolicitud).subscribe(
+      data => {
+        if (data !== null) {
+          this.datosAlmacenadosDevolucion = data;
+        }
+      }
+    );
   }
   // Validacion de Formulario
   get observacionInvalid() {

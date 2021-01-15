@@ -14,5 +14,10 @@ export const cargarDatosSolicitud = createAction(
   props(),
 );
 
+export const cargarDatosAlmacenadosSolicitud = createAction(
+  '[Devoluciontributaria] Cargar DatosAlmacenadosSolicitud',
+  props(),
+);
+
 
 
