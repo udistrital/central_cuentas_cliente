@@ -116,42 +116,42 @@ export const DATOS_RELACION_AUTORIZACION: any = [
         vigencia: '2019',
         mes: 'febrero',
         consecutivo: '21783',
-        estado: 'activo'
+        estado: 'activo',
     },
     {
         areaFuncional: '2020',
         vigencia: '2019',
         mes: 'junio',
         consecutivo: '18293',
-        estado: 'activo'
+        estado: 'activo',
     },
     {
         areaFuncional: '2020',
         vigencia: '2019',
         mes: 'julio',
         consecutivo: '78231',
-        estado: 'activo'
+        estado: 'activo',
     },
     {
         areaFuncional: '2020',
         vigencia: '2020',
         mes: 'agosto',
         consecutivo: '89273',
-        estado: 'activo'
+        estado: 'activo',
     },
     {
         areaFuncional: '2020',
         vigencia: '2020',
         mes: 'febrero',
         consecutivo: '987123',
-        estado: 'activo'
+        estado: 'activo',
     },
     {
         areaFuncional: '2020',
         vigencia: '2019',
         mes: 'enero',
         consecutivo: '1827',
-        estado: 'activo'
+        estado: 'activo',
     }
 ];
 export const DATOS_ORDENPAGO: any = [

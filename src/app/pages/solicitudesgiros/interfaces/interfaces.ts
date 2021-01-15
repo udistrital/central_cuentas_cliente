@@ -150,7 +150,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
         },
         actions: [
             {
-                name: 'ver',
+                name: 'BorrarRegistro',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Borrar Documento',
