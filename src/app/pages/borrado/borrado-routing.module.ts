@@ -4,6 +4,7 @@ import { LayoutBorradoComponent } from './components/layout-borrado/layout-borra
 import { ListComponent } from './components/list/list.component';
 import { CrearBorradoComponent } from './components/crear-borrado/crear-borrado.component';
 import { DetalleBorradoComponent } from './components/detalle-borrado/detalle-borrado.component';
+import { CuentasComponent } from './components/cuentas/cuentas.component';
 
 
 const routes: Routes = [{
@@ -21,6 +22,10 @@ const routes: Routes = [{
       {
         path: 'detalle/:tipo',
         component: DetalleBorradoComponent,
+      },
+      {
+        path: 'cuentas/:tipo',
+        component: CuentasComponent
       },
       {
         path: '',
