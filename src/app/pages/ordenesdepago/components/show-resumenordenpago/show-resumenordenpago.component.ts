@@ -29,6 +29,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   subscriptionDatosAlmacenadosCompromiso$: any;
   subscriptionDatosImputacion$: any;
   subscriptionDatosMovimiento$: any;
+  descuento: any;
+  gasto: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -104,5 +106,21 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  totalGasto() {
+    return this.gasto = this.datosTableImputacion.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
+  }
+
+  totalDescuento() {
+    return this.descuento =  this.datosTableMovimientoContable.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
+  }
+
+  totalNeto() {
+    return this.gasto - this.descuento;
+  }
+
+  get vigenciaSeleccionada() {
+    return this.datosCompromiso.get('vigencia').value;
   }
 }
