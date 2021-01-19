@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DATOS_TABLAIMPUESTO, DATOS_TABLABANCOS, CONFIGURACION_TABLAIMPUESTO, CONFIGURACION_TABLABANCOS } from '../../interfaces/interfaces';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'ngx-set-contabilizacion',
@@ -17,7 +18,9 @@ export class SetContabilizacionComponent implements OnInit {
   Subtotal: any;
   totalGasto: number;
 
-  constructor( private fb: FormBuilder ) {
+  constructor( private fb: FormBuilder,
+    private store: Store<any>,
+     ) {
         // Datos de ejemplo q se muestran en la tabla
         this.datosImpuesto = DATOS_TABLAIMPUESTO;
         this.configImpuesto = CONFIGURACION_TABLAIMPUESTO;

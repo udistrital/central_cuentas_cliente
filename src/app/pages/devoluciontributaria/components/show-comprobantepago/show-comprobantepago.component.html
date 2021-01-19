@@ -15,23 +15,23 @@
             </div>
             <div class="col-md-5">
                 <label>Fecha de Comprobante</label>
-                <input type="text" class="form-control" readonly>
+                <input *ngIf="!!datosDevolucion" type="text" class="form-control" readonly placeholder="{{datosDevolucion.fecha | date}}">
             </div>
         </div>
         <div class="row pt-2 d-flex justify-content-center">
             <div class="col-md-5">
                 <label>Tipo de Cuenta</label>
-                <input type="text" class="form-control" value="001" readonly>
+                <input *ngIf="!!datosAlmacenadosDevolucion" type="text" class="form-control" value="001" readonly placeholder="{{datosAlmacenadosDevolucion.tipoCuenta}}">
             </div>
             <div class="col-md-5">
                 <label>Número de Cuenta</label>
-                <input type="text" class="form-control" readonly>
+                <input *ngIf="!!datosAlmacenadosDevolucion" type="text" class="form-control" readonly placeholder="{{datosAlmacenadosDevolucion.numeroCuenta}}">
             </div>
         </div>
         <div class="row pt-2 d-flex justify-content-center">
             <div class="col-md-5">
                 <label>Entidad</label>
-                <input type="text" class="form-control" readonly>
+                <input *ngIf="!!datosAlmacenadosDevolucion" type="text" class="form-control" readonly placeholder="{{datosAlmacenadosDevolucion.entidad}}">
             </div>
             <div class="col-md-5">
                 <label>Valor</label>

@@ -9,6 +9,15 @@ export const loadDevoluciontributariaSeleccionado = createAction(
   props(),
 );
 
+export const cargarDatosSolicitud = createAction(
+  '[Devoluciontributaria] Cargar DatosSolicitud',
+  props(),
+);
+
+export const cargarDatosAlmacenadosSolicitud = createAction(
+  '[Devoluciontributaria] Cargar DatosAlmacenadosSolicitud',
+  props(),
+);
 
 
 

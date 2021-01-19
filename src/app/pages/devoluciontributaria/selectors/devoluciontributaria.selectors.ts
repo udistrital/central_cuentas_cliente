@@ -9,3 +9,13 @@ export const getDevoluciontributariaSeleccionado = createSelector(
   selectDevoluciontributariaState,
   (state: fromDevoluciontributaria.State) => state.DevoluciontributariaSeleccionado
 );
+
+export const getDatosDevolucion = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.DatosDevolucion
+);
+
+export const getDatosAlmacenadosSolicitud = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.DatosAlmacenadosSolicitud
+);
