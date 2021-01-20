@@ -6,6 +6,9 @@ import {
 } from '../../interfaces/interfaces';
 import { getDatosAlmacenadosBeneficiario, getDatosBeneficiario, getDatosCompromiso, getDatosAlmacenadosCompromiso, getDatosImputacionPresupuestal, getDatosMovimientoContable } from '../../selectors/ordenespago.selectors';
 import { Store } from '@ngrx/store';
+import { selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
+import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
+import { combineLatest } from 'rxjs';
 @Component({
   selector: 'ngx-show-resumenordenpago',
   templateUrl: './show-resumenordenpago.component.html',
@@ -31,6 +34,10 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   subscriptionDatosMovimiento$: any;
   descuento: any;
   gasto: any;
+  vigenciaActual: number;
+
+  susVigencias$: any;
+  vigencias: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -50,6 +57,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosCompromiso$.unsubscribe();
     this.subscriptionDatosImputacion$.unsubscribe();
     this.subscriptionDatosMovimiento$.unsubscribe();
+    this.susVigencias$.unsubscribe();
   }
 
   ngOnInit() {
@@ -106,6 +114,23 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
         }
       }
     );
+    this.handleVigencias();
+  }
+
+  handleVigencias() {
+    this.susVigencias$ = combineLatest([
+      this.store.select(selectVigenciasNoFuturas),
+      this.store.select(getAreaFuncional)
+    ]).subscribe(([accVigencias, accAreaFuncional]) => {
+      if (accVigencias && accVigencias[0] && accAreaFuncional && accAreaFuncional.areaFuncional) {
+        const vigenciaActual = accVigencias[0].find(vigencia => vigencia.estado === 'Actual');
+        if (vigenciaActual)
+          this.vigenciaActual = vigenciaActual.valor;
+        this.vigencias = accVigencias[0]
+          .filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
+      }
+    });
+
   }
 
   totalGasto() {
@@ -121,6 +146,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   }
 
   get vigenciaSeleccionada() {
-    return this.datosCompromiso.get('vigencia').value;
+    if (!!this.datosCompromiso) {
+      return this.datosCompromiso.vigencia;
+    }
   }
 }
