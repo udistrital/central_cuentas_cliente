@@ -5,6 +5,8 @@ import { combineLatest } from 'rxjs';
 import { getVigencias } from '../../../../shared/actions/shared.actions';
 import { selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
 import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
+import { cargarDatosCompromiso, cargarDatosAlmacenadosCompromiso } from '../../actions/ordenespago.actions';
+import { DATOS_COMPROMISO } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'ngx-set-datoscompromiso',
@@ -13,17 +15,28 @@ import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
 })
 export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   datosCompromiso: FormGroup;
+  datosAlmacenadosCompromisos: any;
+  datosAlmacenadosCompromiso: any;
   susVigencias$: any;
   vigencias: any;
   vigenciaActual: number;
 
-  constructor(private fb: FormBuilder, private store: Store<any>) {
-    this.vigencias = [];
-    this.store.dispatch(getVigencias());
-  }
+  constructor(private fb: FormBuilder,
+    private store: Store<any>,
+    ) {
+      this.vigencias = [];
+      this.store.dispatch(getVigencias());
+      this.datosAlmacenadosCompromisos = DATOS_COMPROMISO;
+      this.datosAlmacenadosCompromiso = [];
+    }
 
   ngOnInit() {
     this.crearFormulario();
+    this.handleVigencias();
+    this.handleFormChanges();
+  }
+
+  handleVigencias() {
     this.susVigencias$ = combineLatest([
       this.store.select(selectVigenciasNoFuturas),
       this.store.select(getAreaFuncional)
@@ -36,7 +49,25 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
           .filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
       }
     });
+
   }
+
+  handleFormChanges() {
+    this.datosCompromiso.valueChanges.subscribe(
+      (result: any) => {
+        if (result.numeroCompromiso !== '') {
+          this.datosAlmacenadosCompromisos.filter(
+            (data: any) => {
+              if (data.numeroCompromiso === result.numeroCompromiso) {
+                this.datosAlmacenadosCompromiso = data;
+              } else {
+                this.datosAlmacenadosCompromiso = [];
+              }
+            });
+        }
+      }
+    );
+    }
 
   ngOnDestroy() {
     this.susVigencias$.unsubscribe();
@@ -65,11 +96,14 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
       return true;
   }
 
-  validarFormulario() {
+  validarFormulario(data: any) {
     if (this.datosCompromiso.invalid) {
       return Object.values(this.datosCompromiso.controls).forEach(control => {
         control.markAsDirty();
       });
+    } else {
+      this.store.dispatch(cargarDatosAlmacenadosCompromiso(this.datosAlmacenadosCompromiso));
+      this.store.dispatch(cargarDatosCompromiso(data));
     }
   }
 }

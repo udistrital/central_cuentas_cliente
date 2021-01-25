@@ -1,4 +1,4 @@
-<form [formGroup]="datosBeneficiario" (ngSubmit)="validarFormulario()">
+<form [formGroup]="datosBeneficiario" (ngSubmit)="validarFormulario(datosBeneficiario.value)">
     <div class="row">
         <div class="col-md-4 form-group">
             <label for="numeroOrden">No. Orden</label>
@@ -41,21 +41,21 @@
         </div>
         <div class="col-md-6 form-group">
             <label for="nombre">Nombre</label>
-            <input class="form-control" id="nombre" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosAlmacenadosBeneficiario.nombre}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="regimen">Régimen</label>
-            <input class="form-control" id="regimen" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosAlmacenadosBeneficiario.regimen}}">
         </div>
         <div class="col-md-6 form-group">
             <label for="direccion">Dirección</label>
-            <input class="form-control" id="direccion" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosAlmacenadosBeneficiario.direccion}}">
         </div>
         <div class="col-md-3 form-group">
             <label for="telefono">Teléfono</label>
-            <input class="form-control" id="telefono" disabled>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="telefono" disabled placeholder="{{datosAlmacenadosBeneficiario.telefono}}">
         </div>
     </div>
     <div class="row">

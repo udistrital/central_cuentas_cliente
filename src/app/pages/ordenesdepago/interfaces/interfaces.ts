@@ -312,6 +312,26 @@ export const DATOS_MOVIMIENTO_CONTABLE: any = [
         valor: 3000000.00
     }
 ];
+export const DATOS_BENEFICIARIO: any = [
+    {
+        numeroId: 43,
+        nombre: 'Ana',
+        regimen: 'Contributivo',
+        direccion: 'Cra 8 # 10-20',
+        telefono: '32131',
+    }
+];
+export const DATOS_COMPROMISO: any = [
+    {
+        numeroCompromiso: 16,
+        numeroActa: 44,
+        numeroEntradaAlmacen: 345,
+        nombreInterventor: 'Fernando',
+        detalle: 'Datos de prueba',
+    }
+];
+
+
 
 export const CONFIGURACION_TABLA_ESTADOS: any = {
     showColumnTitle: false,

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { getFilaSeleccionada, getConceptosContables } from '../../../../shared/selectors/shared.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GetConceptosContables, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
+import { cargarDatosMovimientoContable } from '../../actions/ordenespago.actions';
 
 @Component({
   selector: 'ngx-set-movimientocontable',
@@ -77,6 +78,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     elemento.base = this.movimientoContable.get('baseRetencion').value;
     elemento.valor = this.valorDescuento;
     this.datosTableMovimientoContable.push(elemento);
+  }
+
+  cargarMovimiento() {
+    this.store.dispatch(cargarDatosMovimientoContable(this.datosTableMovimientoContable));
   }
 
   get valorNeto() {
