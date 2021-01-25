@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
+            <h5 class="card-title text-center text-primary">
+                CREAR SOLICITUD DE AUTORIZACIÓN DE GIRO
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bg-white">
+            <!-- Inicio de "Stepper" -->
+            <mat-horizontal-stepper [linear]="true" #stepper>
+                <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
+                <mat-step [stepControl]="infoSolicitudGroup">
+                    <ng-template matStepLabel>Inicio</ng-template>
+                    <div class="container">
+                        <ngx-set-infosolicitudgiro></ngx-set-infosolicitudgiro>
+                    </div>
+                </mat-step>
+                <!-- Fin de Información de solicitud y solicitante -->
+                <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
+                <mat-step [stepControl]="documentosGroup">
+                    <ng-template matStepLabel>Documentos</ng-template>
+                    <div class="container">
+                        <ngx-set-cargardocumentos></ngx-set-cargardocumentos>
+                    </div>
+                </mat-step>
+                <!-- Fin de Carga de Documentos -->
+                <!-- Paso 3: Autorización de solicitud de giro -->
+                <mat-step [stepControl]="autorizacionGroup">
+                    <ng-template matStepLabel>Autorización</ng-template>
+                    <div class="container">
+                        <ngx-set-autorizaciongiro></ngx-set-autorizaciongiro>
+                    </div>
+                </mat-step>
+                <!-- Fin de Autorización de solicitud de giro -->
+                <!-- Paso 4: Resumen de Solicitud de giro -->
+                <mat-step [stepControl]="resumenSolicitudGroup">
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-resumensolicitudgiro></ngx-show-resumensolicitudgiro>
+                    </div>
+                </mat-step>
+                <!-- Fin Resumen de solicitud de giro -->
+            </mat-horizontal-stepper>
+            <!-- Fin de "Stepper" -->
+        </div>
+    </div>
+</div>

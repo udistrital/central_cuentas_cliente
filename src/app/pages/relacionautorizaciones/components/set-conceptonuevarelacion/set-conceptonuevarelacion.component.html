@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12 bg-white py-3">
+        <h6 class="card-title text-center text-primary">
+            RELACIÓN POR CONCEPTO
+        </h6>
+    </div>
+</div>
+<form [formGroup]="conceptoGroup" (ngSubmit)="saveForm()">
+    <!-- Tabla-->
+    <div class="row pt-3">
+        <div class="col-md-12 bg-white px-4 pb-3">
+            <ngx-general-table [config]="configuracion" [datos]="datosConcepto"></ngx-general-table>
+        </div>
+    </div>
+    <!-- Fin Tabla -->
+    <!-- Modal -->
+    <ng-template #verDesagregacionModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title text-primary" id="modal-verDesagregacion">ANEXOS DE RELACIONES POR CONCEPTO</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <h6>Nómina por Pagar - Docentes</h6>
+            <ngx-set-extractodesagregacion></ngx-set-extractodesagregacion>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary text-light" (click)="modal.close('Close click')">Volver</button>
+        </div>
+    </ng-template>
+    <!-- Fin Modal -->
+</form>

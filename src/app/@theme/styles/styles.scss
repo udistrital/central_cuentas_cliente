@@ -18,6 +18,10 @@
 @import './layout';
 @import './overrides';
 
+// loading bootstrap theme
+@import './bootstrap-variables';
+@import '~bootstrap/scss/bootstrap';
+
 // install the framework and custom global styles
 @include nb-install() {
 

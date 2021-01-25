@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="borrado" (ngSubmit)="onSubmit(borrado.value)">
+                <div class="card mt-5">
+                    <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Seleccione tipo de cuenta
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <input class="align-middle" id="rAutorizacion" name="tipoBorrado" value="Relación de autorización" type="radio" formControlName="tipoBorrado" [(ngModel)]="tipoCuenta">
+                                <label class="align-middle" for="rAutorizacion"> Relación de autorización </label>                                                                                                      
+                            </div>
+                            <div class="col">                                                             
+                                <input class="align-middle" id="oPago" name="tipoBorrado" value="Orden de pago" type="radio" formControlName="tipoBorrado" [(ngModel)]="tipoCuenta">
+                                <label class="align-middle" for="oPago"> Orden de pago</label>    
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+
+                <div *ngIf= "!!tipoCuenta" class="card mt-5">
+                    <div *ngIf = "tipoCuenta === 'Relación de autorización'" class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Relación de autorización
+                    </div>
+                    <div *ngIf = "tipoCuenta === 'Orden de pago'" class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Orden de pago
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <mat-label for="areaFuncional"> Área funcional </mat-label> <br>
+                                <select name="areaFuncional" id="areaFuncional" class="form-control" formControlName="areaFuncional">
+                                    <option *ngFor="let area of areaFuncional" value={{area}}>{{area}}</option>
+                                </select>
+                            </div>
+                            <div class="col"> 
+                                <label for="fecha"> Fecha </label> <br>
+                                <input type="date" name="fecha" id="fecha" formControlName="fecha"> 
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+                
+                <div class="row group mt-3">
+                    <div class="col">
+                        <button routerLinkActive="active" routerLink="pages/borrado/lista" type="button" class="btn btn-primary px-3 py-2 my-2 text-light">
+                            Volver al registro
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button mat-button class="btn btn-success px-3 py-2 my-2 text-light" type="submit" [disabled]="borrado.invalid">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

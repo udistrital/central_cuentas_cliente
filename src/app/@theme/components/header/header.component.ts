@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { UserData } from '../../../@core/data/users';
-import { LayoutService } from '../../../@core/utils';
+
+
 import { map, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -53,10 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private router: Router,
-    private layoutService: LayoutService,
-    private breakpointService: NbMediaBreakpointsService,
     public translate: TranslateService) {
     this.translate = translate;
     this.itemClick = this.menuService.onItemClick()
@@ -70,17 +67,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
 
-    this.userService.getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
-
-    const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService.onMediaQueryChange()
-      .pipe(
-        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$),
-      )
-      .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
 
     this.themeService.onThemeChange()
       .pipe(
@@ -101,7 +87,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
-    this.layoutService.changeLayoutSize();
 
     return false;
   }

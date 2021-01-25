@@ -1,0 +1,68 @@
+<form [formGroup]="datosCompromiso" (ngSubmit)="validarFormulario(datosCompromiso.value)">
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Datos del Compromiso
+    </h6>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="compromiso">Compromiso a pagar</label>
+            <select class="form-control" id="compromiso" formControlName="compromiso"
+                [class.is-invalid]="esInvalido('compromiso')">
+                <option>Opcion 1</option>
+                <option>Opcion 2</option>
+                <option>Opcion 3</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="numeroCompromiso">No. de Compromiso</label>
+            <input type="number" class="form-control" id="numeroCompromiso" formControlName="numeroCompromiso"
+                [class.is-invalid]="esInvalido('numeroCompromiso')">
+        </div>
+    </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="noActa">No. Acta de Recibido</label>
+            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroActa}}">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="noEntradaAlmacen">No. Entrada al Almacen</label>
+            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroEntradaAlmacen}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label for="nombreInterventor">Nombre del Interventor</label>
+            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="nombreInterventor" disabled placeholder="{{datosAlmacenadosCompromiso.nombreInterventor}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label for="detalle">Detalle</label>
+            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" disabled placeholder="{{datosAlmacenadosCompromiso.detalle}}"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="vigencia">Vigencia</label>
+            <select class="form-control" id="vigencia" formControlName="vigencia"
+                [class.is-invalid]="esInvalido('vigencia')">
+                <option [ngValue]="vigencia" *ngFor="let vigencia of vigencias">{{vigencia?.valor}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="tipoOrden">Tipo de Orden de Pago</label>
+            <input id="tipoOrden" class="form-control" disabled value="{{vigenciaSeleccionada | tipoOrdenVigencia: vigenciaActual }}">
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+        </div>
+        <div class="col-md-3 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success">
+                Siguiente
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
+            <h5 class="card-title text-center text-primary">
+                CREAR SOLICITUD DE DEVOLUCIÓN TRIBUTARIA
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bg-white">
+            <!-- Inicio de "Stepper" -->
+            <mat-horizontal-stepper linear #stepper>
+                <!-- Paso 1: Inicio (información de devolucion tributaria) -->
+                <mat-step [stepControl]="infoDevolucionGroup">
+                    <ng-template matStepLabel>Inicio</ng-template>
+                    <div class="container">
+                        <ngx-set-infodevoluciontributaria></ngx-set-infodevoluciontributaria>
+                    </div>
+                </mat-step>
+                <!-- Fin de información de devolucion tributaria -->
+                <!-- Paso 2: Consulta Orden de Pago -->
+                <mat-step [stepControl]="infoDevolucionGroup">
+                    <ng-template matStepLabel>Consulta Orden de Pago</ng-template>
+                    <div class="container">
+                        <ngx-set-consultaordenpago></ngx-set-consultaordenpago>
+                    </div>
+                </mat-step>
+                <!-- Fin de Consulta Orden de Pago -->
+                <!-- Paso 3:  -->
+                <mat-step [stepControl]="contabilizacionGroup">
+                    <ng-template matStepLabel>Contabilización</ng-template>
+                    <div class="container">
+                        <ngx-set-contabilizacion></ngx-set-contabilizacion>
+                    </div>
+                </mat-step>
+                <!-- Fin de -->
+                <!-- Paso 4:  -->
+                <mat-step [stepControl]="comprobantepagoGroup">
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-comprobantepago></ngx-show-comprobantepago>
+                    </div>
+                </mat-step>
+                <!-- Fin de -->
+            </mat-horizontal-stepper>
+            <!-- Fin de "Stepper" -->
+        </div>
+    </div>
+</div>

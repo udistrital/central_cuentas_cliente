@@ -1,0 +1,153 @@
+<form [formGroup]="infoDevolucionGroup" (ngSubmit)="saveForm(infoDevolucionGroup.value)">
+    <!-- Grupo: Información de la Solicitud -->
+    <div class="container">
+        <div class="row pt-2">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Información de la Solicitud
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: Area funcinal, fecha -->
+        <div class="form-group row">
+            <div class="col-md-5">
+                <label>Área Funcional</label>
+                <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="areaFuncionalInvalid" class="text-danger">Complete este campo</small>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <label>Fecha de Solicitud</label>
+                <div class="input-group">
+                    <input name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" ngbDatepicker #d2="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
+                            <i class="fas fa-calendar"></i>
+                        </button>
+                    </div>
+                </div>
+                <small *ngIf="fechaSolicitudInvalid" class="text-danger">Seleccione la fecha</small>
+            </div>
+        </div>
+        <!-- Fin Campo: Area funcinal, fecha -->
+        <!-- Campo: Numero de comprobante, tipo -->
+        <div class="form-group row">
+            <div class="col-md-5">
+                <label>No. de Comprobante</label>
+                <input type="text" class="form-control" formControlName="numeroComprobante" readonly>
+            </div>
+            <div class="col-md-7">
+                <label>Tipo de Comprobante</label>
+                <select class="custom-select" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid">
+                    <option selected disabled value="">Seleccione...</option>
+                    <option>...</option>
+                    <option>...</option>
+                    <option>...</option>
+                </select>
+                <small *ngIf="tipoComprobanteInvalid" class="text-danger">Complete este campo</small>
+            </div>
+        </div>
+        <!-- Fin Campo: Numero de comprobante, tipo -->
+    </div>
+    <!-- Fin Grupo: Información de la Solicitud -->
+    <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
+    <!-- Grupo: Detalle de la Solicitud -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 py-2">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Detalle de la Solicitud
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: numero requerimiento, fecha -->
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>Número de Requerimiento</label>
+                <input type="text" class="form-control" formControlName="requerimiento" [class.is-invalid]="requerimientoInvalid">
+                <small *ngIf="requerimientoInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-5">
+                <label>Fecha de Requerimiento</label>
+                <div class="input-group">
+                    <input name="fecha" class="form-control" formControlName="fecha" [class.is-invalid]="fechaInvalid" ngbDatepicker #d1="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                    </div>
+                </div>
+                <small *ngIf="fechaInvalid" class="text-danger">Seleccione la fecha</small>
+            </div>
+        </div>
+        <!-- Fin Campo: numero requerimiento, fecha -->
+        <!-- Campo: Tipo id, numero id, nombre -->
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label>Tipo de ID</label>
+                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
+                    <option>CC</option>
+                    <option>NIT</option>
+                    <option>CE</option>
+                </select>
+                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
+            </div>
+            <div class="col-md-3">
+                <label>Número de ID</label>
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
+            </div>
+            <div class="col-md-7">
+                <label>Nombre</label>
+                <input *ngIf="!!datoAlmacenadoDevolucion" type="text" class="form-control" readonly placeholder="{{datoAlmacenadoDevolucion.nombre}}">
+            </div>
+        </div>
+        <!-- Fin Campo: Tipo id, numero id, nombre -->
+        <!-- Campo: Concepto -->
+        <div class="form-group row">
+            <div class="col">
+                <label>Concepto</label>
+                <ng-container *ngIf="conceptosContables">
+                    <mat-select class="form-control" placeholder="Seleccione concepto contable..."
+                        formControlName="concepto">
+                        <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" class="vs-viewport">
+                            <mat-option *cdkVirtualFor="let concepto of conceptosContables" class="vs-item"
+                                [value]="concepto">
+                                {{concepto.Nombre}}</mat-option>
+                        </cdk-virtual-scroll-viewport>
+                    </mat-select>
+                </ng-container>
+                <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
+            </div>
+        </div>
+        <!-- Fin Campo: Concepto -->
+        <!-- Campo: Razón de la Devolución -->
+        <div class="form-group row">
+            <div class="col">
+                <label>Razón de la Devolución</label>
+                <textarea class="form-control" formControlName="razonDevolucion" rows="1" [class.is-invalid]="razonDevolucionInvalid"></textarea>
+                <small *ngIf="razonDevolucionInvalid" class="text-danger">Describa la razón de la devolución</small>
+            </div>
+        </div>
+        <!-- Fin Campo: Razón de la Devolución -->
+    </div>
+    <!-- Fin Grupo: Detalle de la Solicitud -->
+    <!-- Botones: Volver a registros, siguiente -->
+    <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
+        <div class="form-group col-md-6">
+            <a routerLink='/pages/devoluciontributaria/lista'>
+                <button type="submit" class="btn btn-primary text-white m-0 mt-4">Volver a registros</button>
+            </a>
+        </div>
+        <div class="form-group col-md-6">
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+        </div>
+    </div>
+    <!-- Fin Botones:  -->
+</form>

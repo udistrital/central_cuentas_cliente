@@ -9,6 +9,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { ImplicitAutenticationService } from './app/@core/utils/implicit_autentication.service';
+import 'hammerjs';
 
 
 if (environment.production) {

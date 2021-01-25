@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <div class="card">
+      <div class="row">
+        <div class="col py-2">
+            <div *ngIf="tipoBorrado === 'opago'">
+                <h5 class="title text-center text-primary mt-5">
+                    BORRAR ÓRDENES DE PAGO
+                </h5>
+            </div>
+            <div *ngIf="tipoBorrado === 'rautorizacion'">
+                <h5 class="title text-center text-primary m-5">
+                    BORRAR RELACIÓN DE AUTORIZACIÓN
+                </h5>
+            </div>
+        </div>
+      </div>
+        <div class="card-body">
+          <div class="card">
+            <div *ngIf="tipoBorrado === 'opago'" class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+              Órdenes de pago
+            </div>
+            <div *ngIf="tipoBorrado === 'rautorizacion'" class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+              Relación de autorización
+            </div>
+            <div class="card-body">
+              <p *ngIf="tipoBorrado === 'opago'"> Seleccione las órdenes de pago que desea borrar: </p>
+            <p *ngIf="tipoBorrado === 'rautorizacion'"> Seleccione las relaciones de autorización que desea borrar: </p>
+            <div *ngIf="tipoBorrado === 'opago'">
+                <ngx-table [titles]="titlesOrden" [attributes]="attributesOrden" [list]="datosOrden" [seleccion]="true" [filtro]="true"></ngx-table>
+            </div>
+            <div *ngIf="tipoBorrado === 'rautorizacion'">
+                <ngx-table [titles]="titlesRelacion" [attributes]="attributesRelacion" [list]="datosRelacion" [seleccion]="true" [filtro]="true"></ngx-table>
+            </div>                 
+            <div class="row text-center px-5">
+                <div class="col">
+                    <button type="button" class="btn btn-primary px-3 py-2 my-2 text-light" routerLinkActive="active" routerLink="/pages/borrado/crear">
+                        Volver al registro
+                    </button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success px-3 py-2 my-2 text-light" type="submit" (click)="open(modal)" [disabled]="form.aprobacionesElegidas.length === 0">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modal let-modal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="material-icons m-3 help text-center align-middle">
+          help
+          </span>
+        <h5 class="modal-title" id="exampleModalLabel">Borrar órdenes de pago seleccionadas</h5>
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="justificacionBorrado" (ngSubmit)="crear(justificacionBorrado.value)">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="nombreResponsable">Nombre del responsable: </label>
+            <input formControlName="nombreResponsable" type="text" class="form-control" id="nombreResponsable" placeholder="Escribir...">
+          </div>
+          <div class="form-group">
+            <label for="justificacion">Justificación:</label>
+            <textarea formControlName="justificacion" class="form-control" id="justificacion" placeholder="Escribir..."></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light px-3 py-2" (click)="close()">Cancelar</button>
+        <button mat-button type="submit" class="btn btn-success px-3 py-2" [disabled]="justificacionBorrado.invalid">Continuar</button>
+      </div>
+    </form>
+</div> 
+</ng-template>
+            

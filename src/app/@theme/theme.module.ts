@@ -30,7 +30,6 @@ import {
   DinamicformComponent,
   ListEntityComponent,
   CrudEntityComponent,
-  ControlMessagesComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -41,8 +40,6 @@ import {
 } from './pipes';
 import {
   OneColumnLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
@@ -115,12 +112,9 @@ const COMPONENTS = [
   SearchInputComponent,
   TinyMCEComponent,
   OneColumnLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
   DinamicformComponent,
   ListEntityComponent,
   CrudEntityComponent,
-  ControlMessagesComponent,
   PDFviewerComponent,
 ];
 const PIPES = [
@@ -178,24 +172,55 @@ const NB_THEME_PROVIDERS = [
       name: 'kronos',
       // name: 'ud',
     },
-    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME, KRONOS_THEME],
+    [
+      DEFAULT_THEME,
+      COSMIC_THEME,
+      CORPORATE_THEME,
+      DARK_THEME,
+      KRONOS_THEME
+    ],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
 ];
 
 @NgModule({
-  imports: [SharedModule, CommonModule, FormsModule, ReactiveFormsModule, ...NB_MODULES, ...MAT_MODULES, Ng2SmartTableModule, CurrencyMaskModule],
-  exports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, ...PIPES, ...COMPONENTS, ...MAT_MODULES],
-  declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, ListEntityComponent, CrudEntityComponent],
+  imports: [
+    SharedModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ...NB_MODULES,
+    ...MAT_MODULES,
+    Ng2SmartTableModule,
+    CurrencyMaskModule
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    ...PIPES,
+    ...COMPONENTS,
+    ...MAT_MODULES
+  ],
+  declarations: [
+    ...COMPONENTS,
+    ...PIPES,
+    DinamicformComponent,
+    ListEntityComponent,
+    CrudEntityComponent
+  ],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
-      providers: [...NB_THEME_PROVIDERS,
+      providers: [
+        ...NB_THEME_PROVIDERS,
         ImplicitAutenticationService,
-        ConfiguracionService],
+        ConfiguracionService
+      ],
     };
   }
 }
