@@ -10,7 +10,7 @@ export class TipoOrdenVigenciaPipe implements PipeTransform {
       if (value.valor === actual) {
         return 'Vigencia Actual';
       } else if (value.valor === actual - 1) {
-        return 'Reversa';
+        return 'Reserva';
       } else if (value.valor < actual - 1) {
         return 'Pasivo Exigible';
       }
