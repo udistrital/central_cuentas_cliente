@@ -10,6 +10,7 @@ steps:
     branch:
     - develop
     - feature/*
+    - hotfix/*
     - release/*
     event:
     - push
@@ -22,6 +23,7 @@ steps:
     branch:
     - develop
     - feature/*
+    - hotfix/*
     - release/*
     event:
     - push
@@ -54,6 +56,8 @@ steps:
   - npm run lint
   when:
     branch:
+    - feature/*
+    - hotfix/*
     - unitest
 
 - name: run_sonar_scanner
@@ -67,6 +71,7 @@ steps:
     branch:
     - develop
     - feature/*
+    - hotfix/*
     - release/*
     event:
     - push
@@ -155,8 +160,9 @@ steps:
   when:
     branch:
     - develop
-    - release/*
+    - hotfix/*
     - master
+    - release/*
     event:
     - push
     status:
@@ -184,8 +190,9 @@ steps:
   when:
     branch:
     - develop
-    - release/*
+    - hotfix/*
     - master
+    - release/*
     event:
     - push
     status:
