@@ -1,13 +1,13 @@
 {
-  "name": "ngx-admin",
-  "version": "4.0.1",
+  "name": "central_cuentas_cliente",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akveo/ngx-admin.git"
+    "url": "git+https://github.com/udistrital/central_cuentas_cliente"
   },
   "bugs": {
-    "url": "https://github.com/akveo/ngx-admin/issues"
+    "url": "https://github.com/udistrital/central_cuentas_cliente/issues"
   },
   "scripts": {
     "ng": "ng",
