@@ -1,0 +1,184 @@
+<form [formGroup]="resumen">
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Resumen de Orden
+    </h6>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="numeroOrden">No. Orden</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroOrden" disabled placeholder="{{datosBeneficiario.numeroOrden}}">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="fechaOrden">Fecha</label>
+            <div class="input-group-append">
+                <input *ngIf="!!datosBeneficiario" class="form-control" ngbDatepicker id="fechaOrden" disabled placeholder="{{ datosBeneficiario.fechaOrden | date }}  ">
+                <button class="btn btn-outline-secondary calendar" type="button" disabled><i
+                        class="fas fa-calendar"></i></button>
+            </div>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="unidadEjecutora">Unidad Ejecutora</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="unidadEjecutora" disabled placeholder="{{datosBeneficiario.unidadEjecutora.label}}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        Datos del Beneficiario
+    </h6>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label for="tipoId">Tipo de ID</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoId" disabled placeholder="{{datosBeneficiario.tipoId}}">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="numeroId">No. de ID</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroId" disabled placeholder="{{datosBeneficiario.numeroId}}">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="nombre">Nombre</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosAlmacenadosBeneficiario.nombre}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-group">
+            <label for="regimen">Régimen</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosAlmacenadosBeneficiario.regimen}}">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="direccion">Dirección</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosAlmacenadosBeneficiario.direccion}}">
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="telefono">Teléfono</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="telefono" disabled placeholder="{{datosAlmacenadosBeneficiario.telefono}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="banco">Banco / Sucursal</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="banco" disabled placeholder="{{datosBeneficiario.banco}}">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="cuenta">No. de Cuenta</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="cuenta" disabled placeholder="{{datosBeneficiario.cuenta}}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        Datos del Compromiso
+    </h6>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="compromiso">Compromiso a pagar</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="compromiso" disabled placeholder="{{datosCompromiso.compromiso}}">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="numeroCompromiso">No. de Compromiso</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="numeroCompromiso" disabled placeholder="{{datosCompromiso.numeroCompromiso}}">
+        </div>
+    </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="noActa">No. Acta de Recibido</label>
+            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroActa}}">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="noEntradaAlmacen">No. Entrada al Almacen</label>
+            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroEntradaAlmacen}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label for="nombreInterventor">Nombre del Interventor</label>
+            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="nombreInterventor" disabled placeholder="{{datosAlmacenadosCompromiso.nombreInterventor}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label for="detalle">Detalle</label>
+            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" disabled placeholder="{{datosAlmacenadosCompromiso.detalle}}"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="vigencia">Vigencia</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="vigencia" disabled placeholder="{{datosCompromiso.vigencia.valor}}">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="tipoOrden">Tipo de Orden de Pago</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="tipoOrden" disabled value="{{vigenciaSeleccionada | tipoOrdenVigencia: vigenciaActual }}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        Imputación Presupuestal
+    </h6>
+    <div id="tablaImputacion" class="container py-2 px-0">
+        <ngx-general-table [config]="configTableImpuntuacion" [datos]="datosTableImputacion"></ngx-general-table>
+    </div>
+    <div class="row form-group justify-content-md-center">
+        <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Valor Total</label>
+        </div>
+        <div class="col-md-4">
+            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        Movimiento Contable
+    </h6>
+    <div class="container py-2 px-0">
+        <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable">
+        </ngx-general-table>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-4"></div>
+        <div class="col-md-3 d-flex align-items-center">
+            <label for="valorTotal" class="m-0 ml-auto">Valor Total Descuentos</label>
+        </div>
+        <div class="col-md-4">
+            <input class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="codigoContable">Código Contable</label>
+                <input type="text" class="form-control" id="codigoContable" disabled>
+            </div>
+        </div>
+        <div class="col-md-3 d-flex align-items-center">
+            <label for="valorNeto" class="m-0 ml-auto">Valor Neto a Girar</label>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+            <input class="form-control" id="valorNeto" disabled value="{{totalNeto()|currency}}">
+        </div>
+    </div>
+
+    <div class="row justify-content-end">
+        <div class="col-md-3">
+            <button class="btn btn-success w-100" type="button" data-toggle="modal" data-target="#guardarModal">
+                Guardar
+            </button>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="guardarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Guardar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Desea Guardar los cambios?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white" data-dismiss="modal">
+                        Guardar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

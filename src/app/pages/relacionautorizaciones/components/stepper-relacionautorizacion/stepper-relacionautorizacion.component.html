@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 class="card-title text-center text-primary">
+                        CREAR NUEVA RELACIÓN DE AUTORIZACIÓN
+                    </h5>
+                    <h6 class="card-title text-center text-primary">
+                        {{ relacion.nombreRelacion }}
+                    </h6>
+                </div>
+            </div>
+            <!-- Inicio de "Stepper" -->
+            <mat-horizontal-stepper linear #stepper>
+                <!-- Paso 1: Inicio (información de relacion) -->
+                <mat-step [stepControl]="inforelacionGroup">
+                    <ng-template matStepLabel>Inicio</ng-template>
+                    <div class="container">
+                        <ngx-set-infonuevarelacion></ngx-set-infonuevarelacion>
+                    </div>
+                </mat-step>
+                <!-- Fin de información de relacion -->
+                <!-- Paso 2: Consultar CDP y RP -->
+                <mat-step [stepControl]="consultaGroup">
+                    <ng-template matStepLabel>Consulta</ng-template>
+                    <div class="container">
+                        <ngx-set-consultanuevarelacion></ngx-set-consultanuevarelacion>
+                    </div>
+                </mat-step>
+                <!-- Fin de Consultar CDP y RP -->
+                <!-- Paso 3: Relacion por Concepto -->
+                <mat-step>
+                    <ng-template matStepLabel>Relación por Concepto</ng-template>
+                    <div class="container">
+                        <ngx-set-conceptonuevarelacion></ngx-set-conceptonuevarelacion>
+                        <!-- Botones: regresar, Siguiente -->
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
+                            </div>
+                            <div class="form-group col-8">
+                                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">GENERAR EXTRACTO DE DESAGREGACIÓN CONTABLE</button>
+                            </div>
+                        </div>
+                        <!-- Fin Botones: Regresar, Siguiente -->
+                    </div>
+                </mat-step>
+                <!-- Fin de Relacion por Concepto -->
+                <!-- Paso 4: Extrato de desagregacion contable -->
+                <mat-step>
+                    <ng-template matStepLabel>Extracto</ng-template>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 bg-white py-3">
+                                <h6 class="card-title text-center text-primary">
+                                    EXTRACTO DE DESAGREGACIÓN CONTABLE
+                                </h6>
+                            </div>
+                        </div>
+                        <ngx-set-extractodesagregacion></ngx-set-extractodesagregacion>
+                        <!-- Botones: Regresar, Siguiente -->
+                        <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
+                            <div class="form-group col-md-6">
+                                <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#solicitudGuardada">GUARDAR</button>
+                            </div>
+                        </div>
+                        <!-- Fin Botones: Regresar, Siguiente -->
+                        <!-- Modal: Solicitud Guardada -->
+                        <div class="modal fade" id="solicitudGuardada" tabindex="-1" aria-labelledby="solicitudGuardadaLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="solicitudGuardadaLabel"><i class="fas fa-check text-success px-2"></i>¡Guardado!</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-center">Se ha guardado la Relación de Autorización No. 001.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a routerLink="../../elegir" role="button" class="btn btn-primary text-white" data-dismiss="modal">Aceptar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin Modal: Solicitud Guardada -->
+                    </div>
+                </mat-step>
+                <!-- Fin Extrato de desagregacion contable -->
+            </mat-horizontal-stepper>
+            <!-- Fin de "Stepper" -->
+        </div>
+    </div>
+</div>

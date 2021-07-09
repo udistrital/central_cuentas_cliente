@@ -1,0 +1,83 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <div *ngIf="tipoBorrado === 'opago'">
+                        <h5 class="title text-center text-primary">
+                            DETALLE DE ÓRDENES DE PAGO A BORRAR
+                        </h5>
+                    </div>
+                    <div *ngIf="tipoBorrado === 'rautorizacion'">
+                        <h5 class="title text-center text-primary">
+                            DETALLE DE RELACIÓN DE AUTORIZACIÓN
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3 m-3">
+                <div class="card-title col-md-4 bg-primary text-light text-center py-1 rounded">
+                    Resumen de proceso
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-5 px-0">
+                            <p class="info p-3">Información de proceso</p>
+                        </div>
+                        <div class="col mx-0 px-0 lista">
+                            <label class="ml-3 mt-3" for="consecutivo"> No. de consecutivo </label>
+                            <input *ngIf="!!datosCuenta" class="mx-3 my-2" type="number" name="consecutivo" id="consecutivo" disabled> <br>
+                            <label class="ml-3" for="areaFuncional"> Área funcional </label>
+                            <input *ngIf="!!datosCuenta" class="mx-3 my-2" type="text" name="areaFuncional" id="areaFuncional" disabled placeholder="{{datosCuenta.areaFuncional}}"> <br>
+                            <label class="ml-3" for="fecha"> Fecha </label>
+                            <input *ngIf="!!datosCuenta" class="mb-3 mx-3 my-2" type="text" name="fecha" id="fecha" disabled placeholder="{{datosCuenta.fecha}}"> <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col p-2 desplegar">
+                            <div class="d-flex justify-content-center" *ngIf="tipoBorrado === 'opago'">
+                                <span class="material-icons" *ngIf="!detalle" (click)="mostrarDetalle()"> add_box </span>
+                                <span class="material-icons" *ngIf="detalle" (click)="mostrarDetalle()"> indeterminate_check_box </span> 
+                                <p class="text-center mx-3" > Órdenes de pago seleccionadas </p> 
+                            </div>
+                            <div class="d-flex justify-content-center" *ngIf="tipoBorrado === 'rautorizacion'">
+                                <span class="material-icons" *ngIf="!detalle" (click)="mostrarDetalle()"> add_box </span> 
+                                <span class="material-icons" *ngIf="detalle" (click)="mostrarDetalle()"> indeterminate_check_box </span> 
+                                <p class="text-center mx-3" > Relaciones de autorización seleccionadas </p> 
+                            </div>                           
+                        </div>
+                    </div>
+                    <div *ngIf="detalle" class="mt-3">
+                        <ngx-table *ngIf="!!cuentasElegidas" [titles]="titles" [attributes]="attributes" [list]="cuentasElegidas"> </ngx-table>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 px-0 justificacion"> 
+                            <p class="text-center p-2"> Nombre del responsable </p>
+                        </div>
+                        <div *ngIf="!!datosJustificacion" class="col datosJustificacion p-2">
+                            {{datosJustificacion.nombreResponsable}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 px-0 justificacion">
+                            <p class="text-center p-2"> Justificación </p> 
+                        </div>
+                        <div *ngIf="!!datosJustificacion" class="col datosJustificacion p-2">
+                            {{datosJustificacion.justificacion}}
+                        </div>
+                    </div>
+                    <div class="row mt-3 text-center">
+                        <div class="col">
+                            <button class="btn btn-primary px-3 py-2 my-2 text-light" (click)="retornar()"> Volver </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-success px-3 py-2 my-2 text-light" (click)="borrar()"> Borrar </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

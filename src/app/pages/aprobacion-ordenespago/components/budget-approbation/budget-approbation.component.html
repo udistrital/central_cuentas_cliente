@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col py-2">
+                    <h5 class="card-title text-center text-primary">APROBACIÓN PRESUPUESTAL DE ÓRDENES DE PAGO</h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title col-md-4 bg-primary text-light text-center py-1 px-1 rounded">
+                        Aprobación presupuestal
+                    </div>
+                    <div class="row">
+                        <div class="col consecutivo">
+                            <label for="nConsecutivo">No. de consecutivo </label> <br>
+                            <input id="nConsecutivo" type="number" disabled placeholder="{{consecutivo}}">
+                        </div>  
+                    </div>
+                    <hr>
+                    <div class="table">
+                        <ngx-table [titles]="titles" [attributes]="attributes" [list]="datosCreacion" [aprobacionContable]="false" [aprobacionPresupuestal]="false" [seleccion]="false" > </ngx-table>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button mat-button type="button" class="btn btn-primary px-3 py-2 my-2 text-light" routerLinkActive="active" routerLink="/pages/aprobaciones/orden/lista" >
+                                Volver al registro
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-outline-dark px-3 py-2 my-2" (click)="rechazarAprobacion()">
+                                Rechazar
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-success px-3 py-2 my-2 text-light" (click)="aceptarAprobacion()">
+                                Aprobar
+                            </button>
+                        </div>
+                    </div> 
+                    <div *ngIf="form.rechazarFormulario">
+                        <ngx-rechazar></ngx-rechazar>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+

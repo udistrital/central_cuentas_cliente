@@ -1,0 +1,72 @@
+<form [formGroup]="datosSolicitante" (ngSubmit)="validarFormulario()">
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Datos del Solicitante
+    </h6>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label for="tipoId">Tipo de ID</label>
+            <select class="form-control" id="tipoId" formControlName="tipoId" [class.is-invalid]="esInvalido('tipoId')">
+                <option>CC</option>
+                <option>CE</option>
+                <option>NIT</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="numeroId">No. de ID</label>
+            <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
+                [class.is-invalid]="esInvalido('numeroId')">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-group">
+            <label for="nombre">Nombres</label>
+            <input class="form-control" id="nombre" disabled>
+        </div>
+        <div class="col-md-3 form-group d-flex align-items-end">
+            <input class="form-control align-text-bottom" id="nombre2" disabled>
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="apellido">Apellidos</label>
+            <input class="form-control" id="apellido" disabled>
+        </div>
+        <div class="col-md-3 form-group d-flex align-items-end">
+            <input class="form-control" id="apellido2" disabled>
+        </div>
+    </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
+
+    <div class="row">
+        <div class="col form-group">
+            <label>Concepto</label>
+            <ng-container *ngIf="conceptosContables">
+                <mat-select class="form-control" placeholder="Seleccione concepto contable..."
+                    formControlName="concepto">
+                    <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let concepto of conceptosContables" class="vs-item"
+                            [value]="concepto">
+                            {{concepto.Nombre}}</mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+            </ng-container>
+            <div class="invalid-feedback" [class.d-block]="esInvalido('concepto')">Debe seleccionar el concepto</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label for="razon">Razón de la solicitud</label>
+            <textarea class="form-control" id="razon" formControlName="razon"
+                [class.is-invalid]="esInvalido('razon')"></textarea>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-md-2">
+            <button mat-button matStepperPrevious class="btn btn-primary text-white w-100">Anterior</button>
+        </div>
+        <div class="col-md-2 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success w-100">
+                Siguiente
+            </button>
+        </div>
+    </div>
+</form>

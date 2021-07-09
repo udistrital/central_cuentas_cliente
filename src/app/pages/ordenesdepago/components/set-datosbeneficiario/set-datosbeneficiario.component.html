@@ -1,0 +1,90 @@
+<form [formGroup]="datosBeneficiario" (ngSubmit)="validarFormulario(datosBeneficiario.value)">
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label for="numeroOrden">No. Orden</label>
+            <input type="number" class="form-control" id="numeroOrden" formControlName="numeroOrden"
+                [class.is-invalid]="esInvalido('numeroOrden')">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="fechaOrden">Fecha</label>
+            <div class="input-group-append">
+                <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="fechaOrden"
+                    formControlName="fechaOrden" [class.is-invalid]="esInvalido('fechaOrden')">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                        class="fas fa-calendar"></i></button>
+            </div>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="unidadEjecutora">Unidad Ejecutora</label>
+            <select class="form-control" id="unidadEjecutora" formControlName="unidadEjecutora"
+                [class.is-invalid]="esInvalido('unidadEjecutora')">
+                <option [ngValue]="opcion" *ngFor="let opcion of opcionesAreaFuncional">{{opcion?.label}}</option>
+            </select>
+        </div>
+    </div>
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Datos del Beneficiario
+    </h6>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label for="tipoId">Tipo de ID</label>
+            <select class="form-control" id="tipoId" formControlName="tipoId" [class.is-invalid]="esInvalido('tipoId')">
+                <option>CC</option>
+                <option>CE</option>
+                <option>NIT</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="numeroId">No. de ID</label>
+            <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
+                [class.is-invalid]="esInvalido('numeroId')">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="nombre">Nombre</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosAlmacenadosBeneficiario.nombre}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-group">
+            <label for="regimen">Régimen</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosAlmacenadosBeneficiario.regimen}}">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="direccion">Dirección</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosAlmacenadosBeneficiario.direccion}}">
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="telefono">Teléfono</label>
+            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="telefono" disabled placeholder="{{datosAlmacenadosBeneficiario.telefono}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label for="banco">Banco / Sucursal</label>
+            <input class="form-control" id="banco" formControlName="banco" [class.is-invalid]="esInvalido('banco')">
+        </div>
+        <div class="col-md-6 form-group">
+            <label for="cuenta">No. de Cuenta</label>
+            <input type="number" class="form-control" id="cuenta" formControlName="cuenta"
+                [class.is-invalid]="esInvalido('cuenta')">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <ngx-general-table [config]="configTableEstados" [datos]="datosTableEstados"></ngx-general-table>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white">
+                Volver a registros
+            </a>
+        </div>
+        <div class="col-md-3 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success">
+                Siguiente
+            </button>
+        </div>
+    </div>
+</form>
