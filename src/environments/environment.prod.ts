@@ -20,12 +20,12 @@ export const environment = {
   'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: 'TJ43YHyy3T29GrlTx9l0j7J7Cl8a',
+    CLIENTE_ID: 'fwQSbuJEO7fvIRzVAJ0WW9LeCVAa',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role',
-    REDIRECT_URL: 'http://10.20.0.254/presupuesto_cliente/',
+    REDIRECT_URL: 'http://centralcuentas.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://10.20.0.254/presupuesto_cliente/',
+    SIGN_OUT_REDIRECT_URL: 'http://centralcuentas.portaloas.udistrital.edu.co',
   },
 
 };

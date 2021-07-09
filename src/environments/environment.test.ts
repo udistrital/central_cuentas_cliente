@@ -34,12 +34,12 @@ export const environment = {
 },
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: 'aWFPYYJ5gP2JdDP390gFP7gU1dYa',
+    CLIENTE_ID: '7Sw7NQC6K139_MahTvwPBzl8JU4a',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role',
-    REDIRECT_URL: 'https://pruebaspresupuesto.portaloas.udistrital.edu.co',
+    REDIRECT_URL: 'https://pruebascentralcuentas.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'https://pruebaspresupuesto.portaloas.udistrital.edu.co',
+    SIGN_OUT_REDIRECT_URL: 'https://pruebascentralcuentas.portaloas.udistrital.edu.co',
   },
 
 };
