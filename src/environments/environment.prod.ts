@@ -26,9 +26,9 @@ export const environment = {
     CLIENTE_ID: 'fwQSbuJEO7fvIRzVAJ0WW9LeCVAa',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role',
-    REDIRECT_URL: 'http://centralcuentas.portaloas.udistrital.edu.co',
+    REDIRECT_URL: 'https://centralcuentas.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://centralcuentas.portaloas.udistrital.edu.co',
+    SIGN_OUT_REDIRECT_URL: 'https://centralcuentas.portaloas.udistrital.edu.co',
   },
 
 };
