@@ -55,7 +55,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
 
     // Consulta cambios en los datos para enviar al store
     this.subscriptionCambios$ = this.infoSolicitudGroup.valueChanges.subscribe((valor) => {
-      console.log(valor);
       if (this.infoSolicitudGroup.valid)
         this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: valor }));
     });
