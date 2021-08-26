@@ -86,6 +86,8 @@ steps:
   when:
     branch:
     - release/*
+    - feature/*
+    - develop
     event:
     - push
 
