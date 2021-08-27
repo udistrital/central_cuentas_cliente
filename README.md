@@ -92,9 +92,9 @@ Los siguientes mockups representan la estructura general de la aplicación, mód
 
 ## Estado CI
 
-| Develop | Release 0.1.2 | Master |
+| Develop | Release 0.1.4 | Master |
 | -- | -- | -- |
-| [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/central_cuentas_cliente/status.svg?ref=refs/heads/develop)](https://hubci.portaloas.udistrital.edu.co/udistrital/central_cuentas_cliente) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/central_cuentas_cliente/status.svg?ref=refs/heads/release/0.1.2)](https://hubci.portaloas.udistrital.edu.co/udistrital/central_cuentas_cliente) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/central_cuentas_cliente/status.svg)](https://hubci.portaloas.udistrital.edu.co/udistrital/central_cuentas_cliente) |
+| [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/central_cuentas_cliente/status.svg?ref=refs/heads/develop)](https://hubci.portaloas.udistrital.edu.co/udistrital/central_cuentas_cliente) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/central_cuentas_cliente/status.svg?ref=refs/heads/release/0.1.4)](https://hubci.portaloas.udistrital.edu.co/udistrital/central_cuentas_cliente) | [![Build Status](https://hubci.portaloas.udistrital.edu.co/api/badges/udistrital/central_cuentas_cliente/status.svg?ref=refs/heads/master)](https://hubci.portaloas.udistrital.edu.co/udistrital/central_cuentas_cliente) |
 
 ## Licencia
 
