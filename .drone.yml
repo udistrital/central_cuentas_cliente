@@ -2,51 +2,59 @@ kind: pipeline
 name: oas_cliente_ci
 
 steps:
-# - name: check_readme
-#   image: jjvargass/qa_develoment:latest
-#   commands:
-#   - python /app/check_readme.py
-#   when:
-#     branch:
-#     - develop
-#     - feature/*
-#     - hotfix/*
-#     - release/*
-#     event:
-#     - push
+- name: check_readme
+  failure: ignore
+  image: jjvargass/qa_develoment:latest
+  commands:
+  - python /app/check_readme.py
+  when:
+    branch:
+    - develop
+    - feature/*
+    - hotfix/*
+    - release/*
+    event:
+    - push
 
-# - name: check_branch
-#   image: jjvargass/qa_develoment:latest
-#   commands:
-#   - python /app/check_branch.py -H ${DRONE_GIT_HTTP_URL}
-#   when:
-#     branch:
-#     - develop
-#     - feature/*
-#     - hotfix/*
-#     - release/*
-#     event:
-#     - push
+- name: check_branch
+  failure: ignore
+  image: jjvargass/qa_develoment:latest
+  commands:
+  - python /app/check_branch.py -H ${DRONE_GIT_HTTP_URL}
+  when:
+    branch:
+    - develop
+    - feature/*
+    - hotfix/*
+    - release/*
+    event:
+    - push
 
-# - name: check_commits
-#   image: jjvargass/qa_develoment:latest
-#   commands:
-#   - python /app/check_commits.py
-#   when:
-#     branch:
-#     - develop
-#     - feature/*
-#     - release/*
-#     event:
-#     - push
+# SCRIPT NO OBJETIVO, debe revisarse/mejorarse. Para más información:
+# https://github.com/udistrital/arka_cliente/commit/37e3ece10d52cae1303d837ad0e8a6ca1fb7a549
+- name: check_commits
+  failure: ignore
+  image: jjvargass/qa_develoment:latest
+  commands:
+  - python /app/check_commits.py
+  when:
+    branch:
+    - develop
+    - feature/*
+    - release/*
+    event:
+    - push
 
 - name: prueba-unitarias
   image: node:12.6.0
+  failure: ignore
   commands:
   - npm i
   - npm run test
   when:
     branch:
+    - feature/*
+    - hotfix/*
     - unitest
 
 - name:  pruebas-linter
@@ -85,6 +93,7 @@ steps:
   - npm run build:test
   when:
     branch:
+    - dependabot/**
     - release/*
     - feature/*
     - develop
