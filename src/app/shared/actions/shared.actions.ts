@@ -115,3 +115,18 @@ export const loadVigencias = createAction(
   '[Shared] Load Vigencias',
   props()
 );
+
+export const getConceptos = createAction(
+  '[Shared] Obtiene conceptos del crud de parametros',
+  props<{ query?: any }>()
+);
+
+export const loadConceptos = createAction(
+  '[Shared] Carga los conceptos al store',
+  props()
+);
+
+export const cargarDocumentos = createAction(
+  '[Shared] Carga documentos a nuxeo',
+  props<{ element: any }>()
+);

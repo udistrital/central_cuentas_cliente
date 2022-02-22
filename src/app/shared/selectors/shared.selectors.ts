@@ -49,6 +49,11 @@ export const selectVigencias = createSelector(
   (state: fromShared.State) => state.Vigencias
 );
 
+export const selectConceptos = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Conceptos
+);
+
 export const selectVigenciasNoFuturas = createSelector(
   selectSharedState,
   (state: fromShared.State) => {

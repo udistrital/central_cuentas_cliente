@@ -12,12 +12,13 @@
         <div class="form-group row">
             <div class="col">
                 <label>Concepto</label>
-                <select class="custom-select" formControlName="concepto" [class.is-invalid]="conceptoInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>001</option>
-                    <option>012</option>
-                    <option>120</option>
-                </select>
+                <mat-select class="form-control" placeholder="Seleccione..." formControlName="concepto" [class.is-invalid]="isInvalid('concepto')">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let concepto of conceptos" [value]="concepto">
+                            {{concepto.Nombre}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
             </div>
         </div>
@@ -29,25 +30,15 @@
                 <input type="text" class="form-control" formControlName="numeroSolicitud" readonly>
             </div>
             <div class="col-md-4">
-                <label>Área Funcional</label>
-                <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>01</option>
-                    <option>02</option>
-                    <option>03</option>
-                </select>
-                <small *ngIf="areaInvalid" class="text-danger">Complete este campo</small>
-            </div>
-            <div class="col-md-5">
-                <label>Fecha de Solicitud</label>
-                <div class="input-group">
-                    <input type="date" name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" ngbDatepicker #d="ngbDatepicker">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                            <i class="fas fa-calendar"></i>
-                        </button>
-                    </div>
-                </div>
+                <label>{{ 'GLOBAL.unidad-ejecutora' | translate}}</label>
+                <mat-select class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                            {{opcion.label}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+                <small *ngIf="isInvalid('areaFuncional')" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
         </div>
         <!-- Fin Campos: No. de Solicitud, Área funcional, fecha -->
@@ -69,15 +60,18 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label>Tipo de ID</label>
-                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option [ngValue]="tipoId" *ngFor="let tipoId of tiposID">{{ tipoId.Nombre }}</option>
-                </select>
+                <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoId" [class.is-invalid]="isInvalid('tipoId')" [disabled]="true">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let tipoId of tiposID" [value]="tipoId">
+                            {{tipoId.Nombre}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-4">
                 <label>Número de ID</label>
-                <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid" readonly>
                 <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
         </div>

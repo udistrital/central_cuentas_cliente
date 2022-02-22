@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getDatosID } from '../../../../shared/actions/shared.actions';
-import { selectTiposID, selectDatosID } from '../../../../shared/selectors/shared.selectors';
+import { getConceptos, getDatosID } from '../../../../shared/actions/shared.actions';
+import { selectTiposID, selectDatosID, selectConceptos } from '../../../../shared/selectors/shared.selectors';
 import { combineLatest } from 'rxjs';
 import { loadInfosolicitudgiro } from '../../actions/solicitudesgiros.actions';
+import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 
 
 @Component({
@@ -23,15 +24,30 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   subscriptionCambios$: any;
   tiposID: any;
   datosID: any;
+  opcionesAreaFuncional: any;
+  conceptos: any;
+  subConceptos$: any;
+  info_token: any;
+  rol: any;
 
   constructor(private fb: FormBuilder, private store: Store<any>) {
 
     this.createForm();
     this.tiposID = [];
+    this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+    this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
   }
 
   ngOnInit() {
-
+    this.info_token = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])));
+    if (this.info_token) {
+      this.rol = this.info_token.role.includes('SUPERVISOR');
+      if (this.rol) {
+        this.infoSolicitudGroup.patchValue({
+          cargo: 'ORDENADOR DEL GASTO'
+        });
+      }
+    }
     this.subscriptionTipoId$ = this.store.select(selectTiposID).subscribe((action) => {
       if (action && action[0]) {
         this.tiposID = action[0];
@@ -41,17 +57,15 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subscriptionDatosId$ = this.store.select(selectDatosID, 'solicitante').subscribe((action) => {
       if (action && action.datosId && action.datosId[0]) {
         this.datosID = action.datosId[0];
+        this.infoSolicitudGroup.patchValue({
+          tipoId: this.tiposID[this.tiposID.findIndex((e: any) => e.Id === this.datosID.TipoDocumentoId.Id)],
+          numeroId: this.info_token.documento
+        });
       }
     });
 
-    this.subscriptionfilter$ = combineLatest([
-      this.infoSolicitudGroup.get('numeroId').valueChanges,
-      this.infoSolicitudGroup.get('tipoId').valueChanges,
-    ]).subscribe(([numeroId, tipoId]) => {
-      if (numeroId && tipoId) {
-        this.store.dispatch(getDatosID({ clave: 'solicitante', numero: numeroId, tipo: tipoId.Id }));
-      }
-    });
+    this.store.dispatch(getDatosID({ clave: 'solicitante', numero: this.info_token.documento}));
+
 
     // Consulta cambios en los datos para enviar al store
     this.subscriptionCambios$ = this.infoSolicitudGroup.valueChanges.subscribe((valor) => {
@@ -59,6 +73,11 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: valor }));
     });
 
+    this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
+      if (accion && accion.Conceptos) {
+        this.conceptos = accion.Conceptos;
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -83,6 +102,15 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   }
   get cargoInvalid() {
     return this.infoSolicitudGroup.get('cargo').invalid && this.infoSolicitudGroup.get('cargo').touched;
+  }
+
+  isInvalid(nombre: string) {
+
+    const input = this.infoSolicitudGroup.get(nombre);
+    if (input)
+      return input.invalid && (input.touched || input.dirty);
+    else
+      return true;
   }
 
   createForm() {

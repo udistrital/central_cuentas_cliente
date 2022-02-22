@@ -10,13 +10,15 @@ import { TableListasolicitudesComponent } from './components/table-listasolicitu
 import { SetInfosolicitudgiroComponent } from './components/set-infosolicitudgiro/set-infosolicitudgiro.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatStepperModule } from '@angular/material';
+import { MatDividerModule, MatSelectModule, MatSlideToggleModule, MatStepperModule } from '@angular/material';
 import { NgbModalConfig, NgbModal, NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { MatOptionModule } from '@angular/material';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
 import { SetAutorizaciongiroComponent } from './components/set-autorizaciongiro/set-autorizaciongiro.component';
 import { ShowResumensolicitudgiroComponent } from './components/show-resumensolicitudgiro/show-resumensolicitudgiro.component';
 import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgiro/stepper-solicitudgiro.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,10 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     MatDividerModule,
     NgbModule,
     CurrencyMaskModule,
+    MatOptionModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    ScrollingModule,
     StoreModule.forFeature(fromSolicitudesgiros.solicitudesgirosFeatureKey, fromSolicitudesgiros.reducer),
     EffectsModule.forFeature([SolicitudesgirosEffects])
   ],
