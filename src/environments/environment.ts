@@ -8,6 +8,10 @@ export const environment = {
     production: false,
     NUXEO: {
         PATH: 'https://documental.udistrital.edu.co/nuxeo/',
+        CREDENTIALS: {
+            USERNAME: 'desarrollooas',
+            PASS: 'desarrollooas2019',
+          },
     },
     CLIENTE_PRESUPUESTO: '/pages/plan-cuentas',
     CLIENTE_CONTABILIDAD: 'https://pruebascontabilidad.portaloas.udistrital.edu.co/pages',
@@ -17,6 +21,9 @@ export const environment = {
     TERCEROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/terceros_crud/v1/',
     CONFIGURACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
     CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
+    PARAMETROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/',
+    DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
+    GESTOR_DOCUMENTAL_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/gestor_documental_mid/v1/',
     KNOWAGE: {
         PROTOCOL: 'https',
         HOST: 'tuleap.udistrital.edu.co',

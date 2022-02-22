@@ -7,8 +7,10 @@ import { EMPTY, of } from 'rxjs';
 import * as SharedActions from '../actions/shared.actions';
 import { SharedService } from '../services/shared.service';
 import { Store } from '@ngrx/store';
-import { selectDatosID, selectTiposID } from '../selectors/shared.selectors';
+import { selectConceptos, selectDatosID, selectTiposID } from '../selectors/shared.selectors';
 import { selectVigencias } from '../selectors/shared.selectors';
+import { PopUpManager } from '../../@core/managers/popUpManager';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
@@ -17,7 +19,9 @@ export class SharedEffects {
   constructor(
     private actions$: Actions,
     private sharedService: SharedService,
-    private store: Store<any>
+    private store: Store<any>,
+    private popupManager: PopUpManager,
+    private translate: TranslateService
   ) { }
 
 
@@ -78,12 +82,6 @@ export class SharedEffects {
         this.sharedService.getDatosID(params.numero, params.tipo, params.limit, params.fields)
           .pipe(
             map((data: any[]) => {
-              if (data)
-                data = data.map((tercero) => (
-                  {
-                    TerceroId: tercero.TerceroId
-                  }
-                ));
               return SharedActions.loadDatosID({ clave: params.clave, datosId: data });
             }),
             catchError(data => of(SharedActions.CatchError(data))))
@@ -101,6 +99,29 @@ export class SharedEffects {
               catchError(data => of(SharedActions.CatchError(data))));
         else
           return of(SharedActions.loadVigencias(accion[1]));
+      })
+    );
+  });
+
+  getConceptos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getConceptos),
+      mergeMap((accion) => this.sharedService.getConceptosCentralCuentas(accion && accion.query ? accion.query : null)
+      .pipe(map(data => SharedActions.loadConceptos(
+        {Conceptos: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  cargarDocumentos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.cargarDocumentos),
+      mergeMap((accion) => {
+        return this.sharedService.cargarDocumentos(accion.element)
+        .pipe(map(data => {
+          this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
+          return null;
+        }), catchError(data => of(SharedActions.CatchError(data))));
       })
     );
   });

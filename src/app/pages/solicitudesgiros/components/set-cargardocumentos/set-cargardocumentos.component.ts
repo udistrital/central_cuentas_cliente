@@ -5,7 +5,10 @@ import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selector
 import { loadSolicitudgiroSeleccionado, loadDocumentos } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_DOCUMENTOS, DATOS_DOCUMENTOS } from '../../interfaces/interfaces';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
+import { cargarDocumentos, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
+import { NuxeoService } from '../../../../@core/utils/nuxeo.service';
+import { DocumentoService } from '../../../../@core/utils/documento.service';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
@@ -25,8 +28,11 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   subscriptionEliminarDato$: any;
   // Formulario
   documentosGroup: FormGroup;
+  fileDocumento: any;
+  uidDocumento: any;
+  idDocumento: any;
 
-  constructor(private store: Store<any>, private fb: FormBuilder, private modalService: NgbModal) {
+  constructor(private store: Store<any>, private fb: FormBuilder, private modalService: NgbModal, private nuxeoService: NuxeoService, private documentoService: DocumentoService) {
 
     // Datos y configuracion de Tabla
     this.datosDocumentos = DATOS_DOCUMENTOS;
@@ -111,10 +117,54 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   }
 
   // Envio de datos de la tabla al Store
-  prepareFilesList(files: Array<any>) {
+  async prepareFilesList(files: Array<File>) {
     for (const item of files) {
       this.datosDocumentos.push({ nombreDocumento: this.documentosGroup.get('documentos').value, nombreArchivo: item.name, estado: 'Listo', file: item });
       this.store.dispatch(loadDocumentos({ datosDocumentos: this.datosDocumentos }));
+      const documento = [{
+        IdTipoDocumento: 6,
+        nombre: item.name,
+        metadatos: {},
+        descripcion: 'documento prueba',
+        file: await this.fileToBase64(item)
+      }];
+      this.store.dispatch(cargarDocumentos({element: documento}));
     }
+  }
+
+  fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+        resolve(encoded);
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  async postSoporteNuxeo(files: any) {
+    return new Promise(async (resolve, reject) => {
+      files.forEach((file) => {
+        (file.Id = file.name),
+        (file.nombre = 'soporte_' + file.Id + '_central_cuentas'),
+        (file.key = 'soporte_' + file.Id);
+      });
+      await this.nuxeoService.getDocumentos$(files, this.documentoService)
+        .subscribe(response => {
+            files.forEach((file, index) => {
+              this.uidDocumento = file.uid;
+              this.idDocumento = response[file.key].Id;
+              files = [];
+              resolve(response[file.key].Id);
+            });
+        }, error => {
+          reject(error);
+        });
+    });
   }
 }
