@@ -83,7 +83,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptionTipoId$.unsubscribe();
     this.subscriptionDatosId$.unsubscribe();
-    this.subscriptionfilter$.unsubscribe();
     this.subscriptionCambios$.unsubscribe();
   }
 

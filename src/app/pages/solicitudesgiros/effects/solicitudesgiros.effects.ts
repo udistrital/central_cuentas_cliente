@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { concatMap, mergeMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { catchError, concatMap, map, mergeMap } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
 
 import * as SolicitudesgirosActions from '../actions/solicitudesgiros.actions';
+import { SolicitudesGirosService } from '../services/solicitudesgiros.service';
+import { PopUpManager } from '../../../@core/managers/popUpManager';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class SolicitudesgirosEffects {
 
-
+  constructor(
+    private actions$: Actions,
+    private servicio: SolicitudesGirosService,
+    private popupManager: PopUpManager,
+    private translate: TranslateService
+    ) { }
   loadSolicitudesgiros$ = createEffect(() => {
     return this.actions$.pipe(
 
@@ -20,6 +28,29 @@ export class SolicitudesgirosEffects {
     );
   });
 
-  constructor(private actions$: Actions) { }
+  subirAutorizacionGiro$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SolicitudesgirosActions.subirAutorizacionGiro),
+      mergeMap((accion) => {
+        return this.servicio.subirAutorizacionGiro(accion.element)
+        .pipe(map(data => {
+          this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
+          return null;
+        }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
+      })
+    );
+  });
+
+  getSolicitudesGiro$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SolicitudesgirosActions.getSolicitudesGiro),
+      mergeMap((accion) => {
+        return this.servicio.getAutorizacionGiro()
+        .pipe(map(data => SolicitudesgirosActions.cargarSolicitudesGiro(
+            {SolicitudesGiro: ((data && data.Data) ? data.Data : data)})),
+            catchError(data => of(SolicitudesgirosActions.CatchError(data))));
+      })
+    );
+  });
 
 }

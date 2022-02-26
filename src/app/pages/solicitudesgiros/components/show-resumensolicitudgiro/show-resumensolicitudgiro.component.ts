@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { getInfosolicitudes, getAutorizaciongiro, getDocumentosgiro } from '../../selectors/solicitudesgiros.selectors';
 import { selectDatosID } from '../../../../shared/selectors/shared.selectors';
 import { CONFIGURACION_DOCUMENTOS } from '../../interfaces/interfaces';
+import { subirAutorizacionGiro } from '../../actions/solicitudesgiros.actions';
 
 @Component({
   selector: 'ngx-show-resumensolicitudgiro',
@@ -92,5 +93,29 @@ export class ShowResumensolicitudgiroComponent implements OnInit, OnDestroy {
     } else {
       this.mostrarOcultarIcono = 'fa-eye';
     }
+  }
+  guardar() {
+    const documentos = [];
+    for (let index = 0; index < this.datosDocumentos.length; index++) {
+      const documento = {
+        NombreDocumento: this.datosDocumentos[index].nombreDocumento,
+        NombreArchivo: this.datosDocumentos[index].nombreArchivo,
+        UID: this.datosDocumentos[index].uid,
+      };
+      documentos.push(documento);
+    }
+    const elemento = {
+      Activo: true,
+      Area_Funcional: (this.infoSolicitudgiro.areaFuncional.Id).toString(),
+      Concepto: (this.infoSolicitudgiro.concepto.Id).toString(),
+      Documento_Solicitante: this.infoSolicitudgiro.numeroId,
+      Documento_Beneficiario: this.autorizacionGiro.numeroId,
+      Nombre_Beneficiario: this.datosBeneficiario.TerceroId.NombreCompleto,
+      Rubro: this.autorizacionGiro.rubroSeleccionado.data.Codigo,
+      Valor_Letras: this.autorizacionGiro.valorLetras,
+      Valor_Numeros: this.autorizacionGiro.valorNumero,
+      Documentos: documentos
+    };
+    this.store.dispatch(subirAutorizacionGiro({element: elemento}));
   }
 }

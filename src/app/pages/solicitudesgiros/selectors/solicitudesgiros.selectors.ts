@@ -24,3 +24,8 @@ export const getDocumentosgiro = createSelector(
   selectSolicitudesgirosState,
   (state: fromSolicitudesgiros.State) => state.Documentosgiro
 );
+
+export const getSolicitudesGiro = createSelector(
+  selectSolicitudesgirosState,
+  (state: fromSolicitudesgiros.State) => state.SolicitudesGiro
+);

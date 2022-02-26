@@ -49,7 +49,7 @@ export class SharedService {
       rama: branch,
     };
     // call request manager for the tree's data.
-    return this.rqManager.get(`arbol_rubro/arbol/${branch}`, params);
+    return this.rqManager.get(`arbol_rubro/arbol/2`, params);
 
   }
 
@@ -143,6 +143,16 @@ export class SharedService {
     this.rqManager.setPath('GESTOR_DOCUMENTAL_SERVICE');
     return this.rqManager.post('document/upload', element);
   }
+
+    /**
+   * Gets Documentos
+   * @param uid uid del documento en nuxeo
+   * @returns  Documento
+   */
+     public getDocumentos(uid: string) {
+      this.rqManager.setPath('GESTOR_DOCUMENTAL_SERVICE');
+      return this.rqManager.getv2(`document/${uid}`, null, null, null, null, null, 0);
+    }
 
   /**
      * getScreenSize

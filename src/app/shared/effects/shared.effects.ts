@@ -115,14 +115,26 @@ export class SharedEffects {
 
   cargarDocumentos$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SharedActions.cargarDocumentos),
+      ofType(SharedActions.subirDocumentos),
       mergeMap((accion) => {
         return this.sharedService.cargarDocumentos(accion.element)
         .pipe(map(data => {
           this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
-          return null;
+          return SharedActions.cargarDocumentos({
+            Documentos: (data && data.Data ? data.Data : data)}
+          );
         }), catchError(data => of(SharedActions.CatchError(data))));
       })
+    );
+  });
+
+  getDocumentos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getDocumentos),
+      mergeMap((accion) => this.sharedService.getDocumentos(accion.uid)
+      .pipe(map(data => SharedActions.cargarDocumentos(
+        {Documentos: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
     );
   });
 }

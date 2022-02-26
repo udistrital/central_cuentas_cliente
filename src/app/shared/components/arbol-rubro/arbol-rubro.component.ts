@@ -68,7 +68,7 @@ export class ArbolRubroComponent implements OnInit, OnDestroy, OnChanges {
         }
         this.dataSource = this.dataSourceBuilder.create(this.data, getters);
       } else {
-        this.parametric.CargarArbolRubros('3');
+        this.parametric.CargarArbolRubros('2');
       }
     });
     this.subscription2$ = this.store.select(getNodoSeleccionado).subscribe((rubro: any) => {

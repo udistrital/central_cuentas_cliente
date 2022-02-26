@@ -126,7 +126,17 @@ export const loadConceptos = createAction(
   props()
 );
 
-export const cargarDocumentos = createAction(
-  '[Shared] Carga documentos a nuxeo',
+export const subirDocumentos = createAction(
+  '[Shared] Subir documentos a nuxeo',
   props<{ element: any }>()
+);
+
+export const cargarDocumentos = createAction(
+  '[Shared] Cargar documentos al store',
+  props()
+);
+
+export const getDocumentos = createAction(
+  '[Shared] Obtiene documentos del gestor documental',
+  props<{uid: string }>()
 );

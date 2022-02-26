@@ -54,6 +54,11 @@ export const selectConceptos = createSelector(
   (state: fromShared.State) => state.Conceptos
 );
 
+export const selectDocumentos = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Documentos
+);
+
 export const selectVigenciasNoFuturas = createSelector(
   selectSharedState,
   (state: fromShared.State) => {
