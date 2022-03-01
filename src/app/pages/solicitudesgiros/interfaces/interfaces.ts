@@ -8,7 +8,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'center',
             }
         },
         {
@@ -18,7 +18,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
         {
@@ -32,7 +32,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 config: [
                     'shortDate'
                 ],
-                class: 'text-center',
+                class: 'center',
             }
         },
         {
@@ -42,9 +42,19 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
+        {
+            key: 'acciones',
+            title: {
+                name: 'acciones',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'icons'
+            }
+        }
     ],
     rowActions: {
         title: {
@@ -133,32 +143,19 @@ export const CONFIGURACION_DOCUMENTOS: any = {
         ],
     },
 };
-export const DATOS_DOCUMENTOS: any = [
-    {
-      nombreDocumento: 'documento1',
-      nombreArchivo: 'doc1.pdf',
-      estado: 'Listo'
-    },
-    {
-        nombreDocumento: 'documento2',
-        nombreArchivo: 'doc2.pdf',
-        estado: 'Listo'
-    },
-    {
-        nombreDocumento: 'documento3',
-        nombreArchivo: 'doc3.pdf',
-        estado: 'Listo'
-    },
-    {
-        nombreDocumento: 'Certificado de Disponibilidad',
-        nombreArchivo: 'PRUEBA.pdf',
-        estado: 'Listo',
-        uid: 'ed9ac7d9-e3cf-4de6-8c16-3a5a486dfb8f'
-    },
-    {
-        nombreDocumento: 'Certificado de Disponibilidad',
-        nombreArchivo: 'PRUEBA2.pdf',
-        estado: 'Listo',
-        uid: '64ca031d-c66d-4591-ae72-e437bf3337ff'
-    }
-];
+
+export interface EstructuraArbolRubrosApropiaciones {
+    Codigo: string;
+    Descripcion?: string;
+    ValorInicial: number;
+    Hijos?: EstructuraArbolRubrosApropiaciones[];
+    Movimientos?: string[];
+    Padre?: string;
+    UnidadEjecutora: number;
+    Estado?: string;
+    IsLeaf: boolean;
+    expanded?: boolean;
+    isHighlighted?: boolean;
+    data?: EstructuraArbolRubrosApropiaciones;
+    children?: EstructuraArbolRubrosApropiaciones[];
+  }

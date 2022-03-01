@@ -10,7 +10,7 @@ import { TableListasolicitudesComponent } from './components/table-listasolicitu
 import { SetInfosolicitudgiroComponent } from './components/set-infosolicitudgiro/set-infosolicitudgiro.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatSelectModule, MatSlideToggleModule, MatStepperModule } from '@angular/material';
+import { MatDividerModule, MatIconModule, MatPaginatorModule, MatSelectModule, MatSlideToggleModule, MatStepperModule, MatTableModule } from '@angular/material';
 import { NgbModalConfig, NgbModal, NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { MatOptionModule } from '@angular/material';
 import { SetCargardocumentosComponent } from './components/set-cargardocumentos/set-cargardocumentos.component';
@@ -19,6 +19,7 @@ import { ShowResumensolicitudgiroComponent } from './components/show-resumensoli
 import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgiro/stepper-solicitudgiro.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NbAlertModule, NbBadgeModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbInputModule, NbListModule, NbRadioModule, NbSelectModule, NbStepperModule, NbTabsetModule, NbTooltipModule, NbTreeGridModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule,
     MatStepperModule,
     MatDividerModule,
     NgbModule,
@@ -46,6 +46,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatSlideToggleModule,
     MatSelectModule,
     ScrollingModule,
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule,
     StoreModule.forFeature(fromSolicitudesgiros.solicitudesgirosFeatureKey, fromSolicitudesgiros.reducer),
     EffectsModule.forFeature([SolicitudesgirosEffects])
   ],

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getAccionTabla, getFilaSeleccionada, selectDocumentos } from '../../../../shared/selectors/shared.selectors';
 import { loadSolicitudgiroSeleccionado, loadDocumentos } from '../../actions/solicitudesgiros.actions';
-import { CONFIGURACION_DOCUMENTOS, DATOS_DOCUMENTOS } from '../../interfaces/interfaces';
+import { CONFIGURACION_DOCUMENTOS } from '../../interfaces/interfaces';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { subirDocumentos, LoadFilaSeleccionada, getDocumentos } from '../../../../shared/actions/shared.actions';
 import { NuxeoService } from '../../../../@core/utils/nuxeo.service';
@@ -38,7 +38,7 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     private http: HttpClient) {
 
     // Datos y configuracion de Tabla
-    this.datosDocumentos = DATOS_DOCUMENTOS;
+    this.datosDocumentos = [];
     this.configuracion = CONFIGURACION_DOCUMENTOS;
     this.createForm();
   }

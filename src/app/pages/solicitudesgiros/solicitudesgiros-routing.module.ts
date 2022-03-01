@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'crear',
     component: StepperSolicitudgiroComponent,
+  },
+  {
+    path: 'editar/:Id',
+    component: StepperSolicitudgiroComponent,
   }
 ];
 
