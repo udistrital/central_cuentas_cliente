@@ -19,7 +19,6 @@ import { ShowResumensolicitudgiroComponent } from './components/show-resumensoli
 import { StepperSolicitudgiroComponent } from './components/stepper-solicitudgiro/stepper-solicitudgiro.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { NbAlertModule, NbBadgeModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbInputModule, NbListModule, NbRadioModule, NbSelectModule, NbStepperModule, NbTabsetModule, NbTooltipModule, NbTreeGridModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [

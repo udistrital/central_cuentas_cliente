@@ -37,7 +37,7 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
     this.datosTabla = [];
     this.configSolicitudes = CONFIGURACION_TABLAREGISTROS;
     for (let i = 0; i < this.configSolicitudes.dataConfig; i++) {
-      this.configSolicitudes.dataConfig[i].title.name = this.translate.instant('BANCO.' + this.configSolicitudes.dataConfig[i].title.name_i18n)
+      this.configSolicitudes.dataConfig[i].title.name = this.translate.instant('BANCO.' + this.configSolicitudes.dataConfig[i].title.name_i18n);
     }
 
     this.stringBusqueda = '';
@@ -54,7 +54,7 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
     this.subSolicitudesGiro$ = this.store.select(getSolicitudesGiro).subscribe((accion: any) => {
       if (accion && accion.solicitudesgiros.SolicitudesGiro) {
         this.solicitudesGiro = accion.solicitudesgiros.SolicitudesGiro.SolicitudesGiro;
-        this.buildTable()
+        this.buildTable();
       }
     });
 
@@ -84,12 +84,11 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
       tableArr.push(element);
     }
     this.dataSource = new MatTableDataSource(tableArr);
-    this.dataSource.paginator = this.paginator
+    this.dataSource.paginator = this.paginator;
   }
 
   editarSolicitud(solicitud: any) {
-    console.log("PRUEBA " , solicitud)
-    this.router.navigateByUrl('pages/solicitudesgiros/editar/' + solicitud.Id)
+    this.router.navigateByUrl('pages/solicitudesgiros/editar/' + solicitud.Id);
   }
 }
 
