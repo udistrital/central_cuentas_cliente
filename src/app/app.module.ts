@@ -32,7 +32,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from '././@core/store/effects/app.effects';
-import { DocumentoService } from './@core/utils/documento.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,7 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EffectsModule.forRoot([AppEffects]),
   ],
   bootstrap: [AppComponent],
-  providers: [ImplicitAutenticationService, DocumentoService,
+  providers: [ImplicitAutenticationService,
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })
