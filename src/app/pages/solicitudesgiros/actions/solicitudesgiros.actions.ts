@@ -34,6 +34,11 @@ export const subirAutorizacionGiro = createAction(
   props<{ element: any }>(),
 );
 
+export const actualizarAutorizacionGiro = createAction(
+  '[Solicitudes] Actualizar Autorizaciones de giro al crud de central cuentas',
+  props<{ id: string, element: any, path?: string}>(),
+);
+
 export const getSolicitudesGiro = createAction(
   '[Solicitudes] Obtener solicitudes de giro del crud de central de cuentas',
   props(),

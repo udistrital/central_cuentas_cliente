@@ -64,7 +64,7 @@ export class SharedService {
     return this.rqManager.get(`concepto/${id}`);
   }
 
-    /**
+  /**
    * Gets Conceptos
    * @param query Query para traer conceptos
    * @returns  Información de conceptos
@@ -101,10 +101,18 @@ export class SharedService {
 
   public getDatosID(numero?: string, tipo?: number, limit?: number, fields?: string) {
     this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
-    const params = {
-      query : `Numero:${numero}`,
-      limit : limit ? limit : 1
-    };
+    let params = {};
+    if (tipo) {
+      params = {
+        query : `Numero:${numero},TipoDocumentoId.Id:${tipo}`,
+        limit : limit ? limit : 1,
+      };
+    } else {
+      params = {
+        query : `Numero:${numero}`,
+        limit : limit ? limit : 1,
+      };
+    }
     return this.rqManager.get('datos_identificacion', params);
   }
 
@@ -152,6 +160,47 @@ export class SharedService {
      public getDocumentos(uid: string) {
       this.rqManager.setPath('GESTOR_DOCUMENTAL_SERVICE');
       return this.rqManager.getv2(`document/${uid}`, null, null, null, null, null, 0);
+    }
+
+    /**
+   * Gets Solicitudes by id
+   * @param id id de la solicitud de giro
+   * @returns  Documento
+   */
+     public getSolicitudesById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`autorizacion-giro/${id}`, null, null, null, null, null, 0);
+    }
+
+  /**
+   * Gets tipos Documentos
+   * @param query Query para traer los tipos de documentos para cargar soportes
+   * @returns  Información de tipos de documentos para cargar soportes
+   */
+     public getTiposDocumentos(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      const params = {
+        query: query,
+      };
+      return this.rqManager.getv2(`parametro`, null, query, null, null, null, 0);
+    }
+
+    /**
+   * Gets procesos Configuracion
+   * @param query Query para traer los procesos de configuracion
+   * @returns  Información de procesos de configuracion
+   */
+     public getProcesoConfiguracion(query: any) {
+      this.rqManager.setPath('CONFIGURACION_SERVICE');
+      const params = {
+        query: query,
+      };
+      return this.rqManager.getv2(`proceso`, null, query, null, null, null, 0);
+    }
+
+    public crearConsecutivo(element: any) {
+      this.rqManager.setPath('CONSECUTIVOS_SERVICE');
+      return this.rqManager.post('consecutivo', element);
     }
 
   /**

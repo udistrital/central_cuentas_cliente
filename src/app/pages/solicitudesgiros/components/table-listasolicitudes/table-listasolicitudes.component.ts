@@ -1,12 +1,12 @@
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbTreeGridDataSource, NbTreeGridRowComponent, NbTreeGridDataSourceBuilder, } from '@nebular/theme';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { getDatosID } from '../../../../shared/actions/shared.actions';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
-import { getSolicitudesGiro, loadSolicitudgiroSeleccionado } from '../../actions/solicitudesgiros.actions';
+import { actualizarAutorizacionGiro, getSolicitudesGiro, loadSolicitudgiroSeleccionado } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_TABLAREGISTROS, EstructuraArbolRubrosApropiaciones } from '../../interfaces/interfaces';
 
 @Component({
@@ -28,12 +28,15 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
   @Output() selectedAction: EventEmitter<any>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   stringBusqueda: string;
+  tituloAccion: string;
 
   constructor (
     private store: Store<any>,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute
   ) {
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.datosTabla = [];
     this.configSolicitudes = CONFIGURACION_TABLAREGISTROS;
     for (let i = 0; i < this.configSolicitudes.dataConfig; i++) {
@@ -69,14 +72,20 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
     });
   }
 
+  enviarRevision(solicitud: any) {
+    const element = this.solicitudesGiro[solicitud.NumeroSolicitud];
+    element.Estado = 'Por revisar';
+    this.store.dispatch(actualizarAutorizacionGiro({id: element._id, element: element, path: this.tituloAccion}));
+  }
+
   buildTable() {
     const tableArr: Element[] = [];
     for (let index = 0; index < this.solicitudesGiro.length; index++) {
       const element: Element = {
-        NumeroSolicitud: index,
+        NumeroSolicitud: this.solicitudesGiro[index].Numero_Solicitud,
         NombreBeneficiario: this.solicitudesGiro[index].Nombre_Beneficiario,
         Fecha: this.solicitudesGiro[index].Fecha_creacion,
-        Estado: 'Elaborado',
+        Estado: this.solicitudesGiro[index].Estado,
         estado: true,
         Id: this.solicitudesGiro[index]._id,
         acciones: ''

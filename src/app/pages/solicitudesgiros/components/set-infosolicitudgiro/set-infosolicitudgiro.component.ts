@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getConceptos, getDatosID } from '../../../../shared/actions/shared.actions';
-import { selectTiposID, selectDatosID, selectConceptos } from '../../../../shared/selectors/shared.selectors';
+import { getConceptos, getDatosID, getSolicitudesById } from '../../../../shared/actions/shared.actions';
+import { selectTiposID, selectDatosID, selectConceptos, selectSolicitudesGiro } from '../../../../shared/selectors/shared.selectors';
 import { combineLatest } from 'rxjs';
 import { loadInfosolicitudgiro } from '../../actions/solicitudesgiros.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -29,13 +30,19 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   subConceptos$: any;
   info_token: any;
   rol: any;
+  tituloAccion: string;
+  subSolicitudesGiro$: any;
+  solicitudesGiro: any;
 
-  constructor(private fb: FormBuilder, private store: Store<any>) {
+  constructor(private fb: FormBuilder,
+    private store: Store<any>,
+    private activatedRoute: ActivatedRoute) {
 
     this.createForm();
     this.tiposID = [];
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
   }
 
   ngOnInit() {
@@ -64,6 +71,15 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       }
     });
 
+    if (this.tituloAccion === 'editar') {
+      this.store.dispatch(getSolicitudesById({id: this.activatedRoute.snapshot.url[1].path}));
+      this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
+        if (accion && accion.SolicitudesById) {
+          this.solicitudesGiro = accion.SolicitudesById;
+          this.conceptosSolicitud();
+        }
+      });
+    }
     this.store.dispatch(getDatosID({ clave: 'solicitante', numero: this.info_token.documento}));
 
 
@@ -73,10 +89,22 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: valor }));
     });
 
+    this.conceptosSolicitud();
+  }
+
+  conceptosSolicitud() {
     this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
       if (accion && accion.Conceptos) {
         this.conceptos = accion.Conceptos;
+        if (this.tituloAccion === 'editar') this.setSolicitudesGiro();
       }
+    });
+  }
+  setSolicitudesGiro() {
+    this.infoSolicitudGroup.patchValue({
+      concepto: this.conceptos[this.conceptos.findIndex((e: any) => e.Id === this.solicitudesGiro.Concepto)],
+      areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.solicitudesGiro.Area_Funcional)],
+      numeroSolicitud: this.solicitudesGiro.Numero_Solicitud
     });
   }
 
@@ -115,7 +143,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   createForm() {
     this.infoSolicitudGroup = this.fb.group({
       concepto: ['', Validators.required],
-      numeroSolicitud: ['001'],
+      numeroSolicitud: [''],
       areaFuncional: ['', Validators.required],
       fechaSolicitud: [''],
       tipoId: ['', Validators.required],

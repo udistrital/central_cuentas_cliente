@@ -1,15 +1,13 @@
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getAccionTabla, getFilaSeleccionada, selectDocumentos } from '../../../../shared/selectors/shared.selectors';
+import { getAccionTabla, getFilaSeleccionada, selectDocumentos, selectDocumentosDescarga, selectSolicitudesGiro, selectTiposDocumentos } from '../../../../shared/selectors/shared.selectors';
 import { loadSolicitudgiroSeleccionado, loadDocumentos } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_DOCUMENTOS } from '../../interfaces/interfaces';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { subirDocumentos, LoadFilaSeleccionada, getDocumentos } from '../../../../shared/actions/shared.actions';
-import { NuxeoService } from '../../../../@core/utils/nuxeo.service';
-import { DocumentoService } from '../../../../@core/utils/documento.service';
-import { Observable, ReplaySubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { subirDocumentos, LoadFilaSeleccionada, getDocumentos, getTiposDocumentos } from '../../../../shared/actions/shared.actions';
+import { ActivatedRoute } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
@@ -33,14 +31,23 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   uidDocumento: any;
   idDocumento: any;
   subDocumentos$: any;
+  tituloAccion: string;
+  subSolicitudesGiro$: any;
+  solicitudesGiro: any;
+  tiposDocumentos: any;
+  subTiposDocumentos$: any;
 
-  constructor(private store: Store<any>, private fb: FormBuilder, private modalService: NgbModal, private nuxeoService: NuxeoService, private documentoService: DocumentoService,
-    private http: HttpClient) {
-
+  constructor(private store: Store<any>,
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private activatedRoute: ActivatedRoute
+    ) {
     // Datos y configuracion de Tabla
     this.datosDocumentos = [];
     this.configuracion = CONFIGURACION_DOCUMENTOS;
     this.createForm();
+    this.store.dispatch(getTiposDocumentos({query: {TipoParametroId__CodigoAbreviacion: 'DOC_SOAG'}}));
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
   }
 
   ngOnInit() {
@@ -55,6 +62,12 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadSolicitudgiroSeleccionado(null));
     });
 
+    this.subTiposDocumentos$ = this.store.select(selectTiposDocumentos).subscribe((accion) => {
+      if (accion && accion.TiposDocumentos) {
+        this.tiposDocumentos = accion.TiposDocumentos;
+      }
+    });
+
     // Eliminar datos que se encuentran en la tabla
     this.subscriptionEliminarDato$ = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion && accion.accion) {
@@ -67,6 +80,24 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
       }
     });
 
+
+    if (this.tituloAccion === 'editar') {
+      this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
+        if (accion && accion.SolicitudesById) {
+          this.solicitudesGiro = accion.SolicitudesById;
+          this.setDocumentos();
+        }
+      });
+    }
+  }
+
+  isInvalid(nombre: string) {
+
+    const input = this.documentosGroup.get(nombre);
+    if (input)
+      return input.invalid && (input.touched || input.dirty);
+    else
+      return true;
   }
 
   ngOnDestroy(): void {
@@ -75,6 +106,16 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     this.subscriptionEliminarDato$.unsubscribe();
   }
 
+  setDocumentos() {
+    for (let i = 0; i < this.solicitudesGiro.Documentos.length; i++) {
+      this.datosDocumentos.push({
+        nombreDocumento: this.solicitudesGiro.Documentos[i].NombreDocumento,
+        nombreArchivo: this.solicitudesGiro.Documentos[i].NombreArchivo,
+        estado: 'Listo',
+        uid: this.solicitudesGiro.Documentos[i].UID});
+
+    }
+  }
   // Validacion de formulario
   get documentosInvalid() {
     return this.documentosGroup.get('documentos').invalid && this.documentosGroup.get('documentos').touched;
@@ -115,11 +156,11 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   // Modal acciones sobre la tabla: Ver documentos
   modalVer(fila: any) {
     this.store.dispatch(getDocumentos({uid: fila.uid}));
-    this.subDocumentos$ = this.store.select(selectDocumentos).subscribe((accion) => {
-      if (accion && accion.Documentos) {
-        const base64 = accion.Documentos.file;
-        const pdfName = accion.Documentos['dc:title'];
-        accion.Documentos = null;
+    this.subDocumentos$ = this.store.select(selectDocumentosDescarga).subscribe((accion) => {
+      if (accion && accion.DocumentosDescarga) {
+        const base64 = accion.DocumentosDescarga.file;
+        const pdfName = accion.DocumentosDescarga['dc:title'];
+        accion.DocumentosDescarga = null;
         const imageBlob = this.dataURItoBlob(base64);
         const imageFile = new File([imageBlob], pdfName, { type: 'application/pdf' });
         const file = new Blob([imageFile], {type: 'application/pdf'});
@@ -152,7 +193,7 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   // Envio de datos de la tabla al Store
   async prepareFilesList(files: Array<File>) {
     for (const item of files) {
-      const documento = [{
+      let documento = [{
         IdTipoDocumento: 2,
         nombre: item.name,
         metadatos: {},
@@ -161,12 +202,20 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
       }];
       this.store.dispatch(subirDocumentos({element: documento}));
       this.subDocumentos$ = this.store.select(selectDocumentos).subscribe((accion) => {
-        if (accion && accion.Documentos) {
-          this.datosDocumentos.push({ nombreDocumento: this.documentosGroup.get('documentos').value, nombreArchivo: item.name, estado: 'Listo', uid: accion.Documentos.res.Enlace});
-          this.store.dispatch(loadDocumentos({ datosDocumentos: this.datosDocumentos }));
+        if (accion && accion.DocumentosCarga) {
+          if (documento.length > 0) {
+            this.datosDocumentos.push({ nombreDocumento: this.documentosGroup.get('documentos').value.Nombre, nombreArchivo: documento[0].nombre, estado: 'Listo',
+            uid: accion.DocumentosCarga.res.Enlace});
+            accion.DocumentosCarga = null;
+            documento = [];
+          }
         }
       });
     }
+  }
+
+  cargarDocumentos() {
+    this.store.dispatch(loadDocumentos({ datosDocumentos: this.datosDocumentos }));
   }
 
   fileToBase64(file) {

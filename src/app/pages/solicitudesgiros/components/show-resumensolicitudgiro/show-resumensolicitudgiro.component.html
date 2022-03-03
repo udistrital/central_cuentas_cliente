@@ -155,36 +155,10 @@
                 <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
             </div>
             <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#exampleModal2" (click)="guardar()">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" (click)="guardar()">
                     GUARDAR</button>
             </div>
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
 </form>
-
-
-<!-- Modal: Solicitud Guardada -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModal2Label"><i class="fas fa-check text-success"></i>¡Guardado!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="text-center">Se ha guardado la Solicitud de Autorización de Giro No. 001.</p>
-                <p class="text-center">Estado: Elaborado</p>
-            </div>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" >Close</button> -->
-                <a routerLink="../../solicitudesgiros/lista" role="button" class="btn btn-primary" data-dismiss="modal">
-                    Aceptar
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fin Modal: Solicitud Guardada -->

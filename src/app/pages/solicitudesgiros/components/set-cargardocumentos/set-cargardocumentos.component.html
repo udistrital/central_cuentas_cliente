@@ -13,12 +13,13 @@
             <div class="col text-center">
                 <span>Seleccione los documentos necesarios para la solicitud</span>
                 <div class="row px-5 py-2">
-                    <select class="custom-select" formControlName="documentos" [class.is-invalid]="documentosInvalid">
-                        <option selected disabled value="">Seleccione un tipo de documento...</option>
-                        <option value="Contrato">Contrato</option>
-                        <option value="Planilla">Planilla</option>
-                        <option value="Certificado de Disponibilidad">Certificado de Disponibilidad</option>
-                    </select>
+                    <mat-select class="form-control" placeholder="Seleccione..." formControlName="documentos" [class.is-invalid]="isInvalid('documentos')">
+                        <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                            <mat-option *cdkVirtualFor="let tipoDocumento of tiposDocumentos" [value]="tipoDocumento">
+                                {{tipoDocumento.Nombre}}
+                            </mat-option>
+                        </cdk-virtual-scroll-viewport>
+                    </mat-select>
                     <small *ngIf="documentosInvalid" class="text-danger">Debe seleccionar al menos un tipo de documentos
                         para adjuntarlo</small>
                 </div>
@@ -48,7 +49,7 @@
                 <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">Regresar</button>
             </div>
             <div class="form-group col-6">
-                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4" (click)="cargarDocumentos()">Siguiente</button>
             </div>
         </div>
         <!-- Fin Botones: Regresar, Siguiente -->

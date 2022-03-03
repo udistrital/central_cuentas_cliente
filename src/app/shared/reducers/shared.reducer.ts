@@ -17,7 +17,13 @@ export interface State {
   Usuario: any;
   Vigencias: any;
   Conceptos: any;
-  Documentos: any;
+  DocumentosCarga: any;
+  DocumentosDescarga: any;
+  SolicitudesGiro: any;
+  Rubro: any;
+  TiposDocumentos: any;
+  Proceso: any;
+  Consecutivo: any;
 }
 
 export const initialState: State = {
@@ -34,7 +40,13 @@ export const initialState: State = {
   Usuario: null,
   Vigencias: null,
   Conceptos: null,
-  Documentos: null,
+  DocumentosCarga: null,
+  SolicitudesGiro: null,
+  Rubro: null,
+  TiposDocumentos: null,
+  DocumentosDescarga: null,
+  Proceso: null,
+  Consecutivo: null,
 };
 
 const sharedReducer = createReducer(
@@ -81,7 +93,25 @@ const sharedReducer = createReducer(
     ...state, Conceptos: state.Conceptos = action
   })),
   on(SharedActions.cargarDocumentos, (state, action) => ({
-    ...state, Documentos: state.Documentos = action
+    ...state, DocumentosCarga: state.DocumentosCarga = action
+  })),
+  on(SharedActions.descargarDocumentos, (state, action) => ({
+    ...state, DocumentosDescarga: state.DocumentosDescarga = action
+  })),
+  on(SharedActions.cargarSolicitudesById, (state, action) => ({
+    ...state, SolicitudesGiro: state.SolicitudesGiro = action
+  })),
+  on(SharedActions.cargarRubro, (state, action) => ({
+    ...state, Rubro: state.Rubro = action
+  })),
+  on(SharedActions.loadTiposDocumentos, (state, action) => ({
+    ...state, TiposDocumentos: state.TiposDocumentos = action
+  })),
+  on(SharedActions.loadProcesoConfiguracion, (state, action) => ({
+    ...state, Proceso: state.Proceso = action
+  })),
+  on(SharedActions.loadConsecutivo, (state, action) => ({
+    ...state, Consecutivo: state.Consecutivo = action
   })),
 );
 

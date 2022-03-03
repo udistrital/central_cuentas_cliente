@@ -136,7 +136,62 @@ export const cargarDocumentos = createAction(
   props()
 );
 
+export const descargarDocumentos = createAction(
+  '[Shared] Descargar documentos al store',
+  props()
+);
+
 export const getDocumentos = createAction(
   '[Shared] Obtiene documentos del gestor documental',
   props<{uid: string }>()
+);
+
+export const getSolicitudesById = createAction(
+  '[Shared] Obtiene las solicitudes de giro por id del crud',
+  props<{id: string}>()
+);
+
+export const cargarSolicitudesById = createAction(
+  '[Shared] Carga las solicitudes por id al store',
+  props()
+);
+
+export const obtenerRubro = createAction(
+  '[Shared] Obtener rubro por codigo desde el crud de plan cuentas',
+  props<{codRubro: any}>()
+);
+
+export const cargarRubro = createAction(
+  '[Shared] Cargar rubro al store',
+  props()
+);
+
+export const getTiposDocumentos = createAction(
+  '[Shared] Obtiene tipos de documentos para cargar soportes del crud de parametros',
+  props<{ query?: any }>()
+);
+
+export const loadTiposDocumentos = createAction(
+  '[Shared] Carga los tipos de documentos para cargar soportes al store',
+  props()
+);
+
+export const getProcesoConfiguracion = createAction(
+  '[Shared] Obtiene los procesos del crud de configuracion',
+  props<{ query?: any}>()
+);
+
+export const loadProcesoConfiguracion = createAction(
+  '[Shared] Carga los procesos al store',
+  props()
+);
+
+export const crearConsecutivo = createAction(
+  '[Shared] Crea el consecutivo',
+  props<{ element: any}> ()
+);
+
+export const loadConsecutivo = createAction(
+  '[Shared] Carga el consecutivo al store',
+  props()
 );

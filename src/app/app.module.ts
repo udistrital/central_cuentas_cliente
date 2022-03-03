@@ -32,7 +32,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from '././@core/store/effects/app.effects';
-import { NuxeoService } from './@core/utils/nuxeo.service';
 import { DocumentoService } from './@core/utils/documento.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -77,7 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EffectsModule.forRoot([AppEffects]),
   ],
   bootstrap: [AppComponent],
-  providers: [ImplicitAutenticationService, NuxeoService, DocumentoService,
+  providers: [ImplicitAutenticationService, DocumentoService,
     { provide: APP_BASE_HREF, useValue: '/' },
   ],
 })

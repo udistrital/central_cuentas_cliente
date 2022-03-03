@@ -8,6 +8,7 @@ import * as SolicitudesgirosActions from '../actions/solicitudesgiros.actions';
 import { SolicitudesGirosService } from '../services/solicitudesgiros.service';
 import { PopUpManager } from '../../../@core/managers/popUpManager';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -17,7 +18,8 @@ export class SolicitudesgirosEffects {
     private actions$: Actions,
     private servicio: SolicitudesGirosService,
     private popupManager: PopUpManager,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
     ) { }
   loadSolicitudesgiros$ = createEffect(() => {
     return this.actions$.pipe(
@@ -34,12 +36,46 @@ export class SolicitudesgirosEffects {
       mergeMap((accion) => {
         return this.servicio.subirAutorizacionGiro(accion.element)
         .pipe(map(data => {
-          this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
-          return null;
+          this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso con el consecutivo ' + accion.element.Numero_Solicitud)).then((result) => {
+            this.router.navigateByUrl('pages/solicitudesgiros/lista');
+          });
+          return SolicitudesgirosActions.cargarSolicitudesGiro({
+            SolicitudesGiro: ((data && data.Data) ? data.Data : data)});
         }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
       })
     );
   });
+
+  // actualizarAutorizacionGiro$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(SolicitudesgirosActions.actualizarAutorizacionGiro),
+  //     mergeMap((accion) => {
+  //       return this.servicio.actualizarAutorizacionGiro(accion.id, accion.element)
+  //       .pipe(map(data => {
+  //         this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
+  //         return SolicitudesgirosActions.cargarSolicitudesGiro({
+  //           SolicitudesGiro: (data && data.Data ? data.Data : data)});
+  //       }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
+  //     })
+  //   );
+  // });
+
+  actualizarAutorizacionGiro$ = createEffect(() => {
+    return this.actions$.pipe(
+        ofType(SolicitudesgirosActions.actualizarAutorizacionGiro),
+        mergeMap((accion) => {
+            return this.servicio.actualizarAutorizacionGiro(accion.id, accion.element)
+            .pipe(map(data => {
+                this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso')).then((result) => {
+                  if (accion.path === 'lista') window.location.reload();
+                  else this.router.navigateByUrl('pages/solicitudesgiros/lista');
+                });
+                return SolicitudesgirosActions.cargarSolicitudesGiro({
+                  SolicitudesGiro: ((data && data.Data) ? data.Data : data)});
+            }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
+        })
+    );
+});
 
   getSolicitudesGiro$ = createEffect(() => {
     return this.actions$.pipe(

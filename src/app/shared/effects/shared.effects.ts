@@ -121,7 +121,7 @@ export class SharedEffects {
         .pipe(map(data => {
           this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
           return SharedActions.cargarDocumentos({
-            Documentos: (data && data.Data ? data.Data : data)}
+            DocumentosCarga: (data && data.Data ? data.Data : data)}
           );
         }), catchError(data => of(SharedActions.CatchError(data))));
       })
@@ -132,9 +132,63 @@ export class SharedEffects {
     return this.actions$.pipe(
       ofType(SharedActions.getDocumentos),
       mergeMap((accion) => this.sharedService.getDocumentos(accion.uid)
-      .pipe(map(data => SharedActions.cargarDocumentos(
-        {Documentos: ((data && data.Data) ? data.Data : data)})),
+      .pipe(map(data => SharedActions.descargarDocumentos(
+        {DocumentosDescarga: data})),
         catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  getSolicitudesById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getSolicitudesById),
+      mergeMap((accion) => this.sharedService.getSolicitudesById(accion.id)
+      .pipe(map(data => SharedActions.cargarSolicitudesById(
+        {SolicitudesById: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  getRubro$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.obtenerRubro),
+      mergeMap((accion) => this.sharedService.getRubro(accion.codRubro)
+          .pipe(map(data => SharedActions.cargarRubro(
+            {Rubro: ((data && data.Data) ? data.Data : data)})),
+            catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  getTiposDocumentos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getTiposDocumentos),
+      mergeMap((accion) => this.sharedService.getTiposDocumentos(accion && accion.query ? accion.query : null)
+      .pipe(map(data => SharedActions.loadTiposDocumentos(
+        {TiposDocumentos: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  getProcesoConfiguracion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getProcesoConfiguracion),
+      mergeMap((accion) => this.sharedService.getProcesoConfiguracion(accion && accion.query ? accion.query : null)
+      .pipe(map(data => SharedActions.loadProcesoConfiguracion(
+        {Proceso: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  crearConsecutivo$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.crearConsecutivo),
+      mergeMap((accion) => {
+        return this.sharedService.crearConsecutivo(accion.element)
+        .pipe(map(data => {
+          return SharedActions.loadConsecutivo({
+            Consecutivos: (data && data.Data ? data.Data : data)}
+          );
+        }), catchError(data => of(SharedActions.CatchError(data))));
+      })
     );
   });
 }

@@ -25,6 +25,18 @@ export class RequestManager {
     };
   }
 
+  /**
+   * Set http options to initial state
+   */
+   private initHttpOptions() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    };
+  }
+
 
   /**
    * Use for set the source path of the service (service's name must be present at src/app/app-config.ts)
@@ -127,7 +139,9 @@ export class RequestManager {
    * @returns Observable<any>
    */
   put(endpoint, element, id) {
+    this.initHttpOptions();
     return this.http.put<any>(`${this.path}${endpoint}${id}`, JSON.stringify(element), this.httpOptions).pipe(
+      map((res) => res && res.hasOwnProperty('Body') && res['Type'] !== 'error' ? res['Body'] : res),
       catchError(this.errManager.handleError),
     );
   }
