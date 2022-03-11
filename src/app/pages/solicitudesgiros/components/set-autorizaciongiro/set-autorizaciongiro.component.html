@@ -13,20 +13,25 @@
         </div>
         <!-- Campos: Tipo de ID, Número de ID, Nombre -->
         <div class="form-group row">
-            <div class="col-md-2">
+            <div class="col-md-6">
                 <label>Tipo de ID</label>
-                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option [ngValue]="tipoId" *ngFor="let tipoId of tiposID">{{ tipoId.Nombre }}</option>
-                </select>
+                <mat-select [disabled]="ver" class="form-control" placeholder="Seleccione..." formControlName="tipoId" [class.is-invalid]="isInvalid('tipoId')">
+                    <cdk-virtual-scroll-viewport itemSize="12" minBufferPx="50" maxBufferPx="100" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let tipoId of tiposID" [value]="tipoId">
+                            {{tipoId.Nombre}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="tipoIdInvalid" class="text-danger">Seleccionar</small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label>Número de ID</label>
-                <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid" [readonly]="ver">
                 <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
-            <div class="col-md-6">
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
                 <label>Nombre (persona o entidad)</label>
                 <input value="{{ datosID?.TerceroId?.NombreCompleto }}" type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
             </div>
@@ -51,7 +56,7 @@
             <div class="col-md-6 py-4">
                 <p class="text-center">Seleccione el rubro para continuar</p>
                 <div class="row px-2 py-2 justify-content-md-center">
-                    <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro">
+                    <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro" [disabled]="ver">
                         <i class="fas fa-plus pr-3"></i>
                         <span>Seleccionar Rubro</span>
                     </button>
@@ -82,12 +87,12 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label>Valor en Letras</label>
-                <input type="text" class="form-control" formControlName="valorLetras" [class.is-invalid]="valorLetrasInvalid">
+                <input type="text" class="form-control" formControlName="valorLetras" [class.is-invalid]="valorLetrasInvalid" [readonly]="ver">
                 <small *ngIf="valorLetrasInvalid" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-6">
                 <label for="valorNumero">Valor en Números</label>
-                <input currencyMask min="0.0" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorNumeroInvalid">
+                <input currencyMask min="0.0" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorNumeroInvalid" [readonly]="ver">
                 <small *ngIf="valorNumeroInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
         </div>

@@ -33,16 +33,19 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   tituloAccion: string;
   subSolicitudesGiro$: any;
   solicitudesGiro: any;
+  ver: boolean;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute) {
-
     this.createForm();
     this.tiposID = [];
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+    if (this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
+      this.ver = true;
+    }
   }
 
   ngOnInit() {
@@ -71,7 +74,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (this.tituloAccion === 'editar') {
+    if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
       this.store.dispatch(getSolicitudesById({id: this.activatedRoute.snapshot.url[1].path}));
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
@@ -96,7 +99,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
       if (accion && accion.Conceptos) {
         this.conceptos = accion.Conceptos;
-        if (this.tituloAccion === 'editar') this.setSolicitudesGiro();
+        if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') this.setSolicitudesGiro();
       }
     });
   }
@@ -112,6 +115,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subscriptionTipoId$.unsubscribe();
     this.subscriptionDatosId$.unsubscribe();
     this.subscriptionCambios$.unsubscribe();
+    this.subConceptos$.unsubscribe();
   }
 
   // Validacion del Formulario
@@ -132,7 +136,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   }
 
   isInvalid(nombre: string) {
-
     const input = this.infoSolicitudGroup.get(nombre);
     if (input)
       return input.invalid && (input.touched || input.dirty);

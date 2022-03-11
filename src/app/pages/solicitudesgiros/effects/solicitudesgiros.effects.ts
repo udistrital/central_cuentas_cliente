@@ -81,7 +81,7 @@ export class SolicitudesgirosEffects {
     return this.actions$.pipe(
       ofType(SolicitudesgirosActions.getSolicitudesGiro),
       mergeMap((accion) => {
-        return this.servicio.getAutorizacionGiro()
+        return this.servicio.getAutorizacionGiro(accion.sortby, accion.order)
         .pipe(map(data => SolicitudesgirosActions.cargarSolicitudesGiro(
             {SolicitudesGiro: ((data && data.Data) ? data.Data : data)})),
             catchError(data => of(SolicitudesgirosActions.CatchError(data))));

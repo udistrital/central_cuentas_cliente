@@ -12,7 +12,7 @@
         <div class="form-group row">
             <div class="col">
                 <label>Concepto</label>
-                <mat-select class="form-control" placeholder="Seleccione..." formControlName="concepto" [class.is-invalid]="isInvalid('concepto')">
+                <mat-select [disabled]="ver" class="form-control" placeholder="Seleccione..." formControlName="concepto" [class.is-invalid]="isInvalid('concepto')">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                         <mat-option *cdkVirtualFor="let concepto of conceptos" [value]="concepto">
                             {{concepto.Nombre}}
@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-4">
                 <label>{{ 'GLOBAL.unidad-ejecutora' | translate}}</label>
-                <mat-select class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')">
+                <mat-select [disabled]="ver" class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                             {{opcion.label}}
@@ -67,7 +67,7 @@
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
-                <small *ngIf="tipoIdInvalid" class="text-danger">Complete este campo</small>
+                <small *ngIf="isInvalid('tipoId')" class="text-danger">Complete este campo</small>
             </div>
             <div class="col-md-4">
                 <label>Número de ID</label>
@@ -88,7 +88,7 @@
             </div>
             <div class="col-md-4">
                 <label>Cargo</label>
-                <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid">
+                <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid" readonly>
                 <small *ngIf="cargoInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
             <!-- Fin Campos: Nombres, Apellidos, Cargo -->

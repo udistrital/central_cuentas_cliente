@@ -49,7 +49,7 @@ export class SharedService {
       rama: branch,
     };
     // call request manager for the tree's data.
-    return this.rqManager.get(`arbol_rubro/arbol/2`, params);
+    return this.rqManager.get(`arbol_rubro/arbol/3`, params);
 
   }
 

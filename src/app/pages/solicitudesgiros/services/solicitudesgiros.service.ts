@@ -17,9 +17,9 @@ export class SolicitudesGirosService {
         return this.rqManager.put('autorizacion-giro/', element, id);
     }
 
-    public getAutorizacionGiro() {
+    public getAutorizacionGiro(sortby: any, order: any) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return this.rqManager.getv2('autorizacion-giro/', null, null, null, null, null, null, null);
+        return this.rqManager.getv2('autorizacion-giro/', null, null, null, sortby, order, null, null);
     }
 
 }

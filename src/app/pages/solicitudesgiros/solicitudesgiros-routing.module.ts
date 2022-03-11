@@ -15,6 +15,14 @@ const routes: Routes = [
   {
     path: 'editar/:Id',
     component: StepperSolicitudgiroComponent,
+  },
+  {
+    path: 'ver/:Id',
+    component: StepperSolicitudgiroComponent,
+  },
+  {
+    path: 'revisar/:Id',
+    component: StepperSolicitudgiroComponent,
   }
 ];
 

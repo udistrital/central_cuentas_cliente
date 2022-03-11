@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,7 +35,8 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private router: Router,
     private translate: TranslateService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private datePipe: DatePipe
   ) {
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.datosTabla = [];
@@ -45,7 +47,7 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
 
     this.stringBusqueda = '';
     this.selectedAction = new EventEmitter<any>();
-    this.store.dispatch(getSolicitudesGiro({}));
+    this.store.dispatch(getSolicitudesGiro({sortby: ['Numero_Solicitud'], order: ['desc']}));
   }
   ngOnDestroy(): void {
     this.datosTabla = [];
@@ -73,9 +75,13 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
   }
 
   enviarRevision(solicitud: any) {
-    const element = this.solicitudesGiro[solicitud.NumeroSolicitud];
+    const element = this.solicitudesGiro[this.solicitudesGiro.findIndex((e: any) => e.Numero_Solicitud === solicitud.NumeroSolicitud)];
     element.Estado = 'Por revisar';
     this.store.dispatch(actualizarAutorizacionGiro({id: element._id, element: element, path: this.tituloAccion}));
+  }
+
+  revision(solicitud: any) {
+    this.router.navigateByUrl('pages/solicitudesgiros/revisar/' + solicitud.Id);
   }
 
   buildTable() {
@@ -84,7 +90,7 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
       const element: Element = {
         NumeroSolicitud: this.solicitudesGiro[index].Numero_Solicitud,
         NombreBeneficiario: this.solicitudesGiro[index].Nombre_Beneficiario,
-        Fecha: this.solicitudesGiro[index].Fecha_creacion,
+        Fecha: this.datePipe.transform(this.solicitudesGiro[index].Fecha_creacion, 'dd-MM-yyyy'),
         Estado: this.solicitudesGiro[index].Estado,
         estado: true,
         Id: this.solicitudesGiro[index]._id,
@@ -99,12 +105,17 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
   editarSolicitud(solicitud: any) {
     this.router.navigateByUrl('pages/solicitudesgiros/editar/' + solicitud.Id);
   }
+
+  ver(solicitud: any) {
+    this.router.navigateByUrl('pages/solicitudesgiros/ver/' + solicitud.Id);
+  }
+
 }
 
 export interface Element {
   NumeroSolicitud: number;
   NombreBeneficiario: string;
-  Fecha: Date;
+  Fecha: string;
   Estado: string;
   Id: string;
   estado: boolean;
