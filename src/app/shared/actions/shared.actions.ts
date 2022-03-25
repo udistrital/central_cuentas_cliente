@@ -30,6 +30,11 @@ export const LoadNodoSeleccionado = createAction(
   props()
 );
 
+export const loadSolicitudGiroSeleccionada = createAction(
+  '[Shared] Load Solicitud Giro Seleccionada',
+  props()
+);
+
 // Fila Seleccionado
 
 export const LoadFilaSeleccionada = createAction(
@@ -194,4 +199,14 @@ export const crearConsecutivo = createAction(
 export const loadConsecutivo = createAction(
   '[Shared] Carga el consecutivo al store',
   props()
+);
+
+export const getSolicitudesGiro = createAction(
+  '[Shared] Obtener solicitudes de giro del crud de central de cuentas',
+  props<{sortby: string[], order: string[], query?: any}>(),
+);
+
+export const cargarSolicitudesGiro = createAction(
+  '[Shared] Carga solicitudes de giro al store',
+  props(),
 );
