@@ -112,16 +112,6 @@ export const CONFIGURACION_DOCUMENTOS: any = {
                 class: '',
             }
         },
-        {
-            key: 'acciones',
-            title: {
-                name: 'Acciones',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'icons'
-            }
-        }
     ],
     rowActions: {
         title: {
