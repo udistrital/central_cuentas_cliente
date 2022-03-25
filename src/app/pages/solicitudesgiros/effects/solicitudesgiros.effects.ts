@@ -30,35 +30,35 @@ export class SolicitudesgirosEffects {
     );
   });
 
-  subirAutorizacionGiro$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(SolicitudesgirosActions.subirAutorizacionGiro),
-      mergeMap((accion) => {
-        return this.servicio.subirAutorizacionGiro(accion.element)
-        .pipe(map(data => {
-          this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso con el consecutivo ' + accion.element.Numero_Solicitud)).then((result) => {
-            this.router.navigateByUrl('pages/solicitudesgiros/lista');
-          });
-          return SolicitudesgirosActions.cargarSolicitudesGiro({
-            SolicitudesGiro: ((data && data.Data) ? data.Data : data)});
-        }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
-      })
-    );
-  });
-
-  // actualizarAutorizacionGiro$ = createEffect(() => {
+  // subirAutorizacionGiro$ = createEffect(() => {
   //   return this.actions$.pipe(
-  //     ofType(SolicitudesgirosActions.actualizarAutorizacionGiro),
+  //     ofType(SolicitudesgirosActions.subirAutorizacionGiro),
   //     mergeMap((accion) => {
-  //       return this.servicio.actualizarAutorizacionGiro(accion.id, accion.element)
+  //       return this.servicio.subirAutorizacionGiro(accion.element)
   //       .pipe(map(data => {
-  //         this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
-  //         return SolicitudesgirosActions.cargarSolicitudesGiro({
-  //           SolicitudesGiro: (data && data.Data ? data.Data : data)});
+  //         this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.guardado_exitoso', {CONSECUTIVO: accion.element.Numero_Solicitud})).then((result) => {
+  //           this.router.navigateByUrl('pages/solicitudesgiros/lista');
+  //         });
+  //         return SolicitudesgirosActions.cargarSolicitudGiro({
+  //           SolicitudGiro: ((data && data.Data) ? data.Data : data)});
   //       }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
   //     })
   //   );
   // });
+
+  subirAutorizacionGiro$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SolicitudesgirosActions.subirAutorizacionGiro),
+      mergeMap((accion) =>
+      this.servicio.subirAutorizacionGiro(accion.element).
+      pipe(map(data =>{
+        this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.guardado_exitoso', {CONSECUTIVO: accion.element.Numero_Solicitud})).then((result) => {
+          this.router.navigateByUrl('pages/solicitudesgiros/lista');
+        });
+        return SolicitudesgirosActions.cargarSolicitudGiro({SolicitudGiro: data})
+      }), catchError(data => of(SolicitudesgirosActions.CatchError(data)))))
+    )
+  })
 
   actualizarAutorizacionGiro$ = createEffect(() => {
     return this.actions$.pipe(
@@ -66,12 +66,11 @@ export class SolicitudesgirosEffects {
         mergeMap((accion) => {
             return this.servicio.actualizarAutorizacionGiro(accion.id, accion.element)
             .pipe(map(data => {
-                this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso')).then((result) => {
+                this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.actualizacion_exitosa')).then((result) => {
                   if (accion.path === 'lista') window.location.reload();
                   else this.router.navigateByUrl('pages/solicitudesgiros/lista');
                 });
-                return SolicitudesgirosActions.cargarSolicitudesGiro({
-                  SolicitudesGiro: ((data && data.Data) ? data.Data : data)});
+                return SolicitudesgirosActions.cargarSolicitudGiro({SolicitudGiro: data});
             }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
         })
     );
@@ -83,7 +82,7 @@ export class SolicitudesgirosEffects {
       mergeMap((accion) => {
         return this.servicio.getAutorizacionGiro(accion.sortby, accion.order)
         .pipe(map(data => SolicitudesgirosActions.cargarSolicitudesGiro(
-            {SolicitudesGiro: ((data && data.Data) ? data.Data : data)})),
+            {SolicitudesGiro: data})),
             catchError(data => of(SolicitudesgirosActions.CatchError(data))));
       })
     );

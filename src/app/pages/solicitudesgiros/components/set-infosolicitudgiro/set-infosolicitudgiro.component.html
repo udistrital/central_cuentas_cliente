@@ -4,14 +4,14 @@
         <div class="row">
             <div class="col">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Información de la Solicitud
+                    {{ 'SOLICITUD_GIRO.info_solicitud' | translate}}
                 </h6>
             </div>
         </div>
         <!-- Campo: Elegir Concepto -->
         <div class="form-group row">
             <div class="col">
-                <label>Concepto</label>
+                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
                 <mat-select [disabled]="ver" class="form-control" placeholder="Seleccione..." formControlName="concepto" [class.is-invalid]="isInvalid('concepto')">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                         <mat-option *cdkVirtualFor="let concepto of conceptos" [value]="concepto">
@@ -19,18 +19,18 @@
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
-                <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
+                <small *ngIf="conceptoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <!-- Fin Campo: Elegir Concepto -->
         <!-- Campos: No. de Solicitud, Área funcional, fecha -->
         <div class="form-group row">
             <div class="col-md-3">
-                <label>No. Solicitud</label>
+                <label>{{ 'SOLICITUD_GIRO.numero_solicitud' | translate}}</label>
                 <input type="text" class="form-control" formControlName="numeroSolicitud" readonly>
             </div>
             <div class="col-md-4">
-                <label>{{ 'GLOBAL.unidad-ejecutora' | translate}}</label>
+                <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
                 <mat-select [disabled]="ver" class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
@@ -38,7 +38,7 @@
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
-                <small *ngIf="isInvalid('areaFuncional')" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
+                <small *ngIf="isInvalid('areaFuncional')" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <!-- Fin Campos: No. de Solicitud, Área funcional, fecha -->
@@ -52,14 +52,14 @@
         <div class="row">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Solicitante
+                    {{ 'GLOBAL.solicitante' | translate}}
                 </h6>
             </div>
         </div>
         <!-- Campo: Elegir tipo de id, numero de id -->
         <div class="form-group row">
             <div class="col-md-4">
-                <label>Tipo de ID</label>
+                <label>{{ 'MODIF.tipo_documento' | translate}}</label>
                 <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoId" [class.is-invalid]="isInvalid('tipoId')" [disabled]="true">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let tipoId of tiposID" [value]="tipoId">
@@ -67,29 +67,28 @@
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
-                <small *ngIf="isInvalid('tipoId')" class="text-danger">Complete este campo</small>
+                <small *ngIf="isInvalid('tipoId')" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
-                <label>Número de ID</label>
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
                 <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid" readonly>
-                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
+                <small *ngIf="numeroIdInvalid" class="text-danger">{{ 'GLOBAL.ingrese_numeros' | translate}}</small>
             </div>
         </div>
         <!-- Fin Campo: Elegir tipo de id, numero de id -->
         <!-- Campos: Nombres, Apellidos, Cargo -->
         <div class="form-group row">
             <div class="col-md-4">
-                <label>Nombres</label>
+                <label>{{ 'GLOBAL.nombres' | translate}}</label>
                 <input value="{{ datosID?.TerceroId?.PrimerNombre }} {{ datosID?.TerceroId?.SegundoNombre }}" type="text" class="form-control" formControlName="nombres" readonly>
             </div>
             <div class="col-md-4">
-                <label>Apellidos</label>
+                <label>{{ 'GLOBAL.apellidos' | translate}}</label>
                 <input value="{{ datosID?.TerceroId?.PrimerApellido }} {{ datosID?.TerceroId?.SegundoApellido }}" type="text" class="form-control" formControlName="apellidos" readonly>
             </div>
             <div class="col-md-4">
-                <label>Cargo</label>
+                <label>{{ 'GLOBAL.cargo' | translate}}</label>
                 <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid" readonly>
-                <small *ngIf="cargoInvalid" class="text-danger">Ingrese números en este campo</small>
             </div>
             <!-- Fin Campos: Nombres, Apellidos, Cargo -->
         </div>
@@ -101,14 +100,14 @@
                     <a href="#/pages/solicitudesgiros/lista">
                         <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
                             <div class="d-flex flex-row justify-content-around align-middle">
-                                <span>Volver a registros</span>
+                                <span>{{ 'SOLICITUD_GIRO.volver_registros' | translate}}</span>
                             </div>
                         </button>
                     </a>
                 </div>
                 <div class="col-md-6">
                     <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">
-                        Siguiente
+                        {{ 'GLOBAL.siguiente' | translate}}
                     </button>
                 </div>
             </div>

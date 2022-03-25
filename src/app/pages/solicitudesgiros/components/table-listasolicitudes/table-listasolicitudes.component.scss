@@ -33,23 +33,7 @@ table {
     background-color: rgb(243, 161, 9);
 }
 
-.mat-column-NumeroSolicitud {
-    border-right: 1px solid lightgray !important;
-}
-
-.mat-column-NombreBeneficiario {
-    border-right: 1px solid lightgray !important;
-}
-
-.mat-column-Fecha {
-    border-right: 1px solid lightgray !important;
-}
-
-.mat-column-Estado {
-    border-right: 1px solid lightgray !important;
-}
-
-.mat-column-estado {
+.mat-column-NumeroSolicitud, .mat-column-NombreBeneficiario, .mat-column-Fecha, .mat-column-Estado, .mat-column-estado {
     border-right: 1px solid lightgray !important;
 }
 

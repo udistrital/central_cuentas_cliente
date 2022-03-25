@@ -71,14 +71,6 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
             },
         ],
     },
-    // tableActions: [
-    //     {
-    //         name: 'nuevo',
-    //         icon: 'fas fa-plus py-1 px-2',
-    //         class: 'px-2',
-    //         title: 'Crear Nueva Solicitud',
-    //     }
-    // ],
     noData: {
         name: 'No Existen Elementos Asociados',
         class: 'text-center',
@@ -153,6 +145,17 @@ export const CONFIGURACION_DOCUMENTOS: any = {
         ],
     },
 };
+
+export const ACCIONES_EDI: string[] = [
+    'editar',
+    'revisar',
+    'ver'
+];
+
+export const ACCIONES_DISABLED: string[] = [
+    'revisar',
+    'ver'
+];
 
 export interface EstructuraArbolRubrosApropiaciones {
     Codigo: string;

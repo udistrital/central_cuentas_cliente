@@ -117,11 +117,11 @@ export class RequestManager {
    * @returns Observable<any>
    */
   post(endpoint, element) {
+    this.httpOptions.params = null;
     return this.http.post<any>(`${this.path}${endpoint}`, element, this.httpOptions).pipe(
       catchError(this.errManager.handleError),
       map(
         (res) => {
-
           if (res && res.hasOwnProperty('Body') && res['Type'] !== 'error') {
             return res['Body'];
           } else {

@@ -208,10 +208,6 @@ export class ShowResumensolicitudgiroComponent implements OnInit, OnDestroy {
     });
   }
 
-  // get motivoRechazoValid() {
-  //   return this.infoSolicitudGroup.get('cargo').invalid && this.infoSolicitudGroup.get('cargo').touched;
-  // }
-
   isInvalid(nombre: string) {
     const input = this.motivoRechazoGroup.get(nombre);
     if (input)

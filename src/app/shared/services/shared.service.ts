@@ -49,7 +49,7 @@ export class SharedService {
       rama: branch,
     };
     // call request manager for the tree's data.
-    return this.rqManager.get(`arbol_rubro/arbol/3`, params);
+    return this.rqManager.get(`arbol_rubro/arbol/${branch}`, params);
 
   }
 
@@ -202,6 +202,11 @@ export class SharedService {
       this.rqManager.setPath('CONSECUTIVOS_SERVICE');
       return this.rqManager.post('consecutivo', element);
     }
+
+    public getAutorizacionGiro(sortby: any, order: any, query: any) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2('autorizacion-giro/', null, query, null, sortby, order, null, null);
+  }
 
   /**
      * getScreenSize

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { getAccionTabla, getFilaSeleccionada, selectDocumentos, selectDocumentosDescarga, selectSolicitudesGiro, selectTiposDocumentos } from '../../../../shared/selectors/shared.selectors';
 import { loadSolicitudgiroSeleccionado, loadDocumentos } from '../../actions/solicitudesgiros.actions';
-import { CONFIGURACION_DOCUMENTOS } from '../../interfaces/interfaces';
+import { ACCIONES_DISABLED, ACCIONES_EDI, CONFIGURACION_DOCUMENTOS } from '../../interfaces/interfaces';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { subirDocumentos, LoadFilaSeleccionada, getDocumentos, getTiposDocumentos } from '../../../../shared/actions/shared.actions';
 import { ActivatedRoute } from '@angular/router';
@@ -38,6 +38,8 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   documentosValid: boolean;
   ver: boolean;
   flag: boolean;
+  acciones_edi: any;
+  acciones_disabled: any;
 
   constructor(private store: Store<any>,
     private fb: FormBuilder,
@@ -48,11 +50,11 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     this.datosDocumentos = [];
     this.configuracion = CONFIGURACION_DOCUMENTOS;
     this.createForm();
+    this.acciones_edi = ACCIONES_EDI;
+    this.acciones_disabled = ACCIONES_DISABLED;
     this.store.dispatch(getTiposDocumentos({query: {TipoParametroId__CodigoAbreviacion: 'DOC_SOAG'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
-      this.ver = true;
-    }
+    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion)
   }
 
   ngOnInit() {
@@ -86,7 +88,7 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     });
 
 
-    if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
+    if (this.acciones_edi.some(accion => accion === this.tituloAccion)) {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
           this.solicitudesGiro = accion.SolicitudesById;
@@ -131,9 +133,6 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   get documentosInvalid() {
     return this.documentosGroup.get('documentos').invalid && this.documentosGroup.get('documentos').touched;
   }
-  // get documentosValid() {
-  //   return this.documentosGroup.get('documentos').valid;
-  // }
 
   createForm() {
     this.documentosGroup = this.fb.group({
@@ -213,13 +212,15 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
       }];
       this.store.dispatch(subirDocumentos({element: documento}));
       this.subDocumentos$ = this.store.select(selectDocumentos).subscribe((accion) => {
-        if (accion && accion.DocumentosCarga) {
-          if (documento.length > 0) {
-            this.datosDocumentos.push({ nombreDocumento: this.documentosGroup.get('documentos').value.Nombre, nombreArchivo: documento[0].nombre, estado: 'Listo',
-            uid: accion.DocumentosCarga.res.Enlace});
-            accion.DocumentosCarga = null;
-            documento = [];
-          }
+        if (accion && accion.DocumentosCarga && documento.length > 0) {
+          this.datosDocumentos.push({
+            nombreDocumento: this.documentosGroup.get('documentos').value.Nombre,
+            nombreArchivo: documento[0].nombre,
+            estado: 'Listo',
+            uid: accion.DocumentosCarga.res.Enlace
+          });
+          accion.DocumentosCarga = null;
+          documento = [];
         }
       });
     }

@@ -48,3 +48,8 @@ export const cargarSolicitudesGiro = createAction(
   '[Solicitudes] Carga solicitudes de giro al store',
   props(),
 );
+
+export const cargarSolicitudGiro = createAction(
+  '[Solicitudes] Carga la solicitud de giro al store',
+  props(),
+);

@@ -2,10 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NbTreeGridDataSource, NbTreeGridRowComponent, NbTreeGridDataSourceBuilder, } from '@nebular/theme';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { getDatosID } from '../../../../shared/actions/shared.actions';
 import { getAccionTabla, getFilaSeleccionada } from '../../../../shared/selectors/shared.selectors';
 import { actualizarAutorizacionGiro, getSolicitudesGiro, loadSolicitudgiroSeleccionado } from '../../actions/solicitudesgiros.actions';
 import { CONFIGURACION_TABLAREGISTROS, EstructuraArbolRubrosApropiaciones } from '../../interfaces/interfaces';
@@ -51,6 +49,7 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.datosTabla = [];
+    this.subSolicitudesGiro$.unsubscribe();
   }
 
   ngOnInit() {
@@ -86,18 +85,18 @@ export class TableListasolicitudesComponent implements OnInit, OnDestroy {
 
   buildTable() {
     const tableArr: Element[] = [];
-    for (let index = 0; index < this.solicitudesGiro.length; index++) {
+    this.solicitudesGiro.forEach(elemento => {
       const element: Element = {
-        NumeroSolicitud: this.solicitudesGiro[index].Numero_Solicitud,
-        NombreBeneficiario: this.solicitudesGiro[index].Nombre_Beneficiario,
-        Fecha: this.datePipe.transform(this.solicitudesGiro[index].Fecha_creacion, 'dd-MM-yyyy'),
-        Estado: this.solicitudesGiro[index].Estado,
+        NumeroSolicitud: elemento.Numero_Solicitud,
+        NombreBeneficiario: elemento.Nombre_Beneficiario,
+        Fecha: this.datePipe.transform(elemento.Fecha_creacion, 'dd-MM-yyyy'),
+        Estado: elemento.Estado,
         estado: true,
-        Id: this.solicitudesGiro[index]._id,
+        Id: elemento._id,
         acciones: ''
       };
       tableArr.push(element);
-    }
+    });
     this.dataSource = new MatTableDataSource(tableArr);
     this.dataSource.paginator = this.paginator;
   }

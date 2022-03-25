@@ -119,7 +119,7 @@ export class SharedEffects {
       mergeMap((accion) => {
         return this.sharedService.cargarDocumentos(accion.element)
         .pipe(map(data => {
-          this.popupManager.showSuccessAlert(this.translate.instant('CUENTA_BANCARIA.guardado_exitoso'));
+          this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.carga_documentos_exitosa'));
           return SharedActions.cargarDocumentos({
             DocumentosCarga: (data && data.Data ? data.Data : data)}
           );
@@ -188,6 +188,18 @@ export class SharedEffects {
             Consecutivos: (data && data.Data ? data.Data : data)}
           );
         }), catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getSolicitudesGiro$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getSolicitudesGiro),
+      mergeMap((accion) => {
+        return this.sharedService.getAutorizacionGiro(accion.sortby, accion.order, accion.query)
+        .pipe(map(data => SharedActions.cargarSolicitudesGiro(
+            {SolicitudesGiroShared: ((data && data.Data) ? data.Data : data)})),
+            catchError(data => of(SharedActions.CatchError(data))));
       })
     );
   });

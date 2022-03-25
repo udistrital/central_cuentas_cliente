@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
             <h5 class="card-title text-center text-primary">
-                CREAR SOLICITUD DE AUTORIZACIÓN DE GIRO
+                {{ 'SOLICITUD_GIRO.crear_solicitud' | translate}}
             </h5>
         </div>
     </div>
@@ -12,7 +12,7 @@
             <mat-horizontal-stepper [linear]="true" #stepper>
                 <!-- Paso 1: Inicio (información de solicitud y solicitante) -->
                 <mat-step [stepControl]="infoSolicitudGroup">
-                    <ng-template matStepLabel>Inicio</ng-template>
+                    <ng-template matStepLabel>{{ 'MENU.dashboard' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-infosolicitudgiro></ngx-set-infosolicitudgiro>
                     </div>
@@ -20,7 +20,7 @@
                 <!-- Fin de Información de solicitud y solicitante -->
                 <!-- Paso 2: Documentos (Cargar documentos de la solicitud de giro) -->
                 <mat-step [stepControl]="documentosGroup">
-                    <ng-template matStepLabel>Documentos</ng-template>
+                    <ng-template matStepLabel>{{ 'GLOBAL.documentos' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-cargardocumentos></ngx-set-cargardocumentos>
                     </div>
@@ -28,7 +28,7 @@
                 <!-- Fin de Carga de Documentos -->
                 <!-- Paso 3: Autorización de solicitud de giro -->
                 <mat-step [stepControl]="autorizacionGroup">
-                    <ng-template matStepLabel>Autorización</ng-template>
+                    <ng-template matStepLabel>{{ 'GLOBAL.autorizacion' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-autorizaciongiro></ngx-set-autorizaciongiro>
                     </div>
@@ -36,7 +36,7 @@
                 <!-- Fin de Autorización de solicitud de giro -->
                 <!-- Paso 4: Resumen de Solicitud de giro -->
                 <mat-step [stepControl]="resumenSolicitudGroup">
-                    <ng-template matStepLabel>Guardar</ng-template>
+                    <ng-template matStepLabel>{{ 'GLOBAL.guardar' | translate}}</ng-template>
                     <div class="container">
                         <ngx-show-resumensolicitudgiro></ngx-show-resumensolicitudgiro>
                     </div>

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 bg-white py-3">
             <h5 class="card-title text-center text-primary">
-                REGISTRO DE SOLICITUDES DE AUTORIZACIÓN DE GIROS
+                {{ 'SOLICITUD_GIRO.registro_solicitud' | translate}}
             </h5>
         </div>
     </div>
@@ -13,7 +13,7 @@
                     <div class="d-flex flex-row justify-content-around align-middle">
                         <i class="fas fa-plus py-1 px-2"></i>
                         <span>
-                            Crear Nueva Solicitud de Giro
+                            {{ 'SOLICITUD_GIRO.crear_nueva_solicitud' | translate}}
                         </span>
                     </div>
                 </button>
@@ -21,12 +21,6 @@
         </div>
     </div>
     <div class="row">
-        <!-- <div class="col-md-12 bg-white px-4 pb-3">
-            <ngx-general-table [config]="configuracion" [datos]="datosTabla"></ngx-general-table>
-        </div> -->
-        <!-- <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Campo de búsqueda">
-        </mat-form-field> -->
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="{{column.key}}" *ngFor="let column of columnNames">
                 <th mat-header-cell *matHeaderCellDef> {{column.title.name}}</th>

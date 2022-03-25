@@ -6,6 +6,7 @@ import { getDatosID, obtenerRubro } from '../../../../shared/actions/shared.acti
 import { combineLatest } from 'rxjs';
 import { loadAutorizaciongiro } from '../../actions/solicitudesgiros.actions';
 import { ActivatedRoute } from '@angular/router';
+import { ACCIONES_DISABLED, ACCIONES_EDI } from '../../interfaces/interfaces';
 
 
 @Component({
@@ -33,18 +34,18 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
   rubroSeleccionado: any;
   ver: boolean;
   flag: boolean;
+  acciones_edi: any;
+  acciones_disabled: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute) {
     this.createForm();
     this.tiposID = [];
+    this.acciones_edi = ACCIONES_EDI
+    this.acciones_disabled = ACCIONES_DISABLED
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
-      this.ver = true;
-    } else {
-      this.ver = false;
-    }
+    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion)
   }
 
   ngOnInit() {
@@ -75,7 +76,8 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
       if (this.autorizacionGroup.valid)
         this.store.dispatch(loadAutorizaciongiro({ autorizaciongiro: valor }));
     });
-    if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
+
+    if (this.acciones_edi.some(accion => accion === this.tituloAccion)) {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
           this.solicitudesGiro = accion.SolicitudesById;
@@ -93,7 +95,6 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
     this.subscriptionDatosId$.unsubscribe();
     this.subscriptionfilter$.unsubscribe();
     this.subscriptionCambios$.unsubscribe();
-    this.subRubroVer$.unsubscribe();
     this.rubroSeleccionado = null;
   }
 
@@ -113,7 +114,7 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
       this.subscriptionTipoId$ = this.store.select(selectTiposID).subscribe((action) => {
         if (action && action[0]) {
           this.tiposID = action[0];
-          if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') this.subRubro();
+          if (this.acciones_edi.some(accion => accion === this.tituloAccion)) this.subRubro();
         }
       });
     }

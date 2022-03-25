@@ -2,19 +2,19 @@
     <!-- Grupo: Información del Beneficiario -->
     <div class="container">
         <div class="row px-3 pb-2">
-            <h6>Autorización a la Tesorería en general a girar a favor de:</h6>
+            <h6>{{ 'SOLICITUD_GIRO.autorizacion_tesoreria_giro' | translate}}</h6>
         </div>
         <div class="row">
             <div class="col">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Datos del Beneficiario
+                    {{ 'SOLICITUD_GIRO.datos_beneficiario' | translate}}
                 </h6>
             </div>
         </div>
         <!-- Campos: Tipo de ID, Número de ID, Nombre -->
         <div class="form-group row">
             <div class="col-md-6">
-                <label>Tipo de ID</label>
+                <label>{{ 'MODIF.tipo_documento' | translate}}</label>
                 <mat-select [disabled]="ver" class="form-control" placeholder="Seleccione..." formControlName="tipoId" [class.is-invalid]="isInvalid('tipoId')">
                     <cdk-virtual-scroll-viewport itemSize="12" minBufferPx="50" maxBufferPx="100" class="vs-viewport">
                         <mat-option *cdkVirtualFor="let tipoId of tiposID" [value]="tipoId">
@@ -22,17 +22,17 @@
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
-                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccionar</small>
+                <small *ngIf="tipoIdInvalid" class="text-danger">{{ 'GLOBAL.seleccionar' | translate}}</small>
             </div>
             <div class="col-md-6">
-                <label>Número de ID</label>
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
                 <input type="number" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid" [readonly]="ver">
-                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
+                <small *ngIf="numeroIdInvalid" class="text-danger">{{ 'GLOBAL.ingrese_numeros' | translate}}</small>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-12">
-                <label>Nombre (persona o entidad)</label>
+                <label>{{ 'SOLICITUD_GIRO.nombre_per_ent' | translate}}</label>
                 <input value="{{ datosID?.TerceroId?.NombreCompleto }}" type="text" class="form-control" formControlName="nombreBeneficiario" readonly>
             </div>
         </div>
@@ -47,18 +47,18 @@
         <div class="row">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Información Presupuestal
+                    {{ 'GLOBAL.info_presupuestal' | translate}}
                 </h6>
             </div>
         </div>
         <div class="form-group row">
             <!-- Boton : Elegir código del rubro -->
             <div class="col-md-6 py-4">
-                <p class="text-center">Seleccione el rubro para continuar</p>
+                <p class="text-center">{{ 'GLOBAL.rubro_continuar' | translate}}</p>
                 <div class="row px-2 py-2 justify-content-md-center">
                     <button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalRubro" [disabled]="ver">
                         <i class="fas fa-plus pr-3"></i>
-                        <span>Seleccionar Rubro</span>
+                        <span>{{ 'GLOBAL.rubro_seleccionar' | translate}}</span>
                     </button>
                 </div>
             </div>
@@ -66,15 +66,15 @@
             <div class="col-md-6">
                 <!-- Campo: mostrar código del rubro -->
                 <div class="row px-3 py-3">
-                    <label>Código del Rubro</label>
+                    <label>{{ 'GLOBAL.codigo_rubro' | translate}}</label>
                     <input value="{{autorizacionGroup.get('rubroSeleccionado').value ?
                     autorizacionGroup.get('rubroSeleccionado').value.data.Codigo: ''}}" type="text" class="form-control" formControlName="rubroSeleccionado" [class.is-invalid]="rubroInvalid" readonly>
-                    <small *ngIf="rubroInvalid" class="text-danger">Debe seleccionar un rubro</small>
+                    <small *ngIf="rubroInvalid" class="text-danger">{{ 'GLOBAL.debe_rubro' | translate}}</small>
                 </div>
                 <!-- Fin Campo: mostrar código del rubro -->
                 <!-- Campo:  mostrar nombre del rubro -->
                 <div class="row px-3">
-                    <label>Nombre del Rubro</label>
+                    <label>{{ 'GLOBAL.nombre_rubro' | translate}}</label>
                     <span class="form-control overflow">
                         {{autorizacionGroup.get('rubroSeleccionado').value ?
                         autorizacionGroup.get('rubroSeleccionado').value.data.Nombre: ''}}
@@ -86,14 +86,14 @@
         <!-- Campos: Valor en letras y/o números -->
         <div class="form-group row">
             <div class="col-md-6">
-                <label>Valor en Letras</label>
+                <label> {{ 'GLOBAL.valor_letras' | translate}}</label>
                 <input type="text" class="form-control" formControlName="valorLetras" [class.is-invalid]="valorLetrasInvalid" [readonly]="ver">
-                <small *ngIf="valorLetrasInvalid" class="text-danger">Complete este campo</small>
+                <small *ngIf="valorLetrasInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-6">
                 <label for="valorNumero">Valor en Números</label>
                 <input currencyMask min="0.0" class="form-control" formControlName="valorNumero" [class.is-invalid]="valorNumeroInvalid" [readonly]="ver">
-                <small *ngIf="valorNumeroInvalid" class="text-danger">Ingrese números en este campo</small>
+                <small *ngIf="valorNumeroInvalid" class="text-danger">{{ 'GLOBAL.ingrese_numeros' | translate}}</small>
             </div>
         </div>
         <!-- Fin Campos: Valor en letras y/o números -->
@@ -104,10 +104,10 @@
     <div class="container">
         <div class="row pt-2 text-center">
             <div class="col-md-6">
-                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
             </div>
             <div class="col-md-6 form-group">
-                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">{{ 'GLOBAL.siguiente' | translate}}</button>
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalRubroLabel">Seleccionar Rubro</h5>
+                <h5 class="modal-title" id="ModalRubroLabel">{{ 'GLOBAL.rubro_seleccionar' | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,8 +128,8 @@
                 <ngx-arbol-rubro></ngx-arbol-rubro>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary text-white" data-dismiss="modal">Continuar</button>
+                <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary text-white" data-dismiss="modal">{{ 'GLOBAL.continuar' | translate}}</button>
             </div>
         </div>
     </div>

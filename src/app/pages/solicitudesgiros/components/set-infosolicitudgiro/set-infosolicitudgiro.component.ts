@@ -7,6 +7,8 @@ import { combineLatest } from 'rxjs';
 import { loadInfosolicitudgiro } from '../../actions/solicitudesgiros.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../../@core/data/users.service';
+import { ACCIONES_DISABLED, ACCIONES_EDI } from '../../interfaces/interfaces';
 
 
 @Component({
@@ -34,22 +36,25 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   subSolicitudesGiro$: any;
   solicitudesGiro: any;
   ver: boolean;
+  acciones_edi: any;
+  acciones_disabled: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService) {
     this.createForm();
     this.tiposID = [];
+    this.acciones_edi = ACCIONES_EDI;
+    this.acciones_disabled = ACCIONES_DISABLED;
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
-      this.ver = true;
-    }
+    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion)
   }
 
   ngOnInit() {
-    this.info_token = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])));
+    this.info_token = this.userService.getTokenData();
     if (this.info_token) {
       this.rol = this.info_token.role.includes('SUPERVISOR');
       if (this.rol) {
@@ -74,7 +79,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') {
+    if (this.acciones_edi.some(accion => accion === this.tituloAccion)) {
       this.store.dispatch(getSolicitudesById({id: this.activatedRoute.snapshot.url[1].path}));
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
@@ -91,7 +96,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       if (this.infoSolicitudGroup.valid)
         this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: valor }));
     });
-
     this.conceptosSolicitud();
   }
 
@@ -99,7 +103,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
       if (accion && accion.Conceptos) {
         this.conceptos = accion.Conceptos;
-        if (this.tituloAccion === 'editar' || this.tituloAccion === 'revisar' || this.tituloAccion === 'ver') this.setSolicitudesGiro();
+        if (this.acciones_edi.some(accion => accion === this.tituloAccion)) this.setSolicitudesGiro();
       }
     });
   }
