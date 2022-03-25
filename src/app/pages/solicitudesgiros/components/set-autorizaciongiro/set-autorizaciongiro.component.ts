@@ -42,10 +42,10 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute) {
     this.createForm();
     this.tiposID = [];
-    this.acciones_edi = ACCIONES_EDI
-    this.acciones_disabled = ACCIONES_DISABLED
+    this.acciones_edi = ACCIONES_EDI;
+    this.acciones_disabled = ACCIONES_DISABLED;
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion)
+    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion);
   }
 
   ngOnInit() {

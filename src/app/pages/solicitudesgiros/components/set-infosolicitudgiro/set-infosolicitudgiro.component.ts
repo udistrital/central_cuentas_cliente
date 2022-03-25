@@ -50,7 +50,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion)
+    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion);
   }
 
   ngOnInit() {
@@ -103,7 +103,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
       if (accion && accion.Conceptos) {
         this.conceptos = accion.Conceptos;
-        if (this.acciones_edi.some(accion => accion === this.tituloAccion)) this.setSolicitudesGiro();
+        if (this.acciones_edi.some(accion1 => accion1 === this.tituloAccion)) this.setSolicitudesGiro();
       }
     });
   }
