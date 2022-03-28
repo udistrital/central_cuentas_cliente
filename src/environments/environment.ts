@@ -19,14 +19,6 @@ export const environment = {
     GESTOR_DOCUMENTAL_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/gestor_documental_mid/v1/',
     CONSECUTIVOS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/consecutivos_crud/v1/',
     CENTRAL_CUENTAS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/central_cuentas_crud/v1/',
-    KNOWAGE: {
-        PROTOCOL: 'https',
-        HOST: 'tuleap.udistrital.edu.co',
-        PORT: '',
-        CONTEXTPATH: 'knowage',
-        USER: 'bidev',
-        PASSWORD: 'bidev',
-    },
     TOKEN: {
         AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
         CLIENTE_ID: 'e36v1MPQk2jbz9KM4SmKhk8Cyw0a',
