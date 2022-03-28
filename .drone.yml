@@ -155,6 +155,7 @@ steps:
     - push
 
 - name: notify_telegram
+  failure: ignore
   image: appleboy/drone-telegram
   settings:
     token:
@@ -173,36 +174,6 @@ steps:
         <b>Repo:</b><code>{{repo.name}}</code> <b>Branch:</b> <code>{{commit.branch}}</code>
         <b>Commit:</b> <a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
         <b>Autor:</b>{{commit.author}} <code>&#128549 </code>
-      {{/success}}
-  when:
-    branch:
-    - develop
-    - hotfix/*
-    - master
-    - release/*
-    event:
-    - push
-    status:
-    - failure
-    - success
-
-- name: notify_slack
-  image: plugins/slack
-  settings:
-    webhook:
-      from_secret: slack_webhook
-    channel: deploy
-    template: >
-      {{#success build.status}}
-        :heavy_check_mark:  <{{ build.link }}|SUCCESS> Build #{{build.number}}
-        type: {{ build.event }} - Repo: {{repo.name}}
-        Commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}>
-        Branch: {{build.branch}} - Autor: {{build.author}}  :sunglasses:
-      {{else}}
-        :x: <{{ build.link }}|FAILURE> Build #{{build.number}}
-        type: {{ build.event }} - Repo: {{repo.name}}
-        Branch: {{build.branch}} - Autor: {{build.author}} :weary:
-        Commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}>
       {{/success}}
   when:
     branch:
