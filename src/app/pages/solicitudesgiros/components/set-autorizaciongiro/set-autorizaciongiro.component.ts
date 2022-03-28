@@ -34,18 +34,14 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
   rubroSeleccionado: any;
   ver: boolean;
   flag: boolean;
-  acciones_edi: any;
-  acciones_disabled: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute) {
     this.createForm();
     this.tiposID = [];
-    this.acciones_edi = ACCIONES_EDI;
-    this.acciones_disabled = ACCIONES_DISABLED;
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion);
+    this.ver = ACCIONES_DISABLED.some(accion => accion === this.tituloAccion);
   }
 
   ngOnInit() {
@@ -77,7 +73,7 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadAutorizaciongiro({ autorizaciongiro: valor }));
     });
 
-    if (this.acciones_edi.some(accion => accion === this.tituloAccion)) {
+    if (ACCIONES_EDI.some(accion => accion === this.tituloAccion)) {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
           this.solicitudesGiro = accion.SolicitudesById;
@@ -114,7 +110,7 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
       this.subscriptionTipoId$ = this.store.select(selectTiposID).subscribe((action) => {
         if (action && action[0]) {
           this.tiposID = action[0];
-          if (this.acciones_edi.some(accion => accion === this.tituloAccion)) this.subRubro();
+          if (ACCIONES_EDI.some(accion => accion === this.tituloAccion)) this.subRubro();
         }
       });
     }

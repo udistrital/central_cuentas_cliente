@@ -36,8 +36,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   subSolicitudesGiro$: any;
   solicitudesGiro: any;
   ver: boolean;
-  acciones_edi: any;
-  acciones_disabled: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -45,12 +43,10 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     private userService: UserService) {
     this.createForm();
     this.tiposID = [];
-    this.acciones_edi = ACCIONES_EDI;
-    this.acciones_disabled = ACCIONES_DISABLED;
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion);
+    this.ver = ACCIONES_DISABLED.some(accion => accion === this.tituloAccion);
   }
 
   ngOnInit() {
@@ -79,7 +75,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (this.acciones_edi.some(accion => accion === this.tituloAccion)) {
+    if (ACCIONES_EDI.some(accion => accion === this.tituloAccion)) {
       this.store.dispatch(getSolicitudesById({id: this.activatedRoute.snapshot.url[1].path}));
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
@@ -103,7 +99,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
       if (accion && accion.Conceptos) {
         this.conceptos = accion.Conceptos;
-        if (this.acciones_edi.some(accion1 => accion1 === this.tituloAccion)) this.setSolicitudesGiro();
+        if (ACCIONES_EDI.some(accion1 => accion1 === this.tituloAccion)) this.setSolicitudesGiro();
       }
     });
   }

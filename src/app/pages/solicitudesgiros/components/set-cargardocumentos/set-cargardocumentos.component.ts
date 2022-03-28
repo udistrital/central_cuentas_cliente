@@ -38,8 +38,6 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   documentosValid: boolean;
   ver: boolean;
   flag: boolean;
-  acciones_edi: any;
-  acciones_disabled: any;
 
   constructor(private store: Store<any>,
     private fb: FormBuilder,
@@ -50,11 +48,9 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     this.datosDocumentos = [];
     this.configuracion = CONFIGURACION_DOCUMENTOS;
     this.createForm();
-    this.acciones_edi = ACCIONES_EDI;
-    this.acciones_disabled = ACCIONES_DISABLED;
     this.store.dispatch(getTiposDocumentos({query: {TipoParametroId__CodigoAbreviacion: 'DOC_SOAG'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    this.ver = this.acciones_disabled.some(accion => accion === this.tituloAccion);
+    this.ver = ACCIONES_DISABLED.some(accion => accion === this.tituloAccion);
   }
 
   ngOnInit() {
@@ -88,7 +84,7 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     });
 
 
-    if (this.acciones_edi.some(accion => accion === this.tituloAccion)) {
+    if (ACCIONES_EDI.some(accion => accion === this.tituloAccion)) {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
           this.solicitudesGiro = accion.SolicitudesById;

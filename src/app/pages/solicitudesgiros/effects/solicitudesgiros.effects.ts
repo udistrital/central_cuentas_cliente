@@ -30,22 +30,6 @@ export class SolicitudesgirosEffects {
     );
   });
 
-  // subirAutorizacionGiro$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(SolicitudesgirosActions.subirAutorizacionGiro),
-  //     mergeMap((accion) => {
-  //       return this.servicio.subirAutorizacionGiro(accion.element)
-  //       .pipe(map(data => {
-  //         this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.guardado_exitoso', {CONSECUTIVO: accion.element.Numero_Solicitud})).then((result) => {
-  //           this.router.navigateByUrl('pages/solicitudesgiros/lista');
-  //         });
-  //         return SolicitudesgirosActions.cargarSolicitudGiro({
-  //           SolicitudGiro: ((data && data.Data) ? data.Data : data)});
-  //       }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
-  //     })
-  //   );
-  // });
-
   subirAutorizacionGiro$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SolicitudesgirosActions.subirAutorizacionGiro),
