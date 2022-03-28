@@ -6,9 +6,6 @@
 export const environment = {
 
     production: false,
-    NUXEO: {
-        PATH: 'https://documental.udistrital.edu.co/nuxeo/',
-    },
     CLIENTE_PRESUPUESTO: '/pages/plan-cuentas',
     CLIENTE_CONTABILIDAD: 'https://pruebascontabilidad.portaloas.udistrital.edu.co/pages',
     WSO2_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/',
@@ -17,14 +14,11 @@ export const environment = {
     TERCEROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/terceros_crud/v1/',
     CONFIGURACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
     CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
-    KNOWAGE: {
-        PROTOCOL: 'https',
-        HOST: 'tuleap.udistrital.edu.co',
-        PORT: '',
-        CONTEXTPATH: 'knowage',
-        USER: 'bidev',
-        PASSWORD: 'bidev',
-    },
+    PARAMETROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/',
+    DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
+    GESTOR_DOCUMENTAL_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/gestor_documental_mid/v1/',
+    CONSECUTIVOS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/consecutivos_crud/v1/',
+    CENTRAL_CUENTAS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/central_cuentas_crud/v1/',
     TOKEN: {
         AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
         CLIENTE_ID: 'e36v1MPQk2jbz9KM4SmKhk8Cyw0a',

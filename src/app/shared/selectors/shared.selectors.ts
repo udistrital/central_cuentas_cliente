@@ -49,6 +49,26 @@ export const selectVigencias = createSelector(
   (state: fromShared.State) => state.Vigencias
 );
 
+export const selectConceptos = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Conceptos
+);
+
+export const selectDocumentos = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.DocumentosCarga
+);
+
+export const selectDocumentosDescarga = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.DocumentosDescarga
+);
+
+export const selectSolicitudesGiro = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.SolicitudesGiro
+);
+
 export const selectVigenciasNoFuturas = createSelector(
   selectSharedState,
   (state: fromShared.State) => {
@@ -57,4 +77,24 @@ export const selectVigenciasNoFuturas = createSelector(
         vigencia => vigencia.estado !== 'Futura');
     return state.Vigencias;
   }
+);
+
+export const getRubro = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Rubro
+);
+
+export const selectTiposDocumentos = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.TiposDocumentos
+);
+
+export const selectProcesoConfiguracion = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Proceso
+);
+
+export const selectConsecutivo = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Consecutivo
 );

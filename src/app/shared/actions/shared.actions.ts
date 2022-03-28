@@ -30,6 +30,11 @@ export const LoadNodoSeleccionado = createAction(
   props()
 );
 
+export const loadSolicitudGiroSeleccionada = createAction(
+  '[Shared] Load Solicitud Giro Seleccionada',
+  props()
+);
+
 // Fila Seleccionado
 
 export const LoadFilaSeleccionada = createAction(
@@ -114,4 +119,94 @@ export const getVigencias = createAction(
 export const loadVigencias = createAction(
   '[Shared] Load Vigencias',
   props()
+);
+
+export const getConceptos = createAction(
+  '[Shared] Obtiene conceptos del crud de parametros',
+  props<{ query?: any }>()
+);
+
+export const loadConceptos = createAction(
+  '[Shared] Carga los conceptos al store',
+  props()
+);
+
+export const subirDocumentos = createAction(
+  '[Shared] Subir documentos a nuxeo',
+  props<{ element: any }>()
+);
+
+export const cargarDocumentos = createAction(
+  '[Shared] Cargar documentos al store',
+  props()
+);
+
+export const descargarDocumentos = createAction(
+  '[Shared] Descargar documentos al store',
+  props()
+);
+
+export const getDocumentos = createAction(
+  '[Shared] Obtiene documentos del gestor documental',
+  props<{uid: string }>()
+);
+
+export const getSolicitudesById = createAction(
+  '[Shared] Obtiene las solicitudes de giro por id del crud',
+  props<{id: string}>()
+);
+
+export const cargarSolicitudesById = createAction(
+  '[Shared] Carga las solicitudes por id al store',
+  props()
+);
+
+export const obtenerRubro = createAction(
+  '[Shared] Obtener rubro por codigo desde el crud de plan cuentas',
+  props<{codRubro: any}>()
+);
+
+export const cargarRubro = createAction(
+  '[Shared] Cargar rubro al store',
+  props()
+);
+
+export const getTiposDocumentos = createAction(
+  '[Shared] Obtiene tipos de documentos para cargar soportes del crud de parametros',
+  props<{ query?: any }>()
+);
+
+export const loadTiposDocumentos = createAction(
+  '[Shared] Carga los tipos de documentos para cargar soportes al store',
+  props()
+);
+
+export const getProcesoConfiguracion = createAction(
+  '[Shared] Obtiene los procesos del crud de configuracion',
+  props<{ query?: any}>()
+);
+
+export const loadProcesoConfiguracion = createAction(
+  '[Shared] Carga los procesos al store',
+  props()
+);
+
+export const crearConsecutivo = createAction(
+  '[Shared] Crea el consecutivo',
+  props<{ element: any}> ()
+);
+
+export const loadConsecutivo = createAction(
+  '[Shared] Carga el consecutivo al store',
+  props()
+);
+
+export const getSolicitudesGiro = createAction(
+  '[Shared] Obtener solicitudes de giro del crud de central de cuentas',
+  props<{sortby: string[], order: string[], query?: any}>(),
+);
+
+export const cargarSolicitudesGiro = createAction(
+  '[Shared] Carga solicitudes de giro al store',
+  props(),
 );

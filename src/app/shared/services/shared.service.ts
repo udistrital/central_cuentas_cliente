@@ -65,6 +65,19 @@ export class SharedService {
   }
 
   /**
+   * Gets Conceptos
+   * @param query Query para traer conceptos
+   * @returns  Información de conceptos
+   */
+     public getConceptosCentralCuentas(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      const params = {
+        query: query,
+      };
+      return this.rqManager.getv2(`parametro`, null, query, null, null, null, 0);
+    }
+
+  /**
    * Gets TiposID
    * @returns  Tipos de identificacion de terceros
    */
@@ -75,7 +88,6 @@ export class SharedService {
     if (activo !== null && activo !== undefined)
       query = `Activo:${activo}`;
     const params = {
-      fields: 'Nombre,Id',
       query: query,
     };
     return this.rqManager.get('tipo_documento', params);
@@ -89,11 +101,18 @@ export class SharedService {
 
   public getDatosID(numero?: string, tipo?: number, limit?: number, fields?: string) {
     this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
-    const params = {
-      query : `Numero:${numero},TipoDocumentoId.Id:${tipo}`,
-      limit : limit ? limit : 1,
-      fields : fields ? fields : 'TerceroId'
-    };
+    let params = {};
+    if (tipo) {
+      params = {
+        query : `Numero:${numero},TipoDocumentoId.Id:${tipo}`,
+        limit : limit ? limit : 1,
+      };
+    } else {
+      params = {
+        query : `Numero:${numero}`,
+        limit : limit ? limit : 1,
+      };
+    }
     return this.rqManager.get('datos_identificacion', params);
   }
 
@@ -126,6 +145,67 @@ export class SharedService {
   public getVigencias() {
     this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
     return this.rqManager.get('vigencia/vigencias_total');
+  }
+
+  public cargarDocumentos(element: any) {
+    this.rqManager.setPath('GESTOR_DOCUMENTAL_SERVICE');
+    return this.rqManager.post('document/upload', element);
+  }
+
+    /**
+   * Gets Documentos
+   * @param uid uid del documento en nuxeo
+   * @returns  Documento
+   */
+     public getDocumentos(uid: string) {
+      this.rqManager.setPath('GESTOR_DOCUMENTAL_SERVICE');
+      return this.rqManager.getv2(`document/${uid}`, null, null, null, null, null, 0);
+    }
+
+    /**
+   * Gets Solicitudes by id
+   * @param id id de la solicitud de giro
+   * @returns  Documento
+   */
+     public getSolicitudesById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`autorizacion-giro/${id}`, null, null, null, null, null, 0);
+    }
+
+  /**
+   * Gets tipos Documentos
+   * @param query Query para traer los tipos de documentos para cargar soportes
+   * @returns  Información de tipos de documentos para cargar soportes
+   */
+     public getTiposDocumentos(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      const params = {
+        query: query,
+      };
+      return this.rqManager.getv2(`parametro`, null, query, null, null, null, 0);
+    }
+
+    /**
+   * Gets procesos Configuracion
+   * @param query Query para traer los procesos de configuracion
+   * @returns  Información de procesos de configuracion
+   */
+     public getProcesoConfiguracion(query: any) {
+      this.rqManager.setPath('CONFIGURACION_SERVICE');
+      const params = {
+        query: query,
+      };
+      return this.rqManager.getv2(`proceso`, null, query, null, null, null, 0);
+    }
+
+    public crearConsecutivo(element: any) {
+      this.rqManager.setPath('CONSECUTIVOS_SERVICE');
+      return this.rqManager.post('consecutivo', element);
+    }
+
+    public getAutorizacionGiro(sortby: any, order: any, query: any) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2('autorizacion-giro/', null, query, null, sortby, order, null, null);
   }
 
   /**
