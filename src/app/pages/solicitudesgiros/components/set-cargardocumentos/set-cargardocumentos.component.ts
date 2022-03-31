@@ -7,6 +7,7 @@ import { ACCIONES_DISABLED, ACCIONES_EDI, CONFIGURACION_DOCUMENTOS } from '../..
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { subirDocumentos, LoadFilaSeleccionada, getDocumentos, getTiposDocumentos } from '../../../../shared/actions/shared.actions';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
@@ -217,6 +218,15 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
           });
           accion.DocumentosCarga = null;
           documento = [];
+        } else if (!accion || !accion.DocumentosCarga) {
+          Swal.fire({
+            title: 'Por favor espera',
+            html: 'Cargando documento',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+            },
+        });
         }
       });
     }

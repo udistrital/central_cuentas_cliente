@@ -5,8 +5,9 @@
 </ng-container>
 
 <ng-container *ngIf="data">
-    <table [nbTreeGrid]="dataSource" nbSort (sort)="changeSort($event)" equalColumnsWidth>
-
+    <label class="search-label" for="search">{{buscar}}</label>
+    <input (ngModelChange)="filtros()" id="search" class="search-input" [(ngModel)]="filtro">
+    <table [nbTreeGrid]="dataSource" nbSort equalColumnsWidth>
         <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns" class="text-center bg-primary text-light"></tr>
         <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" ngxSelectedRow [myRow]="row" [selectedRow]="selectedTreeRow" (click)="onSelect(row)"></tr>
 

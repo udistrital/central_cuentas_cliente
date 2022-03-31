@@ -104,11 +104,13 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     });
   }
   setSolicitudesGiro() {
-    this.infoSolicitudGroup.patchValue({
-      concepto: this.conceptos[this.conceptos.findIndex((e: any) => e.Id === this.solicitudesGiro.Concepto)],
-      areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.solicitudesGiro.Area_Funcional)],
-      numeroSolicitud: this.solicitudesGiro.Numero_Solicitud
-    });
+    if (this.solicitudesGiro) {
+      this.infoSolicitudGroup.patchValue({
+        concepto: this.conceptos[this.conceptos.findIndex((e: any) => e.Id === this.solicitudesGiro.Concepto)],
+        areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.solicitudesGiro.Area_Funcional)],
+        numeroSolicitud: this.solicitudesGiro.Numero_Solicitud
+      });
+    }
   }
 
   ngOnDestroy(): void {
