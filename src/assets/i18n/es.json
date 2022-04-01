@@ -224,7 +224,9 @@
     "nombre_completo": "Nombre Completo",
     "cargo": "Cargo",
     "motivo_rechazo": "Motivo del rechazo",
-    "autorizacion": "Autorización"
+    "autorizacion": "Autorización",
+    "espera": "Por favor espera.",
+    "cargando_documento": "Cargando documento"
   },
   "SOLICITUD_GIRO": {
     "autorizacion_tesoreria_giro": "Autorización a la Tesorería en general a girar a favor de:",
