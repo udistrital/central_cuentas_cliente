@@ -7,6 +7,8 @@ import { ACCIONES_DISABLED, ACCIONES_EDI, CONFIGURACION_DOCUMENTOS } from '../..
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { subirDocumentos, LoadFilaSeleccionada, getDocumentos, getTiposDocumentos } from '../../../../shared/actions/shared.actions';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-set-cargardocumentos',
@@ -42,7 +44,8 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
   constructor(private store: Store<any>,
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
     ) {
     // Datos y configuracion de Tabla
     this.datosDocumentos = [];
@@ -217,6 +220,15 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
           });
           accion.DocumentosCarga = null;
           documento = [];
+        } else if (!accion || !accion.DocumentosCarga) {
+          Swal.fire({
+            title: this.translate.instant('GLOBAL.espera'),
+            html:  this.translate.instant('GLOBAL.cargando_documento'),
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+            },
+        });
         }
       });
     }

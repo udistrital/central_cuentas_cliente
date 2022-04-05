@@ -142,7 +142,7 @@
             </div>
             <div class="col-md-4">
                 <label>{{ 'GLOBAL.valor_numeros' | translate}}</label>
-                <input class="form-control" value="${{ autorizacionGiro?.valorNumero }}" readonly>
+                <input currencyMask min="0.0" class="form-control" formControlName="valorNumeros" readonly>
             </div>
         </div>
     </div>

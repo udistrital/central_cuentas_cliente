@@ -6,6 +6,7 @@ import { getArbolRubro, getNodoSeleccionado } from '../../selectors/shared.selec
 import { NbGetters, NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbTreeGridRowComponent } from '@nebular/theme';
 import { ParametricService } from '../../services/parametric.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-arbol-rubro',
@@ -30,6 +31,8 @@ export class ArbolRubroComponent implements OnInit, OnDestroy, OnChanges {
 
   subscription$: any;
   subscription2$: any;
+  filtro: string;
+  buscar: string;
 
   FuenteRecurso$: BehaviorSubject<any>;
 
@@ -37,7 +40,9 @@ export class ArbolRubroComponent implements OnInit, OnDestroy, OnChanges {
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>,
     private store: Store<any>,
     private parametric: ParametricService,
+    private translate: TranslateService,
   ) {
+    this.buscar = this.translate.instant('GLOBAL.buscar');
     this.FuenteRecurso$ = new BehaviorSubject(this.FuenteRecurso);
   }
 
@@ -82,12 +87,16 @@ export class ArbolRubroComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  changeSort(sortRequest: NbSortRequest): void {
-    this.dataSource.sort(sortRequest);
-    this.sortColumn = sortRequest.column;
-    this.sortDirection = sortRequest.direction;
+  filtros() {
+    if (this.filtro) {
+      const filter = String(this.filtro);
+      if (filter.length >= 6) {
+        this.dataSource.filter(this.filtro);
+      } else {
+        this.dataSource.filter('');
+      }
+    }
   }
-
   getDirection(column: string): NbSortDirection {
     if (column === this.sortColumn) {
       return this.sortDirection;
@@ -101,7 +110,6 @@ export class ArbolRubroComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onSelect(row: any) {
-
     this.store.dispatch(LoadNodoSeleccionado(row));
   }
 
