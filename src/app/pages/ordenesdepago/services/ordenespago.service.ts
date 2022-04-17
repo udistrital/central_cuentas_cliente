@@ -23,9 +23,9 @@ export class OrdenesPagoService {
         }));
     }
 
-    public getAutorizacionGiro(sortby: any, order: any) {
+    public getOrdenesPago(sortby: any, order: any) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return (this.rqManager.getv2('autorizacion-giro/', null, null, null, sortby, order, null, null)).pipe(map(data => {
+        return (this.rqManager.getv2('orden-pago/', null, null, null, sortby, order, null, null)).pipe(map(data => {
             return ((data && data.Data) ? data.Data : data);
         }));
     }

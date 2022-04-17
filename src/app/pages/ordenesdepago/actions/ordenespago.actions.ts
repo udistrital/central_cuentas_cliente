@@ -83,3 +83,14 @@ export const cargarOrdenesPago = createAction(
   '[OrdenesPago] Carga las ordenes de pago al store',
   props(),
 );
+
+export const cargarOrdenPago = createAction(
+  '[OrdenesPago] Carga las ordenes de pago al store',
+  props(),
+);
+
+
+export const getOrdenesPago = createAction(
+  '[OrdenesPago] Obtener ordenes de pago del crud de central de cuentas',
+  props<{sortby: string[], order: string[]}>(),
+);

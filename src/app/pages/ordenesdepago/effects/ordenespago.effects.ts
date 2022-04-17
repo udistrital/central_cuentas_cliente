@@ -40,8 +40,19 @@ export class OrdenespagoEffects {
         this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.guardado_exitoso')).then((result) => {
           this.router.navigateByUrl('pages/ordenespago/lista');
         });
-        return OrdenespagoActions.cargarOrdenesPago({OrdenPago: data});
+        return OrdenespagoActions.cargarOrdenPago({OrdenPago: data});
       }), catchError(data => of(OrdenespagoActions.CatchError(data)))))
+    );
+  });
+
+  getOrdenesPago$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(OrdenespagoActions.getOrdenesPago),
+      mergeMap((accion) => {
+        return this.servicio.getOrdenesPago(accion.sortby, accion.order)
+        .pipe(map(data => OrdenespagoActions.cargarOrdenesPago({OrdenesPago: data})),
+            catchError(data => of(OrdenespagoActions.CatchError(data))));
+      })
     );
   });
 

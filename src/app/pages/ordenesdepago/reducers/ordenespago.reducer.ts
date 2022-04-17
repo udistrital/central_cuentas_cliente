@@ -18,6 +18,7 @@ export interface State {
   InfoDatosBeneficiario: any;
   RP: any;
   OrdenPago: any;
+  OrdenesPago: any;
 }
 
 export const initialState: State = {
@@ -35,6 +36,7 @@ export const initialState: State = {
   InfoDatosBeneficiario: null,
   RP: null,
   OrdenPago: null,
+  OrdenesPago: null,
 };
 
 const ordenespagoReducer = createReducer(
@@ -80,8 +82,11 @@ const ordenespagoReducer = createReducer(
   on(OrdenespagoActions.loadRP, (state, action) => ({
     ...state, RP: state.RP = action
   })),
-  on(OrdenespagoActions.cargarOrdenesPago, (state, action) => ({
+  on(OrdenespagoActions.cargarOrdenPago, (state, action) => ({
     ...state, OrdenPago: state.OrdenPago = action
+  })),
+  on(OrdenespagoActions.cargarOrdenesPago, (state, action) => ({
+    ...state, OrdenesPago: state.OrdenesPago = action
   })),
 
 );

@@ -134,7 +134,6 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     }
 
   ngOnDestroy() {
-    this.susVigencias$.unsubscribe();
   }
 
   crearFormulario() {

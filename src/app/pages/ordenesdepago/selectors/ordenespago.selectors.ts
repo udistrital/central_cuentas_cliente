@@ -73,3 +73,8 @@ export const selectOrdenPago = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.OrdenPago
 );
+
+export const selectOrdenesPago = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.OrdenesPago
+);

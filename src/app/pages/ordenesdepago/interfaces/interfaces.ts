@@ -4,11 +4,11 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
         {
             key: 'NumeroOrden',
             title: {
-                name: 'No. de Órden',
+                name: 'No. de Órden Pago',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'center',
             }
         },
         {
@@ -18,7 +18,17 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
+            }
+        },
+        {
+            key: 'AutorizacionGiro',
+            title: {
+                name: 'Autorización de giro',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center',
             }
         },
         {
@@ -28,9 +38,19 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
+        {
+            key: 'acciones',
+            title: {
+                name: 'acciones',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'icons'
+            }
+        }
     ],
     rowActions: {
         title: {
@@ -441,6 +461,7 @@ export const DATOS_TIPO_CONVENIO: any = [
         tipo_convenio: 'CONTRATOS',
     }
 ];
+
 
 export const CONFIGURACION_TABLA_ESTADOS: any = {
     showColumnTitle: false,

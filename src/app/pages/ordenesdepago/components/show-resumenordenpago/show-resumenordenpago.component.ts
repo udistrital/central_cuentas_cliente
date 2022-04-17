@@ -60,7 +60,6 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy () {
-    this.subscriptionDatosAlmacenadosBeneficiario$.unsubscribe();
     this.subscriptionDatosBeneficiario$.unsubscribe();
     this.subscriptionDatosAlmacenadosCompromiso$.unsubscribe();
     this.subscriptionDatosCompromiso$.unsubscribe();
@@ -160,9 +159,10 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       Activo: true,
       AreaFuncional: this.datosBeneficiario.areaFuncional.Id,
       Consecutivo: this.datosBeneficiario.consecutivo,
-      SolicitudGiro: '',
+      SolicitudGiro: String(this.datosBeneficiario.solicitudGiro.NumeroSolicitud),
       Vigencia: this.datosBeneficiario.vigencia.valor,
       DocumentoBeneficiario: String(this.datosBeneficiario.numeroId),
+      NombreBeneficiario: this.datosBeneficiario.nombreBeneficiario,
       Compromiso: this.datosCompromiso.compromiso.Id,
       NumeroCompromiso: this.datosCompromiso.numeroCompromiso,
       Supervisor: this.datosCompromiso.supervisor,

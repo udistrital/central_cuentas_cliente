@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MatStepperModule, MatSelectModule, MatCheckboxModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatStepperModule, MatSelectModule, MatCheckboxModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatTableModule, MatIconModule, MatPaginatorModule } from '@angular/material';
 import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiario/set-datosbeneficiario.component';
 import { SetDatoscompromisoComponent } from './components/set-datoscompromiso/set-datoscompromiso.component';
 import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
@@ -44,6 +44,9 @@ import { SetImpuestosyretencionesComponent } from './components/set-impuestosyre
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule,
     StoreModule.forFeature(fromOrdenespago.ordenespagoFeatureKey, fromOrdenespago.reducer),
     EffectsModule.forFeature([OrdenespagoEffects])
   ]

@@ -57,7 +57,9 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     this.datosTableEstados = DATOS_ESTADOS;
     this.solicitudGiroSeleccionada$ = this.store.select(getSolicitudGiroSeleccionada).subscribe((solicitudGiro: any) => {
       if (solicitudGiro) {
-        const num = solicitudGiro.NumeroSolicitud;
+        this.datosBeneficiario.patchValue({
+          solicitudGiro: solicitudGiro
+        });
         this.solicGiro = solicitudGiro.NumeroSolicitud + ' - ' + solicitudGiro.NombreBeneficiario;
       }
     });
@@ -127,6 +129,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.susUnidadEjecutora$.unsubscribe();
+    this.subVigencias$.unsubscribe();
   }
 
   crearFormulario() {
