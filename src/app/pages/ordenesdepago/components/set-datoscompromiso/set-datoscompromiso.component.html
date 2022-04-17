@@ -2,56 +2,79 @@
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
         Datos del Compromiso
     </h6>
-    <div class="row">
-        <div class="col-md-6 form-group">
+    <div class="form-group row">
+        <div class="col-md-6">
             <label for="compromiso">Compromiso a pagar</label>
-            <select class="form-control" id="compromiso" formControlName="compromiso"
-                [class.is-invalid]="esInvalido('compromiso')">
-                <option>Opcion 1</option>
-                <option>Opcion 2</option>
-                <option>Opcion 3</option>
-            </select>
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="compromiso" [class.is-invalid]="isInvalid('compromiso')">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                    <mat-option *cdkVirtualFor="let tipoCompromiso of tiposCompromisos" [value]="tipoCompromiso">
+                        {{tipoCompromiso.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-4">
             <label for="numeroCompromiso">No. de Compromiso</label>
             <input type="number" class="form-control" id="numeroCompromiso" formControlName="numeroCompromiso"
                 [class.is-invalid]="esInvalido('numeroCompromiso')">
         </div>
     </div>
-    <div class="row border-top border-primary mx-1 my-3"></div>
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label for="noActa">No. Acta de Recibido</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroActa}}">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <label>Tipo de convenio</label>
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoConvenio" [class.is-invalid]="isInvalid('tipoConvenio')" (selectionChange)="consultarConvenios()">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let tipoConvenio of tiposConvenio" [value]="tipoConvenio">
+                        {{tipoConvenio.tipo_convenio}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
-        <div class="col-md-4 form-group">
-            <label for="noEntradaAlmacen">No. Entrada al Almacen</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroEntradaAlmacen}}">
+        <div class="col-md-9">
+            <label>Convenio</label>
+                <!-- <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport"> -->
+                    <input type="text" placeholder="{{convenio ? convenio.data.Nombre :'Seleccione...'}}" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                    class="form-control" formControlName="convenio">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let convenio of filteredOptions | async" [value]="convenio">
+                            {{convenio.data.Nombre}}
+                        </mat-option>
+                    </mat-autocomplete>
+                <!-- </cdk-virtual-scroll-viewport> -->
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label>No. Acta de Recibido</label>
+            <input class="form-control" placeholder="{{datosAlmacenadosCompromiso.numeroActa}}" formControlName="actaRecibido">
+        </div>
+        <div class="col-md-6">
+            <label>No. Entrada al Almacen</label>
+            <input class="form-control" formControlName="entradaAlmacen" disabled [value]="entradaAlmacen">
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="nombreInterventor">Nombre del Interventor</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="nombreInterventor" disabled placeholder="{{datosAlmacenadosCompromiso.nombreInterventor}}">
+            <label for="nombreInterventor">Nombre del Supervisor</label>
+            <input class="form-control" formControlName="supervisor" disabled>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="detalle">Detalle</label>
-            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" disabled placeholder="{{datosAlmacenadosCompromiso.detalle}}"></textarea>
+            <label >Detalle</label>
+            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" placeholder="{{datosAlmacenadosCompromiso.detalle}}" formControlName="detalle"></textarea>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 form-group">
-            <label for="vigencia">Vigencia</label>
-            <select class="form-control" id="vigencia" formControlName="vigencia"
-                [class.is-invalid]="esInvalido('vigencia')">
-                <option [ngValue]="vigencia" *ngFor="let vigencia of vigencias">{{vigencia?.valor}}</option>
-            </select>
-        </div>
         <div class="col-md-6 form-group">
             <label for="tipoOrden">Tipo de Orden de Pago</label>
-            <input id="tipoOrden" class="form-control" disabled value="{{vigenciaSeleccionada | tipoOrdenVigencia: vigenciaActual }}">
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoOrdenPago" [class.is-invalid]="isInvalid('tipoOrdenPago')">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let tipoOrdenPago of tiposOrdenesPago" [value]="tipoOrdenPago">
+                        {{tipoOrdenPago.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
     </div>
 

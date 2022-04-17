@@ -341,6 +341,53 @@ export const DATA_TREE_NODE: any = [
     },
 ];
 
+export const CONFIGURACION_TABLAREGISTROS: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'NumeroSolicitud',
+            title: {
+                name: 'No. de Solicitud',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center',
+            }
+        },
+        {
+            key: 'NombreBeneficiario',
+            title: {
+                name: 'Nombre del Beneficiario',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center',
+            }
+        }
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'ver',
+                icon: 'fas fa-eye',
+                class: 'p-2',
+                title: 'Ver Resumen de Solicitud',
+            },
+        ],
+    },
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    filter: true,
+};
+
 export const OPCIONES_AREA_FUNCIONAL = [
     {
         Id: 1,
@@ -354,3 +401,36 @@ export const OPCIONES_AREA_FUNCIONAL = [
     }
 
 ];
+
+export interface ArbolCuentasContables<L> {
+    Codigo?: string;
+    data?: L;
+    children?: ArbolCuentasContables<L>[];
+    expanded?: boolean;
+    Nivel: number;
+    Nombre: string;
+}
+
+export interface DatosNodoCuentaContable {
+    Codigo?: string;
+    Hijos?: any[];
+    Nivel: number;
+    Nombre: string;
+    Padre?: string;
+}
+
+export interface EstructuraArbolRubrosApropiaciones {
+    Codigo: string;
+    Descripcion?: string;
+    ValorInicial: number;
+    Hijos?: EstructuraArbolRubrosApropiaciones[];
+    Movimientos?: string[];
+    Padre?: string;
+    UnidadEjecutora: number;
+    Estado?: string;
+    IsLeaf: boolean;
+    expanded?: boolean;
+    isHighlighted?: boolean;
+    data?: EstructuraArbolRubrosApropiaciones;
+    children?: EstructuraArbolRubrosApropiaciones[];
+  }

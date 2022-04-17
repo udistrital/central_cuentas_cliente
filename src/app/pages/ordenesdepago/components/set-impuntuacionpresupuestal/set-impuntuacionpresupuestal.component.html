@@ -19,8 +19,8 @@
             </button>
         </div>
     </div>
-    <div class="collapse" id="collapseHistorialOrdenes">
-        <div class="container pt-2">
+    <div class="" id="collapseHistorialOrdenes">
+        <div class="container col-md-12">
             <ngx-general-table [config]="configTableHistorial" [datos]="datosTableHistorial"></ngx-general-table>
         </div>
     </div>
@@ -28,29 +28,33 @@
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="disponibilidad">Disponibilidad</label>
-            <select class="form-control" id="disponibilidad" formControlName="disponibilidad">
-                <option selected disabled>Elegir...</option>
-                <option value="111">111</option>
-                <option value="222">222</option>
-            </select>
+            <input type="text" class="form-control" formControlName="disponibilidad" [value]="cpd" disabled>
         </div>
         <div class="col-md-3 form-group">
             <label for="registro">Registro</label>
-            <select class="form-control" id="registro" formControlName="registro">
-                <option selected disabled>Elegir...</option>
-                <option value="123456">123456</option>
-                <option value="789001">789001</option>
-            </select>
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="crp" [class.is-invalid]="isInvalid('crp')" (selectionChange)="fijarCdp()">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let rp of rps" [value]="rp">
+                        {{rp.Consecutivo}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
         <div class="col-md-6 form-group">
             <label for="codigo">Código</label>
-            <input type="text" class="form-control" id="codigo" disabled>
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="codigo" [class.is-invalid]="isInvalid('codigo')" (selectionChange)="nombreRubro()">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let rubroCrp of rubrosCrp" [value]="rubroCrp">
+                        {{rubroCrp.FatherInfo._id}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" disabled>
+            <input type="text" class="form-control" formControlName="nombre" [value]="nombre" disabled>
         </div>
         <div class="col-md-4 form-group">
             <label for="valorAplicacion">Valor Aplicación (Gasto)</label>

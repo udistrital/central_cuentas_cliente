@@ -1,0 +1,82 @@
+.center {
+    text-align: center;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.left {
+    text-align: left;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding-left: 10px;
+}
+
+.icons {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-around;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.child {
+    height: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-header-row {
+    text-align: center;
+    background-color: rgb(243, 161, 9);
+}
+
+.mat-column-NumeroSolicitud {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-NombreBeneficiario {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-Fecha {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-Estado {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-estado {
+    border-right: 1px solid lightgray !important;
+}
+
+th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+mat-paginator {
+    width: 100%;
+}
+
+.mat-cell {
+    padding: 8px 8px 8px 0;
+}
+.mat-row:hover {
+    background-color: rgba(243, 161, 9, 0.562);
+}
+
+.mat-icon:hover {
+    color: rgb(243, 161, 9);
+}
+
+h5 {
+    text-transform: uppercase;
+}
+
+.highlight{
+    background: rgb(243, 161, 9); /* green */
+  }

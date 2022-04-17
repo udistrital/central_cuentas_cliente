@@ -81,17 +81,67 @@ export const DATOS_TABLAREGISTROS: any = [
         Estado: 'Elaborado',
     },
 ];
+export const DATOS_CONCEPTO_VALOR: any = [
+    {
+        codigoRubro: '',
+        metas: '',
+        actividades: '',
+        fuenteFinanciamiento: '',
+        rubroGasto: '',
+        valor: '0'
+    },
+];
 export const CONFIGURACION_CONCEPTO_VALOR: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'concepto',
+            key: 'codigoRubro',
             title: {
-                name: 'Concepto',
+                name: 'Codigo Rubro',
                 class: 'text-center',
             },
             pipe: {
                 class: '',
+            }
+        },
+        {
+            key: 'metas',
+            title: {
+                name: 'Metas',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'actividades',
+            title: {
+                name: 'actividades',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'fuenteFinanciamiento',
+            title: {
+                name: 'Fuente Financiamiento',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'rubroGasto',
+            title: {
+                name: 'Rubro Gasto (Producto)',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
             }
         },
         {
@@ -101,41 +151,29 @@ export const CONFIGURACION_CONCEPTO_VALOR: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
             }
         },
     ],
-    noData: {
-        name: 'No existen elementos asociados',
-        class: 'text-center',
-    },
-    sort: true,
 };
-export const DATOS_CONCEPTO_VALOR: any = [
-    {
-        concepto: '',
-        valor: ''
-    },
-    {
-        concepto: '',
-        valor: ''
-    }
-];
 export const CONFIGURACION_IMPUNTUACION: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'disponibilidad',
+            key: 'Disponibilidad',
             title: {
                 name: 'Disponibilidad',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'text-center align-middle',
             }
         },
         {
-            key: 'codigo',
+            key: 'Codigo',
             title: {
                 name: 'Código',
                 class: 'text-center',
@@ -145,17 +183,17 @@ export const CONFIGURACION_IMPUNTUACION: any = {
             }
         },
         {
-            key: 'registro',
+            key: 'Registro',
             title: {
                 name: 'Registro',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center align-middle',
             }
         },
         {
-            key: 'nombre',
+            key: 'Nombre',
             title: {
                 name: 'Nombre',
                 class: 'text-center',
@@ -165,7 +203,7 @@ export const CONFIGURACION_IMPUNTUACION: any = {
             }
         },
         {
-            key: 'valor',
+            key: 'Valor',
             title: {
                 name: 'Valor Aplicación (Gasto)',
                 class: 'text-center',
@@ -174,7 +212,7 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -210,64 +248,38 @@ export const CONFIGURACION_IMPUNTUACION: any = {
 };
 export const DATOS_IMPUNTUACION: any = [
     {
-        disponibilidad: '111',
-        codigo: '111-222-333',
-        registro: '123456',
-        nombre: 'Eventos Academicos',
-        valor: 3000000.00
+        Disponibilidad: '111',
+        Codigo: '111-222-333',
+        Registro: '123456',
+        Nombre: 'Eventos Academicos',
+        Valor: 3000000.00
     }
 ];
 export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'nombre',
+            key: 'Nombre',
             title: {
-                name: 'Nombre Retención',
+                name: 'Nombre',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
-            }
-        },
-        {
-            key: 'descuento',
-            title: {
-                name: 'Descuento',
-                class: 'text-center',
-            },
-            pipe: {
-                type: 'percent',
-                config: [
-                ],
                 class: 'text-center align-middle',
             }
         },
         {
-            key: 'base',
-            title: {
-                name: 'Base de Retención',
-                class: 'text-center',
-            },
-            pipe: {
-                type: 'currency',
-                config: [
-                ],
-                class: 'text-center align-middle',
-            }
-        },
-        {
-            key: 'codigo',
+            key: 'Codigo',
             title: {
                 name: 'Código Contable',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-justify align-middle',
             }
         },
         {
-            key: 'valor',
+            key: 'Valor',
             title: {
                 name: 'Valor',
                 class: 'text-center',
@@ -305,11 +317,101 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
 };
 export const DATOS_MOVIMIENTO_CONTABLE: any = [
     {
-        nombre: 'Valor Bruto',
-        descuento: '',
-        base: '',
-        codigo: '111-222-333',
-        valor: 3000000.00
+        Nombre: '',
+        Codigo: '',
+        Valor: 0
+    }
+];
+export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'Nombre',
+            title: {
+                name: 'Nombre',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Codigo',
+            title: {
+                name: 'Código Contable',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Base',
+            title: {
+                name: 'Base',
+                class: 'text-center',
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Descuento',
+            title: {
+                name: '% Descuento',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Valor',
+            title: {
+                name: 'Valor',
+                class: 'text-center',
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-center align-middle',
+            }
+        },
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'modificar',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Modificar',
+                idStep: 4
+            }
+        ],
+    },
+    noData: {
+        name: 'No existen elementos asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    maxHeight: 200
+};
+export const DATOS_IMPUESTOS_RETENCIONES: any = [
+    {
+        Nombre: '',
+        Codigo: '',
+        Base: 0,
+        Descuento: '',
+        Valor: 0,
     }
 ];
 export const DATOS_BENEFICIARIO: any = [
@@ -331,7 +433,14 @@ export const DATOS_COMPROMISO: any = [
     }
 ];
 
-
+export const DATOS_TIPO_CONVENIO: any = [
+    {
+        tipo_convenio: 'CONVENIOS',
+    },
+    {
+        tipo_convenio: 'CONTRATOS',
+    }
+];
 
 export const CONFIGURACION_TABLA_ESTADOS: any = {
     showColumnTitle: false,

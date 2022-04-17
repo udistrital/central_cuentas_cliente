@@ -5,6 +5,7 @@ import {SetDatoscompromisoComponent} from '../set-datoscompromiso/set-datoscompr
 import {SetImpuntuacionpresupuestalComponent} from '../set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
 import {SetMovimientocontableComponent} from '../set-movimientocontable/set-movimientocontable.component';
 import {ShowResumenordenpagoComponent} from '../show-resumenordenpago/show-resumenordenpago.component';
+import { SetImpuestosyretencionesComponent } from '../set-impuestosyretenciones/set-impuestosyretenciones.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -17,6 +18,7 @@ export class CrearOrdenpagoComponent implements OnInit {
   @ViewChild(SetDatoscompromisoComponent, {static: false}) setDatoscompromisoComponent: SetDatoscompromisoComponent;
   @ViewChild(SetImpuntuacionpresupuestalComponent, {static: false}) setImpuntuacionpresupuestalComponent: SetImpuntuacionpresupuestalComponent;
   @ViewChild(SetMovimientocontableComponent, {static: false}) setMovimientocontableComponent: SetMovimientocontableComponent;
+  @ViewChild(SetImpuestosyretencionesComponent, {static: false}) setImpuestosyretencionesComponent: SetImpuestosyretencionesComponent;
   @ViewChild(ShowResumenordenpagoComponent, {static: false}) showResumenordenpagoComponent: ShowResumenordenpagoComponent;
   tituloAccion: string;
 
@@ -38,6 +40,10 @@ export class CrearOrdenpagoComponent implements OnInit {
 
   get impuntuacionPresupuestalGroup() {
     return this.setDatosbeneficiarioComponent ? this.setImpuntuacionpresupuestalComponent.impuntuacionPresupuestal : this.fb.group({});
+  }
+
+  get impuestosGroup() {
+    return this.setDatosbeneficiarioComponent ? this.setImpuestosyretencionesComponent.impuestosYRetenciones : this.fb.group({});
   }
 
   get movimientoContableGroup() {

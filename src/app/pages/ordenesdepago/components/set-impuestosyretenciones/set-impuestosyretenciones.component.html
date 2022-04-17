@@ -1,0 +1,150 @@
+<form [formGroup]=impuestosYRetenciones>
+    <div class="row justify-content-end form-group">
+        <div class="col-md-2 d-flex align-items-center">
+            <i class="fas fa-question-circle m-2 ml-auto" data-toggle="tooltip" data-placement="bottom"
+                title="Concepto Cliente de Tesoreria"></i>
+            <label for="concepto" class="m-0">Concepto</label>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="isInvalid('conceptoContable')" [value]="concepto ? concepto.Nombre : ''" disabled>
+            </div>
+        </div>
+    </div>
+    <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
+        Retenciones a aplicar
+    </h6>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <label for="retencion">Retención</label>
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="retencion" [class.is-invalid]="isInvalid('retencion')" (selectionChange)="retencion()">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                    <mat-option *cdkVirtualFor="let retencion of retenciones" [value]="retencion">
+                        {{retencion.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
+        </div>
+    </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
+    <div class="row form-group">
+        <div class="col-md-2">
+            <label>% de Descuento</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="descuento" formControlName="porcentajeDescuento" disabled>
+                <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <label>No. Solicitud de orgen de giro</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <input class="form-control" formControlName="codigoContable" [class.is-invalid]="isInvalid('codigoContable')" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <label for="baseRetencion">Base de Retención</label>
+            <input currencyMask class="form-control" id="baseRetencion" formControlName="baseRetencion">
+        </div>
+        <div class="col-md-5">
+            <label for="valorDescuento">Valor de descuento</label>
+            <input class="form-control" id="valorDescuento" disabled value="{{valorDescuento|currency}}">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
+                <i class="fas fa-plus"></i> Agregar
+            </button>
+        </div>
+    </div>
+    <div class="container py-2 px-0">
+        <ngx-general-table [config]="configTableImpuestosRetenciones" [datos]="datosTableImpuestosRetenciones">
+        </ngx-general-table>
+    </div>
+
+    <ng-template #eliminarModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Borrar</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            ¿Desea borrar el registro?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
+        </div>
+    </ng-template>
+
+    <div class="row justify-content-between">
+        <div class="col-md-3">
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+        </div>
+        <div class="col-md-3 text-right">
+            <button mat-button matStepperNext type="submit" class="btn btn-success" (click)="cargarMovimiento()">
+                Siguiente
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="cuentaContableModal" tabindex="-1" role="dialog" aria-labelledby="cuentaContableModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cuentaContableModalLabel">{{ 'CONCEPTOS.seleccione_credito' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-arbol-cuentas-contables></ngx-arbol-cuentas-contables>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCuentaContable()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="conceptosModal" tabindex="-1" role="dialog" aria-labelledby="conceptosModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conceptosModalLabel">Elige el concepto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-conceptos></ngx-conceptos>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->
+

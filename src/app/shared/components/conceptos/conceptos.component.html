@@ -1,0 +1,34 @@
+<ng-container >
+<label class="search-label" for="search">buscar</label>
+    <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input" [(ngModel)]="searchValue">
+    <br>
+    <span *ngIf="!selectedNodeData" class="text-danger">seleccione concepto</span>
+    <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+        <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+        <tr #nebularTree class="table-row" [class.highlight]="validHighlight(row, nebularTree)"
+        (click)="onSelect(row, nebularTree);" nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"
+        [attr.data-picker]="row.data.Codigo"></tr>
+        <ng-container [nbTreeGridColumnDef]="customColumn">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+              {{ customColumn }}
+            </th>
+            <td class="aligned-code" nbTreeGridCell *nbTreeGridCellDef="let row">
+              <!-- <ngx-nb-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-nb-fs-icon> -->
+              <span *ngIf="row.hasChildren()" class="fas" [ngClass]="{
+                  'fa-chevron-down': row.expanded,
+                  'fa-chevron-right': !row.expanded
+                }" aria-hidden="true">
+              </span>{{ row.data[customColumn] }}
+            </td>
+        </ng-container>
+        <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column"
+            [showOn]="getShowOn(index)">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+              {{ column }}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              {{ column === "Activo" ? (row.data[column] ? "Si" : "No" ): (row.data[column] || "-") }}
+            </td>
+        </ng-container>
+    </table>
+</ng-container>

@@ -25,6 +25,12 @@
                         <ngx-set-impuntuacionpresupuestal></ngx-set-impuntuacionpresupuestal>
                     </div>
                 </mat-step>
+                <mat-step [stepControl]="impuestosGroup">
+                    <ng-template matStepLabel>Impuestos y Retenciones</ng-template>
+                    <div class="container">
+                        <ngx-set-impuestosyretenciones></ngx-set-impuestosyretenciones>
+                    </div>
+                </mat-step>
                 <mat-step [stepControl]="movimientoContableGroup">
                     <ng-template matStepLabel>Movimiento Contable</ng-template>
                     <div class="container">
