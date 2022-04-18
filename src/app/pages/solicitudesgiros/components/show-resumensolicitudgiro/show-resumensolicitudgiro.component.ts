@@ -62,8 +62,9 @@ export class ShowResumensolicitudgiroComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.resumenSolicitudGroup = this._formBuilder.group({
-    });
+     this.resumenSolicitudGroup = this._formBuilder.group({
+       valorNumeros: ['']
+     });
 
     this.subscriptionDatosSolicitante$ = this.store.select(selectDatosID, 'solicitante').subscribe((action) => {
       if (action && action.datosId && action.datosId[0]) {
@@ -86,6 +87,9 @@ export class ShowResumensolicitudgiroComponent implements OnInit, OnDestroy {
     this.subscriptionAutorizacion$ = this.store.select(getAutorizaciongiro).subscribe((action) => {
       if (action && action.autorizaciongiro) {
         this.autorizacionGiro = action.autorizaciongiro;
+        this.resumenSolicitudGroup = this.fb.group({
+          valorNumeros: [String(this.autorizacionGiro.valorNumero), Validators.pattern('^[1-9]*\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$')]
+        });
       }
     });
 
@@ -204,7 +208,7 @@ export class ShowResumensolicitudgiroComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.motivoRechazoGroup = this.fb.group({
-      motivoRechazo: ['', Validators.required]
+      motivoRechazo: ['', Validators.required],
     });
   }
 
