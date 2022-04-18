@@ -25,7 +25,6 @@ export class ArbolCuentasContablesComponent implements OnInit, OnDestroy, OnChan
 
   data: ArbolCuentasContables<DatosNodoCuentaContable>[];
   dataSource: NbTreeGridDataSource<DatosNodoCuentaContable>;
-  buscar: string;
 
   subscriptionCuentaContable$: any;
   subCuentaContableSeleccionada$: any;
@@ -38,7 +37,6 @@ export class ArbolCuentasContablesComponent implements OnInit, OnDestroy, OnChan
     private parametric: ParametricService,
     private translate: TranslateService
   ) {
-    this.buscar = this.translate.instant('GLOBAL.buscar');
   }
 
   ngOnChanges(changes: SimpleChanges): void {

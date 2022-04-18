@@ -288,7 +288,10 @@
     "cuenta_contable_endoso": "Cuenta Contable del Endoso",
     "resumen_orden": "Resumen de la orden de pago",
     "impuestos_retenciones": "Impuestos y Retenciones",
-    "seleccione_concepto": "Seleccione un concepto"
+    "seleccione_concepto": "Seleccione un concepto",
+    "orden_pago": "Orden de Pago",
+    "beneficiario": "Beneficiario",
+    "compromiso": "Compromiso"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

@@ -21,7 +21,6 @@ export const environment = {
     GESTOR_DOCUMENTAL_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/gestor_documental_mid/v1/',
     CONSECUTIVOS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/consecutivos_crud/v1/',
     CENTRAL_CUENTAS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/central_cuentas_crud/v1/',
-    // CENTRAL_CUENTAS_CRUD_SERVICE: 'http://localhost:3000/',
     ADMINISTRATIVA_AMAZON_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/',
     MOVIMIENTOS_ARKA_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/movimientos_arka_crud/v1/',
     PLAN_ADQUISICIONES_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/plan_adquisiciones_crud/v1/',

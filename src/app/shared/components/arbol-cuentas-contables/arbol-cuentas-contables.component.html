@@ -5,7 +5,7 @@
 </ng-container>
 
 <ng-container *ngIf="data">
-    <label class="search-label" for="search">{{buscar}}</label>
+    <label class="search-label" for="search">{{ 'GLOBAL.buscar' | translate}}</label>
     <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input" [(ngModel)]="searchValue">
     <table [nbTreeGrid]="dataSource" nbSort (sort)="changeSort($event)" equalColumnsWidth>
 

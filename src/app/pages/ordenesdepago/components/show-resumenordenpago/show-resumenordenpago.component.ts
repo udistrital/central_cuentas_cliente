@@ -92,22 +92,18 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosImputacion$ = this.store.select(getDatosImputacionPresupuestal).subscribe(
       data => {
         if (data) {
-          let i = 0;
-          while (data.data[i] !== undefined) {
-            this.datosTableImputacion.push(data.data[i]);
-            i++;
-          }
+          data.data.forEach(datos => {
+            this.datosTableImputacion.push(datos);
+          });
         }
       }
     );
     this.subscriptionDatosMovimiento$ = this.store.select(getDatosMovimientoContable).subscribe(
       data => {
         if (data) {
-          let i = 0;
-          while (data[i] !== undefined) {
-            this.datosTableMovimientoContable.push(data[i]);
-            i++;
-          }
+          data.data.forEach(datos => {
+            this.datosTableMovimientoContable.push(datos);
+          });
         }
       }
     );
@@ -121,11 +117,9 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosImpuestos$ = this.store.select(getDatosImpuestosYRetenciones).subscribe(
       data => {
         if (data) {
-          let i = 0;
-          while (data.data[i] !== undefined) {
-            this.datosTableImpuestosRetenciones.push(data.data[i]);
-            i++;
-          }
+          data.data.forEach(datos => {
+            this.datosTableImpuestosRetenciones.push(datos);
+          });
         }
       }
     );

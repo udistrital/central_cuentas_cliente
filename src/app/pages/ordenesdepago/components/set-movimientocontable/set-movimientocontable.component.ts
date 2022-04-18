@@ -236,7 +236,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   }
 
   cargarMovimiento() {
-    this.store.dispatch(cargarDatosMovimientoContable(this.datosTableMovimientoContable));
+    this.store.dispatch(cargarDatosMovimientoContable({data: this.datosTableMovimientoContable}));
   }
 
   isInvalid(nombre: string) {

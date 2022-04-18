@@ -12,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoadNodoSeleccionadoConcepto } from '../../actions/shared.actions';
 import { EstructuraArbolRubrosApropiaciones } from '../../interfaces/interfaces';
 import { seleccionarConceptos } from '../../selectors/shared.selectors';
-import { FORM_NODO_CONCEPTO } from './form_nodo_concepto';
 
 @Component({
   selector: 'ngx-conceptos',
@@ -45,8 +44,6 @@ export class ConceptosComponent implements OnInit {
 
   ngOnInit() {
     this.loadTree();
-
-    this.formData = FORM_NODO_CONCEPTO;
     this.nodeData = undefined;
   }
 
@@ -60,8 +57,8 @@ export class ConceptosComponent implements OnInit {
   loadTree() {
     const getters: NbGetters<any, any> = {
       dataGetter: (node: any) => node.data || undefined,
-      childrenGetter: (node: any) => !!node.children && !!node.children.length ? node.children : [],
-      expandedGetter: (node: any) => !!node.expanded,
+      childrenGetter: (node: any) => node.children && node.children.length ? node.children : [],
+      expandedGetter: (node: any) => node.expanded,
     };
     this.customColumn = 'Codigo';
     this.defaultColumns = ['Nombre', 'Activo'];

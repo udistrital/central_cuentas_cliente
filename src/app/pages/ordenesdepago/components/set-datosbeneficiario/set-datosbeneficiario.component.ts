@@ -203,8 +203,12 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
             if (accion1 && accion1.RPExpedido) {
               this.rpExpedidos = accion1.RPExpedido;
               this.rps = [];
+              const EstadosPermitidos: string[] = [
+                'parcial_comprometido',
+                'expedido',
+              ];
               accion1.RPExpedido.forEach(rp => {
-                if (rp.Estado === 'parcial_comprometido' || rp.Estado === 'expedido') {
+                if (EstadosPermitidos.some(estado => estado === rp.Estado)) {
                   this.rps.push(rp);
                 }
               });
