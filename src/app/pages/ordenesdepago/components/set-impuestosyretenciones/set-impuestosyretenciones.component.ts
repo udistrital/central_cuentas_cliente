@@ -5,11 +5,13 @@ import {
 } from '../../interfaces/interfaces';
 import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada, getConceptosContables, selectRetenciones, getNodoSeleccionadoCuentaContable, getNodoSeleccionadoConcepto, seleccionarConcepto } from '../../../../shared/selectors/shared.selectors';
+import { getFilaSeleccionada, getConceptosContables, selectRetenciones, getNodoSeleccionadoCuentaContable,
+        getNodoSeleccionadoConcepto, seleccionarConcepto, selectOrdenesPagoById} from '../../../../shared/selectors/shared.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { getConcepto, GetConceptosContables, getRetenciones, LoadFilaSeleccionada, SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
-import { cargarDatosImpuestosYRetenciones, cargarDatosMovimientoContable, cargarImpYRet } from '../../actions/ordenespago.actions';
+import { cargarDatosImpuestosYRetenciones, cargarImpYRet } from '../../actions/ordenespago.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-impuestosyretenciones',
@@ -35,12 +37,25 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   subConcepto$: any;
   concepto: any;
   subscriptionCambios$: any;
+  tituloAccion: string;
+  subOrdenesPago$: any;
+  ordenPago: any;
+  subConceptos$: any;
+  conceptos: any;
+  editable: boolean = true;
 
-  constructor(private fb: FormBuilder, private modalService: NgbModal, private store: Store<any>) {
+  constructor(
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private store: Store<any>,
+    private activatedRoute: ActivatedRoute,
+    ) {
     this.configTableImpuestosRetenciones = CONFIGURACION_IMPUESTOS_RETENCIONES;
     this.datosTableImpuestosRetenciones = [];
     this.store.dispatch(GetConceptosContables({ id: '' }));
     this.store.dispatch(getRetenciones({query: {TipoParametroId__Id: 54}}));
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+    if (this.tituloAccion === 'ver') this.editable = false;
   }
 
   ngOnInit() {
@@ -75,6 +90,13 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     this.subscriptionCambios$ = this.impuestosYRetenciones.get('conceptoContable').valueChanges.subscribe((valor) => {
       if (this.impuestosYRetenciones.valid) {
         this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
+      }
+    });
+
+    this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
+      if (action && action.OrdenesPagoById) {
+        this.ordenPago = action.OrdenesPagoById;
+        this.ordenesPago();
       }
     });
   }
@@ -163,6 +185,20 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
 
   cargarMovimiento() {
     this.store.dispatch(cargarDatosImpuestosYRetenciones({data: this.datosTableImpuestosRetenciones}));
+  }
+
+  ordenesPago() {
+    this.datosTableImpuestosRetenciones = this.ordenPago.ImpuestosRetenciones;
+    this.store.dispatch(getConcepto({codigo: this.ordenPago.Concepto}));
+    this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+      if (concepto && concepto.Concepto) {
+        this.concepto = concepto.Concepto;
+        concepto.Concepto = null;
+        this.impuestosYRetenciones.patchValue({
+          conceptoContable: this.concepto
+        });
+      }
+    });
   }
 
   get valorNeto() {

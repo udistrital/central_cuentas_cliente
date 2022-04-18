@@ -5,13 +5,15 @@ import {
   CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION
 } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada, selectActividadNecesidad, selectInfoNecesidad, selectInfoRubro, selectMetaNecesidad, selectRPBeneficiario, selectRubrosCrp } from '../../../../shared/selectors/shared.selectors';
+import { getFilaSeleccionada, selectActividadNecesidad, selectInfoNecesidad, selectInfoRubro, selectMetaNecesidad, selectOrdenesPagoById,
+          selectRPBeneficiario, selectRubrosCrp } from '../../../../shared/selectors/shared.selectors';
 import { ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { getActividadesNecesidad, getInfoNecesidad, getInfoRubro, getMetaNecesidad, getRPExpedido, getRubrosCrp, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 import { cargarDatosImputacionPresupuestal } from '../../actions/ordenespago.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { getDatosBeneficiario, getDatosCompromiso, getInfoDatosBeneficiario, getRP } from '../../selectors/ordenespago.selectors';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-impuntuacionpresupuestal',
@@ -50,8 +52,17 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   cdp: any;
   nombre: any;
   rubrosCrp: any;
+  tituloAccion: string;
+  subOrdenesPago$: any;
+  ordenPago: any;
+  editable: boolean = true;
 
-  constructor(private fb: FormBuilder, private store: Store<any>, private modalService: NgbModal) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<any>,
+    private modalService: NgbModal,
+    private activatedRoute: ActivatedRoute
+    ) {
     this.configTableHistorial = CONFIGURACION_CONCEPTO_VALOR;
     this.datosTableHistorial = DATOS_CONCEPTO_VALOR;
     this.configTableFuentes = CONFIGURACION_CONCEPTO_VALOR;
@@ -61,7 +72,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.datosTableImputacion = [];
     this.mostrarOcultar = 'Mostrar';
     this.mostrarOcultarIcono = 'fa-eye';
-   // this.store.dispatch(getRPExpedido({}))
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+    if (this.tituloAccion === 'ver') this.editable = false;
   }
 
   ngOnInit() {
@@ -70,7 +82,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       disponibilidad: [''],
       crp: [''],
       valor: [''],
-      codigo: ['']
+      codigo: [''],
+      nombre: [''],
     });
     this.mostrarOcultarHistoria('');
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
@@ -96,6 +109,13 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.subscriptionDatosBeneficiario$ = this.store.select(getInfoDatosBeneficiario).subscribe((action) => {
       if (action && action.InfoDatosBeneficiario) {
         this.datosBeneficiario = action.InfoDatosBeneficiario;
+      }
+    });
+
+    this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
+      if (action && action.OrdenesPagoById) {
+        this.ordenPago = action.OrdenesPagoById;
+        this.ordenesPago();
       }
     });
   }
@@ -127,10 +147,10 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
             this.datosTableFuentes[0].actividades = String(this.actividadNecesidad.Id) + ' - ' + this.actividadNecesidad.Nombre;
           }
         });
-        this.datosTableFuentes[0].codigoRubro = this.impuntuacionPresupuestal.value.codigo.FatherInfo._id;
+        this.datosTableFuentes[0].codigoRubro = fila.Codigo;
         this.datosTableFuentes[0].fuenteFinanciamiento = this.infoNecesidad.Rubros[0].Metas[0].Actividades[0].FuentesActividad[0].InfoFuente.Codigo + ' - ' +
                                                           this.infoNecesidad.Rubros[0].Metas[0].Actividades[0].FuentesActividad[0].InfoFuente.Descripcion;
-        if (parseInt(this.impuntuacionPresupuestal.value.valor, 10) > 0) this.datosTableFuentes[0].valor = this.impuntuacionPresupuestal.value.valor;
+        this.datosTableFuentes[0].valor = fila.Valor;
       }
       this.modalService.open(this.fuentesFinanciamientoModal);
     });
@@ -218,5 +238,9 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
 
   cargarImputacion() {
     this.store.dispatch(cargarDatosImputacionPresupuestal({data: this.datosTableImputacion}));
+  }
+
+  ordenesPago() {
+    this.datosTableImputacion = this.ordenPago.ImputacionPresupuestal;
   }
 }

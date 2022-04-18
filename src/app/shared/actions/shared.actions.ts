@@ -231,16 +231,6 @@ export const cargarConvenios = createAction(
   props(),
 );
 
-export const getInterventores = createAction(
-  '[Shared] Obtiene los interventores del mid de terceros',
-  props()
-);
-
-export const cargarInterventores = createAction(
-  '[Shared] Carga los interventores al store',
-  props(),
-);
-
 export const getTiposOrdenesPago = createAction(
   '[Shared] Obtiene los tipos de ordenes de pago del crud de parametros',
   props<{query?: any}>(),
@@ -423,5 +413,17 @@ export const getSupervisor = createAction(
 
 export const cargarSupervisor = createAction(
   '[Shared] Carga la info del supervisor al store',
+  props()
+);
+
+// ORDENES DE PAGO
+
+export const getOrdenesPagoById = createAction(
+  '[Shared] Obtiene la orden de pago por id del crud de central cuentas',
+  props<{id: string}>()
+);
+
+export const cargarOrdenesPagoById = createAction(
+  '[Shared] Carga la orden de pago por id al store',
   props()
 );

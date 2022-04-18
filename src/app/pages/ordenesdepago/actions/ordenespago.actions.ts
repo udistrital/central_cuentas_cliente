@@ -89,7 +89,6 @@ export const cargarOrdenPago = createAction(
   props(),
 );
 
-
 export const getOrdenesPago = createAction(
   '[OrdenesPago] Obtener ordenes de pago del crud de central de cuentas',
   props<{sortby: string[], order: string[]}>(),

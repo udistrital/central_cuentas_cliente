@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label for="registro">Registro</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="crp" [class.is-invalid]="isInvalid('crp')" (selectionChange)="fijarCdp()">
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="crp" [class.is-invalid]="isInvalid('crp')" (selectionChange)="fijarCdp()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let rp of rps" [value]="rp">
                         {{rp.Consecutivo}}
@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-6 form-group">
             <label for="codigo">Código</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="codigo" [class.is-invalid]="isInvalid('codigo')" (selectionChange)="nombreRubro()">
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="codigo" [class.is-invalid]="isInvalid('codigo')" (selectionChange)="nombreRubro()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let rubroCrp of rubrosCrp" [value]="rubroCrp">
                         {{rubroCrp.FatherInfo._id}}
@@ -58,12 +58,12 @@
         </div>
         <div class="col-md-4 form-group">
             <label for="valorAplicacion">Valor Aplicación (Gasto)</label>
-            <input currencyMask class="form-control" id="valorAplicacion" formControlName="valor">
+            <input currencyMask class="form-control" id="valorAplicacion" formControlName="valor" [readonly]="!editable">
         </div>
     </div>
     <div class="row justify-content-end">
         <div class="col-md-2">
-            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
+            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()" [disabled]="!editable">
                 <i class="fas fa-plus"></i> Agregar
             </button>
         </div>

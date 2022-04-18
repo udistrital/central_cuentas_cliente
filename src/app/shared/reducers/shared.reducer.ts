@@ -30,7 +30,6 @@ export interface State {
   SolicitudesGiroShared: any;
   TiposCompromisos: any;
   Convenios: any;
-  Interventores: any;
   TiposOrdenesPago: any;
   RPExpedido: any;
   RPParcialComprometido: any;
@@ -50,6 +49,7 @@ export interface State {
   InfoCuentaContable: any;
   InfoCuentaContableDebito: any;
   Supervisor: any;
+  OrdenesPagoById: any;
 }
 
 export const initialState: State = {
@@ -78,7 +78,6 @@ export const initialState: State = {
   SolicitudesGiroShared: null,
   TiposCompromisos: null,
   Convenios: null,
-  Interventores: null,
   TiposOrdenesPago: null,
   RPExpedido: null,
   RPParcialComprometido: null,
@@ -98,6 +97,7 @@ export const initialState: State = {
   InfoCuentaContable: null,
   InfoCuentaContableDebito: null,
   Supervisor: null,
+  OrdenesPagoById: null,
 };
 
 const sharedReducer = createReducer(
@@ -158,6 +158,9 @@ const sharedReducer = createReducer(
   on(SharedActions.cargarSolicitudesById, (state, action) => ({
     ...state, SolicitudesGiro: state.SolicitudesGiro = action
   })),
+  on(SharedActions.cargarOrdenesPagoById, (state, action) => ({
+    ...state, OrdenesPagoById: state.OrdenesPagoById = action
+  })),
   on(SharedActions.cargarRubro, (state, action) => ({
     ...state, Rubro: state.Rubro = action
   })),
@@ -178,9 +181,6 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarConvenios, (state, action) => ({
     ...state, Convenios: state.Convenios = action
-  })),
-  on(SharedActions.cargarInterventores, (state, action) => ({
-    ...state, Interventores: state.Interventores = action
   })),
   on(SharedActions.cargarTiposOrdenesPago, (state, action) => ({
     ...state, TiposOrdenesPago: state.TiposOrdenesPago = action

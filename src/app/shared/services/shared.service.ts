@@ -172,6 +172,16 @@ export class SharedService {
       return this.rqManager.getv2(`autorizacion-giro/${id}`, null, null, null, null, null, 0);
     }
 
+    /**
+   * Gets OrdenesPago by id
+   * @param id id de la orden de pago
+   * @returns  Documento
+   */
+     public getOrdenesPagoById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`orden-pago/${id}`, null, null, null, null, null, 0);
+    }
+
   /**
    * Gets tipos Documentos
    * @param query Query para traer los tipos de documentos para cargar soportes
@@ -225,13 +235,6 @@ export class SharedService {
     public getConvenios(codigo: any) {
       this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
       return (this.rqManager.getv2(`arbol_rubro/arbol_reducido/${codigo}?nivel=1`, null, null, null, null, null, 0 , null)).pipe(map(data => {
-        return ((data && data.Data) ? data.Data : data);
-      }));
-    }
-
-    public getInterventores() {
-      this.rqManager.setPath('TERCEROS_MID_SERVICE');
-      return (this.rqManager.getv2('tipo/funcionarioPlanta', null, null, null, null, null, null, null)).pipe(map(data => {
         return ((data && data.Data) ? data.Data : data);
       }));
     }

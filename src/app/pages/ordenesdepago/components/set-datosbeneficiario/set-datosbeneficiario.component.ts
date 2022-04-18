@@ -6,10 +6,12 @@ import { loadInfoDatosBeneficiario, loadRP } from '../../actions/ordenespago.act
 import { DATOS_BENEFICIARIO } from '../../interfaces/interfaces';
 import { seleccionarAreaFuncional } from '../../actions/ordenespago.actions';
 import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
-import { getSolicitudGiroSeleccionada, selectBeneficiarioOP, selectDatosID, selectRPBeneficiario, selectRPExpedido, selectTiposID, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
-import { getBeneficiarioOP, getRPBeneficiario, getRPExpedido, getSupervisor, getTiposID } from '../../../../shared/actions/shared.actions';
+import { getSolicitudGiroSeleccionada, selectBeneficiarioOP, selectOrdenesPagoById, selectRPBeneficiario, selectRPExpedido,
+          selectSolicitudesGiroShared, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
+import { getBeneficiarioOP, getOrdenesPagoById, getRPBeneficiario, getRPExpedido, getSupervisor, getTiposID } from '../../../../shared/actions/shared.actions';
 import { combineLatest } from 'rxjs';
 import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-datosbeneficiario',
@@ -29,7 +31,6 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   subscriptionfilter$: any;
   subRPBeneficiario$: any;
   subTiposId$: any;
-  tiposId: any;
   subVigencias$: any;
   vigencias: any;
   vigenciaActual: any;
@@ -40,13 +41,24 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   subRPExpedido$: any;
   rpExpedidos: any;
   rps: any;
+  tituloAccion: string;
   solicGiro = '';
+  subOrdenesPago$: any;
+  ordenPago: any;
+  subSolicitudesGiro$: any;
+  solicitudesGiro: any;
+  editable: boolean = true;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
+    private activatedRoute: ActivatedRoute,
     ) {
       this.datosAlmacenadosBeneficiarios = DATOS_BENEFICIARIO;
-      this.store.dispatch(getTiposID());
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      if (this.tituloAccion === 'ver') {
+        this.store.dispatch(getOrdenesPagoById({id: this.activatedRoute.snapshot.url[1].path}));
+        this.editable = false;
+      }
       this.rps = [];
      }
 
@@ -63,11 +75,14 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         this.solicGiro = solicitudGiro.NumeroSolicitud + ' - ' + solicitudGiro.NombreBeneficiario;
       }
     });
-    this.subTiposId$ = this.store.select(selectTiposID).subscribe((action) => {
-      if (action) {
-        this.tiposId = action[0];
+
+    this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
+      if (action && action.OrdenesPagoById) {
+        this.ordenPago = action.OrdenesPagoById;
+        this.ordenesPago();
       }
     });
+
 
     // Consulta cambios en los datos para enviar al store
     this.crearFormulario();
@@ -77,7 +92,6 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadInfoDatosBeneficiario({ InfoDatosBeneficiario: valor }));
       }
     });
-    this.getDatosID();
     this.subBeneficiarioOP$ = this.store.select(selectBeneficiarioOP).subscribe((action) => {
       if (action && action.BeneficiarioOP) {
         this.beneficiarioOP = action.BeneficiarioOP[0];
@@ -92,6 +106,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         });
       }
     });
+
+    if (this.tituloAccion === 'crear') this.getDatosID();
   }
 
   handleVigencias() {
@@ -103,8 +119,12 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         const vigenciaActual = accVigencias[0].find(vigencia => vigencia.estado === 'Actual');
         if (vigenciaActual)
           this.vigenciaActual = vigenciaActual.valor;
-        this.vigencias = accVigencias[0]
-          .filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
+        this.vigencias = accVigencias[0].filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
+        if (this.tituloAccion === 'ver' && this.ordenPago) {
+          this.datosBeneficiario.patchValue({
+            vigencia: this.vigencias[this.vigencias.findIndex((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))]
+          });
+        }
       }
     });
 
@@ -137,7 +157,6 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       consecutivo: [''],
       solicitudGiro: [''],
       areaFuncional: ['', Validators.required],
-      tipoId: [''],
       numeroId: [''],
       banco: [''],
       cuenta: [''],
@@ -163,9 +182,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   getDatosID() {
     this.subscriptionfilter$ = combineLatest([
       this.datosBeneficiario.get('numeroId').valueChanges,
-      this.datosBeneficiario.get('tipoId').valueChanges,
-    ]).subscribe(([numeroId, tipoId]) => {
-      if (numeroId && tipoId) {
+    ]).subscribe(([numeroId]) => {
+      if (numeroId) {
         this.store.dispatch(getBeneficiarioOP({query: {NumDocumento: numeroId}}));
       }
     });
@@ -197,6 +215,27 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       }
     });
     });
+  }
+
+  ordenesPago() {
+    if (this.tituloAccion === 'ver') {
+      this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiroShared).subscribe((accion: any) => {
+        if (accion && accion.SolicitudesGiroShared) {
+          this.solicitudesGiro = accion.SolicitudesGiroShared;
+          const solGiro = this.solicitudesGiro[this.solicitudesGiro.findIndex((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro)];
+          this.datosBeneficiario.patchValue({
+            solicitudGiro: solGiro
+          });
+          this.solicGiro = solGiro.Numero_Solicitud + ' - ' + solGiro.Nombre_Beneficiario;
+        }
+        this.datosBeneficiario.patchValue({
+          areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.ordenPago.AreaFuncional)],
+          consecutivo: this.ordenPago.Consecutivo,
+          numeroId: this.ordenPago.DocumentoBeneficiario
+        });
+        this.getDatosID();
+      });
+    }
   }
 
   isInvalid(nombre: string) {

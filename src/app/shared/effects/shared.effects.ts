@@ -160,6 +160,16 @@ export class SharedEffects {
     );
   });
 
+  getOrdenesPagoById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getOrdenesPagoById),
+      mergeMap((accion) => this.sharedService.getOrdenesPagoById(accion.id)
+      .pipe(map(data => SharedActions.cargarOrdenesPagoById(
+        {OrdenesPagoById: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
   getRubro$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.obtenerRubro),
@@ -237,18 +247,6 @@ export class SharedEffects {
           {Convenios: data})),
           catchError(data => of(SharedActions.CatchError(data))));
       })
-    );
-  });
-
-  getInterventores$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(SharedActions.getInterventores),
-      mergeMap(() => {
-        return this.sharedService.getInterventores()
-        .pipe(map(data => SharedActions.cargarInterventores(
-          {Interventores: data})),
-          catchError(data => of(SharedActions.CatchError(data))));
-        })
     );
   });
 

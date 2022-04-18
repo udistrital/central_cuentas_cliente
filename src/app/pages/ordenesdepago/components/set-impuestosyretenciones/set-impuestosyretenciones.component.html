@@ -8,7 +8,7 @@
         <div class="form-group col-md-6">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal" [disabled]="!editable">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -22,7 +22,7 @@
     <div class="form-group row">
         <div class="col-md-12">
             <label for="retencion">Retención</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="retencion" [class.is-invalid]="isInvalid('retencion')" (selectionChange)="retencion()">
+            <mat-select [disabled]="!editable" class="form-control" placeholder="Seleccione..." formControlName="retencion" [class.is-invalid]="isInvalid('retencion')" (selectionChange)="retencion()">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                     <mat-option *cdkVirtualFor="let retencion of retenciones" [value]="retencion">
                         {{retencion.Nombre}}
@@ -46,7 +46,7 @@
             <label>No. Solicitud de orgen de giro</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal" [disabled]="!editable">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -57,14 +57,14 @@
     <div class="row">
         <div class="col-md-5">
             <label for="baseRetencion">Base de Retención</label>
-            <input currencyMask class="form-control" id="baseRetencion" formControlName="baseRetencion">
+            <input [disabled]="!editable" currencyMask class="form-control" id="baseRetencion" formControlName="baseRetencion">
         </div>
         <div class="col-md-5">
             <label for="valorDescuento">Valor de descuento</label>
             <input class="form-control" id="valorDescuento" disabled value="{{valorDescuento|currency}}">
         </div>
         <div class="col-md-2 d-flex align-items-end">
-            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
+            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()" [disabled]="!editable">
                 <i class="fas fa-plus"></i> Agregar
             </button>
         </div>

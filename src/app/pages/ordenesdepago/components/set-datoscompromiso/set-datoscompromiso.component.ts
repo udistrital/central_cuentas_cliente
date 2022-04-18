@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { getConvenios, getEntradaAlmacen, getInterventores, getTiposCompromisos, getTiposOrdenesPago, getVigencias } from '../../../../shared/actions/shared.actions';
-import { selectConvenios, selectEntradaAlmacen, selectInterventores, selectSupervisor, selectTiposCompromisos, selectTiposOrdenesPago } from '../../../../shared/selectors/shared.selectors';
+import { getConvenios, getEntradaAlmacen, getTiposCompromisos, getTiposOrdenesPago, getVigencias } from '../../../../shared/actions/shared.actions';
+import { selectConvenios, selectEntradaAlmacen, selectOrdenesPagoById, selectSupervisor, selectTiposCompromisos, selectTiposOrdenesPago } from '../../../../shared/selectors/shared.selectors';
 import { getAreaFuncional, getInfoDatosBeneficiario } from '../../selectors/ordenespago.selectors';
 import { cargarDatosCompromiso, cargarDatosAlmacenadosCompromiso, loadRP } from '../../actions/ordenespago.actions';
 import { DATOS_COMPROMISO, DATOS_TIPO_CONVENIO } from '../../interfaces/interfaces';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { map, startWith } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-datoscompromiso',
@@ -48,16 +49,23 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   subscriptionCambios$: any;
   subEntradaAlmacen$: any;
   entradaAlmacen: any;
+  tituloAccion: any;
+  subOrdenesPago$: any;
+  ordenPago: any;
+  subSolicitudesGiro$;
+  editable: boolean = true;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
+    private activatedRoute: ActivatedRoute,
     ) {
       this.store.dispatch(getVigencias());
       this.datosAlmacenadosCompromisos = DATOS_COMPROMISO;
       this.datosAlmacenadosCompromiso = [];
       this.store.dispatch(getTiposCompromisos({query: {TipoParametroId__Id: 16}}));
-      this.store.dispatch(getInterventores({}));
       this.store.dispatch(getTiposOrdenesPago({query: {TipoParametroId__Id: 53}}));
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      if (this.tituloAccion === 'ver') this.editable = false;
     }
 
   ngOnInit() {
@@ -69,6 +77,11 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     this.subTiposCompromisos$ = this.store.select(selectTiposCompromisos).subscribe((action) => {
       if (action && action.TiposCompromisos) {
         this.tiposCompromisos = action.TiposCompromisos;
+        if (this.tituloAccion === 'ver') {
+          this.datosCompromiso.patchValue({
+            compromiso: this.tiposCompromisos[this.tiposCompromisos.findIndex((e: any) => e.Id === this.ordenPago.Compromiso)]
+          });
+        }
       }
     });
     this.subscriptionDatosBeneficiario$ = this.store.select(getInfoDatosBeneficiario).subscribe((action) => {
@@ -76,20 +89,21 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
         this.datosBeneficiario = action.InfoDatosBeneficiario;
       }
     });
-    this.subInterventores$ = this.store.select(selectInterventores).subscribe((action) => {
-      if (action && action.Interventores) {
-        this.interventores = action.Interventores;
-      }
-    });
     this.subTiposOrdenesPago$ = this.store.select(selectTiposOrdenesPago).subscribe((action) => {
       if (action && action.TiposOrdenesPago) {
         this.tiposOrdenesPago = action.TiposOrdenesPago;
+        if (this.tituloAccion === 'ver') {
+          this.datosCompromiso.patchValue({
+            tipoOrdenPago: this.tiposOrdenesPago[this.tiposOrdenesPago.findIndex((e: any) => e.Id === this.ordenPago.TipoOrdenPago)]
+          });
+        }
       }
     });
     this.subscriptionCambios$ = this.datosCompromiso.valueChanges.subscribe((valor) => {
       if (this.datosCompromiso.valid)
         this.store.dispatch(cargarDatosCompromiso({ DatosCompromiso: valor }));
     });
+
 
     this.subSupervisor$ = this.store.select(selectSupervisor).subscribe((action) => {
       if (action && action.Supervisor) {
@@ -113,6 +127,13 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
           action.EntradaAlmacen = null;
         }
       });
+    });
+
+    this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
+      if (action && action.OrdenesPagoById) {
+        this.ordenPago = action.OrdenesPagoById;
+        this.ordenesPago();
+      }
     });
   }
 
@@ -164,6 +185,11 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     this.store.select(selectConvenios).subscribe((action) => {
       if (action && action.Convenios) {
         this.convenios = action.Convenios[0].children;
+        if (this.tituloAccion === 'ver') {
+          this.datosCompromiso.patchValue({
+            convenio: (this.convenios[this.convenios.findIndex((e: any) => e.Codigo === this.ordenPago.Convenio)]).data.Nombre
+          });
+        }
         this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value, this.convenios)),
@@ -209,6 +235,18 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
       return Object.values(this.datosCompromiso.controls).forEach(control => {
         control.markAsDirty();
       });
+    }
+  }
+
+  ordenesPago() {
+    if (this.tituloAccion === 'ver') {
+      this.datosCompromiso.patchValue({
+        numeroCompromiso: this.ordenPago.NumeroCompromiso,
+        tipoConvenio: this.tiposConvenio[this.tiposConvenio.findIndex((e: any) => e.tipo_convenio === this.ordenPago.TipoConvenio)],
+        actaRecibido: this.ordenPago.ActaRecibido,
+        detalle: this.ordenPago.Detalle,
+      });
+      this.consultarConvenios();
     }
   }
 }

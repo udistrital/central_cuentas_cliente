@@ -16,15 +16,11 @@
         Datos del Beneficiario
     </h6>
     <div class="row">
-        <div class="col-md-2 form-group">
-            <label for="tipoId">Tipo de ID</label>
-            <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoId" disabled placeholder="{{datosBeneficiario.tipoId.Descripcion}}">
-        </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-3 form-group">
             <label for="numeroId">No. de ID</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroId" disabled placeholder="{{datosBeneficiario.numeroId}}">
         </div>
-        <div class="col-md-6 form-group">
+        <div class="col-md-9 form-group">
             <label for="nombre">Nombre</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosBeneficiario.nombreBeneficiario}}">
         </div>

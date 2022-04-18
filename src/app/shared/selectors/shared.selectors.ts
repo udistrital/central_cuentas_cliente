@@ -119,11 +119,6 @@ export const selectConvenios = createSelector(
   (state: fromShared.State) => state.Convenios
 );
 
-export const selectInterventores = createSelector(
-  selectSharedState,
-  (state: fromShared.State) => state.Interventores
-);
-
 export const selectTiposOrdenesPago = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.TiposOrdenesPago
@@ -222,4 +217,9 @@ export const selectInfoCuentaContableDebito = createSelector(
 export const selectSupervisor = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.Supervisor
+);
+
+export const selectOrdenesPagoById = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.OrdenesPagoById
 );

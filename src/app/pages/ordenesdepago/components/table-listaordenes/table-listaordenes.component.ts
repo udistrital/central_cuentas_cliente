@@ -67,6 +67,10 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subOrdenesPago$.unsubscribe();
   }
+
+  ver(ordenPago: any) {
+    this.router.navigateByUrl('pages/ordenespago/ver/' + ordenPago.Id);
+  }
 }
 
 export interface Element {

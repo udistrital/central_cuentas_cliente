@@ -2,7 +2,7 @@
     <div class="form-group row justify-content-between">
         <div class="col-md-4">
             <label>Unidad Ejecutora</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')">
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                         {{opcion.label}}
@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-4">
             <label> Consecutivo</label>
-            <input type="text" class="form-control" formControlName="consecutivo">
+            <input type="text" class="form-control" formControlName="consecutivo" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
@@ -20,7 +20,7 @@
             <label>No. Solicitud de orgen de giro</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalAutorizacionGiro">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalAutorizacionGiro" [disabled]="!editable">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-4">
             <label for="vigencia">Vigencia</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="vigencia" [class.is-invalid]="isInvalid('vigencia')">
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="vigencia" [class.is-invalid]="isInvalid('vigencia')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let vigencia of vigencias" [value]="vigencia">
                         {{vigencia?.valor}}
@@ -44,21 +44,11 @@
     </h6>
     <div class="form-group row">
         <div class="col-md-3">
-            <label>Tipo de identificación</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoId" [class.is-invalid]="isInvalid('tipoId')">
-                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
-                    <mat-option *cdkVirtualFor="let tipo of tiposId" [value]="tipo">
-                        {{tipo.Nombre}}
-                    </mat-option>
-                </cdk-virtual-scroll-viewport>
-            </mat-select>
-        </div>
-        <div class="col-md-3">
             <label for="numeroId">Numero de identificacion</label>
             <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
-                [class.is-invalid]="esInvalido('numeroId')">
+                [class.is-invalid]="esInvalido('numeroId')" [readonly]="!editable">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <label for="nombre">Nombre</label>
             <input class="form-control" id="nombre" formControlName="nombreBeneficiario" disabled>
         </div>
@@ -68,13 +58,9 @@
             <label for="regimen">Régimen</label>
             <input class="form-control" id="regimen" formControlName="regimenBeneficiario" disabled>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <label for="direccion">Dirección</label>
             <input class="form-control" id="direccion" formControlName="direccionBeneficiario" disabled>
-        </div>
-        <div class="col-md-3">
-            <label for="telefono">Teléfono</label>
-            <input class="form-control" id="telefono" formControlName="telefonoBeneficiario" disabled>
         </div>
     </div>
     <div class="form-group row">

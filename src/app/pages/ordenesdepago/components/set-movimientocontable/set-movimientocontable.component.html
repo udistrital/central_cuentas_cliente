@@ -6,16 +6,16 @@
     <div class="row form-group">
         <div class="col-md-6">
             <label>Nombre</label>
-            <input type="text" class="form-control" formControlName="nombreMovimientoContable">
+            <input type="text" class="form-control" formControlName="nombreMovimientoContable" [readonly]="!editable">
         </div>
         <div class="col-md-6">
             <label>Valor</label>
-            <input type="number" class="form-control" formControlName="valorMovimientoContable">
+            <input type="number" class="form-control" formControlName="valorMovimientoContable" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            <mat-checkbox class="example-margin" formControlName="cuentaConcepto" (change)="conceptoCuentaContable()">Concepto</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="cuentaConcepto" (change)="conceptoCuentaContable()" [disabled]="!editable">Concepto</mat-checkbox>
         </div>
     </div>
     <div class="fow form-group" *ngIf="!conceptoCuenta">
@@ -23,7 +23,7 @@
             <label>No. Solicitud de orgen de giro</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal1">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal1" [disabled]="!editable">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -45,7 +45,7 @@
     </div>
     <div class="row">
         <div class="col-md-2 d-flex align-items-center">
-            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
+            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()" [disabled]="!editable">
                 <i class="fas fa-plus"></i> Agregar
             </button>
         </div>
@@ -67,7 +67,7 @@
     <div class="row form-group">
         <div class="col-md-4" *ngIf="boolean">
             <label for="codigoContable">Código Contable</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="cuentaCredito">
+            <mat-select class="form-control" placeholder="Seleccione..." formControlName="cuentaCredito" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto" [value]="cuentaContable1">
                         {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}

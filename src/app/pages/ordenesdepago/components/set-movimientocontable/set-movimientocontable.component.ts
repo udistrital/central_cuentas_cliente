@@ -5,12 +5,13 @@ import {
 } from '../../interfaces/interfaces';
 import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada, getConceptosContables, getNodoSeleccionadoCuentaContable, selectInfoCuentaContable, selectInfoCuentaContableDebito } from '../../../../shared/selectors/shared.selectors';
+import { getFilaSeleccionada, getConceptosContables, getNodoSeleccionadoCuentaContable, selectInfoCuentaContable, selectInfoCuentaContableDebito, selectOrdenesPagoById } from '../../../../shared/selectors/shared.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GetConceptosContables, getInfoCuentaContable, getInfoCuentaContableDebito, LoadFilaSeleccionada, SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
 import { cargarDatosMovimientoContable, cargarMovimientoContable } from '../../actions/ordenespago.actions';
 import { getDatosImpuestosYRetenciones, getDatosImputacionPresupuestal, getImpYRet } from '../../selectors/ordenespago.selectors';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-movimientocontable',
@@ -47,14 +48,26 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   valorNeto: any;
   boolean: boolean;
   subscriptionCambios$: any;
+  tituloAccion: string;
+  subOrdenesPago$: any;
+  ordenPago: any;
+  editable: boolean = true;
 
-  constructor(private fb: FormBuilder, private modalService: NgbModal, private store: Store<any>) {
+  constructor(
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private store: Store<any>,
+    private activatedRoute: ActivatedRoute,
+    ) {
     this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
     this.datosTableMovimientoContable = [];
     this.store.dispatch(GetConceptosContables({ id: '' }));
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+    if (this.tituloAccion === 'ver') this.editable = false;
+    this.boolean = false;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // Form
     this.movimientoContable = this.fb.group({
       baseRetencion: ['1500000'],
@@ -118,6 +131,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
         this.impYRet = action.ImpYRet;
         this.boolean = false;
         if (this.impYRet.conceptoContable !== '') {
+          const total = this.impYRet.CuentasDebito.length + this.impYRet.CuentasCredito.length;
           this.impYRet.CuentasDebito.forEach(CuentaDebito => {
             this.store.dispatch(getInfoCuentaContableDebito({codigo: CuentaDebito}));
             this.subInfoCuentaDebito$ = this.store.select(selectInfoCuentaContableDebito).subscribe((accion1) => {
@@ -125,6 +139,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
                 this.cuentaDebito = accion1.InfoCuentaContableDebito;
                 accion1.InfoCuentaContableDebito = null;
                 this.cuentasContablesConcepto.push({cuenta: this.cuentaDebito});
+                if (this.cuentasContablesConcepto.length === total) {
+                  this.boolean = true;
+                  if (this.tituloAccion === 'ver') this.ordenesPago();
+                }
               }
             });
           });
@@ -135,11 +153,21 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
                 this.cuentaCredito = accion.InfoCuentaContable;
                 accion.InfoCuentaContable = null;
                 this.cuentasContablesConcepto.push({cuenta: this.cuentaCredito});
-                this.boolean = true;
+                if (this.cuentasContablesConcepto.length === total) {
+                  this.boolean = true;
+                  if (this.tituloAccion === 'ver') this.ordenesPago();
+                }
               }
             });
           });
         }
+      }
+    });
+
+    this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
+      if (action && action.OrdenesPagoById) {
+        this.ordenPago = action.OrdenesPagoById;
+        this.ordenesPago();
       }
     });
   }
@@ -223,8 +251,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     return this.datosTableMovimientoContable.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
   }
 
-  // get valorDescuento() {
-  //   console.log(this.datosImpYReten)
-  //   return this.movimientoContable.get('baseRetencion').value * this.movimientoContable.get('porcentajeDescuento').value / 100;
-  // }
+  ordenesPago() {
+    this.datosTableMovimientoContable = this.ordenPago.MovimientoContable;
+    this.movimientoContable.patchValue({
+      cuentaCredito: (this.cuentasContablesConcepto[this.cuentasContablesConcepto.findIndex((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)])
+    });
+  }
 }
