@@ -1,10 +1,10 @@
 <form [formGroup]="datosCompromiso" (ngSubmit)="validarFormulario(datosCompromiso.value)">
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Datos del Compromiso
+        {{ 'ORDEN_PAGO.datos_compromiso' | translate}}
     </h6>
     <div class="form-group row">
         <div class="col-md-6">
-            <label for="compromiso">Compromiso a pagar</label>
+            <label for="compromiso">{{ 'ORDEN_PAGO.compromiso_pagar' | translate}}</label>
             <mat-select class="form-control" placeholder="Seleccione..." formControlName="compromiso" [class.is-invalid]="isInvalid('compromiso')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                     <mat-option *cdkVirtualFor="let tipoCompromiso of tiposCompromisos" [value]="tipoCompromiso">
@@ -14,14 +14,14 @@
             </mat-select>
         </div>
         <div class="col-md-4">
-            <label for="numeroCompromiso">No. de Compromiso</label>
+            <label for="numeroCompromiso">{{ 'CRP.numero-compromiso' | translate}}</label>
             <input type="number" class="form-control" id="numeroCompromiso" formControlName="numeroCompromiso"
                 [class.is-invalid]="esInvalido('numeroCompromiso')" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            <label>Tipo de convenio</label>
+            <label>{{ 'ORDEN_PAGO.tipo_convenio' | translate}}</label>
             <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoConvenio" [class.is-invalid]="isInvalid('tipoConvenio')" (selectionChange)="consultarConvenios()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let tipoConvenio of tiposConvenio" [value]="tipoConvenio">
@@ -31,8 +31,7 @@
             </mat-select>
         </div>
         <div class="col-md-9">
-            <label>Convenio</label>
-                <!-- <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport"> -->
+            <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
                     <input type="text" placeholder="{{convenio ? convenio.data.Nombre :'Seleccione...'}}" matInput [formControl]="myControl" [matAutocomplete]="auto"
                     class="form-control" formControlName="convenio" [readonly]="!editable">
                     <mat-autocomplete #auto="matAutocomplete">
@@ -40,34 +39,33 @@
                             {{convenio.data.Nombre}}
                         </mat-option>
                     </mat-autocomplete>
-                <!-- </cdk-virtual-scroll-viewport> -->
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-6">
-            <label>No. Acta de Recibido</label>
+            <label>{{ 'ORDEN_PAGO.numero_acta_recibido' | translate}}</label>
             <input class="form-control" placeholder="{{datosAlmacenadosCompromiso.numeroActa}}" formControlName="actaRecibido" [readonly]="!editable">
         </div>
         <div class="col-md-6">
-            <label>No. Entrada al Almacen</label>
+            <label>{{ 'ORDEN_PAGO.numero_entrada_almacen' | translate}}</label>
             <input class="form-control" formControlName="entradaAlmacen" disabled [value]="entradaAlmacen">
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="nombreInterventor">Nombre del Supervisor</label>
+            <label for="nombreInterventor">{{ 'GLOBAL.supervisor' | translate}}</label>
             <input class="form-control" formControlName="supervisor" disabled>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label >Detalle</label>
+            <label >{{ 'GLOBAL.detalle' | translate}}</label>
             <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" placeholder="{{datosAlmacenadosCompromiso.detalle}}" formControlName="detalle" [readonly]="!editable"></textarea>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 form-group">
-            <label for="tipoOrden">Tipo de Orden de Pago</label>
+            <label for="tipoOrden">{{ 'ORDEN_PAGO.tipo_orden_pago' | translate}}</label>
             <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoOrdenPago" [class.is-invalid]="isInvalid('tipoOrdenPago')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let tipoOrdenPago of tiposOrdenesPago" [value]="tipoOrdenPago">
@@ -80,11 +78,11 @@
 
     <div class="row justify-content-between">
         <div class="col-md-3">
-            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">{{ 'GLOBAL.anterior' | translate}}</button>
         </div>
         <div class="col-md-3 text-right">
             <button mat-button matStepperNext type="submit" class="btn btn-success">
-                Siguiente
+                {{ 'GLOBAL.siguiente' | translate}}
             </button>
         </div>
     </div>

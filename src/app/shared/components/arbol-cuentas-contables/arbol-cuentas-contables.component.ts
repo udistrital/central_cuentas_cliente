@@ -73,7 +73,7 @@ export class ArbolCuentasContablesComponent implements OnInit, OnDestroy, OnChan
     .subscribe((cuentaContable: any) => {
       if (cuentaContable) {
         if (Object.keys(cuentaContable)[0] !== 'type') {
-          if (cuentaContable !== null) {
+          if (cuentaContable) {
             this.selectedTreeRow = cuentaContable;
           }
         }

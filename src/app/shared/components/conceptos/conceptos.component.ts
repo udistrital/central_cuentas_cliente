@@ -8,6 +8,7 @@ import {
   NbSortRequest,
 } from '@nebular/theme';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { LoadNodoSeleccionadoConcepto } from '../../actions/shared.actions';
 import { EstructuraArbolRubrosApropiaciones } from '../../interfaces/interfaces';
 import { seleccionarConceptos } from '../../selectors/shared.selectors';
@@ -39,6 +40,7 @@ export class ConceptosComponent implements OnInit {
     private renderer: Renderer2,
     private store: Store<any>,
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<EstructuraArbolRubrosApropiaciones>,
+    private translate: TranslateService,
   ) { }
 
   ngOnInit() {

@@ -45,6 +45,7 @@ import { ConceptosComponent } from './components/conceptos/conceptos.component';
     NbTreeGridModule,
     MatTableModule,
     MatIconModule,
+    TranslateModule,
     StoreModule.forFeature(fromShared.sharedFeatureKey, fromShared.reducer),
     EffectsModule.forFeature([SharedEffects])
   ],

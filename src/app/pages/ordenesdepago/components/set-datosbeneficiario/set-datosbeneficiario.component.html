@@ -1,7 +1,7 @@
 <form [formGroup]="datosBeneficiario" (ngSubmit)="validarFormulario(datosBeneficiario.value)">
     <div class="form-group row justify-content-between">
         <div class="col-md-4">
-            <label>Unidad Ejecutora</label>
+            <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
             <mat-select class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
@@ -11,13 +11,13 @@
             </mat-select>
         </div>
         <div class="col-md-4">
-            <label> Consecutivo</label>
+            <label> {{ 'GLOBAL.consecutivo' | translate}}</label>
             <input type="text" class="form-control" formControlName="consecutivo" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-8">
-            <label>No. Solicitud de orgen de giro</label>
+            <label>{{ 'ORDEN_PAGO.numero_sol_orden_giro' | translate}}</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalAutorizacionGiro" [disabled]="!editable">
@@ -25,11 +25,10 @@
                     </button>
                 </div>
                 <input class="form-control" formControlName="solicitudGiro" [class.is-invalid]="isInvalid('solicitudGiro')" disabled [value]="solicGiro">
-                <!-- <span class="form-control overflow-ellipsis" formControlName="solicitudGiro" [class.isInvalid]="isInvalid('solicitudGiro')"> Prueba </span> -->
             </div>
         </div>
         <div class="col-md-4">
-            <label for="vigencia">Vigencia</label>
+            <label for="vigencia">{{ 'GLOBAL.vigencia' | translate}}</label>
             <mat-select class="form-control" placeholder="Seleccione..." formControlName="vigencia" [class.is-invalid]="isInvalid('vigencia')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let vigencia of vigencias" [value]="vigencia">
@@ -40,48 +39,48 @@
         </div>
     </div>
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Datos del Beneficiario
+        {{ 'SOLICITUD_GIRO.datos_beneficiario' | translate}}
     </h6>
     <div class="form-group row">
         <div class="col-md-3">
-            <label for="numeroId">Numero de identificacion</label>
+            <label for="numeroId">{{ 'GLOBAL.numero_documento' | translate}}</label>
             <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
                 [class.is-invalid]="esInvalido('numeroId')" [readonly]="!editable">
         </div>
         <div class="col-md-9">
-            <label for="nombre">Nombre</label>
+            <label for="nombre">{{ 'GLOBAL.nombre' | translate}}</label>
             <input class="form-control" id="nombre" formControlName="nombreBeneficiario" disabled>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            <label for="regimen">Régimen</label>
+            <label for="regimen">{{ 'ORDEN_PAGO.regimen' | translate}}</label>
             <input class="form-control" id="regimen" formControlName="regimenBeneficiario" disabled>
         </div>
         <div class="col-md-9">
-            <label for="direccion">Dirección</label>
+            <label for="direccion">{{ 'GLOBAL.direccion' | translate}}</label>
             <input class="form-control" id="direccion" formControlName="direccionBeneficiario" disabled>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-6">
-            <label for="banco">Banco</label>
+            <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
             <input class="form-control" id="banco" disabled formControlName="banco">
         </div>
         <div class="col-md-6">
-            <label for="cuenta">No. de Cuenta</label>
+            <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
             <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta">
         </div>
     </div>
     <div class="row justify-content-between">
         <div class="col-md-3">
             <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white">
-                Volver a registros
+                {{ 'SOLICITUD_GIRO.volver_registros' | translate}}
             </a>
         </div>
         <div class="col-md-3 text-right">
             <button mat-button matStepperNext type="submit" class="btn btn-success">
-                Siguiente
+                {{ 'GLOBAL.siguiente' | translate}}
             </button>
         </div>
     </div>
@@ -92,7 +91,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="AutorizacionGiroLabel">Seleccionar AutorizacionGiro</h5>
+                <h5 class="modal-title" id="AutorizacionGiroLabel">{{ 'ORDEN_PAGO.sel_orden_giro' | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -101,8 +100,8 @@
                 <ngx-autorizacion-giro></ngx-autorizacion-giro>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary text-white" data-dismiss="modal">Continuar</button>
+                <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary text-white" data-dismiss="modal">{{ 'GLOBAL.continuar' | translate}}</button>
             </div>
         </div>
     </div>

@@ -84,14 +84,14 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     });
     this.subscriptionDatosAlmacenadosCompromiso$ = this.store.select(getDatosAlmacenadosCompromiso).subscribe(
       data => {
-        if (data !== null) {
+        if (data) {
           this.datosAlmacenadosCompromiso = data;
         }
       }
     );
     this.subscriptionDatosImputacion$ = this.store.select(getDatosImputacionPresupuestal).subscribe(
       data => {
-        if (data !== null) {
+        if (data) {
           let i = 0;
           while (data.data[i] !== undefined) {
             this.datosTableImputacion.push(data.data[i]);
@@ -102,7 +102,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     );
     this.subscriptionDatosMovimiento$ = this.store.select(getDatosMovimientoContable).subscribe(
       data => {
-        if (data !== null) {
+        if (data) {
           let i = 0;
           while (data[i] !== undefined) {
             this.datosTableMovimientoContable.push(data[i]);
@@ -120,7 +120,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     );
     this.subscriptionDatosImpuestos$ = this.store.select(getDatosImpuestosYRetenciones).subscribe(
       data => {
-        if (data !== null) {
+        if (data) {
           let i = 0;
           while (data.data[i] !== undefined) {
             this.datosTableImpuestosRetenciones.push(data.data[i]);
@@ -179,27 +179,6 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       Estado: 'Elaborado',
     };
     this.store.dispatch(subirOrdenPago({element: elemento}));
-    // if (this.tituloAccion === 'editar') {
-    //   elemento.Numero_Solicitud = this.infoSolicitudgiro.numeroSolicitud;
-    //   this.store.dispatch(actualizarAutorizacionGiro({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
-    // } else if (this.tituloAccion === 'revisar') {
-    //   elemento.Numero_Solicitud = this.infoSolicitudgiro.numeroSolicitud;
-    //   if (revisar === 'rechazar') this.rechazar(elemento);
-    //   else if (revisar === 'aprobar') this.aprobar(elemento);
-    // } else {
-    //   const consecutivo = {
-    //     ContextoId: this.proceso.Id,
-    //     Year: new Date().getFullYear(),
-    //     Descripcion: 'Solicitud de autorización de giro'
-    //   };
-    //   this.store.dispatch(crearConsecutivo({element: consecutivo}));
-    //   this.subConsecutivo$ = this.store.select(selectConsecutivo).subscribe((accion) => {
-    //     if (accion && accion.Consecutivos) {
-    //       elemento.Numero_Solicitud = accion.Consecutivos.Consecutivo;
-    //       this.store.dispatch(subirAutorizacionGiro({element: elemento}));
-    //     }
-    //   });
-    // }
   }
 
   totalGasto() {

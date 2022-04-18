@@ -121,7 +121,6 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   }
 
   agregar() {
-    // TODO
     const elemento = Object.assign({}, DATOS_IMPUESTOS_RETENCIONES[0]);
     elemento.Descuento = this.impuestosYRetenciones.get('porcentajeDescuento').value + '%';
     elemento.Base = this.impuestosYRetenciones.get('baseRetencion').value;

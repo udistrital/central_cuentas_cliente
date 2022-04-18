@@ -1,8 +1,8 @@
 <ng-container >
-<label class="search-label" for="search">buscar</label>
+<label class="search-label" for="search">{{ 'GLOBAL.buscar' | translate}}</label>
     <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input" [(ngModel)]="searchValue">
     <br>
-    <span *ngIf="!selectedNodeData" class="text-danger">seleccione concepto</span>
+    <span *ngIf="!selectedNodeData" class="text-danger">{{ 'ORDEN_PAGO.seleccione_concepto' | translate}}</span>
     <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
         <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
         <tr #nebularTree class="table-row" [class.highlight]="validHighlight(row, nebularTree)"
@@ -13,7 +13,6 @@
               {{ customColumn }}
             </th>
             <td class="aligned-code" nbTreeGridCell *nbTreeGridCellDef="let row">
-              <!-- <ngx-nb-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-nb-fs-icon> -->
               <span *ngIf="row.hasChildren()" class="fas" [ngClass]="{
                   'fa-chevron-down': row.expanded,
                   'fa-chevron-right': !row.expanded
