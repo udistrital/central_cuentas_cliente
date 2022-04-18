@@ -62,8 +62,8 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
       this.store.dispatch(getVigencias());
       this.datosAlmacenadosCompromisos = DATOS_COMPROMISO;
       this.datosAlmacenadosCompromiso = [];
-      this.store.dispatch(getTiposCompromisos({query: {TipoParametroId__Id: 16}}));
-      this.store.dispatch(getTiposOrdenesPago({query: {TipoParametroId__Id: 53}}));
+      this.store.dispatch(getTiposCompromisos({query: {TipoParametroId__CodigoAbreviacion: 'TCP'}}));
+      this.store.dispatch(getTiposOrdenesPago({query: {TipoParametroId__CodigoAbreviacion: 'TOP'}}));
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
       if (this.tituloAccion === 'ver') this.editable = false;
     }

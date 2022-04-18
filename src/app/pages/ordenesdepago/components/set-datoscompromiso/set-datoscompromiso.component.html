@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-9">
             <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
-                    <input type="text" placeholder="{{convenio ? convenio.data.Nombre :'Seleccione...'}}" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                    <input type="text" placeholder="Seleccione..." matInput [formControl]="myControl" [matAutocomplete]="auto"
                     class="form-control" formControlName="convenio" [readonly]="!editable">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let convenio of filteredOptions | async" [value]="convenio">
