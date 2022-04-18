@@ -1,0 +1,10 @@
+<ng-container>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="{{column.key}}" *ngFor="let column of columnNames">
+            <th mat-header-cell *matHeaderCellDef> {{column.title.name}}</th>
+            <td mat-cell *matCellDef="let element" class="{{column.pipe.class}}"> {{element[column.key]}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+        <tr [ngClass]="{highlight: selectedRowIndex === row.Id}" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="agregarSolicitud(row)"></tr>
+    </table>
+</ng-container>

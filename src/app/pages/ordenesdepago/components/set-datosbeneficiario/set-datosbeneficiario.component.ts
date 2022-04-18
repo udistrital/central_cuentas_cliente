@@ -2,10 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
-import { cargarDatosBeneficiario, cargarDatosAlmacenadosBeneficiario } from '../../actions/ordenespago.actions';
+import { loadInfoDatosBeneficiario, loadRP } from '../../actions/ordenespago.actions';
 import { DATOS_BENEFICIARIO } from '../../interfaces/interfaces';
 import { seleccionarAreaFuncional } from '../../actions/ordenespago.actions';
 import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
+import { getSolicitudGiroSeleccionada, selectBeneficiarioOP, selectOrdenesPagoById, selectRPBeneficiario, selectRPExpedido,
+          selectSolicitudesGiroShared, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
+import { getBeneficiarioOP, getOrdenesPagoById, getRPBeneficiario, getRPExpedido, getSupervisor, getTiposID } from '../../../../shared/actions/shared.actions';
+import { combineLatest } from 'rxjs';
+import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-datosbeneficiario',
@@ -20,19 +26,108 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   configTableEstados: any;
   datosTableEstados: any;
   susUnidadEjecutora$: any;
+  solicitudGiroSeleccionada$: any;
+  subscriptionCambios$: any;
+  subscriptionfilter$: any;
+  subRPBeneficiario$: any;
+  subTiposId$: any;
+  subVigencias$: any;
+  vigencias: any;
+  vigenciaActual: any;
+  subBeneficiarioOP$: any;
+  beneficiarioOP: any;
+  subRPBeneficiarios$: any;
+  rpBeneficiarios: any;
+  subRPExpedido$: any;
+  rpExpedidos: any;
+  rps: any;
+  tituloAccion: string;
+  solicGiro = '';
+  subOrdenesPago$: any;
+  ordenPago: any;
+  subSolicitudesGiro$: any;
+  solicitudesGiro: any;
+  editable: boolean = true;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
+    private activatedRoute: ActivatedRoute,
     ) {
       this.datosAlmacenadosBeneficiarios = DATOS_BENEFICIARIO;
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      if (this.tituloAccion === 'ver') {
+        this.store.dispatch(getOrdenesPagoById({id: this.activatedRoute.snapshot.url[1].path}));
+        this.editable = false;
+      }
+      this.rps = [];
      }
 
   ngOnInit() {
+    this.handleVigencias();
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.configTableEstados = CONFIGURACION_TABLA_ESTADOS;
     this.datosTableEstados = DATOS_ESTADOS;
+    this.solicitudGiroSeleccionada$ = this.store.select(getSolicitudGiroSeleccionada).subscribe((solicitudGiro: any) => {
+      if (solicitudGiro) {
+        this.datosBeneficiario.patchValue({
+          solicitudGiro: solicitudGiro
+        });
+        this.solicGiro = solicitudGiro.NumeroSolicitud + ' - ' + solicitudGiro.NombreBeneficiario;
+      }
+    });
+
+    this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
+      if (action && action.OrdenesPagoById) {
+        this.ordenPago = action.OrdenesPagoById;
+        this.ordenesPago();
+      }
+    });
+
+
+    // Consulta cambios en los datos para enviar al store
     this.crearFormulario();
     this.handleFormChanges();
+    this.subscriptionCambios$ = this.datosBeneficiario.valueChanges.subscribe((valor) => {
+      if (this.datosBeneficiario.valid) {
+        this.store.dispatch(loadInfoDatosBeneficiario({ InfoDatosBeneficiario: valor }));
+      }
+    });
+    this.subBeneficiarioOP$ = this.store.select(selectBeneficiarioOP).subscribe((action) => {
+      if (action && action.BeneficiarioOP) {
+        this.beneficiarioOP = action.BeneficiarioOP[0];
+        action.BeneficiarioOP = null;
+        this.datosBeneficiario.patchValue({
+          nombreBeneficiario: this.beneficiarioOP.NomProveedor,
+          regimenBeneficiario: this.beneficiarioOP.Tipopersona,
+          direccionBeneficiario: this.beneficiarioOP.Direccion,
+          telefonoBeneficiario: this.beneficiarioOP.TelAsesor,
+          banco: this.beneficiarioOP.IdEntidadBancaria,
+          cuenta: this.beneficiarioOP.NumCuentaBancaria
+        });
+      }
+    });
+
+    if (this.tituloAccion === 'crear') this.getDatosID();
+  }
+
+  handleVigencias() {
+    this.subVigencias$ = combineLatest([
+      this.store.select(selectVigenciasNoFuturas),
+      this.store.select(getAreaFuncional)
+    ]).subscribe(([accVigencias, accAreaFuncional]) => {
+      if (accVigencias && accVigencias[0] && accAreaFuncional && accAreaFuncional.areaFuncional) {
+        const vigenciaActual = accVigencias[0].find(vigencia => vigencia.estado === 'Actual');
+        if (vigenciaActual)
+          this.vigenciaActual = vigenciaActual.valor;
+        this.vigencias = accVigencias[0].filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
+        if (this.tituloAccion === 'ver' && this.ordenPago) {
+          this.datosBeneficiario.patchValue({
+            vigencia: this.vigencias[this.vigencias.findIndex((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))]
+          });
+        }
+      }
+    });
+
   }
 
   handleFormChanges() {
@@ -54,28 +149,24 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.susUnidadEjecutora$.unsubscribe();
+    this.subVigencias$.unsubscribe();
   }
 
   crearFormulario() {
     this.datosBeneficiario = this.fb.group({
-      numeroOrden: ['',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$')
-        ],
-      ],
-      fechaOrden: ['', Validators.required],
-      unidadEjecutora: ['', Validators.required],
-      tipoId: ['', Validators.required],
-      numeroId: ['', Validators.required],
-      banco: ['', Validators.required],
-      cuenta: ['', [
-        Validators.required,
-        Validators.pattern('^[0-9]*$')
-      ],
-      ]
+      consecutivo: [''],
+      solicitudGiro: [''],
+      areaFuncional: ['', Validators.required],
+      numeroId: [''],
+      banco: [''],
+      cuenta: [''],
+      nombreBeneficiario: [''],
+      regimenBeneficiario: [''],
+      direccionBeneficiario: [''],
+      telefonoBeneficiario: [''],
+      vigencia: ['']
     });
-    this.susUnidadEjecutora$ = this.datosBeneficiario.get('unidadEjecutora').valueChanges.subscribe(valor => {
+    this.susUnidadEjecutora$ = this.datosBeneficiario.get('areaFuncional').valueChanges.subscribe(valor => {
       this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));
     });
   }
@@ -88,16 +179,84 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       return true;
   }
 
-  validarFormulario(data: any ) {
-    if (this.datosBeneficiario.invalid) {
-      return Object.values(this.datosBeneficiario.controls).forEach(control => {
-        control.markAsDirty();
+  getDatosID() {
+    this.subscriptionfilter$ = combineLatest([
+      this.datosBeneficiario.get('numeroId').valueChanges,
+    ]).subscribe(([numeroId]) => {
+      if (numeroId) {
+        this.store.dispatch(getBeneficiarioOP({query: {NumDocumento: numeroId}}));
+      }
+    });
+    this.subRPBeneficiario$ = combineLatest([
+      this.datosBeneficiario.get('numeroId').valueChanges,
+      this.datosBeneficiario.get('vigencia').valueChanges,
+    ]).subscribe(([numeroId, vigencia]) => {
+      this.store.dispatch(getRPBeneficiario({query: {vigencia: '!$' + String(vigencia.valor), beneficiario: '!$' + numeroId}}));
+      this.store.dispatch(getSupervisor({vigencia: String(vigencia.valor), documento: numeroId}));
+      this.subRPBeneficiarios$ = this.store.select(selectRPBeneficiario).subscribe((action) => {
+      if (action && action.RPBeneficiario) {
+        this.rpBeneficiarios = action.RPBeneficiario;
+        this.rpBeneficiarios.forEach(rpBeneficiario => {
+          this.store.dispatch(getRPExpedido({vigencia: String(vigencia.valor), centroGestor: this.datosBeneficiario.value.areaFuncional.Id,
+            query: {tipo: 'rp', 'data.solicitud_crp': rpBeneficiario._id}}));
+          this.subRPExpedido$ = this.store.select(selectRPExpedido).subscribe((accion1) => {
+            if (accion1 && accion1.RPExpedido) {
+              this.rpExpedidos = accion1.RPExpedido;
+              this.rps = [];
+              const EstadosPermitidos: string[] = [
+                'parcial_comprometido',
+                'expedido',
+              ];
+              accion1.RPExpedido.forEach(rp => {
+                if (EstadosPermitidos.some(estado => estado === rp.Estado)) {
+                  this.rps.push(rp);
+                }
+              });
+              accion1.RPExpedido = null;
+            }
+          });
+        });
+      }
+    });
+    });
+  }
+
+  ordenesPago() {
+    if (this.tituloAccion === 'ver') {
+      this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiroShared).subscribe((accion: any) => {
+        if (accion && accion.SolicitudesGiroShared) {
+          this.solicitudesGiro = accion.SolicitudesGiroShared;
+          const solGiro = this.solicitudesGiro[this.solicitudesGiro.findIndex((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro)];
+          this.datosBeneficiario.patchValue({
+            solicitudGiro: solGiro
+          });
+          this.solicGiro = solGiro.Numero_Solicitud + ' - ' + solGiro.Nombre_Beneficiario;
+        }
+        this.datosBeneficiario.patchValue({
+          areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.ordenPago.AreaFuncional)],
+          consecutivo: this.ordenPago.Consecutivo,
+          numeroId: this.ordenPago.DocumentoBeneficiario
+        });
+        this.getDatosID();
       });
-    } else {
-      data.fechaOrden = new Date (data.fechaOrden.year, data.fechaOrden.month, data.fechaOrden.day);
-      this.store.dispatch(cargarDatosBeneficiario(data));
-      this.store.dispatch(cargarDatosAlmacenadosBeneficiario(this.datosAlmacenadosBeneficiario));
     }
   }
 
+  isInvalid(nombre: string) {
+    const input = this.datosBeneficiario.get(nombre);
+    if (input)
+      return input.invalid && (input.touched || input.dirty);
+    else
+      return true;
+  }
+
+  validarFormulario(data: any ) {
+    if (this.datosBeneficiario.invalid) {
+      return Object.values(this.datosBeneficiario.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.store.dispatch(loadRP({RP: this.rps}));
+    }
+  }
 }

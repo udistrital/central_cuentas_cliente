@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MatStepperModule, MatSelectModule } from '@angular/material';
+import { MatStepperModule, MatSelectModule, MatCheckboxModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatTableModule, MatIconModule, MatPaginatorModule } from '@angular/material';
 import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiario/set-datosbeneficiario.component';
 import { SetDatoscompromisoComponent } from './components/set-datoscompromiso/set-datoscompromiso.component';
 import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
@@ -19,6 +19,7 @@ import { ShowResumenordenpagoComponent } from './components/show-resumenordenpag
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TipoOrdenVigenciaPipe } from './pipes/tipo-orden-vigencia.pipe';
+import { SetImpuestosyretencionesComponent } from './components/set-impuestosyretenciones/set-impuestosyretenciones.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { TipoOrdenVigenciaPipe } from './pipes/tipo-orden-vigencia.pipe';
     SetDatosbeneficiarioComponent, SetDatoscompromisoComponent,
     SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent,
     ShowResumenordenpagoComponent,
-    TipoOrdenVigenciaPipe],
+    TipoOrdenVigenciaPipe,
+    SetImpuestosyretencionesComponent],
   imports: [
     NgbModule,
     CurrencyMaskModule,
@@ -38,6 +40,13 @@ import { TipoOrdenVigenciaPipe } from './pipes/tipo-orden-vigencia.pipe';
     MatStepperModule,
     MatSelectModule,
     ScrollingModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule,
     StoreModule.forFeature(fromOrdenespago.ordenespagoFeatureKey, fromOrdenespago.reducer),
     EffectsModule.forFeature([OrdenespagoEffects])
   ]

@@ -61,7 +61,7 @@ export class SharedService {
   public getConceptos(id?: any) {
     this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
     id = id ? id : '';
-    return this.rqManager.get(`concepto/${id}`);
+    return this.rqManager.get(`conceptos/${id}`);
   }
 
   /**
@@ -172,6 +172,16 @@ export class SharedService {
       return this.rqManager.getv2(`autorizacion-giro/${id}`, null, null, null, null, null, 0);
     }
 
+    /**
+   * Gets OrdenesPago by id
+   * @param id id de la orden de pago
+   * @returns  Documento
+   */
+     public getOrdenesPagoById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`orden-pago/${id}`, null, null, null, null, null, 0);
+    }
+
   /**
    * Gets tipos Documentos
    * @param query Query para traer los tipos de documentos para cargar soportes
@@ -206,6 +216,123 @@ export class SharedService {
     public getAutorizacionGiro(sortby: any, order: any, query: any) {
       this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
       return this.rqManager.getv2('autorizacion-giro/', null, query, null, sortby, order, null, null);
+    }
+
+    public getTiposCompromisos(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      return (this.rqManager.getv2('parametro/', null, query, null, null, null, 0 , null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getRetenciones(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      return (this.rqManager.getv2('parametro/', null, query, null, null, null, 0 , null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getConvenios(codigo: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`arbol_rubro/arbol_reducido/${codigo}?nivel=1`, null, null, null, null, null, 0 , null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getTiposOrdenesPago(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      return (this.rqManager.getv2('parametro/', null, query, null, null, null, 0, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getRPExpYParcCompr(vigencia: number, centroGestor: any, query: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`documento_presupuestal/${vigencia}/${centroGestor}`, null, query, null, null, null, 0, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getRPBeneficiario(query: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2('solicitudesCRP', null, query, null, null, null, 0, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getRubrosCrp(vigencia: number, centroGestor: any, crp: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`movimiento/${vigencia}/${centroGestor}/${crp}?fatherInfoLevel=apropiacion`,  null, null, null, null, null, 0, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getBeneficiarioOP(query: any) {
+      this.rqManager.setPath('ADMINISTRATIVA_AMAZON_SERVICE');
+      return (this.rqManager.getv2(`informacion_proveedor/`,  null, query, null, null, null, 0, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getEntradaAlmacen(query: any) {
+      this.rqManager.setPath('MOVIMIENTOS_ARKA_CRUD_SERVICE');
+      return (this.rqManager.getv2(`movimiento/`,  null, query, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getInfoRubro(rubro: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`arbol_rubro/arbol_reducido/${rubro}?nivel=1`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getInfoNecesidad(cdp: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MID_SERVICE');
+      return (this.rqManager.getv2(`necesidad/getfullnecesidad/320`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getMetaNecesidad(meta: any) {
+      this.rqManager.setPath('PLAN_ADQUISICIONES_CRUD_SERVICE');
+      return (this.rqManager.getv2(`Meta/${meta}`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getActividadesNecesidad(actividad: any) {
+      this.rqManager.setPath('PLAN_ADQUISICIONES_CRUD_SERVICE');
+      return (this.rqManager.getv2(`Actividad/${actividad}`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getInfoCuentaContable(codigo: any) {
+      this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+      return (this.rqManager.getv2(`nodo_cuenta_contable/codigo/${codigo}`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getSupervisor(vigencia: any, documento: any) {
+      this.rqManager.setPath('ADMINISTRATIVA_JBPM_CRUD_SERVICE');
+      return (this.rqManager.getv2(`informacion_persona/${vigencia}/${documento}`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    /**
+   * Gets arbol cuenta contable
+   *  returns one tree level at once.
+   * @param [branch] tree's branch to request info from the API
+   * @returns  branch information.
+   */
+   public getArbolCuentaContable() {
+    this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+    return this.rqManager.get(`nodo_cuenta_contable`);
+
   }
 
   /**

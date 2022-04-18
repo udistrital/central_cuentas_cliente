@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GetArbolRubro } from '../actions/shared.actions';
+import { GetArbolCuentaContable, GetArbolRubro } from '../actions/shared.actions';
 import { getArbolRubro } from '../selectors/shared.selectors';
 
 @Injectable({
@@ -19,5 +19,9 @@ export class ParametricService {
         this.store.dispatch(GetArbolRubro({ branch: fuente }));
       }
     });
+  }
+
+  CargarArbolCuentasContables() {
+    this.store.dispatch(GetArbolCuentaContable({}));
   }
 }

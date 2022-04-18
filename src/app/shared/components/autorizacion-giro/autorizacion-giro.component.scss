@@ -33,7 +33,23 @@ table {
     background-color: rgb(243, 161, 9);
 }
 
-.mat-column-NumeroOrden, .mat-column-NombreBeneficiario, .mat-column-AutorizacionGiro, .mat-column-Estado, .mat-column-estado {
+.mat-column-NumeroSolicitud {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-NombreBeneficiario {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-Fecha {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-Estado {
+    border-right: 1px solid lightgray !important;
+}
+
+.mat-column-estado {
     border-right: 1px solid lightgray !important;
 }
 
@@ -50,7 +66,7 @@ mat-paginator {
     padding: 8px 8px 8px 0;
 }
 .mat-row:hover {
-    background-color: rgb(189, 187, 187);
+    background-color: rgba(243, 161, 9, 0.562);
 }
 
 .mat-icon:hover {
@@ -59,4 +75,8 @@ mat-paginator {
 
 h5 {
     text-transform: uppercase;
+}
+
+.highlight{
+    background: rgb(243, 161, 9); /* green */
 }

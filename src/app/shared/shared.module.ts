@@ -20,22 +20,32 @@ import { MultiPipePipe } from './pipes/multi-pipe.pipe';
 import { RechazarComponent } from './components/rechazar/rechazar.component';
 import { TableComponent } from './components/table/table.component';
 import { FileUploadDirective } from './directives/file-upload.directive';
+import { AutorizacionGiroComponent } from './components/autorizacion-giro/autorizacion-giro.component';
+import { MatIconModule, MatTableModule } from '@angular/material';
+import { ArbolCuentasContablesComponent } from './components/arbol-cuentas-contables/arbol-cuentas-contables.component';
+import { ConceptosComponent } from './components/conceptos/conceptos.component';
 @NgModule({
   exports: [
     TranslateModule,
     GeneralTableComponent,
     MouseOverDirective,
     ArbolRubroComponent,
+    AutorizacionGiroComponent,
     SelectedRowDirective,
     RechazarComponent,
     TableComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ArbolCuentasContablesComponent,
+    ConceptosComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NbTreeGridModule,
+    MatTableModule,
+    MatIconModule,
+    TranslateModule,
     StoreModule.forFeature(fromShared.sharedFeatureKey, fromShared.reducer),
     EffectsModule.forFeature([SharedEffects])
   ],
@@ -50,7 +60,10 @@ import { FileUploadDirective } from './directives/file-upload.directive';
     MultiPipePipe,
     RechazarComponent,
     TableComponent,
-    FileUploadDirective
+    FileUploadDirective,
+    AutorizacionGiroComponent,
+    ArbolCuentasContablesComponent,
+    ConceptosComponent
   ],
   providers: [
     CustomTablePipe,
