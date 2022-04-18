@@ -37,6 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
         },
           (error: any) => {
             console.info(error);
+            // TODO: Se debe realizar un ajuste al control de errores de algunas apis que retornan un codigo incorrecto, lo que genera que se dispare el mensaje de error
             // this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`));
           },
         ));
