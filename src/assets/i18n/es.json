@@ -235,7 +235,8 @@
     "sel_cuenta_contable": "Seleccione la Cuenta Contable",
     "digito_verificacion": "Digito de Verificación",
     "espera": "Por favor espera.",
-    "cargando_documento": "Cargando documento"
+    "cargando_documento": "Cargando documento",
+    "seleccione": "Seleccione..."
   },
   "SOLICITUD_GIRO": {
     "autorizacion_tesoreria_giro": "Autorización a la Tesorería en general a girar a favor de:",

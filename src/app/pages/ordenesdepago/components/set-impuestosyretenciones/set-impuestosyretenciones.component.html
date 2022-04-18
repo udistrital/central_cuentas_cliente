@@ -22,7 +22,7 @@
     <div class="form-group row">
         <div class="col-md-12">
             <label for="retencion">{{ 'ORDEN_PAGO.retencion' | translate}}</label>
-            <mat-select [disabled]="!editable" class="form-control" placeholder="Seleccione..." formControlName="retencion" [class.is-invalid]="isInvalid('retencion')" (selectionChange)="retencion()">
+            <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="retencion" [class.is-invalid]="isInvalid('retencion')" (selectionChange)="retencion()">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                     <mat-option *cdkVirtualFor="let retencion of retenciones" [value]="retencion">
                         {{retencion.Nombre}}

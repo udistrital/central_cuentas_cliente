@@ -34,7 +34,7 @@
     <div class="row form-group" *ngIf="conceptoCuenta">
         <div class="col-md-12">
             <label>{{ 'ORDEN_PAGO.cuenta_contable_concepto' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="cuentaContableMovCont">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaContableMovCont">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto" [value]="cuentaContable1">
                         {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}
@@ -67,7 +67,7 @@
     <div class="row form-group">
         <div class="col-md-4" *ngIf="boolean">
             <label for="codigoContable">{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="cuentaCredito" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaCredito" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto" [value]="cuentaContable1">
                         {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}
@@ -90,7 +90,7 @@
     <div class="row form-group" *ngIf="endoso">
         <div class="col-md-4">
             <label>{{ 'MODIF.tipo_documento' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoIdentificacion" [class.is-invalid]="isInvalid('tipoIdentificacion')">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoIdentificacion" [class.is-invalid]="isInvalid('tipoIdentificacion')">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                         {{opcion.label}}

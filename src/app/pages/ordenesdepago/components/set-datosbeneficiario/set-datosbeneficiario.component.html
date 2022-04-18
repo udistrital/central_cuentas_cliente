@@ -2,7 +2,7 @@
     <div class="form-group row justify-content-between">
         <div class="col-md-4">
             <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                         {{opcion.label}}
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-4">
             <label for="vigencia">{{ 'GLOBAL.vigencia' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="vigencia" [class.is-invalid]="isInvalid('vigencia')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="vigencia" [class.is-invalid]="isInvalid('vigencia')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let vigencia of vigencias" [value]="vigencia">
                         {{vigencia?.valor}}

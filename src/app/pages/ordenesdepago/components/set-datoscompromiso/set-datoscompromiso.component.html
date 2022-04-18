@@ -5,7 +5,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label for="compromiso">{{ 'ORDEN_PAGO.compromiso_pagar' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="compromiso" [class.is-invalid]="isInvalid('compromiso')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="compromiso" [class.is-invalid]="isInvalid('compromiso')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                     <mat-option *cdkVirtualFor="let tipoCompromiso of tiposCompromisos" [value]="tipoCompromiso">
                         {{tipoCompromiso.Nombre}}
@@ -22,7 +22,7 @@
     <div class="form-group row">
         <div class="col-md-3">
             <label>{{ 'ORDEN_PAGO.tipo_convenio' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoConvenio" [class.is-invalid]="isInvalid('tipoConvenio')" (selectionChange)="consultarConvenios()" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoConvenio" [class.is-invalid]="isInvalid('tipoConvenio')" (selectionChange)="consultarConvenios()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let tipoConvenio of tiposConvenio" [value]="tipoConvenio">
                         {{tipoConvenio.tipo_convenio}}
@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-9">
             <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
-                    <input type="text" placeholder="Seleccione..." matInput [formControl]="myControl" [matAutocomplete]="auto"
+                    <input type="text" placeholder="{{ 'GLOBAL.seleccione' | translate}}" matInput [formControl]="myControl" [matAutocomplete]="auto"
                     class="form-control" formControlName="convenio" [readonly]="!editable">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let convenio of filteredOptions | async" [value]="convenio">
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col-md-6 form-group">
             <label for="tipoOrden">{{ 'ORDEN_PAGO.tipo_orden_pago' | translate}}</label>
-            <mat-select class="form-control" placeholder="Seleccione..." formControlName="tipoOrdenPago" [class.is-invalid]="isInvalid('tipoOrdenPago')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoOrdenPago" [class.is-invalid]="isInvalid('tipoOrdenPago')" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let tipoOrdenPago of tiposOrdenesPago" [value]="tipoOrdenPago">
                         {{tipoOrdenPago.Nombre}}
