@@ -74,7 +74,10 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.mostrarOcultar = 'Mostrar';
     this.mostrarOcultarIcono = 'fa-eye';
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') this.editable = false;
+    if (this.tituloAccion === 'ver') {
+      this.editable = false;
+      this.valorValido = true;
+    }
   }
 
   ngOnInit() {
