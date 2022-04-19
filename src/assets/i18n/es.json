@@ -294,7 +294,8 @@
     "seleccione_concepto": "Seleccione un concepto",
     "orden_pago": "Orden de Pago",
     "beneficiario": "Beneficiario",
-    "compromiso": "Compromiso"
+    "compromiso": "Compromiso",
+    "valor_maximo_imputacion": "El valor de la imputación no puede superar"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

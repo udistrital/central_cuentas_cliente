@@ -9,7 +9,7 @@ import { getFilaSeleccionada, selectActividadNecesidad, selectInfoNecesidad, sel
           selectRPBeneficiario, selectRubrosCrp } from '../../../../shared/selectors/shared.selectors';
 import { ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { getActividadesNecesidad, getInfoNecesidad, getInfoRubro, getMetaNecesidad, getRPExpedido, getRubrosCrp, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
+import { getActividadesNecesidad, getInfoNecesidad, getInfoRubro, getMetaNecesidad, getRubrosCrp, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 import { cargarDatosImputacionPresupuestal } from '../../actions/ordenespago.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { getDatosBeneficiario, getDatosCompromiso, getInfoDatosBeneficiario, getRP } from '../../selectors/ordenespago.selectors';
@@ -56,6 +56,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   subOrdenesPago$: any;
   ordenPago: any;
   editable: boolean = true;
+  valorValido: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -136,6 +137,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
           if (action1 && action1.MetaNecesidad) {
             this.metaNecesidad = action1.MetaNecesidad;
             this.datosTableFuentes[0].metas = this.infoNecesidad.Rubros[0].Metas[0].MetaId + ' - ' + this.metaNecesidad.Nombre;
+            this.datosTableFuentes[0].rubroGasto = this.infoNecesidad.Rubros[0].Productos[0].InfoProducto;
             action1.MetaNecesidad = null;
           }
         });
@@ -201,6 +203,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       }
     ];
     this.datosTableImputacion.push(datosAgregar[0]);
+    if (this.totalGasto() > this.impuntuacionPresupuestal.value.crp.ValorActual) this.valorValido = false;
+    else this.valorValido = true;
   }
 
   totalGasto() {

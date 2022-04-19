@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { getConceptos, getDatosID, getSolicitudesById } from '../../../../shared/actions/shared.actions';
-import { selectTiposID, selectDatosID, selectConceptos, selectSolicitudesGiro } from '../../../../shared/selectors/shared.selectors';
+import { getConcepto, getConceptos, GetConceptosContables, getDatosID, getSolicitudesById } from '../../../../shared/actions/shared.actions';
+import { selectTiposID, selectDatosID, selectConceptos, selectSolicitudesGiro, getConceptosContables, getNodoSeleccionadoConcepto, seleccionarConcepto } from '../../../../shared/selectors/shared.selectors';
 import { combineLatest } from 'rxjs';
 import { loadInfosolicitudgiro } from '../../actions/solicitudesgiros.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
@@ -36,6 +36,10 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
   subSolicitudesGiro$: any;
   solicitudesGiro: any;
   ver: boolean;
+  subscriptionConceptos$: any;
+  subGetNodoSeleccionadoConcepto$: any;
+  subConcepto$: any;
+  concepto: any;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -44,7 +48,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.createForm();
     this.tiposID = [];
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
-    this.store.dispatch(getConceptos({query: {TipoParametroId__CodigoAbreviacion: 'CON'}}));
+    this.store.dispatch(GetConceptosContables({ id: '' }));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.ver = ACCIONES_DISABLED.some(accion => accion === this.tituloAccion);
   }
@@ -65,6 +69,12 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.subscriptionConceptos$ = this.store.select(getConceptosContables).subscribe((conceptos) => {
+      if (conceptos && conceptos.ConceptosContables) {
+        this.conceptos = conceptos.ConceptosContables;
+      }
+    });
+
     this.subscriptionDatosId$ = this.store.select(selectDatosID, 'solicitante').subscribe((action) => {
       if (action && action.datosId && action.datosId[0]) {
         this.datosID = action.datosId[0];
@@ -80,7 +90,7 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
         if (accion && accion.SolicitudesById) {
           this.solicitudesGiro = accion.SolicitudesById;
-          this.conceptosSolicitud();
+          this.setSolicitudesGiro();
         }
       });
     }
@@ -92,24 +102,32 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
       if (this.infoSolicitudGroup.valid)
         this.store.dispatch(loadInfosolicitudgiro({ infosolicitud: valor }));
     });
-    this.conceptosSolicitud();
+    // this.conceptosSolicitud();
   }
 
-  conceptosSolicitud() {
+  // Se deja comentareado ya que es una logica de concepto para usar mas adelante
+  /*conceptosSolicitud() {
     this.subConceptos$ = this.store.select(selectConceptos).subscribe((accion) => {
       if (accion && accion.Conceptos) {
         this.conceptos = accion.Conceptos;
         if (ACCIONES_EDI.some(accion1 => accion1 === this.tituloAccion)) this.setSolicitudesGiro();
       }
     });
-  }
+  }*/
   setSolicitudesGiro() {
     if (this.solicitudesGiro) {
-      this.infoSolicitudGroup.patchValue({
-        concepto: this.conceptos[this.conceptos.findIndex((e: any) => e.Id === this.solicitudesGiro.Concepto)],
-        areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.solicitudesGiro.Area_Funcional)],
-        numeroSolicitud: this.solicitudesGiro.Numero_Solicitud
-      });
+      this.store.dispatch(getConcepto({codigo: this.solicitudesGiro.Concepto}));
+        this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+          if (concepto && concepto.Concepto) {
+            this.concepto = concepto.Concepto;
+            concepto.Concepto = null;
+            this.infoSolicitudGroup.patchValue({
+              concepto: this.concepto,
+              areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.solicitudesGiro.Area_Funcional)],
+              numeroSolicitud: this.solicitudesGiro.Numero_Solicitud
+            });
+          }
+        });
     }
   }
 
@@ -117,7 +135,6 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
     this.subscriptionTipoId$.unsubscribe();
     this.subscriptionDatosId$.unsubscribe();
     this.subscriptionCambios$.unsubscribe();
-    this.subConceptos$.unsubscribe();
   }
 
   // Validacion del Formulario
@@ -168,6 +185,23 @@ export class SetInfosolicitudgiroComponent implements OnInit, OnDestroy {
         control.markAsTouched();
       });
     }
+  }
+
+  agregarConcepto() {
+    this.subGetNodoSeleccionadoConcepto$ = this.store.select(getNodoSeleccionadoConcepto).subscribe((nodoConcepto) => {
+      if (nodoConcepto && Object.keys(nodoConcepto)[0] !== 'type') {
+        this.store.dispatch(getConcepto({codigo: nodoConcepto.Codigo}));
+        this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+          if (concepto && concepto.Concepto) {
+            this.concepto = concepto.Concepto;
+            concepto.Concepto = null;
+            this.infoSolicitudGroup.patchValue({
+              concepto: this.concepto
+            });
+          }
+        });
+      }
+    });
   }
 
 }

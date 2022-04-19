@@ -110,7 +110,8 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
         this.supervisor = action.Supervisor;
         action.Supervisor = null;
         this.datosCompromiso.patchValue({
-          supervisor: this.supervisor.informacion_persona.supervisor.nombre
+          supervisor: this.supervisor.informacion_persona.supervisor.nombre,
+          numeroCompromiso: this.supervisor.informacion_persona.contrato.numero
         });
       }
     });
