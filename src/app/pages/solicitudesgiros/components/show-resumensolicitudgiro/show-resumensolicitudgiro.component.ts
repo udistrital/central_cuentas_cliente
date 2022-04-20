@@ -135,7 +135,7 @@ export class ShowResumensolicitudgiroComponent implements OnInit, OnDestroy {
     const elemento = {
       Activo: true,
       Area_Funcional: this.infoSolicitudgiro.areaFuncional.Id,
-      Concepto: this.infoSolicitudgiro.concepto.Id,
+      Concepto: this.infoSolicitudgiro.concepto.Codigo,
       Documento_Solicitante: this.infoSolicitudgiro.numeroId,
       Tipo_Doc_Beneficiario: this.autorizacionGiro.tipoId.Id,
       Documento_Beneficiario: this.autorizacionGiro.numeroId,
