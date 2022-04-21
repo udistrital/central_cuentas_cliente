@@ -36,6 +36,7 @@ export interface State {
   RPBeneficiario: any;
   RubrosCrp: any;
   BeneficiarioOP: any;
+  BeneficiarioEndoso: any;
   EntradaAlmacen: any;
   InfoRubro: any;
   InfoNecesidad: any;
@@ -48,6 +49,7 @@ export interface State {
   CuentaContableSeleccionada: any;
   InfoCuentaContable: any;
   InfoCuentaContableDebito: any;
+  InfoCuentaContableEndoso: any;
   Supervisor: any;
   OrdenesPagoById: any;
 }
@@ -84,6 +86,7 @@ export const initialState: State = {
   RPBeneficiario: null,
   RubrosCrp: null,
   BeneficiarioOP: null,
+  BeneficiarioEndoso: null,
   EntradaAlmacen: null,
   InfoRubro: null,
   InfoNecesidad: null,
@@ -96,6 +99,7 @@ export const initialState: State = {
   CuentaContableSeleccionada: null,
   InfoCuentaContable: null,
   InfoCuentaContableDebito: null,
+  InfoCuentaContableEndoso: null,
   Supervisor: null,
   OrdenesPagoById: null,
 };
@@ -200,6 +204,9 @@ const sharedReducer = createReducer(
   on(SharedActions.cargarBeneficiarioOP, (state, action) => ({
     ...state, BeneficiarioOP: state.BeneficiarioOP = action
   })),
+  on(SharedActions.cargarBeneficiarioEndoso, (state, action) => ({
+    ...state, BeneficiarioEndoso: state.BeneficiarioEndoso = action
+  })),
   on(SharedActions.cargarEntradaAlmacen, (state, action) => ({
     ...state, EntradaAlmacen: state.EntradaAlmacen = action
   })),
@@ -235,6 +242,9 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarInfoCuentaContableDebito, (state, action) => ({
     ...state, InfoCuentaContableDebito: state.InfoCuentaContableDebito = action
+  })),
+  on(SharedActions.cargarInfoCuentaContableEndoso, (state, action) => ({
+    ...state, InfoCuentaContableEndoso: state.InfoCuentaContableEndoso = action
   })),
   on(SharedActions.cargarSupervisor, (state, action) => ({
     ...state, Supervisor: state.Supervisor = action

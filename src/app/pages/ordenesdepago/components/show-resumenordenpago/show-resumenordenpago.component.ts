@@ -44,6 +44,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   vigenciaActual: number;
   susVigencias$: any;
   vigencias: any;
+  endoso: boolean;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -110,7 +111,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionMovimientoContable$ = this.store.select(getMovimientoContable).subscribe(
       data => {
         if (data && data.MovimientoContable) {
-          this.movimientoContable = data.MovimientoContable.cuenta;
+          this.movimientoContable = data.MovimientoContable;
+          this.endoso = this.movimientoContable.endoso;
         }
       }
     );
@@ -168,8 +170,12 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       ImputacionPresupuestal: this.datosTableImputacion,
       Concepto: this.impYRet.Codigo,
       ImpuestosRetenciones: this.datosTableImpuestosRetenciones,
-      CuentaValorNeto: this.movimientoContable.Codigo,
+      CuentaValorNeto: this.movimientoContable.cuentaCredito.cuenta.Codigo,
       MovimientoContable: this.datosTableMovimientoContable,
+      Endoso: this.movimientoContable.endoso,
+      BeneficiarioEndoso: String(this.movimientoContable.identificacionEndoso),
+      ValorEndoso: this.movimientoContable.valorEndoso,
+      CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
       Estado: 'Elaborado',
     };
     this.store.dispatch(subirOrdenPago({element: elemento}));

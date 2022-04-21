@@ -149,6 +149,12 @@ export const selectBeneficiarioOP = createSelector(
   (state: fromShared.State) => state.BeneficiarioOP
 );
 
+export const selectBeneficiarioEndoso = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.BeneficiarioEndoso
+);
+
+
 export const selectEntradaAlmacen = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.EntradaAlmacen
@@ -212,6 +218,11 @@ export const selectInfoCuentaContable = createSelector(
 export const selectInfoCuentaContableDebito = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.InfoCuentaContableDebito
+);
+
+export const selectInfoCuentaContableEndoso = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.InfoCuentaContableEndoso
 );
 
 export const selectSupervisor = createSelector(

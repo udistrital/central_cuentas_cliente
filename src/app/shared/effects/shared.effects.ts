@@ -322,6 +322,18 @@ export class SharedEffects {
     );
   });
 
+  getBeneficiarioEndoso$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getBeneficiarioEndoso),
+      mergeMap((accion) => {
+        return this.sharedService.getBeneficiarioOP(accion.query)
+        .pipe(map(data => SharedActions.cargarBeneficiarioEndoso(
+          {BeneficiarioEndoso: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
   getEntradaAlmacen$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getEntradaAlmacen),
@@ -413,6 +425,18 @@ export class SharedEffects {
         return this.sharedService.getInfoCuentaContable(accion.codigo)
         .pipe(map(data => SharedActions.cargarInfoCuentaContableDebito(
           {InfoCuentaContableDebito: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getInfoCuentaContableEndoso$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getInfoCuentaContableEndoso),
+      mergeMap((accion) => {
+        return this.sharedService.getInfoCuentaContable(accion.codigo)
+        .pipe(map(data => SharedActions.cargarInfoCuentaContableEndoso(
+          {InfoCuentaContableEndoso: data})),
           catchError(data => of(SharedActions.CatchError(data))));
       })
     );
