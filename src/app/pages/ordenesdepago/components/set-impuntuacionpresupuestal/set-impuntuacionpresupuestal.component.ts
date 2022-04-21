@@ -218,7 +218,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   fijarCdp() {
     this.store.select(selectRPBeneficiario).subscribe((action) => {
       if (action && action.RPBeneficiario) {
-        this.cdp = action.RPBeneficiario[action.RPBeneficiario.findIndex((e: any) => e._id === this.impuntuacionPresupuestal.get('crp').value.Data.solicitud_crp)];
+        this.cdp = action.RPBeneficiario.find((e: any) => e._id === this.impuntuacionPresupuestal.get('crp').value.Data.solicitud_crp);
         this.impuntuacionPresupuestal.patchValue({
           disponibilidad: this.cdp.consecutivoCdp
         });

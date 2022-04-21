@@ -122,7 +122,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         this.vigencias = accVigencias[0].filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
         if (this.tituloAccion === 'ver' && this.ordenPago) {
           this.datosBeneficiario.patchValue({
-            vigencia: this.vigencias[this.vigencias.findIndex((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))]
+            vigencia: this.vigencias.find((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))
           });
         }
       }
@@ -226,14 +226,14 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiroShared).subscribe((accion: any) => {
         if (accion && accion.SolicitudesGiroShared) {
           this.solicitudesGiro = accion.SolicitudesGiroShared;
-          const solGiro = this.solicitudesGiro[this.solicitudesGiro.findIndex((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro)];
+          const solGiro = this.solicitudesGiro.find((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro);
           this.datosBeneficiario.patchValue({
             solicitudGiro: solGiro
           });
           this.solicGiro = solGiro.Numero_Solicitud + ' - ' + solGiro.Nombre_Beneficiario;
         }
         this.datosBeneficiario.patchValue({
-          areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.ordenPago.AreaFuncional)],
+          areaFuncional: this.opcionesAreaFuncional.find((e: any) => e.Id === this.ordenPago.AreaFuncional),
           consecutivo: this.ordenPago.Consecutivo,
           numeroId: this.ordenPago.DocumentoBeneficiario
         });

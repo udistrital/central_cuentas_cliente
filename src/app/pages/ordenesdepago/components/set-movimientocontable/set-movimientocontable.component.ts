@@ -50,7 +50,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   valorDescuento: any;
   valorImputacion: any;
   valorNeto: any;
-  boolean: boolean;
+  cuentaConceptoFull: boolean;
   subscriptionCambios$: any;
   tituloAccion: string;
   subOrdenesPago$: any;
@@ -140,7 +140,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       this.cuentasContablesConcepto = [];
       if (action && action.ImpYRet) {
         this.impYRet = action.ImpYRet;
-        this.boolean = false;
+        this.cuentaConceptoFull = false;
         if (this.impYRet.conceptoContable !== '') {
           const total = this.impYRet.CuentasDebito.length + this.impYRet.CuentasCredito.length;
           this.impYRet.CuentasDebito.forEach(CuentaDebito => {
@@ -151,10 +151,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
                 accion1.InfoCuentaContableDebito = null;
                 this.cuentasContablesConcepto.push({cuenta: this.cuentaDebito});
                 if (this.cuentasContablesConcepto.length === total) {
-                  this.boolean = true;
+                  this.cuentaConceptoFull = true;
                   if (this.tituloAccion === 'ver') {
                     this.movimientoContable.patchValue({
-                      cuentaCredito: (this.cuentasContablesConcepto[this.cuentasContablesConcepto.findIndex((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)]),
+                      cuentaCredito: (this.cuentasContablesConcepto.find((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)),
                     });
                   }
                 }
@@ -169,10 +169,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
                 accion.InfoCuentaContable = null;
                 this.cuentasContablesConcepto.push({cuenta: this.cuentaCredito});
                 if (this.cuentasContablesConcepto.length === total) {
-                  this.boolean = true;
+                  this.cuentaConceptoFull = true;
                   if (this.tituloAccion === 'ver') {
                     this.movimientoContable.patchValue({
-                      cuentaCredito: (this.cuentasContablesConcepto[this.cuentasContablesConcepto.findIndex((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)]),
+                      cuentaCredito: (this.cuentasContablesConcepto.find((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)),
                     });
                   }
                 }
