@@ -61,7 +61,7 @@
                                 <td class="align-middle">
                                     <div [class]="config.rowActions.title.actionClass">
                                         <ng-container *ngFor="let actions of config.rowActions.actions">
-                                            <div ngxMouseOver [class]="actions.class" data-toggle="tooltip" data-placement="top" (click)="SelectedAction(actions, items)" title="{{actions.title}}">
+                                            <div *ngIf="actions.ngIf" ngxMouseOver [class]="actions.class" data-toggle="tooltip" data-placement="top" (click)="SelectedAction(actions, items)" title="{{actions.title}}">
                                                 <i [class]="actions.icon"></i>
                                             </div>
                                         </ng-container>

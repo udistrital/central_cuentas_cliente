@@ -77,6 +77,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     if (this.tituloAccion === 'ver') {
       this.editable = false;
       this.valorValido = true;
+      this.configTableImpuntuacion.rowActions.actions[1].ngIf = false;
     }
   }
 

@@ -55,7 +55,10 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     this.store.dispatch(GetConceptosContables({ id: '' }));
     this.store.dispatch(getRetenciones({query: {TipoParametroId__Id: 54}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') this.editable = false;
+    if (this.tituloAccion === 'ver') {
+      this.editable = false;
+      this.configTableImpuestosRetenciones.rowActions.actions[0].ngIf = false;
+    }
   }
 
   ngOnInit() {

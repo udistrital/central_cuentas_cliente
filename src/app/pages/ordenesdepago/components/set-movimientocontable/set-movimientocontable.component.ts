@@ -70,8 +70,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.datosTableMovimientoContable = [];
     this.store.dispatch(GetConceptosContables({ id: '' }));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') this.editable = false;
-    this.boolean = false;
+    if (this.tituloAccion === 'ver') {
+      this.editable = false;
+      this.configTableMovimientoContable.rowActions.actions[0].ngIf = false;
+    }
   }
 
   async ngOnInit() {
@@ -85,6 +87,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       cuentaContable: [''],
       endoso: [false],
       cuentaContableMovCont: [''],
+      cuentaContableMovCont1: [''],
       cuentaConcepto: [false],
       nombreMovimientoContable: [''],
       valorMovimientoContable: [''],
@@ -239,8 +242,8 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     const elemento = Object.assign({}, DATOS_MOVIMIENTO_CONTABLE[0]);
     elemento.Nombre = this.movimientoContable.get('nombreMovimientoContable').value;
     if (this.movimientoContable.value.cuentaConcepto) {
-      elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont.cuenta.Codigo + ' - '
-      + this.movimientoContable.value.cuentaContableMovCont.cuenta.Nombre;
+      elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Codigo + ' - '
+      + this.movimientoContable.value.cuentaContableMovCont1.cuenta.Nombre;
     } else {
       elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont;
     }

@@ -17,9 +17,7 @@
         <div class="col-md-3">
             <mat-checkbox class="example-margin" formControlName="cuentaConcepto" (change)="conceptoCuentaContable()" [disabled]="!editable">{{ 'SOLICITUD_GIRO.concepto' | translate}}</mat-checkbox>
         </div>
-    </div>
-    <div class="fow form-group" *ngIf="!conceptoCuenta">
-        <div class="col-md-12">
+        <div class="col-md-9" *ngIf="!conceptoCuenta">
             <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -30,11 +28,9 @@
                 <input class="form-control" formControlName="cuentaContableMovCont" disabled>
             </div>
         </div>
-    </div>
-    <div class="row form-group" *ngIf="conceptoCuenta">
-        <div class="col-md-12">
+        <div class="col-md-9" *ngIf="conceptoCuenta">
             <label>{{ 'ORDEN_PAGO.cuenta_contable_concepto' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaContableMovCont">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaContableMovCont1">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto" [value]="cuentaContable1">
                         {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}

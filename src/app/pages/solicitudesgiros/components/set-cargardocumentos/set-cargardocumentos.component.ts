@@ -54,6 +54,7 @@ export class SetCargardocumentosComponent implements OnInit, OnDestroy {
     this.store.dispatch(getTiposDocumentos({query: {TipoParametroId__CodigoAbreviacion: 'DOC_SOAG'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.ver = ACCIONES_DISABLED.some(accion => accion === this.tituloAccion);
+    this.configuracion.rowActions.actions[0].ngIf = !this.ver;
   }
 
   ngOnInit() {
