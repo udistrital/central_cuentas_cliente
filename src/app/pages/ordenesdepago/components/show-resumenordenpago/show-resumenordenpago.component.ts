@@ -93,6 +93,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosImputacion$ = this.store.select(getDatosImputacionPresupuestal).subscribe(
       data => {
         if (data) {
+          this.datosTableImputacion = [];
           data.data.forEach(datos => {
             this.datosTableImputacion.push(datos);
           });
@@ -102,6 +103,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosMovimiento$ = this.store.select(getDatosMovimientoContable).subscribe(
       data => {
         if (data) {
+          this.datosTableMovimientoContable = [];
           data.data.forEach(datos => {
             this.datosTableMovimientoContable.push(datos);
           });
@@ -119,6 +121,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosImpuestos$ = this.store.select(getDatosImpuestosYRetenciones).subscribe(
       data => {
         if (data) {
+          this.datosTableImpuestosRetenciones = [];
           data.data.forEach(datos => {
             this.datosTableImpuestosRetenciones.push(datos);
           });

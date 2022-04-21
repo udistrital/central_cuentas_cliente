@@ -69,8 +69,9 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       retencion: [''],
       baseRetencion: [''],
       porcentajeDescuento: [''],
-      conceptoContable: [''],
+      conceptoContable: ['', Validators.required],
       codigoContable: [''],
+      validator: ['', Validators.required]
     });
     // Conceptos contables
     this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
@@ -91,9 +92,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptionCambios$ = this.impuestosYRetenciones.get('conceptoContable').valueChanges.subscribe((valor) => {
-      if (this.impuestosYRetenciones.valid) {
-        this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
-      }
+      this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
     });
 
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
@@ -131,6 +130,9 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     elemento.Nombre = this.impuestosYRetenciones.value.retencion.Nombre;
     elemento.Codigo = this.cuentaContableSeleccionada.data.Codigo;
     this.datosTableImpuestosRetenciones.push(elemento);
+    this.impuestosYRetenciones.patchValue({
+      validator: 'a'
+    });
   }
 
   SeleccionarCuentaContable(cuentaContable: any) {
@@ -185,8 +187,19 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       return true;
   }
 
-  cargarMovimiento() {
-    this.store.dispatch(cargarDatosImpuestosYRetenciones({data: this.datosTableImpuestosRetenciones}));
+  validarFormulario() {
+    if (this.datosTableImpuestosRetenciones.length > 0) {
+      this.impuestosYRetenciones.patchValue({
+        validator: 'a'
+      });
+    }
+    if (this.impuestosYRetenciones.invalid) {
+      return Object.values(this.impuestosYRetenciones.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.store.dispatch(cargarDatosImpuestosYRetenciones({data: this.datosTableImpuestosRetenciones}));
+    }
   }
 
   ordenesPago() {

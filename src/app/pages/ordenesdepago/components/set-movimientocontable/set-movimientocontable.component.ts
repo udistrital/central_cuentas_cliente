@@ -79,17 +79,12 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     // Form
     this.movimientoContable = this.fb.group({
-      baseRetencion: ['1500000'],
-      porcentajeDescuento: ['20'],
-      conceptoContable: [''],
-      tipoIdentificacion: [''],
-      areaFuncional: [''],
       cuentaContable: [''],
       endoso: [false],
       cuentaContableMovCont: [''],
       cuentaContableMovCont1: [''],
       cuentaConcepto: [false],
-      nombreMovimientoContable: [''],
+      nombreMovimientoContable: ['Valor Bruto'],
       valorMovimientoContable: [''],
       cuentaCredito: [''],
       identificacionEndoso: [''],
@@ -122,6 +117,9 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
           this.valorDescuento += retencion.Valor;
         });
         this.valorNeto = this.valorImputacion - this.valorDescuento;
+        this.movimientoContable.patchValue({
+          valorMovimientoContable: this.valorImputacion
+        });
       }
     });
 

@@ -89,6 +89,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       valor: [''],
       codigo: [''],
       nombre: [''],
+      validator: ['', Validators.required]
     });
     this.mostrarOcultarHistoria('');
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
@@ -173,6 +174,22 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
         ), 1);
       }
     });
+  }
+
+  validarFormulario() {
+    if (this.datosTableImputacion.length === 0 || !this.valorValido) {
+      this.impuntuacionPresupuestal.patchValue({
+        validator: ''
+      });
+      return Object.values(this.impuntuacionPresupuestal.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.impuntuacionPresupuestal.patchValue({
+        validator: 'a'
+      });
+      this.store.dispatch(cargarDatosImputacionPresupuestal({data: this.datosTableImputacion}));
+    }
   }
 
   mostrarOcultarHistoria(state: string) {

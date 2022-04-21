@@ -310,7 +310,7 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -365,7 +365,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify align-middle',
+                class: 'text-center align-middle',
             }
         },
         {
@@ -378,7 +378,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
         {
@@ -388,7 +388,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify align-middle',
+                class: 'text-center align-middle',
             }
         },
         {
@@ -401,7 +401,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],

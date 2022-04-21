@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-4">
             <label> {{ 'GLOBAL.consecutivo' | translate}}</label>
-            <input type="text" class="form-control" formControlName="consecutivo" [readonly]="!editable">
+            <input type="number" class="form-control" formControlName="consecutivo" [class.is-invalid]="isInvalid('consecutivo')" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
@@ -49,33 +49,37 @@
         </div>
         <div class="col-md-9">
             <label for="nombre">{{ 'GLOBAL.nombre' | translate}}</label>
-            <input class="form-control" id="nombre" formControlName="nombreBeneficiario" disabled>
+            <input class="form-control" id="nombre" formControlName="nombreBeneficiario" [class.is-invalid]="isInvalid('nombreBeneficiario')" disabled>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
             <label for="regimen">{{ 'ORDEN_PAGO.regimen' | translate}}</label>
-            <input class="form-control" id="regimen" formControlName="regimenBeneficiario" disabled>
+            <input class="form-control" id="regimen" formControlName="regimenBeneficiario" [class.is-invalid]="isInvalid('regimenBeneficiario')" disabled>
         </div>
         <div class="col-md-9">
             <label for="direccion">{{ 'GLOBAL.direccion' | translate}}</label>
-            <input class="form-control" id="direccion" formControlName="direccionBeneficiario" disabled>
+            <input class="form-control" id="direccion" formControlName="direccionBeneficiario" [class.is-invalid]="isInvalid('direccionBeneficiario')" disabled>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-6">
             <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
-            <input class="form-control" id="banco" disabled formControlName="banco">
+            <input class="form-control" id="banco" disabled formControlName="banco" [class.is-invalid]="isInvalid('banco')">
         </div>
         <div class="col-md-6">
             <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
-            <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta">
+            <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta" [class.is-invalid]="isInvalid('cuenta')">
         </div>
     </div>
     <div class="row justify-content-between">
         <div class="col-md-3">
-            <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white">
-                {{ 'SOLICITUD_GIRO.volver_registros' | translate}}
+            <a href="#/pages/ordenespago/lista">
+                <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                    <div class="d-flex flex-row justify-content-around align-middle">
+                        <span>{{ 'SOLICITUD_GIRO.volver_registros' | translate}}</span>
+                    </div>
+                </button>
             </a>
         </div>
         <div class="col-md-3 text-right">

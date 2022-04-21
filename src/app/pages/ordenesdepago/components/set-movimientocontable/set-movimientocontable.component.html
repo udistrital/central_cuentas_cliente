@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-6">
             <label>{{ 'MODIF.valor' | translate}}</label>
-            <input type="number" class="form-control" formControlName="valorMovimientoContable" [readonly]="!editable">
+            <input currencyMask class="form-control" formControlName="valorMovimientoContable" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
@@ -57,7 +57,7 @@
             <label for="valorTotal" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_total_descuentos' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{valorDescuento|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{valorDescuento|currency}}">
         </div>
     </div>
     <div class="row form-group">
@@ -75,7 +75,7 @@
             <label for="valorNeto" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_neto_girar' | translate}}</label>
         </div>
         <div class="col-md-4 d-flex align-items-center">
-            <input class="form-control" id="valorNeto" disabled value="{{valorNeto|currency}}">
+            <input currencyMask class="form-control" id="valorNeto" disabled value="{{valorNeto|currency}}">
         </div>
     </div>
     <div class="row justify-content-end form-group">
@@ -116,7 +116,7 @@
     <div class="row form-group" *ngIf="endoso">
         <div class="col-md-6">
             <label>{{ 'ORDEN_PAGO.valor_endoso' | translate}}</label>
-            <input type="number" class="form-control" id="valorEndoso" formControlName="valorEndoso" [readonly]="!editable">
+            <input currencyMask class="form-control" id="valorEndoso" formControlName="valorEndoso" [readonly]="!editable">
         </div>
 
         <div class="col-md-6">

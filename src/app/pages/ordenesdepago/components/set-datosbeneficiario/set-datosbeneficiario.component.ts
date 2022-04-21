@@ -150,21 +150,23 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.susUnidadEjecutora$.unsubscribe();
     this.subVigencias$.unsubscribe();
+    if (this.tituloAccion === 'ver') {
+      this.subSolicitudesGiro$.unsubscribe();
+    }
   }
 
   crearFormulario() {
     this.datosBeneficiario = this.fb.group({
-      consecutivo: [''],
-      solicitudGiro: [''],
+      consecutivo: ['', Validators.required],
+      solicitudGiro: ['', Validators.required],
       areaFuncional: ['', Validators.required],
-      numeroId: [''],
-      banco: [''],
-      cuenta: [''],
-      nombreBeneficiario: [''],
-      regimenBeneficiario: [''],
-      direccionBeneficiario: [''],
-      telefonoBeneficiario: [''],
-      vigencia: ['']
+      numeroId: ['', Validators.required],
+      banco: ['', Validators.required],
+      cuenta: ['', Validators.required],
+      nombreBeneficiario: ['', Validators.required],
+      regimenBeneficiario: ['', Validators.required],
+      direccionBeneficiario: ['', Validators.required],
+      vigencia: ['', Validators.required]
     });
     this.susUnidadEjecutora$ = this.datosBeneficiario.get('areaFuncional').valueChanges.subscribe(valor => {
       this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));

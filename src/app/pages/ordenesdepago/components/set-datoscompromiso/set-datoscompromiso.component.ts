@@ -160,13 +160,13 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
 
   crearFormulario() {
     this.datosCompromiso = this.fb.group({
-      compromiso: [''],
-      tipoConvenio: [''],
-      convenio: [''],
+      compromiso: ['', Validators.required],
+      tipoConvenio: ['', Validators.required],
+      convenio: ['', Validators.required],
       supervisor: [''],
-      tipoOrdenPago: [''],
+      tipoOrdenPago: ['', Validators.required],
       numeroCompromiso: [''],
-      actaRecibido: [''],
+      actaRecibido: ['', Validators.required],
       entradaAlmacen: [''],
       detalle: [''],
       conv: [''],
