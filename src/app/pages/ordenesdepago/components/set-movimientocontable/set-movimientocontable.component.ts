@@ -273,17 +273,13 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
 
   agregarCuentaContable1() {
     this.subGetNodoSeleccionadoCuenta$ = this.store.select(getNodoSeleccionadoCuentaContable).subscribe((nodoCuenta: any) => {
-      if (nodoCuenta) {
-        if (Object.keys(nodoCuenta)[0] !== 'type') {
-          if (nodoCuenta && !nodoCuenta.children) {
-            this.SeleccionarCuentaContable(nodoCuenta);
-            this.cuentaContableSeleccionada1 = nodoCuenta.data;
-            nodoCuenta = null;
-            this.movimientoContable.patchValue({
-              cuentaContableEndoso: this.cuentaContableSeleccionada1
-            });
-          }
-        }
+      if (nodoCuenta && Object.keys(nodoCuenta)[0] !== 'type' && !nodoCuenta.children) {
+        this.SeleccionarCuentaContable(nodoCuenta);
+        this.cuentaContableSeleccionada1 = nodoCuenta.data;
+        nodoCuenta = null;
+        this.movimientoContable.patchValue({
+          cuentaContableEndoso: this.cuentaContableSeleccionada1
+        });
       }
     });
     this.subGetNodoSeleccionadoCuenta$.unsubscribe();

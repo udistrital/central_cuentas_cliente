@@ -71,7 +71,7 @@
     </div>
     <div class="container py-2 px-0">
         <ngx-general-table [config]="configTableImpuestosRetenciones" [datos]="datosTableImpuestosRetenciones"></ngx-general-table>
-        <small *ngIf="datosTableImpuestosRetenciones == 0" class="text-danger">{{ 'GLOBAL.tabla_no_vacia' | translate}}</small>
+        <small *ngIf="datosTableImpuestosRetenciones === 0" class="text-danger">{{ 'GLOBAL.tabla_no_vacia' | translate}}</small>
     </div>
 
     <ng-template #eliminarModal let-modal>

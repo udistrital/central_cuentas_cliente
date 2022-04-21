@@ -130,9 +130,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     elemento.Nombre = this.impuestosYRetenciones.value.retencion.Nombre;
     elemento.Codigo = this.cuentaContableSeleccionada.data.Codigo;
     this.datosTableImpuestosRetenciones.push(elemento);
-    this.impuestosYRetenciones.patchValue({
-      validator: 'a'
-    });
+    this.validator();
   }
 
   SeleccionarCuentaContable(cuentaContable: any) {
@@ -189,9 +187,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
 
   validarFormulario() {
     if (this.datosTableImpuestosRetenciones.length > 0) {
-      this.impuestosYRetenciones.patchValue({
-        validator: 'a'
-      });
+      this.validator();
     }
     if (this.impuestosYRetenciones.invalid) {
       return Object.values(this.impuestosYRetenciones.controls).forEach(control => {
@@ -226,5 +222,11 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
 
   get valorDescuento() {
     return this.impuestosYRetenciones.get('baseRetencion').value * this.impuestosYRetenciones.get('porcentajeDescuento').value / 100;
+  }
+
+  private validator() {
+    this.impuestosYRetenciones.patchValue({
+      validator: 'a'
+    });
   }
 }

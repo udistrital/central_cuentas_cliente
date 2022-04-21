@@ -70,7 +70,7 @@
     </div>
     <div id="tablaImputacion" class="container py-2 px-0">
         <ngx-general-table [config]="configTableImpuntuacion" [datos]="datosTableImputacion"></ngx-general-table>
-        <small *ngIf="datosTableImputacion == 0" class="text-danger">{{ 'GLOBAL.tabla_no_vacia' | translate}}</small>
+        <small *ngIf="datosTableImputacion === 0" class="text-danger">{{ 'GLOBAL.tabla_no_vacia' | translate}}</small>
     </div>
     <div class="row form-group justify-content-md-center">
         <div class="col-md-2 d-flex align-items-center">
