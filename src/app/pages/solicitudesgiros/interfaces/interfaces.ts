@@ -125,12 +125,14 @@ export const CONFIGURACION_DOCUMENTOS: any = {
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Borrar Documento',
+                ngIf: true,
             },
             {
                 name: 'VerDocumento',
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Documento',
+                ngIf: true,
             }
         ],
     },

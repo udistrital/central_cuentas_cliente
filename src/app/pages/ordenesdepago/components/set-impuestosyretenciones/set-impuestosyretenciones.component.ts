@@ -55,7 +55,10 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     this.store.dispatch(GetConceptosContables({ id: '' }));
     this.store.dispatch(getRetenciones({query: {TipoParametroId__Id: 54}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') this.editable = false;
+    if (this.tituloAccion === 'ver') {
+      this.editable = false;
+      this.configTableImpuestosRetenciones.rowActions.actions[0].ngIf = false;
+    }
   }
 
   ngOnInit() {
@@ -66,8 +69,9 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       retencion: [''],
       baseRetencion: [''],
       porcentajeDescuento: [''],
-      conceptoContable: [''],
+      conceptoContable: ['', Validators.required],
       codigoContable: [''],
+      validator: ['', Validators.required]
     });
     // Conceptos contables
     this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
@@ -88,9 +92,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptionCambios$ = this.impuestosYRetenciones.get('conceptoContable').valueChanges.subscribe((valor) => {
-      if (this.impuestosYRetenciones.valid) {
-        this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
-      }
+      this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
     });
 
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
@@ -128,6 +130,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     elemento.Nombre = this.impuestosYRetenciones.value.retencion.Nombre;
     elemento.Codigo = this.cuentaContableSeleccionada.data.Codigo;
     this.datosTableImpuestosRetenciones.push(elemento);
+    this.validator();
   }
 
   SeleccionarCuentaContable(cuentaContable: any) {
@@ -182,8 +185,17 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       return true;
   }
 
-  cargarMovimiento() {
-    this.store.dispatch(cargarDatosImpuestosYRetenciones({data: this.datosTableImpuestosRetenciones}));
+  validarFormulario() {
+    if (this.datosTableImpuestosRetenciones.length > 0) {
+      this.validator();
+    }
+    if (this.impuestosYRetenciones.invalid) {
+      return Object.values(this.impuestosYRetenciones.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.store.dispatch(cargarDatosImpuestosYRetenciones({data: this.datosTableImpuestosRetenciones}));
+    }
   }
 
   ordenesPago() {
@@ -210,5 +222,11 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
 
   get valorDescuento() {
     return this.impuestosYRetenciones.get('baseRetencion').value * this.impuestosYRetenciones.get('porcentajeDescuento').value / 100;
+  }
+
+  private validator() {
+    this.impuestosYRetenciones.patchValue({
+      validator: 'a'
+    });
   }
 }

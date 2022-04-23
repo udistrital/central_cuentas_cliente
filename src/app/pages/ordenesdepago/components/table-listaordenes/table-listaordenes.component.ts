@@ -31,7 +31,7 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
   ) {
     this.datosPrueba = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
-    this.store.dispatch(getOrdenesPago({sortby: ['Numero_Solicitud'], order: ['desc']}));
+    this.store.dispatch(getOrdenesPago({sortby: ['Consecutivo'], order: ['desc']}));
     this.store.dispatch(LoadFilaSeleccionada(null));
   }
 

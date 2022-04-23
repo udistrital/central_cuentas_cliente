@@ -285,11 +285,21 @@ export const getBeneficiarioOP = createAction(
   '[Shared] Obtiene el beneficiario de la OP del crud admin_amazon',
   props<{query: any}>()
 );
-
 export const cargarBeneficiarioOP = createAction(
   '[Shared] Carga el beneficiario de la OP al store',
   props()
 );
+
+export const getBeneficiarioEndoso = createAction(
+  '[Shared] Obtiene el beneficiario del endoso del crud admin_amazon',
+  props<{query: any}>()
+);
+
+export const cargarBeneficiarioEndoso = createAction(
+  '[Shared] Carga el beneficiario del endoso al store',
+  props()
+);
+
 
 export const getEntradaAlmacen = createAction(
   '[Shared] Obtiene la entrada de almacen del crud de movimientos_arka',
@@ -403,6 +413,16 @@ export const getInfoCuentaContableDebito = createAction(
 
 export const cargarInfoCuentaContableDebito = createAction(
   '[Shared] Carga la info de la cuenta contable debito al store',
+  props()
+);
+
+export const getInfoCuentaContableEndoso = createAction(
+  '[Shared] Obtiene la info de la cuenta contable endoso del crud de cuentas contables',
+  props<{codigo: any}>()
+);
+
+export const cargarInfoCuentaContableEndoso = createAction(
+  '[Shared] Carga la info de la cuenta contable endoso al store',
   props()
 );
 

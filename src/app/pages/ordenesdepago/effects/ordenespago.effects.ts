@@ -37,7 +37,10 @@ export class OrdenespagoEffects {
       mergeMap((accion) =>
       this.servicio.subirOrdenPago(accion.element).
       pipe(map(data => {
-        this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.guardado_exitoso')).then((result) => {
+        this.popupManager
+        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        {CONSECUTIVO: accion.element.Consecutivo}))
+        .then((result) => {
           this.router.navigateByUrl('pages/ordenespago/lista');
         });
         return OrdenespagoActions.cargarOrdenPago({OrdenPago: data});

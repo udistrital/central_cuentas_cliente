@@ -85,7 +85,7 @@ export const cargarOrdenesPago = createAction(
 );
 
 export const cargarOrdenPago = createAction(
-  '[OrdenesPago] Carga las ordenes de pago al store',
+  '[OrdenesPago] Carga la orden de pago al store',
   props(),
 );
 

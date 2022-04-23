@@ -44,6 +44,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   vigenciaActual: number;
   susVigencias$: any;
   vigencias: any;
+  endoso: boolean;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -92,6 +93,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosImputacion$ = this.store.select(getDatosImputacionPresupuestal).subscribe(
       data => {
         if (data) {
+          this.datosTableImputacion = [];
           data.data.forEach(datos => {
             this.datosTableImputacion.push(datos);
           });
@@ -101,6 +103,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosMovimiento$ = this.store.select(getDatosMovimientoContable).subscribe(
       data => {
         if (data) {
+          this.datosTableMovimientoContable = [];
           data.data.forEach(datos => {
             this.datosTableMovimientoContable.push(datos);
           });
@@ -110,13 +113,15 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionMovimientoContable$ = this.store.select(getMovimientoContable).subscribe(
       data => {
         if (data && data.MovimientoContable) {
-          this.movimientoContable = data.MovimientoContable.cuenta;
+          this.movimientoContable = data.MovimientoContable;
+          this.endoso = this.movimientoContable.endoso;
         }
       }
     );
     this.subscriptionDatosImpuestos$ = this.store.select(getDatosImpuestosYRetenciones).subscribe(
       data => {
         if (data) {
+          this.datosTableImpuestosRetenciones = [];
           data.data.forEach(datos => {
             this.datosTableImpuestosRetenciones.push(datos);
           });
@@ -168,8 +173,12 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       ImputacionPresupuestal: this.datosTableImputacion,
       Concepto: this.impYRet.Codigo,
       ImpuestosRetenciones: this.datosTableImpuestosRetenciones,
-      CuentaValorNeto: this.movimientoContable.Codigo,
+      CuentaValorNeto: this.movimientoContable.cuentaCredito.cuenta.Codigo,
       MovimientoContable: this.datosTableMovimientoContable,
+      Endoso: this.movimientoContable.endoso,
+      BeneficiarioEndoso: String(this.movimientoContable.identificacionEndoso),
+      ValorEndoso: this.movimientoContable.valorEndoso,
+      CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
       Estado: 'Elaborado',
     };
     this.store.dispatch(subirOrdenPago({element: elemento}));

@@ -236,7 +236,8 @@
     "digito_verificacion": "Digito de Verificación",
     "espera": "Por favor espera.",
     "cargando_documento": "Cargando documento",
-    "seleccione": "Seleccione..."
+    "seleccione": "Seleccione...",
+    "tabla_no_vacia": "Debe agregar al menos un registro a la tabla"
   },
   "SOLICITUD_GIRO": {
     "autorizacion_tesoreria_giro": "Autorización a la Tesorería en general a girar a favor de:",
@@ -258,6 +259,7 @@
     "carga_documentos_exitosa": "Carga de documento exitosa"
   },
   "ORDEN_PAGO": {
+    "guardado_exitoso": "Creación de la orden de pago exitosa con el consecutivo: {{CONSECUTIVO}}",
     "numero_sol_orden_giro": "No. Solicitud de orgen de giro",
     "regimen": "Régimen",
     "sel_orden_giro": "Seleccionar Autorización de Giro",

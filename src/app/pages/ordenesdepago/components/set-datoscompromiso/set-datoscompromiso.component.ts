@@ -79,7 +79,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
         this.tiposCompromisos = action.TiposCompromisos;
         if (this.tituloAccion === 'ver') {
           this.datosCompromiso.patchValue({
-            compromiso: this.tiposCompromisos[this.tiposCompromisos.findIndex((e: any) => e.Id === this.ordenPago.Compromiso)]
+            compromiso: this.tiposCompromisos.find((e: any) => e.Id === this.ordenPago.Compromiso)
           });
         }
       }
@@ -94,7 +94,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
         this.tiposOrdenesPago = action.TiposOrdenesPago;
         if (this.tituloAccion === 'ver') {
           this.datosCompromiso.patchValue({
-            tipoOrdenPago: this.tiposOrdenesPago[this.tiposOrdenesPago.findIndex((e: any) => e.Id === this.ordenPago.TipoOrdenPago)]
+            tipoOrdenPago: this.tiposOrdenesPago.find((e: any) => e.Id === this.ordenPago.TipoOrdenPago)
           });
         }
       }
@@ -160,13 +160,13 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
 
   crearFormulario() {
     this.datosCompromiso = this.fb.group({
-      compromiso: [''],
-      tipoConvenio: [''],
-      convenio: [''],
+      compromiso: ['', Validators.required],
+      tipoConvenio: ['', Validators.required],
+      convenio: ['', Validators.required],
       supervisor: [''],
-      tipoOrdenPago: [''],
+      tipoOrdenPago: ['', Validators.required],
       numeroCompromiso: [''],
-      actaRecibido: [''],
+      actaRecibido: ['', Validators.required],
       entradaAlmacen: [''],
       detalle: [''],
       conv: [''],
@@ -188,7 +188,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
         this.convenios = action.Convenios[0].children;
         if (this.tituloAccion === 'ver') {
           this.datosCompromiso.patchValue({
-            convenio: (this.convenios[this.convenios.findIndex((e: any) => e.Codigo === this.ordenPago.Convenio)]).data.Nombre
+            convenio: (this.convenios.find((e: any) => e.Codigo === this.ordenPago.Convenio).data.Nombre)
           });
         }
         this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -243,7 +243,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     if (this.tituloAccion === 'ver') {
       this.datosCompromiso.patchValue({
         numeroCompromiso: this.ordenPago.NumeroCompromiso,
-        tipoConvenio: this.tiposConvenio[this.tiposConvenio.findIndex((e: any) => e.tipo_convenio === this.ordenPago.TipoConvenio)],
+        tipoConvenio: this.tiposConvenio.find((e: any) => e.tipo_convenio === this.ordenPago.TipoConvenio),
         actaRecibido: this.ordenPago.ActaRecibido,
         detalle: this.ordenPago.Detalle,
       });

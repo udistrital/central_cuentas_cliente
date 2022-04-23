@@ -107,7 +107,7 @@
         <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">{{ 'ORDEN_PAGO.valor_total' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
@@ -123,7 +123,7 @@
         <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">{{ 'ORDEN_PAGO.valor_total_descuentos' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
@@ -139,21 +139,65 @@
             <label for="valorTotal" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_total_descuentos' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 <label for="codigoContable">{{ 'ORDEN_PAGO.codigo_contable' | translate}}</label>
-                <input type="text" class="form-control" id="codigoContable" [value]="movimientoContable ? movimientoContable.Codigo : ''" disabled>
+                <input type="text" class="form-control" id="codigoContable" [value]="movimientoContable ? movimientoContable.cuentaCredito.cuenta.Codigo : ''" disabled>
             </div>
         </div>
         <div class="col-md-3 d-flex align-items-center">
             <label for="valorNeto" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_neto_girar' | translate}}</label>
         </div>
         <div class="col-md-4 d-flex align-items-center">
-            <input class="form-control" id="valorNeto" disabled value="{{totalNeto()|currency}}">
+            <input currencyMask class="form-control" id="valorNeto" disabled value="{{totalNeto()|currency}}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        {{ 'ORDEN_PAGO.endoso' | translate}}
+    </h6>
+    <div class="row form-group justify-content-between" *ngIf="endoso">
+        <div class="col-md-4">
+            <label for="identificacionEndoso">{{ 'MODIF.numero_documento' | translate}}</label>
+            <input type="number" class="form-control" id="identificacionEndoso" value="{{movimientoContable.identificacionEndoso}}" readonly>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.digito_verificacion' | translate}}</label>
+            <input class="form-control" id="digitoVerificacion" readonly>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-12">
+            <label>{{ 'ORDEN_PAGO.beneficiario_endoso' | translate}}</label>
+            <input class="form-control" id="beneficiarioEndoso" value="{{movimientoContable.beneficiarioEndoso}}" disabled>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.banco' | translate}}</label>
+            <input class="form-control" id="bancoEndoso" value="{{movimientoContable.bancoEndoso}}" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input class="form-control" id="tipoCuentaEndoso" value="{{movimientoContable.tipoCuentaEndoso}}" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.numero_cuenta' | translate}}</label>
+            <input class="form-control" id="numeroCuentaEndoso" value="{{movimientoContable.numeroCuentaEndoso}}" disabled>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.valor_endoso' | translate}}</label>
+            <input currencyMask class="form-control" id="valorEndoso" value="{{movimientoContable.valorEndoso|currency}}" disabled>
+        </div>
+
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+            <input class="form-control" id="cuentaContableEndoso" value="{{movimientoContable.cuentaContableEndoso.Codigo}} - {{movimientoContable.cuentaContableEndoso.Nombre}}" disabled>
         </div>
     </div>
 

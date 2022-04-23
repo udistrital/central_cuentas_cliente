@@ -77,6 +77,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     if (this.tituloAccion === 'ver') {
       this.editable = false;
       this.valorValido = true;
+      this.configTableImpuntuacion.rowActions.actions[1].ngIf = false;
     }
   }
 
@@ -88,6 +89,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       valor: [''],
       codigo: [''],
       nombre: [''],
+      validator: ['', Validators.required]
     });
     this.mostrarOcultarHistoria('');
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
@@ -174,6 +176,22 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     });
   }
 
+  validarFormulario() {
+    if (this.datosTableImputacion.length === 0 || !this.valorValido) {
+      this.impuntuacionPresupuestal.patchValue({
+        validator: ''
+      });
+      return Object.values(this.impuntuacionPresupuestal.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.impuntuacionPresupuestal.patchValue({
+        validator: 'a'
+      });
+      this.store.dispatch(cargarDatosImputacionPresupuestal({data: this.datosTableImputacion}));
+    }
+  }
+
   mostrarOcultarHistoria(state: string) {
     if (state === 'false') {
       this.mostrarOcultar = 'Ocultar';
@@ -217,7 +235,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   fijarCdp() {
     this.store.select(selectRPBeneficiario).subscribe((action) => {
       if (action && action.RPBeneficiario) {
-        this.cdp = action.RPBeneficiario[action.RPBeneficiario.findIndex((e: any) => e._id === this.impuntuacionPresupuestal.get('crp').value.Data.solicitud_crp)];
+        this.cdp = action.RPBeneficiario.find((e: any) => e._id === this.impuntuacionPresupuestal.get('crp').value.Data.solicitud_crp);
         this.impuntuacionPresupuestal.patchValue({
           disponibilidad: this.cdp.consecutivoCdp
         });

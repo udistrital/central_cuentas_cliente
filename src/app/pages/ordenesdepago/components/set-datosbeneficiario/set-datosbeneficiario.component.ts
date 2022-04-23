@@ -122,7 +122,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         this.vigencias = accVigencias[0].filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
         if (this.tituloAccion === 'ver' && this.ordenPago) {
           this.datosBeneficiario.patchValue({
-            vigencia: this.vigencias[this.vigencias.findIndex((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))]
+            vigencia: this.vigencias.find((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))
           });
         }
       }
@@ -150,21 +150,23 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.susUnidadEjecutora$.unsubscribe();
     this.subVigencias$.unsubscribe();
+    if (this.tituloAccion === 'ver') {
+      this.subSolicitudesGiro$.unsubscribe();
+    }
   }
 
   crearFormulario() {
     this.datosBeneficiario = this.fb.group({
-      consecutivo: [''],
-      solicitudGiro: [''],
+      consecutivo: ['', Validators.required],
+      solicitudGiro: ['', Validators.required],
       areaFuncional: ['', Validators.required],
-      numeroId: [''],
-      banco: [''],
-      cuenta: [''],
-      nombreBeneficiario: [''],
-      regimenBeneficiario: [''],
-      direccionBeneficiario: [''],
-      telefonoBeneficiario: [''],
-      vigencia: ['']
+      numeroId: ['', Validators.required],
+      banco: ['', Validators.required],
+      cuenta: ['', Validators.required],
+      nombreBeneficiario: ['', Validators.required],
+      regimenBeneficiario: ['', Validators.required],
+      direccionBeneficiario: ['', Validators.required],
+      vigencia: ['', Validators.required]
     });
     this.susUnidadEjecutora$ = this.datosBeneficiario.get('areaFuncional').valueChanges.subscribe(valor => {
       this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));
@@ -226,14 +228,14 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiroShared).subscribe((accion: any) => {
         if (accion && accion.SolicitudesGiroShared) {
           this.solicitudesGiro = accion.SolicitudesGiroShared;
-          const solGiro = this.solicitudesGiro[this.solicitudesGiro.findIndex((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro)];
+          const solGiro = this.solicitudesGiro.find((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro);
           this.datosBeneficiario.patchValue({
             solicitudGiro: solGiro
           });
           this.solicGiro = solGiro.Numero_Solicitud + ' - ' + solGiro.Nombre_Beneficiario;
         }
         this.datosBeneficiario.patchValue({
-          areaFuncional: this.opcionesAreaFuncional[this.opcionesAreaFuncional.findIndex((e: any) => e.Id === this.ordenPago.AreaFuncional)],
+          areaFuncional: this.opcionesAreaFuncional.find((e: any) => e.Id === this.ordenPago.AreaFuncional),
           consecutivo: this.ordenPago.Consecutivo,
           numeroId: this.ordenPago.DocumentoBeneficiario
         });

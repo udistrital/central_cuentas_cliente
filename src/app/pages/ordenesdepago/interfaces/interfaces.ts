@@ -248,14 +248,16 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Fuentes',
-                idStep: 3
+                idStep: 3,
+                ngIf: true
             },
             {
                 name: 'modificar',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
-                idStep: 3
+                idStep: 3,
+                ngIf: true
             }
         ],
     },
@@ -308,7 +310,7 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -324,7 +326,8 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
-                idStep: 4
+                idStep: 4,
+                ngIf: true
             }
         ],
     },
@@ -362,7 +365,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify align-middle',
+                class: 'text-center align-middle',
             }
         },
         {
@@ -375,7 +378,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
         {
@@ -385,7 +388,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify align-middle',
+                class: 'text-center align-middle',
             }
         },
         {
@@ -398,7 +401,7 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -414,7 +417,8 @@ export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
-                idStep: 4
+                idStep: 4,
+                ngIf: true
             }
         ],
     },
