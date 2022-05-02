@@ -18,7 +18,7 @@ import { seleccionarConceptos } from '../../selectors/shared.selectors';
   templateUrl: './conceptos.component.html',
   styleUrls: ['./conceptos.component.scss']
 })
-export class ConceptosComponent implements OnInit {
+export class ConceptosComponent implements OnInit, OnDestroy {
 
   @Output() ConceptoSeleccionado = new EventEmitter();
   customColumn = 'Codigo';
@@ -45,6 +45,10 @@ export class ConceptosComponent implements OnInit {
   ngOnInit() {
     this.loadTree();
     this.nodeData = undefined;
+  }
+
+  ngOnDestroy() {
+    this.subConceptos$.unsubscribe();
   }
 
   async onSelect(selectedItem: any, treegrid) {

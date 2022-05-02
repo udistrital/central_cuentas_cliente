@@ -201,11 +201,17 @@
         </div>
     </div>
 
-    <div class="row justify-content-end">
-        <div class="col-md-3">
+    <div class="row justify-content-between">
+        <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
+            <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
+        </div>
+        <div class="col-md-3" *ngIf="tituloAccion !== 'ver'">
             <button class="btn btn-success w-100" type="button" data-toggle="modal" data-target="#guardarModal">
                 {{ 'GLOBAL.guardar' | translate}}
             </button>
+        </div>
+        <div class="col-md-6" *ngIf="tituloAccion === 'ver'">
+            <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" [routerLink]="['/pages/ordenespago/lista']" routerLinkActive="router-link-active">{{ 'GLOBAL.terminar' | translate}}</button>
         </div>
     </div>
     <!-- Modal -->

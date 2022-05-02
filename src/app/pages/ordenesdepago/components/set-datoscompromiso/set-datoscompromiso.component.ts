@@ -48,12 +48,14 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   conv: any;
   subscriptionCambios$: any;
   subEntradaAlmacen$: any;
-  entradaAlmacen: any;
   tituloAccion: any;
   subOrdenesPago$: any;
   ordenPago: any;
   subSolicitudesGiro$;
+  subConvenio$: any;
   editable: boolean = true;
+  flagActa: boolean = true;
+  flagRubro: boolean = true;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
@@ -69,7 +71,6 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.entradaAlmacen = '';
     this.tiposConvenio = DATOS_TIPO_CONVENIO;
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.crearFormulario();
@@ -77,7 +78,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     this.subTiposCompromisos$ = this.store.select(selectTiposCompromisos).subscribe((action) => {
       if (action && action.TiposCompromisos) {
         this.tiposCompromisos = action.TiposCompromisos;
-        if (this.tituloAccion === 'ver') {
+        if ((this.tituloAccion === 'ver' || this.tituloAccion === 'editar') && this.ordenPago) {
           this.datosCompromiso.patchValue({
             compromiso: this.tiposCompromisos.find((e: any) => e.Id === this.ordenPago.Compromiso)
           });
@@ -92,7 +93,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     this.subTiposOrdenesPago$ = this.store.select(selectTiposOrdenesPago).subscribe((action) => {
       if (action && action.TiposOrdenesPago) {
         this.tiposOrdenesPago = action.TiposOrdenesPago;
-        if (this.tituloAccion === 'ver') {
+        if ((this.tituloAccion === 'ver' || this.tituloAccion === 'editar') && this.ordenPago) {
           this.datosCompromiso.patchValue({
             tipoOrdenPago: this.tiposOrdenesPago.find((e: any) => e.Id === this.ordenPago.TipoOrdenPago)
           });
@@ -117,15 +118,17 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     });
 
     this.datosCompromiso.get('actaRecibido').valueChanges.subscribe(valor => {
-      this.store.dispatch(getEntradaAlmacen({query: {EstadoMovimientoId__Nombre__startswith: 'Entrada', Detalle__json_contains: `{"acta_recibido_id":${valor}}`}}));
+      if (this.flagActa) {
+        this.store.dispatch(getEntradaAlmacen({query: {EstadoMovimientoId__Nombre__startswith: 'Entrada',
+        Detalle__json_contains: `{"acta_recibido_id":${valor}}`}}));
+      }
       this.subEntradaAlmacen$ = this.store.select(selectEntradaAlmacen).subscribe((action) => {
-        if (action && action.EntradaAlmacen[0]) {
+        if (action && action.EntradaAlmacen && action.EntradaAlmacen[0]) {
           const json = JSON.parse(action.EntradaAlmacen[0].Detalle);
-          this.entradaAlmacen = json.consecutivo;
-          this.datosCompromiso.patchValue({
-            entradaAlmacen: json
-          });
           action.EntradaAlmacen = null;
+          this.datosCompromiso.patchValue({
+            entradaAlmacen: json.consecutivo
+          });
         }
       });
     });
@@ -156,6 +159,11 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     }
 
   ngOnDestroy() {
+    this.subTiposCompromisos$.unsubscribe();
+    if (this.subEntradaAlmacen$) this.subEntradaAlmacen$.unsubscribe();
+    this.subSupervisor$.unsubscribe();
+    if (this.subConvenio$) this.subConvenio$.unsubscribe();
+    this.subOrdenesPago$.unsubscribe();
   }
 
   crearFormulario() {
@@ -182,11 +190,15 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     let codigoRubro = '';
     if (String(this.datosCompromiso.get('tipoConvenio').value.tipo_convenio) === 'CONVENIOS') codigoRubro = '3-00-991-00-00-01';
     else codigoRubro = '3-00-991-00-00-29';
-    this.store.dispatch(getConvenios({codigo: codigoRubro}));
-    this.store.select(selectConvenios).subscribe((action) => {
+    if (this.flagRubro) {
+      this.store.dispatch(getConvenios({codigo: codigoRubro}));
+    }
+    this.subConvenio$ = this.store.select(selectConvenios).subscribe((action) => {
       if (action && action.Convenios) {
         this.convenios = action.Convenios[0].children;
-        if (this.tituloAccion === 'ver') {
+        action.Convenios = null;
+        this.flagRubro = false;
+        if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') {
           this.datosCompromiso.patchValue({
             convenio: (this.convenios.find((e: any) => e.Codigo === this.ordenPago.Convenio).data.Nombre)
           });
@@ -240,7 +252,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   }
 
   ordenesPago() {
-    if (this.tituloAccion === 'ver') {
+    if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') {
       this.datosCompromiso.patchValue({
         numeroCompromiso: this.ordenPago.NumeroCompromiso,
         tipoConvenio: this.tiposConvenio.find((e: any) => e.tipo_convenio === this.ordenPago.TipoConvenio),

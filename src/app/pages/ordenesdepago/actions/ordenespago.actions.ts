@@ -79,6 +79,11 @@ export const subirOrdenPago = createAction(
   props<{element: any}>(),
 );
 
+export const actualizarOrdenPago = createAction(
+  '[OrdenesPago] Actualiza la orden de pago en el crud de central cuentas',
+  props<{id: string, element: any, path?: string}>(),
+);
+
 export const cargarOrdenesPago = createAction(
   '[OrdenesPago] Carga las ordenes de pago al store',
   props(),

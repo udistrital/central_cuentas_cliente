@@ -60,8 +60,8 @@
             <input currencyMask class="form-control" id="valorTotal" disabled value="{{valorDescuento|currency}}">
         </div>
     </div>
-    <div class="row form-group">
-        <div class="col-md-4" *ngIf="cuentaConceptoFull">
+    <div class="row form-group" *ngIf="cuentaConceptoFull">
+        <div class="col-md-4">
             <label for="codigoContable">{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
             <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaCredito" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">

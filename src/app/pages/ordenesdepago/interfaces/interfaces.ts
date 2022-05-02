@@ -342,7 +342,8 @@ export const DATOS_MOVIMIENTO_CONTABLE: any = [
     {
         Nombre: '',
         Codigo: '',
-        Valor: 0
+        Valor: 0,
+        Naturaleza: ''
     }
 ];
 export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {

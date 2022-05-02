@@ -10,7 +10,8 @@ import { Store } from '@ngrx/store';
 import { selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
 import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
 import { combineLatest } from 'rxjs';
-import { subirOrdenPago } from '../../actions/ordenespago.actions';
+import { actualizarOrdenPago, subirOrdenPago } from '../../actions/ordenespago.actions';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'ngx-show-resumenordenpago',
   templateUrl: './show-resumenordenpago.component.html',
@@ -45,9 +46,11 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   susVigencias$: any;
   vigencias: any;
   endoso: boolean;
+  tituloAccion: string;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
+    private activatedRoute: ActivatedRoute,
     ) {
     this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION);
     this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE);
@@ -58,6 +61,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.datosTableImpuestosRetenciones = [];
     this.configTableImpuestosRetenciones = Object.assign({}, CONFIGURACION_IMPUESTOS_RETENCIONES);
     this.configTableImpuestosRetenciones.rowActions = null;
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
   }
 
   ngOnDestroy () {
@@ -67,6 +71,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosImputacion$.unsubscribe();
     this.subscriptionDatosMovimiento$.unsubscribe();
     this.susVigencias$.unsubscribe();
+    this.subImpYRet$.unsubscribe();
   }
 
   ngOnInit() {
@@ -132,7 +137,6 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subImpYRet$ = this.store.select(getImpYRet).subscribe((action) => {
       if (action) {
         this.impYRet = action.ImpYRet;
-        action.ImpYRet = null;
       }
     });
     this.handleVigencias();
@@ -181,7 +185,10 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
       Estado: 'Elaborado',
     };
-    this.store.dispatch(subirOrdenPago({element: elemento}));
+    if (this.tituloAccion === 'editar') {
+      this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path,
+                                              element: elemento, path: this.activatedRoute.snapshot.url[0].path}));
+    } else this.store.dispatch(subirOrdenPago({element: elemento}));
   }
 
   totalGasto() {

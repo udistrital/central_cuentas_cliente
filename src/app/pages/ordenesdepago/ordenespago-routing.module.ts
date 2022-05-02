@@ -17,7 +17,7 @@ const routes: Routes = [
     component: CrearOrdenpagoComponent,
   },
   {
-    path: 'editar',
+    path: 'editar/:Id',
     component: CrearOrdenpagoComponent,
   }
 ];

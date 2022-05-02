@@ -48,27 +48,30 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   subSolicitudesGiro$: any;
   solicitudesGiro: any;
   editable: boolean = true;
+  flagOP: boolean = true;
+  rpBenef: boolean = true;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
+      this.solicGiro = '';
       this.datosAlmacenadosBeneficiarios = DATOS_BENEFICIARIO;
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-      if (this.tituloAccion === 'ver') {
+      if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') {
         this.store.dispatch(getOrdenesPagoById({id: this.activatedRoute.snapshot.url[1].path}));
-        this.editable = false;
+        if (this.tituloAccion === 'ver') this.editable = false;
       }
-      this.rps = [];
      }
 
   ngOnInit() {
+    this.rps = [];
     this.handleVigencias();
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.configTableEstados = CONFIGURACION_TABLA_ESTADOS;
     this.datosTableEstados = DATOS_ESTADOS;
     this.solicitudGiroSeleccionada$ = this.store.select(getSolicitudGiroSeleccionada).subscribe((solicitudGiro: any) => {
-      if (solicitudGiro) {
+      if (solicitudGiro && this.datosBeneficiario) {
         this.datosBeneficiario.patchValue({
           solicitudGiro: solicitudGiro
         });
@@ -77,7 +80,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     });
 
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
-      if (action && action.OrdenesPagoById) {
+      if (this.flagOP && action && action.OrdenesPagoById) {
         this.ordenPago = action.OrdenesPagoById;
         this.ordenesPago();
       }
@@ -120,7 +123,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         if (vigenciaActual)
           this.vigenciaActual = vigenciaActual.valor;
         this.vigencias = accVigencias[0].filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
-        if (this.tituloAccion === 'ver' && this.ordenPago) {
+        if ((this.tituloAccion === 'ver' || this.tituloAccion === 'editar') && this.ordenPago) {
           this.datosBeneficiario.patchValue({
             vigencia: this.vigencias.find((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))
           });
@@ -150,15 +153,21 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.susUnidadEjecutora$.unsubscribe();
     this.subVigencias$.unsubscribe();
-    if (this.tituloAccion === 'ver') {
-      this.subSolicitudesGiro$.unsubscribe();
+    this.subBeneficiarioOP$.unsubscribe();
+    this.solicGiro = '';
+    if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') {
+      this.subOrdenesPago$.unsubscribe();
     }
+    if (this.subSolicitudesGiro$) this.subSolicitudesGiro$.unsubscribe();
+    if (this.solicitudGiroSeleccionada$) this.solicitudGiroSeleccionada$.unsubscribe();
+    if (this.subRPExpedido$) this.subRPExpedido$.unsubscribe();
+    if (this.subRPBeneficiarios$) this.subRPBeneficiarios$.unsubscribe();
   }
 
   crearFormulario() {
     this.datosBeneficiario = this.fb.group({
       consecutivo: ['', Validators.required],
-      solicitudGiro: ['', Validators.required],
+      solicitudGiro: [''],
       areaFuncional: ['', Validators.required],
       numeroId: ['', Validators.required],
       banco: ['', Validators.required],
@@ -196,8 +205,9 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.store.dispatch(getRPBeneficiario({query: {vigencia: '!$' + String(vigencia.valor), beneficiario: '!$' + numeroId}}));
       this.store.dispatch(getSupervisor({vigencia: String(vigencia.valor), documento: numeroId}));
       this.subRPBeneficiarios$ = this.store.select(selectRPBeneficiario).subscribe((action) => {
-      if (action && action.RPBeneficiario) {
+      if (action && action.RPBeneficiario && this.rpBenef) {
         this.rpBeneficiarios = action.RPBeneficiario;
+        this.rpBenef = false;
         this.rpBeneficiarios.forEach(rpBeneficiario => {
           this.store.dispatch(getRPExpedido({vigencia: String(vigencia.valor), centroGestor: this.datosBeneficiario.value.areaFuncional.Id,
             query: {tipo: 'rp', 'data.solicitud_crp': rpBeneficiario._id}}));
@@ -209,11 +219,12 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
                 'parcial_comprometido',
                 'expedido',
               ];
-              accion1.RPExpedido.forEach(rp => {
+              this.rpExpedidos.forEach(rp => {
                 if (EstadosPermitidos.some(estado => estado === rp.Estado)) {
                   this.rps.push(rp);
                 }
               });
+              this.store.dispatch(loadRP({RP: this.rps}));
               accion1.RPExpedido = null;
             }
           });
@@ -224,11 +235,13 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   }
 
   ordenesPago() {
-    if (this.tituloAccion === 'ver') {
+    if ((this.tituloAccion === 'ver' || this.tituloAccion === 'editar') && this.datosBeneficiario) {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiroShared).subscribe((accion: any) => {
         if (accion && accion.SolicitudesGiroShared) {
           this.solicitudesGiro = accion.SolicitudesGiroShared;
+          accion.SolicitudesGiroShared = null;
           const solGiro = this.solicitudesGiro.find((e: any) => String(e.Numero_Solicitud) === this.ordenPago.SolicitudGiro);
+          solGiro.NumeroSolicitud = solGiro.Numero_Solicitud;
           this.datosBeneficiario.patchValue({
             solicitudGiro: solGiro
           });
@@ -257,8 +270,6 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       return Object.values(this.datosBeneficiario.controls).forEach(control => {
         control.markAsTouched();
       });
-    } else {
-      this.store.dispatch(loadRP({RP: this.rps}));
     }
   }
 }
