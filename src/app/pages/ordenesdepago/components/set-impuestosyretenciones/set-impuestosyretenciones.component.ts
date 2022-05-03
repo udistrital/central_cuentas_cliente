@@ -42,8 +42,8 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   ordenPago: any;
   subConceptos$: any;
   conceptos: any;
-  editable: boolean = true;
-  flagOP: boolean = true;
+  editable: boolean;
+  flagOP: boolean;
   subImpYRet$: any;
 
   constructor(
@@ -52,6 +52,8 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
+    this.editable = true;
+    this.flagOP = true;
     this.configTableImpuestosRetenciones = CONFIGURACION_IMPUESTOS_RETENCIONES;
     this.datosTableImpuestosRetenciones = [];
     this.store.dispatch(GetConceptosContables({ id: '' }));
@@ -101,9 +103,14 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       if (this.flagOP && action && action.OrdenesPagoById) {
         this.ordenPago = action.OrdenesPagoById;
         this.flagOP = false;
-        if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') this.ordenesPago();
+        if (this.mostrar(this.tituloAccion)) this.ordenesPago();
       }
     });
+  }
+
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar'];
+    return ACCIONES.some(acc => acc === action);
   }
 
   ngOnDestroy(): void {

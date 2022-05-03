@@ -124,9 +124,14 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
       if (action && action.OrdenesPagoById) {
         this.ordenPago = action.OrdenesPagoById;
-        if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') this.ordenesPago();
+        if (this.mostrar(this.tituloAccion)) this.ordenesPago();
       }
     });
+  }
+
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar'];
+    return ACCIONES.some(acc => acc === action);
   }
 
   ngOnDestroy(): void {

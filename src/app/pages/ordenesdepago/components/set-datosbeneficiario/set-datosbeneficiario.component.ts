@@ -42,27 +42,35 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   rpExpedidos: any;
   rps: any;
   tituloAccion: string;
-  solicGiro = '';
+  solicGiro;
   subOrdenesPago$: any;
   ordenPago: any;
   subSolicitudesGiro$: any;
   solicitudesGiro: any;
-  editable: boolean = true;
-  flagOP: boolean = true;
-  rpBenef: boolean = true;
+  editable: boolean;
+  flagOP: boolean;
+  rpBenef: boolean;
 
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
+      this.editable = true;
+      this.flagOP = true;
+      this.rpBenef = true;
       this.solicGiro = '';
       this.datosAlmacenadosBeneficiarios = DATOS_BENEFICIARIO;
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-      if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') {
+      if (this.mostrar(this.tituloAccion)) {
         this.store.dispatch(getOrdenesPagoById({id: this.activatedRoute.snapshot.url[1].path}));
         if (this.tituloAccion === 'ver') this.editable = false;
       }
-     }
+  }
+
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar'];
+    return ACCIONES.some(acc => acc === action);
+  }
 
   ngOnInit() {
     this.rps = [];
@@ -123,7 +131,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         if (vigenciaActual)
           this.vigenciaActual = vigenciaActual.valor;
         this.vigencias = accVigencias[0].filter(vigencia => vigencia.areaFuncional === String(accAreaFuncional.areaFuncional.Id));
-        if ((this.tituloAccion === 'ver' || this.tituloAccion === 'editar') && this.ordenPago) {
+        if (this.mostrar(this.tituloAccion) && this.ordenPago) {
           this.datosBeneficiario.patchValue({
             vigencia: this.vigencias.find((e: any) => String(e.valor) === String(this.ordenPago.Vigencia))
           });
@@ -155,7 +163,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     this.subVigencias$.unsubscribe();
     this.subBeneficiarioOP$.unsubscribe();
     this.solicGiro = '';
-    if (this.tituloAccion === 'ver' || this.tituloAccion === 'editar') {
+    if (this.mostrar(this.tituloAccion)) {
       this.subOrdenesPago$.unsubscribe();
     }
     if (this.subSolicitudesGiro$) this.subSolicitudesGiro$.unsubscribe();
@@ -235,7 +243,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   }
 
   ordenesPago() {
-    if ((this.tituloAccion === 'ver' || this.tituloAccion === 'editar') && this.datosBeneficiario) {
+    if (this.mostrar(this.tituloAccion) && this.datosBeneficiario) {
       this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiroShared).subscribe((accion: any) => {
         if (accion && accion.SolicitudesGiroShared) {
           this.solicitudesGiro = accion.SolicitudesGiroShared;
