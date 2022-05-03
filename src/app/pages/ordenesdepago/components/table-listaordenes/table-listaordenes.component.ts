@@ -71,6 +71,10 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
   ver(ordenPago: any) {
     this.router.navigateByUrl('pages/ordenespago/ver/' + ordenPago.Id);
   }
+
+  editarOP(ordenPago: any) {
+    this.router.navigateByUrl('pages/ordenespago/editar/' + ordenPago.Id);
+  }
 }
 
 export interface Element {

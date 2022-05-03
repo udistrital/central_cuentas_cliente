@@ -58,7 +58,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   editable: boolean = true;
   subscriptionfilter$: any;
   subBenefEndoso$: any;
+  flagOP: any = true;
+  total: number = 0;
   datosBenefEndoso: any;
+  flagCuentaVN: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -66,16 +69,21 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
-    this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
-    this.datosTableMovimientoContable = [];
-    this.store.dispatch(GetConceptosContables({ id: '' }));
-    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') {
-      this.editable = false;
-      this.configTableMovimientoContable.rowActions.actions[0].ngIf = false;
-    }
+      this.cuentaConceptoFull = true;
+      this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
+      this.datosTableMovimientoContable = [];
+      this.store.dispatch(GetConceptosContables({ id: '' }));
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      if (this.tituloAccion === 'ver') {
+        this.editable = false;
+        this.configTableMovimientoContable.rowActions.actions[0].ngIf = false;
+      }
   }
 
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar'];
+    return ACCIONES.some(acc => acc === action);
+  }
   async ngOnInit() {
     // Form
     this.movimientoContable = this.fb.group({
@@ -136,21 +144,23 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
 
     this.subImpYRet$ = this.store.select(getImpYRet).subscribe((action) => {
       this.cuentasContablesConcepto = [];
+      this.total = 0;
       if (action && action.ImpYRet) {
         this.impYRet = action.ImpYRet;
         this.cuentaConceptoFull = false;
         if (this.impYRet.conceptoContable !== '') {
-          const total = this.impYRet.CuentasDebito.length + this.impYRet.CuentasCredito.length;
+          this.total = this.impYRet.CuentasDebito.length + this.impYRet.CuentasCredito.length;
           this.impYRet.CuentasDebito.forEach(CuentaDebito => {
             this.store.dispatch(getInfoCuentaContableDebito({codigo: CuentaDebito}));
             this.subInfoCuentaDebito$ = this.store.select(selectInfoCuentaContableDebito).subscribe((accion1) => {
               if (accion1 && accion1.InfoCuentaContableDebito) {
                 this.cuentaDebito = accion1.InfoCuentaContableDebito;
                 accion1.InfoCuentaContableDebito = null;
-                this.cuentasContablesConcepto.push({cuenta: this.cuentaDebito});
-                if (this.cuentasContablesConcepto.length === total) {
-                  this.cuentaConceptoFull = true;
-                  if (this.tituloAccion === 'ver') {
+                if (this.cuentasContablesConcepto.length < this.total) {
+                  this.cuentasContablesConcepto.push({cuenta: this.cuentaDebito});
+                  if (this.cuentasContablesConcepto.length === this.total) this.cuentaConceptoFull = true;
+                  this.flagCuentaVN = false;
+                  if (this.mostrar(this.tituloAccion)) {
                     this.movimientoContable.patchValue({
                       cuentaCredito: (this.cuentasContablesConcepto.find((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)),
                     });
@@ -165,10 +175,11 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
               if (accion && accion.InfoCuentaContable) {
                 this.cuentaCredito = accion.InfoCuentaContable;
                 accion.InfoCuentaContable = null;
-                this.cuentasContablesConcepto.push({cuenta: this.cuentaCredito});
-                if (this.cuentasContablesConcepto.length === total) {
-                  this.cuentaConceptoFull = true;
-                  if (this.tituloAccion === 'ver') {
+                if (this.cuentasContablesConcepto.length < this.total) {
+                  this.cuentasContablesConcepto.push({cuenta: this.cuentaCredito});
+                  if (this.cuentasContablesConcepto.length === this.total) this.cuentaConceptoFull = true;
+                  this.flagCuentaVN = false;
+                  if (this.mostrar(this.tituloAccion)) {
                     this.movimientoContable.patchValue({
                       cuentaCredito: (this.cuentasContablesConcepto.find((e: any) => e.cuenta.Codigo === this.ordenPago.CuentaValorNeto)),
                     });
@@ -182,9 +193,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     });
 
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
-      if (action && action.OrdenesPagoById) {
+      if (action && action.OrdenesPagoById && this.flagOP) {
         this.ordenPago = action.OrdenesPagoById;
-        this.ordenesPago();
+        if (this.mostrar(this.tituloAccion)) this.ordenesPago();
+        this.flagOP = false;
       }
     });
 
@@ -220,6 +232,15 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
     this.subscriptionConceptos.unsubscribe();
     this.store.dispatch(LoadFilaSeleccionada(null));
+    this.subImpYRet$.unsubscribe();
+    if (this.subInfoCuentaCredito$) this.subInfoCuentaCredito$.unsubscribe();
+    if (this.subInfoCuentaDebito$)this.subInfoCuentaDebito$.unsubscribe();
+    this.subOrdenesPago$.unsubscribe();
+    this.subscriptionfilter$.unsubscribe();
+    if (this.subInfoCuentaEndoso$) this.subInfoCuentaEndoso$.unsubscribe();
+    if (this.subBenefEndoso$) this.subBenefEndoso$.unsubscribe();
+    this.cuentasContablesConcepto = [];
+    this.cuentaConceptoFull = true;
   }
 
   modalEliminar(fila: any) {
@@ -242,8 +263,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     if (this.movimientoContable.value.cuentaConcepto) {
       elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Codigo + ' - '
       + this.movimientoContable.value.cuentaContableMovCont1.cuenta.Nombre;
+      elemento.Naturaleza = this.movimientoContable.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID;
     } else {
       elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont;
+      elemento.Naturaleza = this.cuentaContableSeleccionada.data.NaturalezaCuentaID;
     }
     elemento.Valor = this.movimientoContable.get('valorMovimientoContable').value;
     this.datosTableMovimientoContable.push(elemento);
@@ -308,9 +331,8 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.store.dispatch(getInfoCuentaContableEndoso({codigo: this.ordenPago.CuentaEndoso}));
     this.subInfoCuentaEndoso$ = this.store.select(selectInfoCuentaContableEndoso).subscribe((action) => {
       if (action && action.InfoCuentaContableEndoso) {
-        this.cuentaEndoso = action.InfoCuentaContableEndoso;
+        this.cuentaContableSeleccionada1 = action.InfoCuentaContableEndoso;
         action.InfoCuentaContableEndoso = null;
-        this.cuentaContableSeleccionada1 = this.cuentaEndoso;
         this.movimientoContable.patchValue({
           endoso: this.ordenPago.Endoso,
           identificacionEndoso: this.ordenPago.BeneficiarioEndoso,

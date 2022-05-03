@@ -58,7 +58,7 @@ export class SolicitudesgirosEffects {
             }), catchError(data => of(SolicitudesgirosActions.CatchError(data))));
         })
     );
-});
+  });
 
   getSolicitudesGiro$ = createEffect(() => {
     return this.actions$.pipe(

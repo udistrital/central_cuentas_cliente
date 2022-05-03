@@ -25,7 +25,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   datosTableImpuestosRetenciones: any;
   conceptosContables: any;
   subscription: any;
-  subscriptionConceptos: any;
+  subscriptionConceptos$: any;
   opcionesAreaFuncional: any;
   subRetenciones$: any;
   retenciones: any;
@@ -42,7 +42,9 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   ordenPago: any;
   subConceptos$: any;
   conceptos: any;
-  editable: boolean = true;
+  editable: boolean;
+  flagOP: boolean;
+  subImpYRet$: any;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +52,8 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
+    this.editable = true;
+    this.flagOP = true;
     this.configTableImpuestosRetenciones = CONFIGURACION_IMPUESTOS_RETENCIONES;
     this.datosTableImpuestosRetenciones = [];
     this.store.dispatch(GetConceptosContables({ id: '' }));
@@ -74,7 +78,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       validator: ['', Validators.required]
     });
     // Conceptos contables
-    this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
+    this.subscriptionConceptos$ = this.store.select(getConceptosContables).subscribe((conceptos) => {
       this.conceptosContables = conceptos[0];
     });
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
@@ -96,16 +100,26 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     });
 
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
-      if (action && action.OrdenesPagoById) {
+      if (this.flagOP && action && action.OrdenesPagoById) {
         this.ordenPago = action.OrdenesPagoById;
-        this.ordenesPago();
+        this.flagOP = false;
+        if (this.mostrar(this.tituloAccion)) this.ordenesPago();
       }
     });
   }
 
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar'];
+    return ACCIONES.some(acc => acc === action);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    this.subscriptionConceptos.unsubscribe();
+    this.subRetenciones$.unsubscribe();
+    this.subscriptionConceptos$.unsubscribe();
+    this.subscriptionCambios$.unsubscribe();
+    this.subOrdenesPago$.unsubscribe();
+    if (this.subConcepto$) this.subConcepto$.unsubscribe();
     this.store.dispatch(LoadFilaSeleccionada(null));
   }
 
@@ -155,9 +169,14 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   }
 
   agregarConcepto() {
+    if (this.subGetNodoSeleccionadoConcepto$) this.subGetNodoSeleccionadoConcepto$.unsubscribe();
     this.subGetNodoSeleccionadoConcepto$ = this.store.select(getNodoSeleccionadoConcepto).subscribe((nodoConcepto) => {
       if (nodoConcepto && Object.keys(nodoConcepto)[0] !== 'type') {
         this.store.dispatch(getConcepto({codigo: nodoConcepto.Codigo}));
+        if (this.subConcepto$) {
+          this.subConcepto$.unsubscribe();
+          this.concepto = null;
+        }
         this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
           if (concepto && concepto.Concepto) {
             this.concepto = concepto.Concepto;
@@ -204,10 +223,10 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
       if (concepto && concepto.Concepto) {
         this.concepto = concepto.Concepto;
-        concepto.Concepto = null;
         this.impuestosYRetenciones.patchValue({
-          conceptoContable: this.concepto
+          conceptoContable: concepto.Concepto
         });
+        concepto.Concepto = null;
       }
     });
   }

@@ -52,6 +52,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   cdp: any;
   nombre: any;
   rubrosCrp: any;
+  subRPBeneficiario$: any;
+  subRubroCrp$: any;
   tituloAccion: string;
   subOrdenesPago$: any;
   ordenPago: any;
@@ -79,6 +81,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       this.valorValido = true;
       this.configTableImpuntuacion.rowActions.actions[1].ngIf = false;
     }
+    if (this.tituloAccion === 'editar') this.valorValido = true;
   }
 
   ngOnInit() {
@@ -121,14 +124,24 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
       if (action && action.OrdenesPagoById) {
         this.ordenPago = action.OrdenesPagoById;
-        this.ordenesPago();
+        if (this.mostrar(this.tituloAccion)) this.ordenesPago();
       }
     });
+  }
+
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar'];
+    return ACCIONES.some(acc => acc === action);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.store.dispatch(LoadFilaSeleccionada(null));
+    if (this.subscriptionDatosRP$) this.subscriptionDatosRP$.unsubscribe();
+    if (this.subRPBeneficiario$) this.subRPBeneficiario$.unsubscribe();
+    if (this.subRubroCrp$) this.subRubroCrp$.unsubscribe();
+    this.datosTableImputacion = [];
+    this.subOrdenesPago$.unsubscribe();
   }
 
   modalFinanciamiento(fila: any) {
@@ -167,10 +180,10 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.modalService.open(this.eliminarModal).result.then((result) => {
       if (`${result}`) {
         this.datosTableImputacion.splice(this.datosTableImputacion.findIndex(
-          (element: any) => element.codigo === fila.codigo
-            && element.disponibilidad === fila.disponibilidad
-            && element.registro === fila.registro
-            && element.valor === fila.valor
+          (element: any) => element.Codigo === fila.Codigo
+            && element.Disponibilidad === fila.Disponibilidad
+            && element.Registro === fila.Registro
+            && element.Valor === fila.Valor
         ), 1);
       }
     });
@@ -233,7 +246,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   }
 
   fijarCdp() {
-    this.store.select(selectRPBeneficiario).subscribe((action) => {
+    this.subRPBeneficiario$ = this.store.select(selectRPBeneficiario).subscribe((action) => {
       if (action && action.RPBeneficiario) {
         this.cdp = action.RPBeneficiario.find((e: any) => e._id === this.impuntuacionPresupuestal.get('crp').value.Data.solicitud_crp);
         this.impuntuacionPresupuestal.patchValue({
@@ -242,7 +255,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch(getRubrosCrp({vigencia: this.datosBeneficiario.vigencia.valor, centroGestor: this.datosBeneficiario.vigencia.areaFuncional,
         crp: this.impuntuacionPresupuestal.get('crp').value._id}));
-      this.store.select(selectRubrosCrp).subscribe((action1) => {
+      this.subRubroCrp$ = this.store.select(selectRubrosCrp).subscribe((action1) => {
         if (action1 && action1.RubrosCrp) {
           this.rubrosCrp = action1.RubrosCrp;
           action1.RubrosCrp = null;

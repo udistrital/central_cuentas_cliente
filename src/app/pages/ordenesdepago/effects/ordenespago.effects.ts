@@ -48,6 +48,22 @@ export class OrdenespagoEffects {
     );
   });
 
+  actualizarOrdenPago$ = createEffect(() => {
+    return this.actions$.pipe(
+        ofType(OrdenespagoActions.actualizarOrdenPago),
+        mergeMap((accion) => {
+            return this.servicio.actualizarOrdenPago(accion.id, accion.element)
+            .pipe(map(data => {
+                this.popupManager.showSuccessAlert(this.translate.instant('SOLICITUD_GIRO.actualizacion_exitosa')).then((result) => {
+                  if (accion.path === 'lista') window.location.reload();
+                  else this.router.navigateByUrl('pages/ordenespago/lista');
+                });
+                return OrdenespagoActions.cargarOrdenPago({OrdenPago: data});
+            }), catchError(data => of(OrdenespagoActions.CatchError(data))));
+        })
+    );
+  });
+
   getOrdenesPago$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(OrdenespagoActions.getOrdenesPago),
