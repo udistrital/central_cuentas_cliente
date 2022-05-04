@@ -70,7 +70,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
       this.store.dispatch(getTiposCompromisos({query: {TipoParametroId__CodigoAbreviacion: 'TCP'}}));
       this.store.dispatch(getTiposOrdenesPago({query: {TipoParametroId__CodigoAbreviacion: 'TOP'}}));
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-      if (this.tituloAccion === 'ver') this.editable = false;
+      if (this.edit(this.tituloAccion)) this.editable = false;
     }
 
   ngOnInit() {
@@ -145,8 +145,13 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   }
 
   private mostrar(action: string): boolean {
-    const ACCIONES: string[] = ['ver', 'editar'];
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
   }
 
   handleFormChanges() {

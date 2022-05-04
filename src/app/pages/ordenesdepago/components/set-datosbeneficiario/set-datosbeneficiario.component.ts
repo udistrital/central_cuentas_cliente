@@ -63,13 +63,18 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
       if (this.mostrar(this.tituloAccion)) {
         this.store.dispatch(getOrdenesPagoById({id: this.activatedRoute.snapshot.url[1].path}));
-        if (this.tituloAccion === 'ver') this.editable = false;
+        if (this.edit(this.tituloAccion)) this.editable = false;
       }
   }
 
   private mostrar(action: string): boolean {
-    const ACCIONES: string[] = ['ver', 'editar'];
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
   }
 
   ngOnInit() {
@@ -183,7 +188,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       nombreBeneficiario: ['', Validators.required],
       regimenBeneficiario: ['', Validators.required],
       direccionBeneficiario: ['', Validators.required],
-      vigencia: ['', Validators.required]
+      vigencia: ['', Validators.required],
+      estado: ['']
     });
     this.susUnidadEjecutora$ = this.datosBeneficiario.get('areaFuncional').valueChanges.subscribe(valor => {
       this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));
@@ -258,7 +264,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         this.datosBeneficiario.patchValue({
           areaFuncional: this.opcionesAreaFuncional.find((e: any) => e.Id === this.ordenPago.AreaFuncional),
           consecutivo: this.ordenPago.Consecutivo,
-          numeroId: this.ordenPago.DocumentoBeneficiario
+          numeroId: this.ordenPago.DocumentoBeneficiario,
+          estado: this.ordenPago.Estado
         });
         this.getDatosID();
       });

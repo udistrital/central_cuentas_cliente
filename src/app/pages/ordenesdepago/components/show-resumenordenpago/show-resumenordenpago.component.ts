@@ -12,6 +12,7 @@ import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
 import { combineLatest } from 'rxjs';
 import { actualizarOrdenPago, subirOrdenPago } from '../../actions/ordenespago.actions';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'ngx-show-resumenordenpago',
   templateUrl: './show-resumenordenpago.component.html',
@@ -157,7 +158,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     });
   }
 
-  guardar() {
+  guardar(revisar: string) {
     const elemento = {
       Activo: true,
       AreaFuncional: this.datosBeneficiario.areaFuncional.Id,
@@ -183,16 +184,73 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       BeneficiarioEndoso: String(this.movimientoContable.identificacionEndoso),
       ValorEndoso: this.movimientoContable.valorEndoso,
       CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
-      Estado: 'Elaborado',
+      Estado: this.datosBeneficiario.estado,
     };
     if (this.tituloAccion === 'editar') {
       this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path,
                                               element: elemento, path: this.activatedRoute.snapshot.url[0].path}));
-    } else this.store.dispatch(subirOrdenPago({element: elemento}));
+    } else if (this.tituloAccion === 'revisar') {
+      if (revisar === 'aprobar') this.aprobar(elemento);
+      else if (revisar === 'rechazar') this.rechazar(elemento);
+    } else {
+      elemento.Estado = 'Elaborado';
+      this.store.dispatch(subirOrdenPago({element: elemento}));
+    }
   }
 
   totalGasto() {
     return this.gasto = this.datosTableImputacion.reduce((a: any, b: { Valor: number; }) => a + b.Valor, 0);
+  }
+
+  aprobar(elemento: any) {
+    Swal.fire({
+      title: 'Aprobar',
+      text: '¿Seguro que deseas aprobar esta orden de pago?',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: 'Si, aprobar'
+    }).then((result) => {
+      if (result.value === true) {
+        switch (elemento.Estado) {
+          case 'Por revisar contabilidad': {
+            elemento.Estado = 'Por revisar presupuesto';
+            break;
+          }
+          case 'Por revisar presupuesto': {
+            elemento.Estado = 'Por revisar tesoreria';
+            break;
+          }
+          case 'Por revisar tesoreria': {
+            elemento.Estado = 'Aprobado';
+            break;
+          }
+          case 'Aprobado': {
+            elemento.Estado = 'Firmado';
+            break;
+          }
+        }
+        this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
+  }
+
+  rechazar(elemento: any) {
+    Swal.fire({
+      title: 'Rechazar',
+      text: '¿Seguro que deseas rechazar esta orden de pago?',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: 'Si, rechazar'
+    }).then((result) => {
+      if (result.value === true) {
+        elemento.Estado = 'Rechazado';
+        this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
   }
 
   totalDescuento() {

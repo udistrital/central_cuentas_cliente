@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getBeneficiarioOP, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 import { getAccionTabla, getFilaSeleccionada, selectBeneficiarioOP } from '../../../../shared/selectors/shared.selectors';
-import { getOrdenesPago, loadOrdenPagoSeleccionado } from '../../actions/ordenespago.actions';
+import { actualizarOrdenPago, getOrdenesPago, loadOrdenPagoSeleccionado } from '../../actions/ordenespago.actions';
 import { CONFIGURACION_TABLAREGISTROS, DATOS_TABLAREGISTROS } from '../../interfaces/interfaces';
 
 @Component({
@@ -24,13 +24,16 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
   ordenesPago: any;
   subBeneficiario$: any;
   beneficiario: any;
+  tituloAccion: string;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(
     private store: Store<any>,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.datosPrueba = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.store.dispatch(getOrdenesPago({sortby: ['Consecutivo'], order: ['desc']}));
     this.store.dispatch(LoadFilaSeleccionada(null));
   }
@@ -54,7 +57,7 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
         NumeroOrden: elemento.Consecutivo,
         NombreBeneficiario: elemento.NombreBeneficiario,
         AutorizacionGiro: elemento.SolicitudGiro,
-        Estado: 'Elaborado',
+        Estado: elemento.Estado,
         Id: elemento._id,
         acciones: ''
       };
@@ -74,6 +77,16 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
 
   editarOP(ordenPago: any) {
     this.router.navigateByUrl('pages/ordenespago/editar/' + ordenPago.Id);
+  }
+
+  enviarRevision(ordenPago: any) {
+    const element = this.ordenesPago[this.ordenesPago.findIndex((e: any) => e._id === ordenPago.Id)];
+    element.Estado = 'Por revisar contabilidad';
+    this.store.dispatch(actualizarOrdenPago({id: element._id, element: element, path: this.tituloAccion}));
+  }
+
+  revision(ordenPago: any) {
+    this.router.navigateByUrl('pages/ordenespago/revisar/' + ordenPago.Id);
   }
 }
 

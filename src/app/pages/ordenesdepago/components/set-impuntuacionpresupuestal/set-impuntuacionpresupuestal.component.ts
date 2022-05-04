@@ -76,7 +76,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.mostrarOcultar = 'Mostrar';
     this.mostrarOcultarIcono = 'fa-eye';
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') {
+    if (this.edit(this.tituloAccion)) {
       this.editable = false;
       this.valorValido = true;
       this.configTableImpuntuacion.rowActions.actions[1].ngIf = false;
@@ -130,8 +130,13 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   }
 
   private mostrar(action: string): boolean {
-    const ACCIONES: string[] = ['ver', 'editar'];
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
   }
 
   ngOnDestroy(): void {

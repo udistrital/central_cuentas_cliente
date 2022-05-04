@@ -74,15 +74,20 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       this.datosTableMovimientoContable = [];
       this.store.dispatch(GetConceptosContables({ id: '' }));
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-      if (this.tituloAccion === 'ver') {
+      if (this.edit(this.tituloAccion)) {
         this.editable = false;
         this.configTableMovimientoContable.rowActions.actions[0].ngIf = false;
       }
   }
 
   private mostrar(action: string): boolean {
-    const ACCIONES: string[] = ['ver', 'editar'];
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
   }
   async ngOnInit() {
     // Form
