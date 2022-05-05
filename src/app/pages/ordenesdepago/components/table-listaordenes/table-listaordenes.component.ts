@@ -50,6 +50,16 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
     });
   }
 
+  edicion(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['Elaborado', 'Rechazado'];
+    return ACCIONES_EDICION.some(acc => acc === action);
+  }
+
+  revisar(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['Por revisar contabilidad', 'Por revisar presupuesto', 'Por revisar tesoreria', 'Aprobado'];
+    return ACCIONES_EDICION.some(acc => acc === action);
+  }
+
   buildTable() {
     const tableArr: Element[] = [];
     this.ordenesPago.forEach(elemento => {

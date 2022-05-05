@@ -13,6 +13,7 @@ import { combineLatest } from 'rxjs';
 import { actualizarOrdenPago, subirOrdenPago } from '../../actions/ordenespago.actions';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ngx-show-resumenordenpago',
   templateUrl: './show-resumenordenpago.component.html',
@@ -52,6 +53,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
     ) {
     this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION);
     this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE);
@@ -187,13 +189,14 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       Estado: this.datosBeneficiario.estado,
     };
     if (this.tituloAccion === 'editar') {
+      elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path,
                                               element: elemento, path: this.activatedRoute.snapshot.url[0].path}));
     } else if (this.tituloAccion === 'revisar') {
       if (revisar === 'aprobar') this.aprobar(elemento);
       else if (revisar === 'rechazar') this.rechazar(elemento);
     } else {
-      elemento.Estado = 'Elaborado';
+      elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(subirOrdenPago({element: elemento}));
     }
   }
@@ -204,30 +207,30 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
 
   aprobar(elemento: any) {
     Swal.fire({
-      title: 'Aprobar',
-      text: '¿Seguro que deseas aprobar esta orden de pago?',
+      title: this.translate.instant('GLOBAL.aprobar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_aprobacion'),
       type: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d00000',
       confirmButtonColor: 'rgb(243, 161, 9)',
-      confirmButtonText: 'Si, aprobar'
+      confirmButtonText: this.translate.instant('GLOBAL.si_aprobar')
     }).then((result) => {
       if (result.value === true) {
         switch (elemento.Estado) {
-          case 'Por revisar contabilidad': {
-            elemento.Estado = 'Por revisar presupuesto';
+          case Aprobacion.revCont: {
+            elemento.Estado = Aprobacion.revPres;
             break;
           }
-          case 'Por revisar presupuesto': {
-            elemento.Estado = 'Por revisar tesoreria';
+          case Aprobacion.revPres: {
+            elemento.Estado = Aprobacion.revTes;
             break;
           }
-          case 'Por revisar tesoreria': {
-            elemento.Estado = 'Aprobado';
+          case Aprobacion.revTes: {
+            elemento.Estado = Aprobacion.aprobado;
             break;
           }
-          case 'Aprobado': {
-            elemento.Estado = 'Firmado';
+          case Aprobacion.aprobado: {
+            elemento.Estado = Aprobacion.firmado;
             break;
           }
         }
@@ -238,16 +241,16 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
 
   rechazar(elemento: any) {
     Swal.fire({
-      title: 'Rechazar',
-      text: '¿Seguro que deseas rechazar esta orden de pago?',
+      title: this.translate.instant('GLOBAL.rechazar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_rechazo'),
       type: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d00000',
       confirmButtonColor: 'rgb(243, 161, 9)',
-      confirmButtonText: 'Si, rechazar'
+      confirmButtonText: this.translate.instant('GLOBAL.si_rechazar')
     }).then((result) => {
       if (result.value === true) {
-        elemento.Estado = 'Rechazado';
+        elemento.Estado = Aprobacion.rechazado;
         this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
       }
     });
@@ -266,4 +269,14 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       return this.datosCompromiso.vigencia;
     }
   }
+}
+
+enum Aprobacion {
+  elaborado = 'Elaborado',
+  revCont = 'Por revisar contabilidad',
+  revPres = 'Por revisar presupuesto',
+  revTes = 'Por revisar tesorería',
+  aprobado = 'Aprobado',
+  firmado = 'Firmado',
+  rechazado = 'Rechazado'
 }
