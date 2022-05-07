@@ -62,6 +62,9 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   total: number = 0;
   datosBenefEndoso: any;
   flagCuentaVN: boolean = true;
+  valorMovContable: number;
+  valorValido: boolean;
+  valorValidoEndoso: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +72,8 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
+      this.valorValido = true;
+      this.valorValidoEndoso = true;
       this.cuentaConceptoFull = true;
       this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
       this.datosTableMovimientoContable = [];
@@ -78,6 +83,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
         this.editable = false;
         this.configTableMovimientoContable.rowActions.actions[0].ngIf = false;
       }
+      this.valorMovContable = 0;
   }
 
   private mostrar(action: string): boolean {
@@ -99,14 +105,15 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       cuentaConcepto: [false],
       nombreMovimientoContable: ['Valor Bruto'],
       valorMovimientoContable: [''],
-      cuentaCredito: [''],
+      cuentaCredito: ['', Validators.required],
       identificacionEndoso: [''],
       beneficiarioEndoso: [''],
       bancoEndoso: [''],
       tipoCuentaEndoso: [''],
       numeroCuentaEndoso: [''],
       valorEndoso: [''],
-      cuentaContableEndoso: ['']
+      cuentaContableEndoso: [''],
+      validator: ['', Validators.required]
     });
     // Conceptos contables
     this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
@@ -222,6 +229,11 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
         });
       }
     });
+
+    this.movimientoContable.get('valorEndoso').valueChanges.subscribe((valor) => {
+      if (valor > this.valorNeto || valor < 0 ) this.valorValidoEndoso = false;
+      else this.valorValidoEndoso = true;
+    });
   }
 
 
@@ -257,6 +269,12 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
             && element.base === fila.base
             && element.valor === fila.valor
         ), 1);
+        this.datosTableMovimientoContable.forEach(element => {
+          if (element.Naturaleza === 'debito') this.valorMovContable += element.Valor;
+          else this.valorMovContable = this.valorMovContable - element.Valor;
+        });
+        if (this.valorMovContable > this.valorImputacion || this.valorMovContable < 0) this.valorValido = false;
+        else this.valorValido = true;
       }
     });
   }
@@ -275,6 +293,13 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     }
     elemento.Valor = this.movimientoContable.get('valorMovimientoContable').value;
     this.datosTableMovimientoContable.push(elemento);
+    this.valorMovContable = 0;
+    this.datosTableMovimientoContable.forEach(element => {
+      if (element.Naturaleza === 'debito') this.valorMovContable += element.Valor;
+      else this.valorMovContable = this.valorMovContable - element.Valor;
+    });
+    if (this.valorMovContable > this.valorImputacion || this.valorMovContable < 0) this.valorValido = false;
+    else this.valorValido = true;
   }
 
   SeleccionarCuentaContable(cuentaContable: any) {
@@ -314,8 +339,17 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   }
 
   cargarMovimiento() {
-    this.store.dispatch(cargarDatosMovimientoContable({data: this.datosTableMovimientoContable}));
-    this.store.dispatch(cargarMovimientoContable({ MovimientoContable: this.movimientoContable.value }));
+    if (this.datosTableMovimientoContable.length === 0 || !this.valorValido || !this.valorValidoEndoso) {
+      return Object.values(this.movimientoContable.controls).forEach(control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.movimientoContable.patchValue({
+        validator: 'a'
+      });
+      this.store.dispatch(cargarDatosMovimientoContable({data: this.datosTableMovimientoContable}));
+      this.store.dispatch(cargarMovimientoContable({ MovimientoContable: this.movimientoContable.value }));
+    }
   }
 
   isInvalid(nombre: string) {

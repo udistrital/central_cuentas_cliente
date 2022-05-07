@@ -301,7 +301,9 @@
     "compromiso": "Compromiso",
     "valor_maximo_imputacion": "El valor de la imputación no puede superar",
     "seguro_aprobacion": "¿Seguro que deseas aprobar esta orden de pago?",
-    "seguro_rechazo": "¿Seguro que deseas rechazar esta orden de pago?"
+    "seguro_rechazo": "¿Seguro que deseas rechazar esta orden de pago?",
+    "movimiento_contable_invalido": "Valores de movimiento contable no validos",
+    "endoso_invalido": "El valor del endoso no es valido"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

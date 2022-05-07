@@ -7,7 +7,7 @@ import { DATOS_BENEFICIARIO } from '../../interfaces/interfaces';
 import { seleccionarAreaFuncional } from '../../actions/ordenespago.actions';
 import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
 import { getSolicitudGiroSeleccionada, selectBeneficiarioOP, selectOrdenesPagoById, selectRPBeneficiario, selectRPExpedido,
-          selectSolicitudesGiroShared, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
+          selectSolicitudesGiroShared, selectSupervisor, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
 import { getBeneficiarioOP, getOrdenesPagoById, getRPBeneficiario, getRPExpedido, getSupervisor, getTiposID } from '../../../../shared/actions/shared.actions';
 import { combineLatest } from 'rxjs';
 import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
@@ -46,6 +46,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   subOrdenesPago$: any;
   ordenPago: any;
   subSolicitudesGiro$: any;
+  subSupervisor$: any;
+  supervisor: any;
   solicitudesGiro: any;
   editable: boolean;
   flagOP: boolean;
@@ -117,7 +119,6 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
           regimenBeneficiario: this.beneficiarioOP.Tipopersona,
           direccionBeneficiario: this.beneficiarioOP.Direccion,
           telefonoBeneficiario: this.beneficiarioOP.TelAsesor,
-          banco: this.beneficiarioOP.IdEntidadBancaria,
           cuenta: this.beneficiarioOP.NumCuentaBancaria
         });
       }
@@ -175,6 +176,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     if (this.solicitudGiroSeleccionada$) this.solicitudGiroSeleccionada$.unsubscribe();
     if (this.subRPExpedido$) this.subRPExpedido$.unsubscribe();
     if (this.subRPBeneficiarios$) this.subRPBeneficiarios$.unsubscribe();
+    if (this.subSupervisor$) this.subSupervisor$.unsubscribe();
   }
 
   crearFormulario() {
@@ -219,7 +221,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.store.dispatch(getRPBeneficiario({query: {vigencia: '!$' + String(vigencia.valor), beneficiario: '!$' + numeroId}}));
       this.store.dispatch(getSupervisor({vigencia: String(vigencia.valor), documento: numeroId}));
       this.subRPBeneficiarios$ = this.store.select(selectRPBeneficiario).subscribe((action) => {
-      if (action && action.RPBeneficiario && this.rpBenef) {
+      if (action && action.RPBeneficiario.length && this.rpBenef) {
         this.rpBeneficiarios = action.RPBeneficiario;
         this.rpBenef = false;
         this.rpBeneficiarios.forEach(rpBeneficiario => {
@@ -244,6 +246,14 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
           });
         });
       }
+      this.subSupervisor$ = this.store.select(selectSupervisor).subscribe((action2) => {
+        if (action2 && action2.Supervisor.informacion_persona.nombre_completo) {
+          this.supervisor = action2.Supervisor;
+          this.datosBeneficiario.patchValue({
+            banco: this.supervisor.informacion_persona.cuenta.banco,
+          });
+        }
+      });
     });
     });
   }

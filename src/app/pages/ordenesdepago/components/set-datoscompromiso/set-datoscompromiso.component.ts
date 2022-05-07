@@ -110,9 +110,8 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
 
 
     this.subSupervisor$ = this.store.select(selectSupervisor).subscribe((action) => {
-      if (action && action.Supervisor) {
+      if (action && action.Supervisor.informacion_persona.nombre_completo) {
         this.supervisor = action.Supervisor;
-        action.Supervisor = null;
         this.datosCompromiso.patchValue({
           supervisor: this.supervisor.informacion_persona.supervisor.nombre,
           numeroCompromiso: this.supervisor.informacion_persona.contrato.numero

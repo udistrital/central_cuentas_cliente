@@ -77,7 +77,7 @@
             <label class="m-0 ml-auto" for="valorTotal">{{ 'ORDEN_PAGO.valor_total' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
             <small *ngIf="!valorValido" class="text-danger">{{ 'ORDEN_PAGO.valor_maximo_imputacion' | translate}} {{impuntuacionPresupuestal.value.crp.ValorActual|currency}}</small>
         </div>
     </div>

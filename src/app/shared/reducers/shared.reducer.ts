@@ -52,6 +52,7 @@ export interface State {
   InfoCuentaContableEndoso: any;
   Supervisor: any;
   OrdenesPagoById: any;
+  HistorialOP: any;
 }
 
 export const initialState: State = {
@@ -102,6 +103,7 @@ export const initialState: State = {
   InfoCuentaContableEndoso: null,
   Supervisor: null,
   OrdenesPagoById: null,
+  HistorialOP: null,
 };
 
 const sharedReducer = createReducer(
@@ -248,6 +250,9 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarSupervisor, (state, action) => ({
     ...state, Supervisor: state.Supervisor = action
+  })),
+  on(SharedActions.cargarHistorialOP, (state, action) => ({
+    ...state, HistorialOP: state.HistorialOP = action
   })),
 );
 

@@ -187,6 +187,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       ValorEndoso: this.movimientoContable.valorEndoso,
       CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
       Estado: this.datosBeneficiario.estado,
+      ValorOP: this.totalNeto()
     };
     if (this.tituloAccion === 'editar') {
       elemento.Estado = Aprobacion.elaborado;
