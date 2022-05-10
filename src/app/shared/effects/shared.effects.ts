@@ -322,6 +322,18 @@ export class SharedEffects {
     );
   });
 
+  getHistorialOP$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getHistorialOP),
+      mergeMap((accion) => {
+        return this.sharedService.getHistorialOP(accion.query)
+        .pipe(map(data => SharedActions.cargarHistorialOP(
+          {HistorialOP: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
   getBeneficiarioEndoso$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getBeneficiarioEndoso),

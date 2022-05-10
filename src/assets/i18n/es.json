@@ -237,7 +237,9 @@
     "espera": "Por favor espera.",
     "cargando_documento": "Cargando documento",
     "seleccione": "Seleccione...",
-    "tabla_no_vacia": "Debe agregar al menos un registro a la tabla"
+    "tabla_no_vacia": "Debe agregar al menos un registro a la tabla",
+    "si_aprobar": "Si, aprobar",
+    "si_rechazar": "Si, rechazar"
   },
   "SOLICITUD_GIRO": {
     "autorizacion_tesoreria_giro": "Autorización a la Tesorería en general a girar a favor de:",
@@ -297,7 +299,11 @@
     "orden_pago": "Orden de Pago",
     "beneficiario": "Beneficiario",
     "compromiso": "Compromiso",
-    "valor_maximo_imputacion": "El valor de la imputación no puede superar"
+    "valor_maximo_imputacion": "El valor de la imputación no puede superar",
+    "seguro_aprobacion": "¿Seguro que deseas aprobar esta orden de pago?",
+    "seguro_rechazo": "¿Seguro que deseas rechazar esta orden de pago?",
+    "movimiento_contable_invalido": "Valores de movimiento contable no validos",
+    "endoso_invalido": "El valor del endoso no es valido"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

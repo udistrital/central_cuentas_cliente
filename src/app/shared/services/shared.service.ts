@@ -218,6 +218,11 @@ export class SharedService {
       return this.rqManager.getv2('autorizacion-giro/', null, query, null, sortby, order, null, null);
     }
 
+    public getHistorialOP(query: any) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2('orden-pago/', null, query, null, null, null, null, null);
+    }
+
     public getTiposCompromisos(query: any) {
       this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
       return (this.rqManager.getv2('parametro/', null, query, null, null, null, 0 , null)).pipe(map(data => {

@@ -7,7 +7,7 @@ import { DATOS_BENEFICIARIO } from '../../interfaces/interfaces';
 import { seleccionarAreaFuncional } from '../../actions/ordenespago.actions';
 import { CONFIGURACION_TABLA_ESTADOS, DATOS_ESTADOS } from '../../interfaces/interfaces';
 import { getSolicitudGiroSeleccionada, selectBeneficiarioOP, selectOrdenesPagoById, selectRPBeneficiario, selectRPExpedido,
-          selectSolicitudesGiroShared, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
+          selectSolicitudesGiroShared, selectSupervisor, selectVigenciasNoFuturas } from '../../../../shared/selectors/shared.selectors';
 import { getBeneficiarioOP, getOrdenesPagoById, getRPBeneficiario, getRPExpedido, getSupervisor, getTiposID } from '../../../../shared/actions/shared.actions';
 import { combineLatest } from 'rxjs';
 import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
@@ -46,6 +46,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   subOrdenesPago$: any;
   ordenPago: any;
   subSolicitudesGiro$: any;
+  subSupervisor$: any;
+  supervisor: any;
   solicitudesGiro: any;
   editable: boolean;
   flagOP: boolean;
@@ -63,13 +65,18 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
       if (this.mostrar(this.tituloAccion)) {
         this.store.dispatch(getOrdenesPagoById({id: this.activatedRoute.snapshot.url[1].path}));
-        if (this.tituloAccion === 'ver') this.editable = false;
+        if (this.edit(this.tituloAccion)) this.editable = false;
       }
   }
 
   private mostrar(action: string): boolean {
-    const ACCIONES: string[] = ['ver', 'editar'];
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
   }
 
   ngOnInit() {
@@ -112,7 +119,6 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
           regimenBeneficiario: this.beneficiarioOP.Tipopersona,
           direccionBeneficiario: this.beneficiarioOP.Direccion,
           telefonoBeneficiario: this.beneficiarioOP.TelAsesor,
-          banco: this.beneficiarioOP.IdEntidadBancaria,
           cuenta: this.beneficiarioOP.NumCuentaBancaria
         });
       }
@@ -170,6 +176,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     if (this.solicitudGiroSeleccionada$) this.solicitudGiroSeleccionada$.unsubscribe();
     if (this.subRPExpedido$) this.subRPExpedido$.unsubscribe();
     if (this.subRPBeneficiarios$) this.subRPBeneficiarios$.unsubscribe();
+    if (this.subSupervisor$) this.subSupervisor$.unsubscribe();
   }
 
   crearFormulario() {
@@ -183,7 +190,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       nombreBeneficiario: ['', Validators.required],
       regimenBeneficiario: ['', Validators.required],
       direccionBeneficiario: ['', Validators.required],
-      vigencia: ['', Validators.required]
+      vigencia: ['', Validators.required],
+      estado: ['']
     });
     this.susUnidadEjecutora$ = this.datosBeneficiario.get('areaFuncional').valueChanges.subscribe(valor => {
       this.store.dispatch(seleccionarAreaFuncional({ areaFuncional: valor }));
@@ -213,7 +221,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       this.store.dispatch(getRPBeneficiario({query: {vigencia: '!$' + String(vigencia.valor), beneficiario: '!$' + numeroId}}));
       this.store.dispatch(getSupervisor({vigencia: String(vigencia.valor), documento: numeroId}));
       this.subRPBeneficiarios$ = this.store.select(selectRPBeneficiario).subscribe((action) => {
-      if (action && action.RPBeneficiario && this.rpBenef) {
+      if (action && action.RPBeneficiario.length && this.rpBenef) {
         this.rpBeneficiarios = action.RPBeneficiario;
         this.rpBenef = false;
         this.rpBeneficiarios.forEach(rpBeneficiario => {
@@ -238,6 +246,14 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
           });
         });
       }
+      this.subSupervisor$ = this.store.select(selectSupervisor).subscribe((action2) => {
+        if (action2 && action2.Supervisor.informacion_persona.nombre_completo) {
+          this.supervisor = action2.Supervisor;
+          this.datosBeneficiario.patchValue({
+            banco: this.supervisor.informacion_persona.cuenta.banco,
+          });
+        }
+      });
     });
     });
   }
@@ -258,7 +274,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         this.datosBeneficiario.patchValue({
           areaFuncional: this.opcionesAreaFuncional.find((e: any) => e.Id === this.ordenPago.AreaFuncional),
           consecutivo: this.ordenPago.Consecutivo,
-          numeroId: this.ordenPago.DocumentoBeneficiario
+          numeroId: this.ordenPago.DocumentoBeneficiario,
+          estado: this.ordenPago.Estado
         });
         this.getDatosID();
       });

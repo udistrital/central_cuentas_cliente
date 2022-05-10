@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   CONFIGURACION_CONCEPTO_VALOR, DATOS_CONCEPTO_VALOR,
-  CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION
+  CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION, CONFIGURACION_HISTORIAL, DATOS_HISTORIAL
 } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada, selectActividadNecesidad, selectInfoNecesidad, selectInfoRubro, selectMetaNecesidad, selectOrdenesPagoById,
+import { getFilaSeleccionada, selectActividadNecesidad, selectHistorialOP, selectInfoNecesidad, selectInfoRubro, selectMetaNecesidad, selectOrdenesPagoById,
           selectRPBeneficiario, selectRubrosCrp } from '../../../../shared/selectors/shared.selectors';
 import { ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { getActividadesNecesidad, getInfoNecesidad, getInfoRubro, getMetaNecesidad, getRubrosCrp, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
+import { getActividadesNecesidad, getHistorialOP, getInfoNecesidad, getInfoRubro, getMetaNecesidad, getRubrosCrp, LoadFilaSeleccionada } from '../../../../shared/actions/shared.actions';
 import { cargarDatosImputacionPresupuestal } from '../../actions/ordenespago.actions';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { getDatosBeneficiario, getDatosCompromiso, getInfoDatosBeneficiario, getRP } from '../../selectors/ordenespago.selectors';
@@ -54,6 +54,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   rubrosCrp: any;
   subRPBeneficiario$: any;
   subRubroCrp$: any;
+  subHistorialOP$: any;
+  historialOP: any;
   tituloAccion: string;
   subOrdenesPago$: any;
   ordenPago: any;
@@ -66,8 +68,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute
     ) {
-    this.configTableHistorial = CONFIGURACION_CONCEPTO_VALOR;
-    this.datosTableHistorial = DATOS_CONCEPTO_VALOR;
+    this.configTableHistorial = CONFIGURACION_HISTORIAL;
+    this.datosTableHistorial = DATOS_HISTORIAL;
     this.configTableFuentes = CONFIGURACION_CONCEPTO_VALOR;
     this.datosTableFuentes = DATOS_CONCEPTO_VALOR;
     this.configTableImpuntuacion = CONFIGURACION_IMPUNTUACION;
@@ -76,7 +78,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.mostrarOcultar = 'Mostrar';
     this.mostrarOcultarIcono = 'fa-eye';
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-    if (this.tituloAccion === 'ver') {
+    if (this.edit(this.tituloAccion)) {
       this.editable = false;
       this.valorValido = true;
       this.configTableImpuntuacion.rowActions.actions[1].ngIf = false;
@@ -130,8 +132,13 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   }
 
   private mostrar(action: string): boolean {
-    const ACCIONES: string[] = ['ver', 'editar'];
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
   }
 
   ngOnDestroy(): void {
@@ -259,6 +266,20 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
         if (action1 && action1.RubrosCrp) {
           this.rubrosCrp = action1.RubrosCrp;
           action1.RubrosCrp = null;
+        }
+      });
+      this.store.dispatch(getHistorialOP({query: {'ImputacionPresupuestal.Registro': this.impuntuacionPresupuestal.value.crp.Consecutivo,
+        DocumentoBeneficiario: this.datosBeneficiario.numeroId, Estado: 'Firmado'}}));
+      this.subHistorialOP$ = this.store.select(selectHistorialOP).subscribe(action2 => {
+        if (action2 && action2.HistorialOP) {
+          this.historialOP = action2.HistorialOP;
+          this.historialOP.Data.forEach(element => {
+            const historialOP = {
+                consecutivoOP: element.Consecutivo,
+                valor: element.ValorOP
+              };
+            this.datosTableHistorial.push(historialOP);
+          });
         }
       });
     });

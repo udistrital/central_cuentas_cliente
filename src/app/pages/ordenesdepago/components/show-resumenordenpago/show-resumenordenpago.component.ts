@@ -12,6 +12,8 @@ import { getAreaFuncional } from '../../selectors/ordenespago.selectors';
 import { combineLatest } from 'rxjs';
 import { actualizarOrdenPago, subirOrdenPago } from '../../actions/ordenespago.actions';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ngx-show-resumenordenpago',
   templateUrl: './show-resumenordenpago.component.html',
@@ -51,6 +53,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
     ) {
     this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION);
     this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE);
@@ -157,7 +160,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     });
   }
 
-  guardar() {
+  guardar(revisar: string) {
     const elemento = {
       Activo: true,
       AreaFuncional: this.datosBeneficiario.areaFuncional.Id,
@@ -183,16 +186,75 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       BeneficiarioEndoso: String(this.movimientoContable.identificacionEndoso),
       ValorEndoso: this.movimientoContable.valorEndoso,
       CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
-      Estado: 'Elaborado',
+      Estado: this.datosBeneficiario.estado,
+      ValorOP: this.totalNeto()
     };
     if (this.tituloAccion === 'editar') {
+      elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path,
                                               element: elemento, path: this.activatedRoute.snapshot.url[0].path}));
-    } else this.store.dispatch(subirOrdenPago({element: elemento}));
+    } else if (this.tituloAccion === 'revisar') {
+      if (revisar === 'aprobar') this.aprobar(elemento);
+      else if (revisar === 'rechazar') this.rechazar(elemento);
+    } else {
+      elemento.Estado = Aprobacion.elaborado;
+      this.store.dispatch(subirOrdenPago({element: elemento}));
+    }
   }
 
   totalGasto() {
     return this.gasto = this.datosTableImputacion.reduce((a: any, b: { Valor: number; }) => a + b.Valor, 0);
+  }
+
+  aprobar(elemento: any) {
+    Swal.fire({
+      title: this.translate.instant('GLOBAL.aprobar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_aprobacion'),
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: this.translate.instant('GLOBAL.si_aprobar')
+    }).then((result) => {
+      if (result.value === true) {
+        switch (elemento.Estado) {
+          case Aprobacion.revCont: {
+            elemento.Estado = Aprobacion.revPres;
+            break;
+          }
+          case Aprobacion.revPres: {
+            elemento.Estado = Aprobacion.revTes;
+            break;
+          }
+          case Aprobacion.revTes: {
+            elemento.Estado = Aprobacion.aprobado;
+            break;
+          }
+          case Aprobacion.aprobado: {
+            elemento.Estado = Aprobacion.firmado;
+            break;
+          }
+        }
+        this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
+  }
+
+  rechazar(elemento: any) {
+    Swal.fire({
+      title: this.translate.instant('GLOBAL.rechazar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_rechazo'),
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: this.translate.instant('GLOBAL.si_rechazar')
+    }).then((result) => {
+      if (result.value === true) {
+        elemento.Estado = Aprobacion.rechazado;
+        this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
   }
 
   totalDescuento() {
@@ -208,4 +270,14 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       return this.datosCompromiso.vigencia;
     }
   }
+}
+
+enum Aprobacion {
+  elaborado = 'Elaborado',
+  revCont = 'Por revisar contabilidad',
+  revPres = 'Por revisar presupuesto',
+  revTes = 'Por revisar tesorería',
+  aprobado = 'Aprobado',
+  firmado = 'Firmado',
+  rechazado = 'Rechazado'
 }

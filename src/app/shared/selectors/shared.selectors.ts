@@ -154,6 +154,11 @@ export const selectBeneficiarioEndoso = createSelector(
   (state: fromShared.State) => state.BeneficiarioEndoso
 );
 
+export const selectHistorialOP = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.HistorialOP
+);
+
 
 export const selectEntradaAlmacen = createSelector(
   selectSharedState,

@@ -281,6 +281,16 @@ export const cargarRubrosCrp = createAction(
   props()
 );
 
+export const getHistorialOP = createAction(
+  '[Shared] Obtiene las ordenes de pago con el mismo crp',
+  props<{query: any}>()
+);
+
+export const cargarHistorialOP = createAction(
+  '[Shared] Carga los rubros del crp seleccionado al store',
+  props()
+);
+
 export const getBeneficiarioOP = createAction(
   '[Shared] Obtiene el beneficiario de la OP del crud admin_amazon',
   props<{query: any}>()

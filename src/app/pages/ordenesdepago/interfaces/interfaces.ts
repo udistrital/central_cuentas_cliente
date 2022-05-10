@@ -179,6 +179,36 @@ export const CONFIGURACION_CONCEPTO_VALOR: any = {
         },
     ],
 };
+export const CONFIGURACION_HISTORIAL: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'consecutivoOP',
+            title: {
+                name: 'Consecutivo OP',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'valor',
+            title: {
+                name: 'Valor',
+                class: 'text-center',
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
+            }
+        },
+    ],
+};
+export const DATOS_HISTORIAL: any = [
+];
 export const CONFIGURACION_IMPUNTUACION: any = {
     showColumnTitle: true,
     dataConfig: [
