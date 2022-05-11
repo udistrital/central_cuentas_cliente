@@ -269,6 +269,8 @@
     "compromiso_pagar": "Compromiso a pagar",
     "tipo_convenio": "Tipo de Convenio",
     "convenio": "Convenio",
+    "registro_orden": "REGISTRO DE ORDENES DE PAGO",
+    "crear_nueva_orden": "Crear Nueva Orden de Pago",
     "vigencia_presupuesto": "Vigencia Presupuesto",
     "numero_acta_recibido": "Numero de Acta de Recibido",
     "numero_entrada_almacen": "Numero de Entrada de Almacen",
