@@ -179,7 +179,7 @@ export class SharedService {
    */
      public getOrdenesPagoById(id: string) {
       this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-      return this.rqManager.getv2(`orden-pago/${id}`, null, null, null, null, null, 0);
+      return this.rqManager.getv2(`orden-pago/${id}`);
     }
 
      /**
@@ -189,7 +189,7 @@ export class SharedService {
    */
       public getOrdenesPagoByDoc(doc: string) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return this.rqManager.getv2(`orden-pago/?query=DocumentoBeneficiario:${doc},Estado:Firmado`, null, null, null, null, null, 0);
+        return this.rqManager.getv2(`orden-pago/?query=DocumentoBeneficiario:${doc},Estado:Firmado`);
       }
 
   /**

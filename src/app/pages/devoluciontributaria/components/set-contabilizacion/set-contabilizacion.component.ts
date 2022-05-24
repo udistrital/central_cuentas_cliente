@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { DATOS_TABLABANCOS, CONFIGURACION_CONTABILIZACION, CONFIGURACION_TABLABANCOS, DATOS_CONTABILIZACION } from '../../interfaces/interfaces';
+import { CONFIGURACION_CONTABILIZACION, DATOS_CONTABILIZACION } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
-import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { getFilaSeleccionada, getNodoSeleccionadoConcepto, getNodoSeleccionadoCuentaContable, seleccionarConcepto, selectInfoCuentaContable, selectInfoCuentaContableDebito } from '../../../../shared/selectors/shared.selectors';
 import { getInfoCuentaContable, getInfoCuentaContableDebito, SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
 import { getConcepto } from '../../selectors/devoluciontributaria.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { cargarContabilizacion, cargarDatosContabilizacion } from '../../actions/devoluciontributaria.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-set-contabilizacion',
@@ -18,13 +18,10 @@ export class SetContabilizacionComponent implements OnInit {
   @ViewChild('eliminarModal', { static: false }) eliminarModal: ElementRef;
   configContabilizacion: any;
   datosContabilizacion: any;
-  configBancos: any;
-  datosBancos: any;
   contabilizacionGroup: FormGroup;
   Subtotal: any;
   totalGasto: number;
   conceptoCuenta: boolean;
-  opcionesAreaFuncional: any;
   subscription: any;
   subGetNodoSeleccionadoCuenta$: any;
   cuentaContableSeleccionada: any;
@@ -45,17 +42,18 @@ export class SetContabilizacionComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<any>,
     private modalService: NgbModal,
+    private translate: TranslateService
      ) {
         // Datos de ejemplo q se muestran en la tabla
         this.datosContabilizacion = [];
         this.configContabilizacion = CONFIGURACION_CONTABILIZACION;
-        this.datosBancos = DATOS_TABLABANCOS;
-        this.configBancos = CONFIGURACION_TABLABANCOS;
-        this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
         this.createForm();
         this.totalGasto = 0.00;
         this.sumaCredito = 0;
         this.sumaDebito = 0;
+        for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
+          this.configContabilizacion.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
+        }
    }
 
   ngOnInit() {
@@ -126,8 +124,8 @@ export class SetContabilizacionComponent implements OnInit {
 
   createForm() {
     this.contabilizacionGroup = this.fb.group({
-      tipoComprobante: ['', ],
-      numeroComprobante: [''],
+      tipoComprobante: ['', Validators.required],
+      numeroComprobante: ['', Validators.required],
       consecutivo: [''],
       cuentaConcepto: [false],
       codigoContable: [''],
@@ -166,14 +164,6 @@ export class SetContabilizacionComponent implements OnInit {
 
   conceptoCuentaContable() {
     this.conceptoCuenta = this.contabilizacionGroup.value.cuentaConcepto;
-  }
-
-  isInvalid(nombre: string) {
-    const input = this.contabilizacionGroup.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
   }
 
   saveForm() {
@@ -224,6 +214,13 @@ export class SetContabilizacionComponent implements OnInit {
         });
       }
     });
+  }
+
+  get tipoComprobanteInvalid() {
+    return this.contabilizacionGroup.get('tipoComprobante').invalid && this.contabilizacionGroup.get('tipoComprobante').touched;
+  }
+  get numeroComprobanteInvalid() {
+    return this.contabilizacionGroup.get('numeroComprobante').invalid && this.contabilizacionGroup.get('numeroComprobante').touched;
   }
 
 }

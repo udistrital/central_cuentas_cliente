@@ -27,9 +27,9 @@ export class DevoluciontributariaEffects {
   crearDevolucionTributaria$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DevoluciontributariaActions.crearDevolucionTributaria),
-      mergeMap((accion) =>
-      this.servicio.crearDevolucionTributaria(accion.element).
-      pipe(map(data => {
+      mergeMap((accion) => this.servicio
+      .crearDevolucionTributaria(accion.element)
+      .pipe(map(data => {
         this.popupManager
         .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
         {CONSECUTIVO: accion.element.Consecutivo}))

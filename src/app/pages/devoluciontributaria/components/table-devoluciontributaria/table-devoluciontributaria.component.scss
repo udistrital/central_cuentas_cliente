@@ -1,13 +1,14 @@
-.center {
-    text-align: center;
+.border {
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
 }
 
+.center {
+    text-align: center;
+}
+
 .left {
     text-align: left;
-    border-right: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
     padding-left: 10px;
 }
 
@@ -16,8 +17,6 @@
     height: 50px;
     align-items: center;
     justify-content: space-around;
-    border-right: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
 }
 
 .child {

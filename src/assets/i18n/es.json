@@ -324,7 +324,22 @@
     "suma_debito": "Suma debito",
     "suma_credito": "Suma credito",
     "registro_devolucion": "Registro de devoluciones tributarias",
-    "crear_devolucion": "Crear Nueva Devolución Tributaria"
+    "crear_devolucion": "Crear Nueva Devolución Tributaria",
+    "consecutivo": "Consecutivo",
+    "nombre_beneficiario": "Nombre del beneficiario",
+    "estado": "Estado",
+    "acciones": "Acciones",
+    "vigencia": "Vigencia",
+    "cdp": "CDP",
+    "rp": "RP",
+    "documento": "Documento",
+    "beneficiario": "Beneficiario",
+    "valor_total": "Valor Total",
+    "numero_cuenta": "No. de cuenta",
+    "porcentaje": "Porcentaje",
+    "base_retencion": "Base de Retención",
+    "debito": "Debito",
+    "credito": "Credito"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

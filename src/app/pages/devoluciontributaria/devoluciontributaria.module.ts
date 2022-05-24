@@ -18,6 +18,7 @@ import { SetContabilizacionComponent } from './components/set-contabilizacion/se
 import { ShowResumenDevolucionTributariaComponent } from './components/show-resumendevolucion/show-resumendevoluciontributaria.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { format_date } from '../../shared/interfaces/interfaces';
 
 
 @NgModule({
@@ -54,7 +55,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   providers: [
     NgbModule,
     NgbModalConfig,
-    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
+    {provide: MAT_DATE_LOCALE, useValue: format_date},
   ]
 })
 export class DevoluciontributariaModule { }

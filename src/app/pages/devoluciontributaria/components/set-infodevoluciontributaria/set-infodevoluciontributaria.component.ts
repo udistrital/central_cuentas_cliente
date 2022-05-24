@@ -5,15 +5,15 @@ import { getConceptosContables, getNodoSeleccionadoConcepto, seleccionarConcepto
 import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP, DATOS_SOLICITUD} from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { cargarDatosSolicitud, cargarDatosAlmacenadosSolicitud, cargarConcepto, loadInfoDevolucionTributaria } from '../../actions/devoluciontributaria.actions';
-import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { format_date, OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { combineLatest } from 'rxjs';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 @Component({
   selector: 'ngx-set-infodevoluciontributaria',
   templateUrl: './set-infodevoluciontributaria.component.html',
   styleUrls: ['./set-infodevoluciontributaria.component.scss'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
+    {provide: MAT_DATE_LOCALE, useValue: format_date},
   ]
 })
 export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
@@ -38,15 +38,12 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
     private store: Store <any>,
     private _adapter: DateAdapter<any>,
     ) {
-      this._adapter.setLocale('fr');
+      this._adapter.setLocale(format_date);
             // Datos de ejemplo q se muestran en la tabla
         this.datosConsultaOP = DATOS_CONSULTAOP;
         this.configConsultaOP = CONFIGURACION_CONSULTAOP;
         this.datosAlmacenadosDevolucion = DATOS_SOLICITUD;
         this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
-            // Configuracion de la tabla
-            // this.stringBusqueda = '';
-            // this.selectedAction = new EventEmitter<any>();
         this.createForm();
         this.store.dispatch(GetConceptosContables({}));
   }
@@ -90,14 +87,6 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
         this.store.dispatch(getOrdenesPagoByDoc({documento: numeroId}));
       }
     });
-  }
-
-  isInvalid(nombre: string) {
-    const input = this.infoDevolucionGroup.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
   }
 
   handleFormChanges() {
@@ -145,12 +134,11 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.infoDevolucionGroup = this.fb.group({
-      areaFuncional: [''],
-      fechaSolicitud: [''],
-      numeroComprobante: ['001', ],
-      numeroId: [''],
-      nombreBeneficiario: [''],
-      requerimiento: [''],
+      areaFuncional: ['', Validators.required],
+      fechaSolicitud: ['', Validators.required],
+      numeroId: ['', Validators.required],
+      nombreBeneficiario: ['', Validators.required],
+      requerimiento: ['', Validators.required],
       conceptoContable: [''],
       razonDevolucion: [''],
     });
@@ -166,6 +154,28 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
       this.store.dispatch(cargarDatosSolicitud(data));
       this.store.dispatch(cargarDatosAlmacenadosSolicitud(this.datoAlmacenadoDevolucion));
     }
+  }
+
+  get areaFuncionalInvalid() {
+    return this.infoDevolucionGroup.get('areaFuncional').invalid && this.infoDevolucionGroup.get('areaFuncional').touched;
+  }
+  get numeroRequerimiento() {
+    return this.infoDevolucionGroup.get('requerimiento').invalid && this.infoDevolucionGroup.get('requerimiento').touched;
+  }
+  get fechaSolicitudInvalid() {
+    return this.infoDevolucionGroup.get('fechaSolicitud').invalid && this.infoDevolucionGroup.get('fechaSolicitud').touched;
+  }
+  get numeroIdInvalid() {
+    return this.infoDevolucionGroup.get('numeroId').invalid && this.infoDevolucionGroup.get('numeroId').touched;
+  }
+  get nombreBeneficiarioInvalid() {
+    return this.infoDevolucionGroup.get('nombreBeneficiario').invalid && this.infoDevolucionGroup.get('nombreBeneficiario').touched;
+  }
+  get conceptoInvalid() {
+    return this.infoDevolucionGroup.get('conceptoContable').invalid && this.infoDevolucionGroup.get('conceptoContable').touched;
+  }
+  get razonDevolucionInvalid() {
+    return this.infoDevolucionGroup.get('razonDevolucion').invalid && this.infoDevolucionGroup.get('razonDevolucion').touched;
   }
 
 }

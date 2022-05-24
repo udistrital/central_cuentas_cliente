@@ -5,6 +5,7 @@ import { getFilaSeleccionada, getAccionTabla } from '../../../../shared/selector
 import { getDevolucionesTributarias, loadDevoluciontributariaSeleccionado } from '../../../devoluciontributaria/actions/devoluciontributaria.actions';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { selectDevolucionTributaria } from '../../selectors/devoluciontributaria.selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-table-devoluciontributaria',
@@ -27,13 +28,17 @@ export class TableDevoluciontributariaComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor (
-    private store: Store<any>
+    private store: Store<any>,
+    private translate: TranslateService
   ) {
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
     this.stringBusqueda = '';
     this.selectedAction = new EventEmitter<any>();
     this.store.dispatch(getDevolucionesTributarias({sortby: ['Consecutivo'], order: ['desc']}));
+    for (let i = 0; i < this.configuracion.dataConfig.length; i++) {
+      this.configuracion.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configuracion.dataConfig[i].title.label_i18n);
+    }
   }
 
   buildTable() {

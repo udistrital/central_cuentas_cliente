@@ -32,7 +32,6 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
 
   constructor( private fb: FormBuilder,
     private store: Store<any>) {
-    this.createForm();
     this.configConsultaOP = Object.assign({}, CONFIGURACION_CONSULTAOP);
     this.configContabilizacion = Object.assign({} , CONFIGURACION_CONTABILIZACION);
     this.configConsultaOP.rowActions = null;
@@ -49,38 +48,42 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
   ngOnInit() {
     this.subscriptionDatosDevolucion$ = this.store.select(getDatosDevolucion).subscribe(
       data => {
-        if (data !== null) {
+        if (data) {
           this.datosDevolucion = data;
         }
       }
     );
     this.subscriptionDatosAlmacenadosDevolucion$ = this.store.select(getDatosAlmacenadosSolicitud).subscribe(
       data => {
-        if (data !== null) {
+        if (data) {
           this.datosAlmacenadosDevolucion = data;
         }
       }
     );
 
-    this.subscriptionInfoDevolucionTributaria$ = this.store.select(getInfoDevolucionTributaria).subscribe((action) => {
+    this.subscriptionInfoDevolucionTributaria$ = this.store
+    .select(getInfoDevolucionTributaria).subscribe((action) => {
       if (action && action.InfoDevolucionTributaria) {
         this.infoDevolucionTributaria = action.InfoDevolucionTributaria;
       }
     });
 
-    this.subscriptionDatosOP$ = this.store.select(getDatosOrdenesPago).subscribe((action) => {
+    this.subscriptionDatosOP$ = this.store
+    .select(getDatosOrdenesPago).subscribe((action) => {
       if (action && action.data) {
         this.datosConsultaOP = action.data;
       }
     });
 
-    this.subscriptionDatosContabilizacion$ = this.store.select(getDatosContabilizacion).subscribe((action) => {
+    this.subscriptionDatosContabilizacion$ = this.store
+    .select(getDatosContabilizacion).subscribe((action) => {
       if (action && action.data) {
         this.datosContabilizacion = action.data;
       }
     });
 
-    this.subscriptionContabilizacion$ = this.store.select(getContabilizacion).subscribe((action) => {
+    this.subscriptionContabilizacion$ = this.store
+    .select(getContabilizacion).subscribe((action) => {
       if (action && action.Contabilizacion) {
         this.contabilizacion = action.Contabilizacion;
       }
@@ -88,10 +91,12 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
   }
   // Validacion de Formulario
   get observacionInvalid() {
-    return this.comprobantepagoGroup.get('observacion').invalid && this.comprobantepagoGroup.get('observacion').touched;
+    return this.comprobantepagoGroup.get('observacion').invalid
+    && this.comprobantepagoGroup.get('observacion').touched;
   }
   get nombreAutorizaInvalid() {
-    return this.comprobantepagoGroup.get('nombreAutoriza').invalid && this.comprobantepagoGroup.get('nombreAutoriza').touched;
+    return this.comprobantepagoGroup.get('nombreAutoriza').invalid
+    && this.comprobantepagoGroup.get('nombreAutoriza').touched;
   }
 
   guardar(revisar: string) {
@@ -112,26 +117,13 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
       OrdenesPago: this.datosConsultaOP,
       MovimientoContable: this.datosContabilizacion
     };
-      this.store.dispatch(crearDevolucionTributaria({element: elemento}));
-  }
-
-  createForm() {
-    this.comprobantepagoGroup = this.fb.group({
-      observacion: ['',
-      [Validators.required,
-      Validators.minLength(5)]],
-      nombreAutoriza: ['',
-      [Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(25)]]
-    });
+    this.store.dispatch(crearDevolucionTributaria({element: elemento}));
   }
 
   saveForm() {
     if ( this.comprobantepagoGroup.invalid ) {
-      return Object.values( this.comprobantepagoGroup.controls ).forEach( control => {
-        control.markAsTouched();
-      });
+      return Object.values( this.comprobantepagoGroup.controls )
+      .forEach( control => { control.markAsTouched(); });
     }
   }
 

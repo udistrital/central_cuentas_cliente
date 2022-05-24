@@ -12,7 +12,7 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
-                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')">
+                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                             {{opcion.label}}
@@ -24,9 +24,9 @@
             <div class="col-md-6">
                 <label>{{ 'DEVOL_TRIBUTARIA.numero_requerimiento' | translate}}</label>
                 <div class="input-group">
-                    <input type="number" name="requerimiento" class="form-control" formControlName="requerimiento" [class.is-invalid]="isInvalid('requerimiento')">
+                    <input type="number" name="requerimiento" class="form-control" formControlName="requerimiento" [class.is-invalid]="numeroRequerimiento">
                 </div>
-                <small *ngIf="isInvalid('requerimiento')" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+                <small *ngIf="numeroRequerimiento" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
     </div>
@@ -45,23 +45,23 @@
         <div class="form-group row justify-content-between">
             <div class="col-md-4">
                 <label>{{ 'MODIF.numero_documento' | translate}}</label>
-                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="isInvalid('numeroId')">
+                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
                 <small *ngIf="numeroIdInvalid" class="text-danger">{{ 'GLOBAL.ingrese_numeros' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{ 'CDP.fecha_solicitud' | translate}}</label>
                 <div class="input-group">
-                    <input class="form-control" formControlName="fechaSolicitud" matInput [matDatepicker]="picker">
+                    <input class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </div>
-                <small *ngIf="isInvalid('fechaSolicitud')" class="text-danger">{{ 'GLOBAL.seleccione_fecha' | translate}}</small>
+                <small *ngIf="fechaSolicitudInvalid" class="text-danger">{{ 'GLOBAL.seleccione_fecha' | translate}}</small>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-12">
                 <label>{{ 'GLOBAL.nombre' | translate}}</label>
-                <input type="text" class="form-control" formControlName="nombreBeneficiario" [class.is-invalid]="isInvalid('nombreBeneficiario')" readonly>
+                <input type="text" class="form-control" formControlName="nombreBeneficiario" [class.is-invalid]="nombreBeneficiarioInvalid" readonly>
             </div>
         </div>
         <!-- Fin Campo: Tipo id, numero id, nombre -->
@@ -74,7 +74,7 @@
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
-                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="isInvalid('conceptoContable')" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
+                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
             </div>
         </div>
         <!-- Fin Campo: Concepto -->

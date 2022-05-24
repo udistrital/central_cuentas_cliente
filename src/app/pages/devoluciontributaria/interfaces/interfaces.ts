@@ -5,40 +5,44 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
             key: 'Consecutivo',
             title: {
                 name: 'Consecutivo',
+                label_i18n: 'consecutivo',
                 class: 'text-center',
             },
             pipe: {
-                class: 'center',
+                class: 'center border',
             }
         },
         {
             key: 'NombreBeneficiario',
             title: {
                 name: 'Nombre del beneficiario',
+                label_i18n: 'nombre_beneficiario',
                 class: 'text-center',
             },
             pipe: {
-                class: 'center',
+                class: 'center border',
             }
         },
         {
             key: 'Estado',
             title: {
                 name: 'Estado',
+                label_i18n: 'estado',
                 class: 'text-center',
             },
             pipe: {
-                class: 'center',
+                class: 'center border',
             }
         },
         {
             key: 'acciones',
             title: {
                 name: 'acciones',
+                label_i18n: 'acciones',
                 class: 'text-center',
             },
             pipe: {
-                class: 'icons'
+                class: 'icons border'
             }
         }
     ],
@@ -85,6 +89,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'Vigencia',
                 class: 'text-center',
+                label_i18n: 'vigencia'
             },
             pipe: {
                 class: 'text-center',
@@ -95,6 +100,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'Consecutivo',
                 class: 'text-center',
+                label_i18n: 'consecutivo'
             },
             pipe: {
                 class: 'text-center',
@@ -105,6 +111,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'CDP',
                 class: 'text-center',
+                label_i18n: 'cdp'
             },
             pipe: {
                 class: 'text-center',
@@ -115,6 +122,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'RP',
                 class: 'text-center',
+                label_i18n: 'rp'
             },
             pipe: {
                 class: 'text-center',
@@ -125,6 +133,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'Documento',
                 class: 'text-center',
+                label_i18n: 'documento'
             },
             pipe: {
                 class: 'text-center',
@@ -135,6 +144,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'Beneficiario',
                 class: 'text-center',
+                label_i18n: 'beneficiario'
             },
             pipe: {
                 class: 'text-justify',
@@ -145,6 +155,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
             title: {
                 name: 'Valor Total',
                 class: 'text-center',
+                label_i18n: 'valor_total'
             },
             pipe: {
                 type: 'currency',
@@ -161,33 +172,6 @@ export const CONFIGURACION_CONSULTAOP: any = {
     filter: true,
 };
 export const DATOS_CONSULTAOP: any = [
-    {
-        vigencia: '001',
-        consecutivo: '202',
-        disponibilidad: '202011-23',
-        registro: '326589',
-        documentoId: '4587963',
-        nombreBeneficiario: 'William',
-        total: '$1.000.000',
-    },
-    {
-        vigencia: '010',
-        consecutivo: '220',
-        disponibilidad: '202011-20',
-        registro: '748596',
-        documentoId: '4569324',
-        nombreBeneficiario: 'Andres',
-        total: '$1.000.000',
-    },
-    {
-        vigencia: '100',
-        consecutivo: '22',
-        disponibilidad: '202011-10',
-        registro: '125487',
-        documentoId: '1245639',
-        nombreBeneficiario: 'Carlos',
-        total: '$1.000.000',
-    }
 ];
 export const CONFIGURACION_CONTABILIZACION: any = {
     showColumnTitle: true,
@@ -197,6 +181,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             title: {
                 name: 'No. de Cuenta',
                 class: 'text-center',
+                label_i18n: 'numero_cuenta'
             },
             pipe: {
                 class: 'text-justify',
@@ -207,6 +192,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             title: {
                 name: 'Porcentaje',
                 class: 'text-center',
+                label_i18n: 'porcentaje'
             },
             pipe: {
                 class: 'text-center',
@@ -217,6 +203,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             title: {
                 name: 'Base de Retención',
                 class: 'text-center',
+                label_i18n: 'base_retencion'
             },
             pipe: {
                 type: 'currency',
@@ -230,6 +217,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             title: {
                 name: 'Débito',
                 class: 'text-center',
+                label_i18n: 'debito'
             },
             pipe: {
                 type: 'currency',
@@ -243,6 +231,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             title: {
                 name: 'Crédito',
                 class: 'text-center',
+                label_i18n: 'credito'
             },
             pipe: {
                 type: 'currency',
@@ -281,153 +270,6 @@ export const CONFIGURACION_CONTABILIZACION: any = {
     filter: false,
 };
 export const DATOS_CONTABILIZACION: any = [
-    {
-        codigoContable: '',
-        porcentaje: '1',
-        baseRetencion: '$1',
-        debito: '',
-        credito: '',
-        naturaleza: ''
-    },
-];
-export const CONFIGURACION_TABLABANCOS: any = {
-    showColumnTitle: true,
-    dataConfig: [
-        {
-            key: 'tercero',
-            title: {
-                name: 'Tercero',
-                class: 'text-center',
-            },
-            pipe: {
-                class: '',
-            }
-        },
-        {
-            key: 'numeroCuenta',
-            title: {
-                name: 'No. de Cuenta',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
-        {
-            key: 'nombreCuenta',
-            title: {
-                name: 'Nombre de Cuenta',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-center',
-            }
-        },
-        {
-            key: 'porcentaje',
-            title: {
-                name: 'Porcentaje',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
-        {
-            key: 'baseRetencion',
-            title: {
-                name: 'Base de Retención',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
-        {
-            key: 'debito',
-            title: {
-                name: 'Débito',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
-        {
-            key: 'credito',
-            title: {
-                name: 'Crédito',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
-    ],
-    subtitle: {
-        name: 'Bancos', // name subtitle
-        class: 'text-center bg-primary text-white', // bootstrap class
-    },
-    rowActions: {
-        title: {
-            name: 'Acciones',
-            class: 'text-center',
-            actionClass: 'd-flex flex-row justify-content-around align-middle'
-        },
-        actions: [
-            {
-                name: 'ver',
-                icon: 'fas fa-eye',
-                class: 'p-2',
-                title: 'Ver Resumen de Devolución',
-            },
-        ],
-    },
-    noData: {
-        name: 'No Existen Elementos Asociados',
-        class: 'text-center',
-    },
-    endSubtotal: {
-        property: 'Total', // key object
-        items: [
-            {
-                colspan: 3, // relative offset number
-                name: 'Sumatoria', // title item
-                class: 'text-right', // bootstrap class
-            },
-        ],
-        last: {
-            class: 'text-left',
-            pipe: {
-                type: 'currency',
-                config: [
-                ],
-                class: '',
-            }
-        }
-    },
-    sort: true,
-    filter: false,
-};
-export const DATOS_TABLABANCOS: any = [
-    {
-        tercero: '2020',
-        numeroCuenta: '000326',
-        nombreCuenta: 'Banco Popular',
-        porcentaje: '',
-        baseRetencion: '',
-        debito: '',
-        credito: '$67890',
-    },
-    {
-        tercero: '2020',
-        numeroCuenta: '000326',
-        nombreCuenta: 'Banco Colpatria',
-        porcentaje: '',
-        baseRetencion: '',
-        debito: '',
-        credito: '$67890',
-    },
 ];
 export const DATOS_SOLICITUD: any = [
     {

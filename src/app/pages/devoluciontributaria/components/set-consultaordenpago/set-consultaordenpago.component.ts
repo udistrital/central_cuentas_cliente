@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP } from '../../interfaces/interfaces';
 import { getAddSelected, getFilaSeleccionada, selectOrdenesPagoByDoc} from '../../../../shared/selectors/shared.selectors';
 import { cargarDatosOrdenesPago } from '../../actions/devoluciontributaria.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-set-consultaordenpago',
@@ -22,12 +23,16 @@ export class SetConsultaordenpagoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<any>
+    private store: Store<any>,
+    private translate: TranslateService
     ) {
     // Datos de ejemplo q se muestran en la tabla
     this.datosConsultaOP = [];
     this.ordenesPagoSeleccionadas = [];
     this.configConsultaOP = CONFIGURACION_CONSULTAOP;
+    for (let i = 0; i < this.configConsultaOP.dataConfig.length; i++) {
+      this.configConsultaOP.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configConsultaOP.dataConfig[i].title.label_i18n);
+    }
     this.createForm();
   }
 

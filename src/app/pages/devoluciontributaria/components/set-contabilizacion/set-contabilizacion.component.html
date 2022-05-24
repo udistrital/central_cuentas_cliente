@@ -11,13 +11,13 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label>{{ 'DEVOL_TRIBUTARIA.tipo_comprobante' | translate}}</label>
-                <input class="form-control" id="tipoComprobante" formControlName="tipoComprobante">
-                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
+                <input class="form-control" id="tipoComprobante" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid">
+                <small *ngIf="tipoComprobanteInvalid" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{ 'DEVOL_TRIBUTARIA.numero_comprobante' | translate}}</label>
-                <input class="form-control" type="number" id="numeroComprobante" formControlName="numeroComprobante">
-                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
+                <input class="form-control" type="number" id="numeroComprobante" formControlName="numeroComprobante" [class.is-invalid]="numeroComprobanteInvalid">
+                <small *ngIf="numeroComprobanteInvalid" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{ 'GLOBAL.consecutivo' | translate}}</label>
