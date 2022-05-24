@@ -2,55 +2,45 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'Vigencia',
+            key: 'Consecutivo',
             title: {
-                name: 'Vigencia',
+                name: 'Consecutivo',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'center',
             }
         },
         {
-            key: 'TipoDevolucion',
+            key: 'NombreBeneficiario',
             title: {
-                name: 'Tipo de Devolución',
+                name: 'Nombre del beneficiario',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
         {
-            key: 'AreaFuncional',
+            key: 'Estado',
             title: {
-                name: 'Área Funcional',
+                name: 'Estado',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-center',
+                class: 'center',
             }
         },
         {
-            key: 'NumeroDevolucion',
+            key: 'acciones',
             title: {
-                name: 'No. de Devolución',
+                name: 'acciones',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'icons'
             }
-        },
-        {
-            key: 'NumeroSolicitud',
-            title: {
-                name: 'No. de Solicitud',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
+        }
     ],
     rowActions: {
         title: {
@@ -75,41 +65,6 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
     filter: true,
 };
 export const DATOS_TABLAREGISTROS: any = [
-    {
-        Vigencia: '2020',
-        TipoDevolucion: '',
-        AreaFuncional: 'Rector',
-        NumeroDevolucion: '12345',
-        NumeroSolicitud: '67890',
-    },
-    {
-        Vigencia: '2020',
-        TipoDevolucion: '',
-        AreaFuncional: 'Rector',
-        NumeroDevolucion: '12345',
-        NumeroSolicitud: '67890',
-    },
-    {
-        Vigencia: '2020',
-        TipoDevolucion: '',
-        AreaFuncional: 'Rector',
-        NumeroDevolucion: '12345',
-        NumeroSolicitud: '67890',
-    },
-    {
-        Vigencia: '2020',
-        TipoDevolucion: '',
-        AreaFuncional: 'Rector',
-        NumeroDevolucion: '12345',
-        NumeroSolicitud: '67890',
-    },
-    {
-        Vigencia: '2020',
-        TipoDevolucion: '',
-        AreaFuncional: 'Rector',
-        NumeroDevolucion: '12345',
-        NumeroSolicitud: '67890',
-    }
 ];
 export const CONFIGURACION_CONSULTAOP: any = {
     showColumnTitle: true,
@@ -132,7 +87,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'text-center',
             }
         },
         {
@@ -142,7 +97,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center',
             }
         },
         {
@@ -152,7 +107,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center',
             }
         },
         {
@@ -162,17 +117,17 @@ export const CONFIGURACION_CONSULTAOP: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center',
             }
         },
         {
-            key: 'documentoId',
+            key: 'documento',
             title: {
-                name: 'Documento ID',
+                name: 'Documento',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center',
             }
         },
         {
@@ -192,25 +147,12 @@ export const CONFIGURACION_CONSULTAOP: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [],
+                class: 'text-right align-middle'
             }
         },
     ],
-    rowActions: {
-        title: {
-            name: 'Acciones',
-            class: 'text-center',
-            actionClass: 'd-flex flex-row justify-content-around align-middle'
-        },
-        actions: [
-            {
-                name: 'verOrden',
-                icon: 'fas fa-eye',
-                class: 'p-2',
-                title: 'Ver Orden de Pago',
-            },
-        ],
-    },
     noData: {
         name: 'No Existen Elementos Asociados',
         class: 'text-center',
@@ -247,21 +189,11 @@ export const DATOS_CONSULTAOP: any = [
         total: '$1.000.000',
     }
 ];
-export const CONFIGURACION_TABLAIMPUESTO: any = {
+export const CONFIGURACION_CONTABILIZACION: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'tercero',
-            title: {
-                name: 'Tercero',
-                class: 'text-center',
-            },
-            pipe: {
-                class: '',
-            }
-        },
-        {
-            key: 'numeroCuenta',
+            key: 'codigoContable',
             title: {
                 name: 'No. de Cuenta',
                 class: 'text-center',
@@ -271,23 +203,13 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
             }
         },
         {
-            key: 'nombreCuenta',
-            title: {
-                name: 'Nombre de Cuenta',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-center',
-            }
-        },
-        {
             key: 'porcentaje',
             title: {
                 name: 'Porcentaje',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center',
             }
         },
         {
@@ -297,7 +219,10 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
             }
         },
         {
@@ -307,7 +232,10 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
             }
         },
         {
@@ -317,7 +245,10 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -333,10 +264,12 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
         },
         actions: [
             {
-                name: 'ver',
-                icon: 'fas fa-eye',
+                name: 'eliminar',
+                icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Ver Resumen de Devolución',
+                idStep: 3,
+                ngIf: true
             },
         ],
     },
@@ -344,46 +277,17 @@ export const CONFIGURACION_TABLAIMPUESTO: any = {
         name: 'No Existen Elementos Asociados',
         class: 'text-center',
     },
-    endSubtotal: {
-        property: 'valorTotal', // key object
-        items: [
-            {
-                colspan: 5, // relative offset number
-                name: 'Sumatoria', // title item
-                class: 'text-right', // bootstrap class
-            },
-        ],
-        last: {
-            class: 'text-left',
-            pipe: {
-                type: 'currency',
-                config: [
-                ],
-                class: '',
-            }
-        }
-    },
     sort: true,
     filter: false,
 };
-export const DATOS_TABLAIMPUESTO: any = [
+export const DATOS_CONTABILIZACION: any = [
     {
-        tercero: '2020',
-        numeroCuenta: '000326',
-        nombreCuenta: 'Estampilla',
-        porcentaje: '2',
-        baseRetencion: '$67890',
-        debito: '$67890',
+        codigoContable: '',
+        porcentaje: '1',
+        baseRetencion: '$1',
+        debito: '',
         credito: '',
-    },
-    {
-        tercero: '2020',
-        numeroCuenta: '000326',
-        nombreCuenta: 'Retencion',
-        porcentaje: '2',
-        baseRetencion: '$67890',
-        debito: '$67890',
-        credito: '',
+        naturaleza: ''
     },
 ];
 export const CONFIGURACION_TABLABANCOS: any = {
@@ -487,7 +391,7 @@ export const CONFIGURACION_TABLABANCOS: any = {
         property: 'Total', // key object
         items: [
             {
-                colspan: 5, // relative offset number
+                colspan: 3, // relative offset number
                 name: 'Sumatoria', // title item
                 class: 'text-right', // bootstrap class
             },

@@ -170,6 +170,16 @@ export class SharedEffects {
     );
   });
 
+  getOrdenesPagoByDoc$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getOrdenesPagoByDoc),
+      mergeMap((accion) => this.sharedService.getOrdenesPagoByDoc(accion.documento)
+      .pipe(map(data => SharedActions.cargarOrdenesPagoByDoc(
+        {OrdenesPagoByDoc: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
   getRubro$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.obtenerRubro),

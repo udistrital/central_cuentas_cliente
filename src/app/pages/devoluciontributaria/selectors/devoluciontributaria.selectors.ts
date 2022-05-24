@@ -19,3 +19,33 @@ export const getDatosAlmacenadosSolicitud = createSelector(
   selectDevoluciontributariaState,
   (state: fromDevoluciontributaria.State) => state.DatosAlmacenadosSolicitud
 );
+
+export const getConcepto = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.Concepto
+);
+
+export const getInfoDevolucionTributaria = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.InfoDevolucionTributaria
+);
+
+export const getDatosOrdenesPago = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.DatosOrdenesPago
+);
+
+export const getDatosContabilizacion = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.DatosContabilizacion
+);
+
+export const getContabilizacion = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.Contabilizacion
+);
+
+export const selectDevolucionTributaria = createSelector(
+  selectDevoluciontributariaState,
+  (state: fromDevoluciontributaria.State) => state.DevolucionTributaria
+);

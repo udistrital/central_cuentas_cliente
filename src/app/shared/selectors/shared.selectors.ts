@@ -25,6 +25,11 @@ export const getFilaSeleccionada = createSelector(
   (state: fromShared.State) => state.FilaSeleccionada
 );
 
+export const getAddSelected = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.AddSelected
+);
+
 export const getAccionTabla = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.AccionTabla
@@ -238,4 +243,9 @@ export const selectSupervisor = createSelector(
 export const selectOrdenesPagoById = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.OrdenesPagoById
+);
+
+export const selectOrdenesPagoByDoc = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.OrdenesPagoByDoc
 );

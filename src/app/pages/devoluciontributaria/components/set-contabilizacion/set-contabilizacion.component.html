@@ -4,80 +4,154 @@
         <div class="row">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Contabilización
+                    {{ 'DEVOL_TRIBUTARIA.contabilizacion' | translate}}
                 </h6>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-7 px-4">
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>{{ 'DEVOL_TRIBUTARIA.tipo_comprobante' | translate}}</label>
+                <input class="form-control" id="tipoComprobante" formControlName="tipoComprobante">
+                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
             </div>
-            <div class="col-md-5 px-4">
-                <label>Concepto</label>
-                <input type="text" class="form-control" formControlName="concepto" readonly>
+            <div class="col-md-4">
+                <label>{{ 'DEVOL_TRIBUTARIA.numero_comprobante' | translate}}</label>
+                <input class="form-control" type="number" id="numeroComprobante" formControlName="numeroComprobante">
+                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
             </div>
-        </div>
-        <!-- Tabla-->
-        <div class="row pt-1">
-            <div class="col-md-12 bg-white px-2 pb-3">
-                <ngx-general-table [config]="configImpuesto" [datos]="datosImpuesto"></ngx-general-table>
-            </div>
-        </div>
-        <!-- Fin Tabla -->
-
-        <mat-divider class="col-md-12 py-2 border-warning"></mat-divider>
-
-        <div class="row">
-            <div class="col-md-12">
-                <p class="py-2 px-2">Seleccione el banco:</p>
+            <div class="col-md-4">
+                <label>{{ 'GLOBAL.consecutivo' | translate}}</label>
+                <input class="form-control" id="consecutivo" formControlName="consecutivo" disabled>
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-md-5 px-4">
-                <label>Banco</label>
-                <select class="custom-select" formControlName="banco" [class.is-invalid]="bancoInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
-                </select>
-                <small *ngIf="bancoInvalid" class="text-danger">Complete este campo</small>
-            </div>
-            <div class="col-md-4">
-                <label>Valor</label>
-                <input type="text" class="form-control" formControlName="valor" [class.is-invalid]="valorInvalid">
-                <small *ngIf="valorInvalid" class="text-danger">Ingrese números en este campo</small>
-            </div>
-            <div class="col-md-2 bg-white px-5 d-flex flex-row justify-content-end">
-                <div class="d-flex flex-row align-items-end">
-                    <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
-                        <span>Agregar</span>
-                    </button>
+            <div class="col-md-6">
+                <label>{{ 'ORDEN_PAGO.por_descuento' | translate}}</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="porcentajeRetencion"
+                        formControlName="porcentajeRetencion">
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <label>{{ 'DEVOL_TRIBUTARIA.base_devolucion' | translate}}</label>
+                <input class="form-control" currencyMask id="baseRetencion" formControlName="baseRetencion">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <mat-checkbox class="example-margin" formControlName="cuentaConcepto"
+                    (change)="conceptoCuentaContable()">{{ 'SOLICITUD_GIRO.concepto' | translate}}</mat-checkbox>
+            </div>
+            <div class="col-md-9" *ngIf="!conceptoCuenta">
+                <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#cuentaContableModal1">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <input class="form-control" formControlName="cuentaContableMovCont" disabled>
+                </div>
+            </div>
+            <div class="col-md-9" *ngIf="conceptoCuenta">
+                <label>{{ 'ORDEN_PAGO.cuenta_contable_concepto' | translate}}</label>
+                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}"
+                    formControlName="cuentaContableMovCont1">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200"
+                        class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto"
+                            [value]="cuentaContable1">
+                            {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-md-2">
+                <button class="btn btn-primary text-white w-100" type="button" (click)="agregarContabilizacion()">
+                    <i class="fas fa-plus"></i> {{ 'GLOBAL.agregar' | translate}}
+                </button>
             </div>
         </div>
         <!-- Tabla-->
         <div class="row pt-1">
             <div class="col-md-12 bg-white px-2 pb-3">
-                <ngx-general-table [config]="configBancos" [datos]="datosBancos"></ngx-general-table>
+                <ngx-general-table [config]="configContabilizacion" [datos]="datosContabilizacion"></ngx-general-table>
+            </div>
+        </div>
+        <div class="form-group row justify-content-end align-end">
+            <div class="col-md-2">
+                <label>
+                    <b>{{ 'DEVOL_TRIBUTARIA.sumas_iguales' | translate}}</b>
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>{{ 'DEVOL_TRIBUTARIA.suma_debito' | translate}}</label>
+                <input class="form-control" currencyMask id="sumaDebito" formControlName="sumaDebito" value="{{sumaDebito|currency}}" readonly>
+            </div>
+            <div class="col-md-4">
+                <label>{{ 'DEVOL_TRIBUTARIA.suma_credito' | translate}}</label>
+                <input currencyMask class="form-control" id="sumaCredito" formControlName="sumaCredito" value="{{sumaCredito|currency}}" readonly>
             </div>
         </div>
         <!-- Fin Tabla -->
-        <div class="row form-group justify-content-md-end px-2">
-            <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Total</label>
-            </div>
-            <div class="col-md-4">
-                <input class="form-control" id="valorTotal" disabled value="{{ totalGasto | currency }}">
-            </div>
-        </div>
     </div>
     <!-- Botones: Volver, siguiente -->
     <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
         <div class="form-group col-md-6">
-            <button mat-button matStepperPrevious type="submit" class="btn btn-primary text-white m-0 mt-4">Volver</button>
+            <button mat-button matStepperPrevious type="submit"
+                class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.anterior' | translate}}</button>
         </div>
         <div class="form-group col-md-6">
-            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">{{ 'GLOBAL.siguiente' | translate}}</button>
         </div>
     </div>
     <!-- Fin Botones: Volver, siguiente -->
+
+    <ng-template #eliminarModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{ 'GLOBAL.borrar' | translate}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{ 'GLOBAL.desea_borrar_registro' | translate}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">{{ 'GLOBAL.cancelar' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close(true)">{{ 'GLOBAL.borrar' | translate}}</button>
+        </div>
+    </ng-template>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="cuentaContableModal1" tabindex="-1" role="dialog" aria-labelledby="cuentaContableModal1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cuentaContableModalLabel1">{{ 'GLOBAL.sel_cuenta_contable' | translate}}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-arbol-cuentas-contables></ngx-arbol-cuentas-contables>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' |
+                    translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCuentaContable()">{{
+                    'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->

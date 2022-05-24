@@ -182,6 +182,16 @@ export class SharedService {
       return this.rqManager.getv2(`orden-pago/${id}`, null, null, null, null, null, 0);
     }
 
+     /**
+   * Gets OrdenesPago by id
+   * @param id id de la orden de pago
+   * @returns  Documento
+   */
+      public getOrdenesPagoByDoc(doc: string) {
+        this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+        return this.rqManager.getv2(`orden-pago/?query=DocumentoBeneficiario:${doc},Estado:Firmado`, null, null, null, null, null, 0);
+      }
+
   /**
    * Gets tipos Documentos
    * @param query Query para traer los tipos de documentos para cargar soportes

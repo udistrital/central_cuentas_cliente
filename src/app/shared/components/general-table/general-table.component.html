@@ -39,7 +39,7 @@
                             <ng-container *ngIf="config.checkElement">
                                 <td [class]="config.checkElement.pipe.class">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <input class="form-check-input" type="checkbox" value="" (change)="Checked(items)"  id="defaultCheck1">
                                     </div>
                                 </td>
                             </ng-container>

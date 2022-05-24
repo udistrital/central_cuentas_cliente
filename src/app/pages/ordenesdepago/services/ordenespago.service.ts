@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { RequestManager } from '../../../@core/managers/requestManager';
-import * as OrdenesPagoActions from '../actions/ordenespago.actions';
 
 @Injectable({
     providedIn: 'root'

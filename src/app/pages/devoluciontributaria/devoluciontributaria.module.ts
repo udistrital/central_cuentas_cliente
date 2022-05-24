@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DevoluciontributariaEffects } from './effects/devoluciontributaria.effects';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatSelectModule, MatStepperModule } from '@angular/material';
+import { MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSelectModule, MatStepperModule, MatTableModule, MAT_DATE_LOCALE } from '@angular/material';
 import { NgbModalConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DevoluciontributariaRoutingModule } from './devoluciontributaria-routing.module';
 import { StepperDevoluciontributariaComponent } from './components/stepper-devoluciontributaria/stepper-devoluciontributaria.component';
@@ -15,8 +15,9 @@ import { TableDevoluciontributariaComponent } from './components/table-devolucio
 import { SetInfodevoluciontributariaComponent } from './components/set-infodevoluciontributaria/set-infodevoluciontributaria.component';
 import { SetConsultaordenpagoComponent } from './components/set-consultaordenpago/set-consultaordenpago.component';
 import { SetContabilizacionComponent } from './components/set-contabilizacion/set-contabilizacion.component';
-import { ShowComprobantepagoComponent } from './components/show-comprobantepago/show-comprobantepago.component';
+import { ShowResumenDevolucionTributariaComponent } from './components/show-resumendevolucion/show-resumendevoluciontributaria.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     SetInfodevoluciontributariaComponent,
     SetConsultaordenpagoComponent,
     SetContabilizacionComponent,
-    ShowComprobantepagoComponent],
+    ShowResumenDevolucionTributariaComponent],
   imports: [
     CommonModule,
     DevoluciontributariaRoutingModule,
@@ -42,11 +43,18 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     StoreModule.forFeature(fromDevoluciontributaria.devoluciontributariaFeatureKey, fromDevoluciontributaria.reducer),
     EffectsModule.forFeature([DevoluciontributariaEffects]),
     MatSelectModule,
-    ScrollingModule
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatTableModule,
+    ScrollingModule,
+    CurrencyMaskModule
   ],
   providers: [
     NgbModule,
-    NgbModalConfig
+    NgbModalConfig,
+    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
   ]
 })
 export class DevoluciontributariaModule { }

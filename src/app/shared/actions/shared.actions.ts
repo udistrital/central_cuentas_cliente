@@ -42,6 +42,13 @@ export const LoadFilaSeleccionada = createAction(
   props()
 );
 
+// Agregar checked seleccionado
+
+export const AddSelected = createAction(
+  '[Shared] Agrega checked seleccionado',
+  props()
+);
+
 // Accion General de Tabla
 
 export const LoadAccionTabla = createAction(
@@ -455,5 +462,15 @@ export const getOrdenesPagoById = createAction(
 
 export const cargarOrdenesPagoById = createAction(
   '[Shared] Carga la orden de pago por id al store',
+  props()
+);
+
+export const getOrdenesPagoByDoc = createAction(
+  '[Shared] Obtiene la orden de pago por el doc del beneficiario del crud de central cuentas',
+  props<{documento: string}>()
+);
+
+export const cargarOrdenesPagoByDoc = createAction(
+  '[Shared] Carga la orden de pago por doc del beneficiario al store',
   props()
 );
