@@ -53,31 +53,32 @@ export class SetContabilizacionComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private modalService: NgbModal,
     private translate: TranslateService,
-    private activatedRoute: ActivatedRoute
-      ) {
-        // Datos de ejemplo q se muestran en la tabla
-        this.editable = true;
-        this.flagDT = true;
-        this.secuencia = 1;
-        this.datosContabilizacion = [];
-        this.configContabilizacion = CONFIGURACION_CONTABILIZACION;
-        this.createForm();
-        this.totalGasto = 0.00;
-        this.sumaCredito = 0;
-        this.sumaDebito = 0;
-        this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-        if (this.mostrar(this.tituloAccion)) {
-          if (this.edit(this.tituloAccion)) {
-            this.editable = false;
-            this.configContabilizacion.rowActions = null;
-          }
-        }
-        for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
-          this.configContabilizacion.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
+    private activatedRoute: ActivatedRoute,
+  ) {
+      // Datos de ejemplo q se muestran en la tabla
+      this.editable = true;
+      this.flagDT = true;
+      this.secuencia = 1;
+      this.datosContabilizacion = [];
+      this.configContabilizacion = CONFIGURACION_CONTABILIZACION;
+      this.createForm();
+      this.totalGasto = 0.00;
+      this.sumaCredito = 0;
+      this.sumaDebito = 0;
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      if (this.mostrar(this.tituloAccion)) {
+        if (this.edit(this.tituloAccion)) {
+          this.editable = false;
+          this.configContabilizacion.rowActions = null;
         }
       }
+      for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
+        this.configContabilizacion.dataConfig[i].title.name = this.translate
+        .instant('DEVOL_TRIBUTARIA.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
+      }
+    }
 
-   private mostrar(action: string): boolean {
+  private mostrar(action: string): boolean {
     const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
   }

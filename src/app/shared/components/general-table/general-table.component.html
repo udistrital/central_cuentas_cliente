@@ -45,13 +45,15 @@
                             </ng-container>
                             <ng-container *ngIf="config.secuencia">
                                 <td [class]="config.secuencia.pipe.class">
-                                        {{ config.secuencia.pipe.type ? (items[config.secuencia.key] | multiPipe:config.secuencia.pipe.type:config.secuencia.pipe.config) : items[config.secuencia.key] }}
+                                    {{ config.secuencia.pipe.type ? (items[config.secuencia.key] | multiPipe:config.secuencia.pipe.type:config.secuencia.pipe.config) : items[config.secuencia.key] }}
                                 </td>
                             </ng-container>
                             <ng-container *ngFor="let data of config.dataConfig">
                                 <ng-container *ngIf="!data.pipe.isArray">
                                     <td [class]="data.pipe.class">
-                                        {{ data.pipe.type ? (items[data.key] | multiPipe:data.pipe.type:data.pipe.config) : items[data.key] }}
+                                        {{ data.pipe.type
+                                            ? (items[data.key] | multiPipe:data.pipe.type:data.pipe.config)
+                                            : items[data.key] }}
                                     </td>
                                 </ng-container>
                                 <ng-container *ngIf="data.pipe.isArray">

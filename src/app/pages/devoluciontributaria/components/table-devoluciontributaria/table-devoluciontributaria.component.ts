@@ -39,7 +39,8 @@ export class TableDevoluciontributariaComponent implements OnInit, OnDestroy {
     this.selectedAction = new EventEmitter<any>();
     this.store.dispatch(getDevolucionesTributarias({sortby: ['Consecutivo'], order: ['desc']}));
     for (let i = 0; i < this.configuracion.dataConfig.length; i++) {
-      this.configuracion.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configuracion.dataConfig[i].title.label_i18n);
+      this.configuracion.dataConfig[i].title.name = this.translate
+      .instant('DEVOL_TRIBUTARIA.' + this.configuracion.dataConfig[i].title.label_i18n);
     }
   }
   ngOnDestroy(): void {

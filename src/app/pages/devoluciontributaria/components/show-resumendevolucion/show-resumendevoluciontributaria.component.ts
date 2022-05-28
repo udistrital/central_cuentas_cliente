@@ -39,8 +39,8 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
 
   constructor( private fb: FormBuilder,
     private store: Store<any>,
-    private activatedRoute: ActivatedRoute
-    ) {
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.configConsultaOP = Object.assign({}, CONFIGURACION_CONSULTAOP);
     this.configContabilizacion = Object.assign({} , CONFIGURACION_CONTABILIZACION);
     this.configConsultaOP.rowActions = null;
@@ -49,7 +49,7 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
     this.datosConsultaOP = [];
     this.store.dispatch(getProcesoConfiguracion({query: {Sigla: 'DT'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
-   }
+  }
 
   ngOnDestroy() {
     this.subscriptionDatosDevolucion$.unsubscribe();
@@ -106,6 +106,7 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
       }
     });
   }
+
   // Validacion de Formulario
   get observacionInvalid() {
     return this.comprobantepagoGroup.get('observacion').invalid

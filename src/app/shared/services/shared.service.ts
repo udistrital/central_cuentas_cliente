@@ -189,7 +189,7 @@ export class SharedService {
    */
       public getOrdenesPagoByDoc(doc: string) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return this.rqManager.getv2(`orden-pago/?query=DocumentoBeneficiario:${doc},Estado:Firmado`);
+        return this.rqManager.getv2(`orden-pago?query=DocumentoBeneficiario:${doc},Estado:Firmado`);
       }
 
     /**
