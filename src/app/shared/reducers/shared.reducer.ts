@@ -53,6 +53,7 @@ export interface State {
   InfoCuentaContableEndoso: any;
   Supervisor: any;
   OrdenesPagoById: any;
+  DevolucionTributariaById: any;
   OrdenesPagoByDoc: any;
   HistorialOP: any;
 }
@@ -106,6 +107,7 @@ export const initialState: State = {
   InfoCuentaContableEndoso: null,
   Supervisor: null,
   OrdenesPagoById: null,
+  DevolucionTributariaById: null,
   OrdenesPagoByDoc: null,
   HistorialOP: null,
 };
@@ -173,6 +175,9 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarOrdenesPagoById, (state, action) => ({
     ...state, OrdenesPagoById: state.OrdenesPagoById = action
+  })),
+  on(SharedActions.cargarDevolucionTributariaById, (state, action) => ({
+    ...state, DevolucionTributariaById: state.DevolucionTributariaById = action
   })),
   on(SharedActions.cargarOrdenesPagoByDoc, (state, action) => ({
     ...state, OrdenesPagoByDoc: state.OrdenesPagoByDoc = action

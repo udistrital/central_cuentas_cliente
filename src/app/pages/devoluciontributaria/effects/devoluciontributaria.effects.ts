@@ -41,6 +41,23 @@ export class DevoluciontributariaEffects {
     );
   });
 
+  actualizarDevolucionTributaria$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DevoluciontributariaActions.actualizarDevolucionTributaria),
+      mergeMap((accion) => this.servicio
+      .actualizarDevolucionTributaria(accion.id, accion.element)
+      .pipe(map(data => {
+        this.popupManager
+        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        {CONSECUTIVO: accion.element.Consecutivo}))
+        .then((result) => {
+          this.router.navigateByUrl('pages/devoluciontributaria/lista');
+        });
+        return DevoluciontributariaActions.cargarDevolucionTributaria({OrdenPago: data});
+      }), catchError(data => of(DevoluciontributariaActions.CatchError(data)))))
+    );
+  });
+
   getDevolucionesTributarias$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DevoluciontributariaActions.getDevolucionesTributarias),

@@ -474,3 +474,13 @@ export const cargarOrdenesPagoByDoc = createAction(
   '[Shared] Carga la orden de pago por doc del beneficiario al store',
   props()
 );
+
+export const getDevolucionTributariaById = createAction(
+  '[Shared] Obtiene la devolucion por id del crud de central cuentas',
+  props<{id: string}>()
+);
+
+export const cargarDevolucionTributariaById = createAction(
+  '[Shared] Carga la devolucion tributaria por id al store',
+  props()
+);

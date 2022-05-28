@@ -183,7 +183,7 @@ export class SharedService {
     }
 
      /**
-   * Gets OrdenesPago by id
+   * Gets OrdenesPago by doc
    * @param id id de la orden de pago
    * @returns  Documento
    */
@@ -191,6 +191,15 @@ export class SharedService {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
         return this.rqManager.getv2(`orden-pago/?query=DocumentoBeneficiario:${doc},Estado:Firmado`);
       }
+
+    /**
+   * Gets DevolucionesTributarias by id
+   * @param id id de la devolucion tributaria
+   */
+     public getDevolucionTributariaById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`devolucion-tributaria/${id}`);
+    }
 
   /**
    * Gets tipos Documentos

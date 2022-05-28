@@ -12,7 +12,7 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
-                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                             {{opcion.label}}
@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <label>{{ 'DEVOL_TRIBUTARIA.numero_requerimiento' | translate}}</label>
                 <div class="input-group">
-                    <input type="number" name="requerimiento" class="form-control" formControlName="requerimiento" [class.is-invalid]="numeroRequerimiento">
+                    <input [readonly]="!editable" type="number" name="requerimiento" class="form-control" formControlName="requerimiento" [class.is-invalid]="numeroRequerimiento">
                 </div>
                 <small *ngIf="numeroRequerimiento" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
@@ -45,15 +45,15 @@
         <div class="form-group row justify-content-between">
             <div class="col-md-4">
                 <label>{{ 'MODIF.numero_documento' | translate}}</label>
-                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <input [readonly]="!editable" type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
                 <small *ngIf="numeroIdInvalid" class="text-danger">{{ 'GLOBAL.ingrese_numeros' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{ 'CDP.fecha_solicitud' | translate}}</label>
                 <div class="input-group">
-                    <input class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <input [readonly]="!editable" class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle [disabled]="!editable" matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [disabled]="!editable" #picker></mat-datepicker>
                 </div>
                 <small *ngIf="fechaSolicitudInvalid" class="text-danger">{{ 'GLOBAL.seleccione_fecha' | translate}}</small>
             </div>
@@ -70,7 +70,7 @@
             <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
+                    <button [disabled]="!editable" type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -82,7 +82,7 @@
         <div class="form-group row">
             <div class="col">
                 <label>{{ 'DEVOL_TRIBUTARIA.razon_devolucion' | translate}}</label>
-                <textarea class="form-control" formControlName="razonDevolucion" rows="2" [class.is-invalid]="razonDevolucionInvalid"></textarea>
+                <textarea [readonly]="!editable" class="form-control" formControlName="razonDevolucion" rows="2" [class.is-invalid]="razonDevolucionInvalid"></textarea>
                 <small *ngIf="razonDevolucionInvalid" class="text-danger">{{ 'DEVOL_TRIBUTARIA.d_razon_devolucion' | translate}}</small>
             </div>
         </div>

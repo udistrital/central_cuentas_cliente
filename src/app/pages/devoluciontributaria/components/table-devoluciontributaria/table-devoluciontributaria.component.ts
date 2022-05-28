@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DATOS_TABLAREGISTROS, CONFIGURACION_TABLAREGISTROS } from '../../interfaces/interfaces';
 import { getFilaSeleccionada, getAccionTabla } from '../../../../shared/selectors/shared.selectors';
@@ -6,13 +6,14 @@ import { getDevolucionesTributarias, loadDevoluciontributariaSeleccionado } from
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { selectDevolucionTributaria } from '../../selectors/devoluciontributaria.selectors';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-table-devoluciontributaria',
   templateUrl: './table-devoluciontributaria.component.html',
   styleUrls: ['./table-devoluciontributaria.component.scss']
 })
-export class TableDevoluciontributariaComponent implements OnInit {
+export class TableDevoluciontributariaComponent implements OnInit, OnDestroy {
 
   configuracion: any;
   datosTabla: any;
@@ -29,7 +30,8 @@ export class TableDevoluciontributariaComponent implements OnInit {
 
   constructor (
     private store: Store<any>,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) {
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
@@ -39,6 +41,9 @@ export class TableDevoluciontributariaComponent implements OnInit {
     for (let i = 0; i < this.configuracion.dataConfig.length; i++) {
       this.configuracion.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configuracion.dataConfig[i].title.label_i18n);
     }
+  }
+  ngOnDestroy(): void {
+    this.subDevolucionesTributarias$.unsubscribe();
   }
 
   buildTable() {
@@ -75,7 +80,6 @@ export class TableDevoluciontributariaComponent implements OnInit {
     this.subDevolucionesTributarias$ = this.store.select(selectDevolucionTributaria).subscribe((accion: any) => {
       if (accion && accion.DevolucionTributaria) {
         this.devolucionesTributarias = accion.DevolucionTributaria;
-        accion.DevolucionTributaria = null;
         this.buildTable();
       }
     });
@@ -90,6 +94,14 @@ export class TableDevoluciontributariaComponent implements OnInit {
 
       this.store.dispatch(loadDevoluciontributariaSeleccionado(null));
     });
+  }
+
+  editarDevolucionTributaria(devolucionTriburaria: any) {
+    this.router.navigateByUrl('pages/devoluciontributaria/editar/' + devolucionTriburaria.Id);
+  }
+
+  ver(devolucionTriburaria: any) {
+    this.router.navigateByUrl('pages/devoluciontributaria/ver/' + devolucionTriburaria.Id);
   }
 }
 

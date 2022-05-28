@@ -39,8 +39,13 @@
                             <ng-container *ngIf="config.checkElement">
                                 <td [class]="config.checkElement.pipe.class">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" (change)="Checked(items)"  id="defaultCheck1">
+                                        <input [disabled]="config.checkElement.pipe.disabled" class="form-check-input" type="checkbox" [(ngModel)]="items.selected" (change)="Checked(items)"  id="defaultCheck1">
                                     </div>
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf="config.secuencia">
+                                <td [class]="config.secuencia.pipe.class">
+                                        {{ config.secuencia.pipe.type ? (items[config.secuencia.key] | multiPipe:config.secuencia.pipe.type:config.secuencia.pipe.config) : items[config.secuencia.key] }}
                                 </td>
                             </ng-container>
                             <ng-container *ngFor="let data of config.dataConfig">

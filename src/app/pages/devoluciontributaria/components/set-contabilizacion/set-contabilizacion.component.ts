@@ -1,20 +1,22 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CONFIGURACION_CONTABILIZACION, DATOS_CONTABILIZACION } from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
-import { getFilaSeleccionada, getNodoSeleccionadoConcepto, getNodoSeleccionadoCuentaContable, seleccionarConcepto, selectInfoCuentaContable, selectInfoCuentaContableDebito } from '../../../../shared/selectors/shared.selectors';
+import { getFilaSeleccionada, getNodoSeleccionadoConcepto, getNodoSeleccionadoCuentaContable, selectDevolucionTributariaById, selectInfoCuentaContable,
+        selectInfoCuentaContableDebito } from '../../../../shared/selectors/shared.selectors';
 import { getInfoCuentaContable, getInfoCuentaContableDebito, SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
-import { getConcepto } from '../../selectors/devoluciontributaria.selectors';
+import { getConcepto, getInfoDevolucionTributaria } from '../../selectors/devoluciontributaria.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { cargarContabilizacion, cargarDatosContabilizacion } from '../../actions/devoluciontributaria.actions';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-set-contabilizacion',
   templateUrl: './set-contabilizacion.component.html',
   styleUrls: ['./set-contabilizacion.component.scss']
 })
-export class SetContabilizacionComponent implements OnInit {
+export class SetContabilizacionComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarModal', { static: false }) eliminarModal: ElementRef;
   configContabilizacion: any;
   datosContabilizacion: any;
@@ -37,24 +39,62 @@ export class SetContabilizacionComponent implements OnInit {
   cuentaCredito: any;
   sumaCredito: number;
   sumaDebito: number;
+  subscriptionInfoDevolucionTributaria$: any;
+  infoDevolucionTributaria: any;
+  secuencia: number;
+  tituloAccion: any;
+  subDevolucionTributaria$: any;
+  devolucionesTributaria: any;
+  flagDT: boolean;
+  editable: boolean;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
     private modalService: NgbModal,
-    private translate: TranslateService
-     ) {
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute
+      ) {
         // Datos de ejemplo q se muestran en la tabla
+        this.editable = true;
+        this.flagDT = true;
+        this.secuencia = 1;
         this.datosContabilizacion = [];
         this.configContabilizacion = CONFIGURACION_CONTABILIZACION;
         this.createForm();
         this.totalGasto = 0.00;
         this.sumaCredito = 0;
         this.sumaDebito = 0;
+        this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+        if (this.mostrar(this.tituloAccion)) {
+          if (this.edit(this.tituloAccion)) {
+            this.editable = false;
+            this.configContabilizacion.rowActions = null;
+          }
+        }
         for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
           this.configContabilizacion.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
         }
-   }
+      }
+
+   private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
+    return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
+  }
+
+  ngOnDestroy(): void {
+    this.subConcepto$.unsubscribe();
+    if (this.subInfoCuentaCredito$) this.subInfoCuentaCredito$.unsubscribe();
+    if (this.subInfoCuentaDebito$)this.subInfoCuentaDebito$.unsubscribe();
+    this.cuentasContablesConcepto = [];
+    this.cuentaConceptoFull = true;
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
     if (this.configContabilizacion.endSubtotal) {
@@ -111,6 +151,21 @@ export class SetContabilizacionComponent implements OnInit {
         }
       }
     });
+
+    this.subscriptionInfoDevolucionTributaria$ = this.store
+    .select(getInfoDevolucionTributaria).subscribe((action) => {
+      if (action && action.InfoDevolucionTributaria) {
+        this.infoDevolucionTributaria = action.InfoDevolucionTributaria;
+      }
+    });
+
+    this.subDevolucionTributaria$ = this.store.select(selectDevolucionTributariaById).subscribe((action) => {
+      if (this.flagDT && action && action.DevolucionTributariaById) {
+        this.devolucionesTributaria = action.DevolucionTributariaById;
+        this.flagDT = false;
+        this.devolucionTributaria();
+      }
+    });
   }
 
 
@@ -142,24 +197,27 @@ export class SetContabilizacionComponent implements OnInit {
   agregarContabilizacion() {
     const contabilizacion = Object.assign({}, DATOS_CONTABILIZACION[0]);
     if (this.contabilizacionGroup.value.cuentaConcepto) {
-      contabilizacion.codigoContable = this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.Codigo + ' - '
+      contabilizacion.Codigo = this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.Codigo + ' - '
       + this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.Nombre;
-      contabilizacion.naturaleza = this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID;
+      contabilizacion.Naturaleza = this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID;
     } else {
-      contabilizacion.codigoContable = this.contabilizacionGroup.value.cuentaContableMovCont;
-      contabilizacion.naturaleza = this.cuentaContableSeleccionada.data.NaturalezaCuentaID;
+      contabilizacion.Codigo = this.contabilizacionGroup.value.cuentaContableMovCont;
+      contabilizacion.Naturaleza = this.cuentaContableSeleccionada.data.NaturalezaCuentaID;
     }
-    contabilizacion.porcentaje = this.contabilizacionGroup.value.porcentajeRetencion;
-    contabilizacion.baseRetencion = this.contabilizacionGroup.value.baseRetencion;
+    contabilizacion.PorcentajeRetencion = this.contabilizacionGroup.value.porcentajeRetencion;
+    contabilizacion.BaseRetencion = this.contabilizacionGroup.value.baseRetencion;
+    contabilizacion.Tercero = this.infoDevolucionTributaria.numeroId;
+    contabilizacion.Secuencia = this.secuencia;
     const total = (this.contabilizacionGroup.value.baseRetencion * Number(this.contabilizacionGroup.value.porcentajeRetencion)) / 100;
-    if (contabilizacion.naturaleza === 'credito') {
-      contabilizacion.credito = total;
-      this.sumaCredito += contabilizacion.credito;
+    if (contabilizacion.Naturaleza === 'credito') {
+      contabilizacion.Credito = total;
+      this.sumaCredito += contabilizacion.Credito;
     } else {
-      contabilizacion.debito = total;
-      this.sumaDebito += contabilizacion.debito;
+      contabilizacion.Debito = total;
+      this.sumaDebito += contabilizacion.Debito;
     }
     this.datosContabilizacion.push(contabilizacion);
+    this.secuencia += 1;
   }
 
   conceptoCuentaContable() {
@@ -213,6 +271,21 @@ export class SetContabilizacionComponent implements OnInit {
           else this.sumaCredito += element.credito;
         });
       }
+    });
+  }
+
+  devolucionTributaria() {
+    if (this.mostrar(this.tituloAccion) && this.contabilizacionGroup) {
+      this.contabilizacionGroup.patchValue({
+        tipoComprobante: this.devolucionesTributaria.TipoComprobante,
+        numeroComprobante: this.devolucionesTributaria.NumeroComprobante,
+        consecutivo: this.devolucionesTributaria.Consecutivo,
+      });
+    }
+    this.datosContabilizacion = this.devolucionesTributaria.MovimientoContable;
+    this.datosContabilizacion.forEach(element => {
+      this.sumaCredito += element.Credito;
+      this.sumaDebito += element.Debito;
     });
   }
 

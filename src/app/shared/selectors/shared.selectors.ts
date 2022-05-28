@@ -249,3 +249,8 @@ export const selectOrdenesPagoByDoc = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.OrdenesPagoByDoc
 );
+
+export const selectDevolucionTributariaById = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.DevolucionTributariaById
+);

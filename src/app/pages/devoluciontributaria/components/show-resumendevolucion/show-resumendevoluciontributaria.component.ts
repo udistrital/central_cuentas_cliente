@@ -1,8 +1,11 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { crearDevolucionTributaria } from '../../actions/devoluciontributaria.actions';
+import { crearConsecutivo, getProcesoConfiguracion } from '../../../../shared/actions/shared.actions';
+import { selectProcesoConfiguracion, selectConsecutivo } from '../../../../shared/selectors/shared.selectors';
+import { actualizarDevolucionTributaria, crearDevolucionTributaria } from '../../actions/devoluciontributaria.actions';
 import { CONFIGURACION_CONSULTAOP, CONFIGURACION_CONTABILIZACION } from '../../interfaces/interfaces';
 import { getDatosDevolucion, getDatosAlmacenadosSolicitud, getInfoDevolucionTributaria, getDatosOrdenesPago, getDatosContabilizacion, getContabilizacion } from '../../selectors/devoluciontributaria.selectors';
 
@@ -29,15 +32,23 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
   subscriptionContabilizacion$: any;
   datosContabilizacion: any;
   contabilizacion: any;
+  subProceso$: any;
+  proceso: any;
+  subConsecutivo$: any;
+  tituloAccion: string;
 
   constructor( private fb: FormBuilder,
-    private store: Store<any>) {
+    private store: Store<any>,
+    private activatedRoute: ActivatedRoute
+    ) {
     this.configConsultaOP = Object.assign({}, CONFIGURACION_CONSULTAOP);
     this.configContabilizacion = Object.assign({} , CONFIGURACION_CONTABILIZACION);
     this.configConsultaOP.rowActions = null;
     this.configContabilizacion.rowActions = null;
     this.configConsultaOP.checkElement = null;
     this.datosConsultaOP = [];
+    this.store.dispatch(getProcesoConfiguracion({query: {Sigla: 'DT'}}));
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
    }
 
   ngOnDestroy() {
@@ -88,6 +99,12 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
         this.contabilizacion = action.Contabilizacion;
       }
     });
+
+    this.subProceso$ = this.store.select(selectProcesoConfiguracion).subscribe((action) => {
+      if (action && action.Proceso) {
+        this.proceso = action.Proceso[0];
+      }
+    });
   }
   // Validacion de Formulario
   get observacionInvalid() {
@@ -100,10 +117,17 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
   }
 
   guardar(revisar: string) {
+    const consecOP = [];
+    this.datosConsultaOP.forEach(element => {
+      const aux = {
+        Consecutivo: element.consecutivo
+      };
+      consecOP.push(aux);
+    });
     const elemento = {
       Activo: true,
       AreaFuncional: this.infoDevolucionTributaria.areaFuncional.Id,
-      Consecutivo: 0,
+      Consecutivo: this.contabilizacion.consecutivo,
       NumeroRequerimiento: this.infoDevolucionTributaria.requerimiento,
       FechaSolicitud: this.infoDevolucionTributaria.fechaSolicitud,
       DocumentoBeneficiario: this.infoDevolucionTributaria.numeroId,
@@ -114,10 +138,25 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
       NumeroComprobante: this.contabilizacion.numeroComprobante,
       ValorDevolucion: 1000,
       Estado: 'Elaborado',
-      OrdenesPago: this.datosConsultaOP,
+      OrdenesPago: consecOP,
       MovimientoContable: this.datosContabilizacion
     };
-    this.store.dispatch(crearDevolucionTributaria({element: elemento}));
+    if (this.tituloAccion === 'editar') {
+      this.store.dispatch(actualizarDevolucionTributaria({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+    } else {
+      const consecutivo = {
+        ContextoId: this.proceso.Id,
+        Year: new Date().getFullYear(),
+        Descripcion: 'Devolucion Tributaria'
+      };
+      this.store.dispatch(crearConsecutivo({element: consecutivo}));
+      this.subConsecutivo$ = this.store.select(selectConsecutivo).subscribe((accion) => {
+        if (accion && accion.Consecutivos) {
+          elemento.Consecutivo = accion.Consecutivos.Consecutivo;
+          this.store.dispatch(crearDevolucionTributaria({element: elemento}));
+        }
+      });
+    }
   }
 
   saveForm() {

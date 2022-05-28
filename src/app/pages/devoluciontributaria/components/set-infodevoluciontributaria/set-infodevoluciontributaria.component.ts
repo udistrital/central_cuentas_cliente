@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { getBeneficiarioOP, getConcepto, GetConceptosContables, getOrdenesPagoByDoc } from '../../../../shared/actions/shared.actions';
-import { getConceptosContables, getNodoSeleccionadoConcepto, seleccionarConcepto, selectBeneficiarioOP } from '../../../../shared/selectors/shared.selectors';
+import { getBeneficiarioOP, getConcepto, GetConceptosContables, getDevolucionTributariaById, getOrdenesPagoByDoc } from '../../../../shared/actions/shared.actions';
+import { getConceptosContables, getNodoSeleccionadoConcepto, seleccionarConcepto, selectBeneficiarioOP, selectDevolucionTributariaById } from '../../../../shared/selectors/shared.selectors';
 import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP, DATOS_SOLICITUD} from '../../interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { cargarDatosSolicitud, cargarDatosAlmacenadosSolicitud, cargarConcepto, loadInfoDevolucionTributaria } from '../../actions/devoluciontributaria.actions';
 import { format_date, OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { combineLatest } from 'rxjs';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'ngx-set-infodevoluciontributaria',
   templateUrl: './set-infodevoluciontributaria.component.html',
@@ -33,20 +34,44 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
   subConcepto$: any;
   concepto: any;
   subscriptionCambios$: any;
+  tituloAccion: any;
+  editable: boolean;
+  subDevolucionTributaria$: any;
+  devolucionesTributaria: any;
+  flagDT;
 
   constructor(private fb: FormBuilder,
     private store: Store <any>,
     private _adapter: DateAdapter<any>,
+    private activatedRoute: ActivatedRoute
     ) {
+      this.editable = true;
+      this.flagDT = true;
       this._adapter.setLocale(format_date);
-            // Datos de ejemplo q se muestran en la tabla
-        this.datosConsultaOP = DATOS_CONSULTAOP;
-        this.configConsultaOP = CONFIGURACION_CONSULTAOP;
-        this.datosAlmacenadosDevolucion = DATOS_SOLICITUD;
-        this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
-        this.createForm();
-        this.store.dispatch(GetConceptosContables({}));
+      // Datos de ejemplo q se muestran en la tabla
+      this.datosConsultaOP = DATOS_CONSULTAOP;
+      this.configConsultaOP = CONFIGURACION_CONSULTAOP;
+      this.datosAlmacenadosDevolucion = DATOS_SOLICITUD;
+      this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
+      this.createForm();
+      this.store.dispatch(GetConceptosContables({}));
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      if (this.mostrar(this.tituloAccion)) {
+        this.store.dispatch(getDevolucionTributariaById({id: this.activatedRoute.snapshot.url[1].path}));
+        if (this.edit(this.tituloAccion)) this.editable = false;
+      }
   }
+
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
+    return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
+  }
+
 
   ngOnInit() {
     // Conceptos contables
@@ -74,18 +99,22 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.subDevolucionTributaria$ = this.store.select(selectDevolucionTributariaById).subscribe((action) => {
+      if (this.flagDT && action && action.DevolucionTributariaById) {
+        this.devolucionesTributaria = action.DevolucionTributariaById;
+        this.flagDT = false;
+        this.devolucionTributaria();
+      }
+    });
+
     this.getDatosBeneficiario();
     this.handleFormChanges();
   }
 
   getDatosBeneficiario() {
-    this.subscriptionFilter$ = combineLatest([
-      this.infoDevolucionGroup.get('numeroId').valueChanges,
-    ]).subscribe(([numeroId]) => {
-      if (numeroId) {
-        this.store.dispatch(getBeneficiarioOP({query: {NumDocumento: numeroId}}));
-        this.store.dispatch(getOrdenesPagoByDoc({documento: numeroId}));
-      }
+    this.subscriptionFilter$ = this.infoDevolucionGroup.get('numeroId').valueChanges.subscribe((valor) => {
+      this.store.dispatch(getBeneficiarioOP({query: {NumDocumento: valor}}));
+      this.store.dispatch(getOrdenesPagoByDoc({documento: valor}));
     });
   }
 
@@ -130,6 +159,10 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionConceptos$.unsubscribe();
+    if (this.subConcepto$) this.subConcepto$.unsubscribe();
+    this.subscriptionCambios$.unsubscribe();
+    this.subDevolucionTributaria$.unsubscribe();
+    this.subscriptionFilter$.unsubscribe();
   }
 
   createForm() {
@@ -150,9 +183,32 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
         control.markAsTouched();
       });
     } else {
-      data.fecha = new Date (data.fecha.year, data.fecha.month, data.fecha.day);
       this.store.dispatch(cargarDatosSolicitud(data));
       this.store.dispatch(cargarDatosAlmacenadosSolicitud(this.datoAlmacenadoDevolucion));
+    }
+  }
+
+  devolucionTributaria() {
+    if (this.mostrar(this.tituloAccion) && this.infoDevolucionGroup) {
+      this.infoDevolucionGroup.patchValue({
+        areaFuncional: this.opcionesAreaFuncional.find((e: any) => e.Id === this.devolucionesTributaria.AreaFuncional),
+        requerimiento: this.devolucionesTributaria.NumeroRequerimiento,
+        numeroId: this.devolucionesTributaria.DocumentoBeneficiario,
+        nombreBeneficiario: this.devolucionesTributaria.NombreBeneficiario,
+        fechaSolicitud: this.devolucionesTributaria.FechaSolicitud,
+        razonDevolucion: this.devolucionesTributaria.RazonDevolucion
+      });
+      this.store.dispatch(getConcepto({codigo: this.devolucionesTributaria.Concepto}));
+      this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+      if (concepto && concepto.Concepto) {
+        this.concepto = concepto.Concepto;
+        this.infoDevolucionGroup.patchValue({
+          conceptoContable: concepto.Concepto
+        });
+        concepto.Concepto = null;
+      }
+    });
+      this.getDatosBeneficiario();
     }
   }
 

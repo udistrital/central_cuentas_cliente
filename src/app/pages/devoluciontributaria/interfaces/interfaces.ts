@@ -81,6 +81,7 @@ export const CONFIGURACION_CONSULTAOP: any = {
                 () => { }, // only custom pipe
             ], //  ( optional )
             class: 'string', // bootstrap class
+            disabled: false
         }
     },
     dataConfig: [
@@ -177,32 +178,54 @@ export const CONFIGURACION_CONTABILIZACION: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'codigoContable',
+            key: 'Secuencia',
+            title: {
+                name: 'secuencia',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'secuencia',
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Codigo',
             title: {
                 name: 'No. de Cuenta',
-                class: 'text-center',
+                class: 'text-center bg-primary text-white',
                 label_i18n: 'numero_cuenta'
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-justify align-middle',
             }
         },
         {
-            key: 'porcentaje',
+            key: 'Tercero',
+            title: {
+                name: 'Tercero',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'tercero'
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'PorcentajeRetencion',
             title: {
                 name: 'Porcentaje',
-                class: 'text-center',
+                class: 'text-center bg-primary text-white',
                 label_i18n: 'porcentaje'
             },
             pipe: {
-                class: 'text-center',
+                class: 'text-center align-middle',
             }
         },
         {
-            key: 'baseRetencion',
+            key: 'BaseRetencion',
             title: {
                 name: 'Base de Retención',
-                class: 'text-center',
+                class: 'text-center bg-primary text-white',
                 label_i18n: 'base_retencion'
             },
             pipe: {
@@ -213,10 +236,10 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
         {
-            key: 'debito',
+            key: 'Debito',
             title: {
                 name: 'Débito',
-                class: 'text-center',
+                class: 'text-center bg-primary text-white',
                 label_i18n: 'debito'
             },
             pipe: {
@@ -227,10 +250,10 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
         {
-            key: 'credito',
+            key: 'Credito',
             title: {
                 name: 'Crédito',
-                class: 'text-center',
+                class: 'text-center bg-primary text-white',
                 label_i18n: 'credito'
             },
             pipe: {
@@ -241,14 +264,10 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
     ],
-    subtitle: {
-        name: 'Retención - Estampilla', // name subtitle
-        class: 'text-center bg-primary text-white', // bootstrap class
-    },
     rowActions: {
         title: {
             name: 'Acciones',
-            class: 'text-center',
+            class: 'text-center bg-primary text-white',
             actionClass: 'd-flex flex-row justify-content-around align-middle'
         },
         actions: [

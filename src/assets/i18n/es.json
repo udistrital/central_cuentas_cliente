@@ -339,7 +339,9 @@
     "porcentaje": "Porcentaje",
     "base_retencion": "Base de Retención",
     "debito": "Debito",
-    "credito": "Credito"
+    "credito": "Credito",
+    "tercero": "Tercero",
+    "secuencia": "Secuencia"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

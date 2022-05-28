@@ -170,6 +170,16 @@ export class SharedEffects {
     );
   });
 
+  getDevolucionTributariaById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getDevolucionTributariaById),
+      mergeMap((accion) => this.sharedService.getDevolucionTributariaById(accion.id)
+      .pipe(map(data => SharedActions.cargarDevolucionTributariaById(
+        {DevolucionTributariaById: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
   getOrdenesPagoByDoc$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getOrdenesPagoByDoc),
