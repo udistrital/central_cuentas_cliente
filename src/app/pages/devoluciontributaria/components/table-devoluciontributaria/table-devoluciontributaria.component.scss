@@ -1,0 +1,61 @@
+.border {
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.icons {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.child {
+    height: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-header-row {
+    text-align: center;
+    background-color: rgb(243, 161, 9);
+}
+
+.mat-column-Consecutivo, .mat-column-NombreBeneficiario, .mat-column-Estado, .mat-column-estado {
+    border-right: 1px solid lightgray !important;
+}
+
+th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+mat-paginator {
+    width: 100%;
+}
+
+.mat-cell {
+    padding: 8px 8px 8px 0;
+}
+.mat-row:hover {
+    background-color: rgb(189, 187, 187);
+}
+
+.mat-icon:hover {
+    color: rgb(243, 161, 9);
+}
+
+h5 {
+    text-transform: uppercase;
+}

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LoadAccionTabla, LoadFilaSeleccionada } from '../../actions/shared.actions';
+import { AddSelected, LoadAccionTabla, LoadFilaSeleccionada } from '../../actions/shared.actions';
 import { CONFIGURACION_PRUEBA, DATOS_PRUEBA } from '../../interfaces/interfaces';
 
 @Component({
@@ -52,5 +52,12 @@ export class GeneralTableComponent implements OnInit {
       accion: action,
     }));
 
+  }
+
+  Checked(row: any) {
+    row.selected = !row.selected;
+    this.store.dispatch(AddSelected({
+      fila: row
+    }));
   }
 }

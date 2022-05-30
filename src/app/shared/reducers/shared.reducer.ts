@@ -9,6 +9,7 @@ export interface State {
   NodoSeleccionado: any;
   SolicitudGiroSeleccionada: any;
   FilaSeleccionada: any;
+  AddSelected: any;
   AccionTabla: any;
   VigenciaActual: any;
   AreaFuncional: any;
@@ -52,6 +53,8 @@ export interface State {
   InfoCuentaContableEndoso: any;
   Supervisor: any;
   OrdenesPagoById: any;
+  DevolucionTributariaById: any;
+  OrdenesPagoByDoc: any;
   HistorialOP: any;
 }
 
@@ -60,6 +63,7 @@ export const initialState: State = {
   NodoSeleccionado: null,
   SolicitudGiroSeleccionada: null,
   FilaSeleccionada: null,
+  AddSelected: null,
   AccionTabla: null,
   VigenciaActual: null,
   AreaFuncional: null,
@@ -103,6 +107,8 @@ export const initialState: State = {
   InfoCuentaContableEndoso: null,
   Supervisor: null,
   OrdenesPagoById: null,
+  DevolucionTributariaById: null,
+  OrdenesPagoByDoc: null,
   HistorialOP: null,
 };
 
@@ -121,6 +127,9 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.LoadFilaSeleccionada, (state, action) => ({
     ...state, FilaSeleccionada: state.FilaSeleccionada = action
+  })),
+  on(SharedActions.AddSelected, (state, action) => ({
+    ...state, AddSelected: state.AddSelected = action
   })),
   on(SharedActions.LoadAccionTabla, (state, action) => ({
     ...state, AccionTabla: state.AccionTabla = action
@@ -166,6 +175,12 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarOrdenesPagoById, (state, action) => ({
     ...state, OrdenesPagoById: state.OrdenesPagoById = action
+  })),
+  on(SharedActions.cargarDevolucionTributariaById, (state, action) => ({
+    ...state, DevolucionTributariaById: state.DevolucionTributariaById = action
+  })),
+  on(SharedActions.cargarOrdenesPagoByDoc, (state, action) => ({
+    ...state, OrdenesPagoByDoc: state.OrdenesPagoByDoc = action
   })),
   on(SharedActions.cargarRubro, (state, action) => ({
     ...state, Rubro: state.Rubro = action

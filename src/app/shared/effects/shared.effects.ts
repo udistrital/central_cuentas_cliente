@@ -170,6 +170,26 @@ export class SharedEffects {
     );
   });
 
+  getDevolucionTributariaById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getDevolucionTributariaById),
+      mergeMap((accion) => this.sharedService.getDevolucionTributariaById(accion.id)
+      .pipe(map(data => SharedActions.cargarDevolucionTributariaById(
+        {DevolucionTributariaById: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
+  getOrdenesPagoByDoc$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getOrdenesPagoByDoc),
+      mergeMap((accion) => this.sharedService.getOrdenesPagoByDoc(accion.documento)
+      .pipe(map(data => SharedActions.cargarOrdenesPagoByDoc(
+        {OrdenesPagoByDoc: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
   getRubro$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.obtenerRubro),
