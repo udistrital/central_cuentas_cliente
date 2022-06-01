@@ -1,0 +1,164 @@
+<form [formGroup]="datosBeneficiarioGroup" (ngSubmit)="saveForm(datosBeneficiarioGroup.value)">
+    <!-- Grupo: Información de la Solicitud -->
+    <div class="container">
+        <div class="row pt-2">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Datos del Beneficiario
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: Area funcinal, numero requerimiento -->
+        <div class="form-group row justify-content-between">
+            <div class="col-md-6">
+                <label>Tipo Documento</label>
+                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                            {{opcion.label}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+                <small *ngIf="tipoDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-6">
+                <label>Numero Documento</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
+                </div>
+                <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label>Nombre Completo</label>
+                <input type="text" class="form-control" formControlName="nombreBeneficiario" [class.is-invalid]="nombreBeneficiarioInvalid" disabled>
+                <small *ngIf="nombreBeneficiarioInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Banco</label>
+                <input type="text" class="form-control" formControlName="banco" [class.is-invalid]="cargoInvalid" disabled>
+                <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>Tipo Cuenta</label>
+                <input type="text" class="form-control" formControlName="tipoCuenta" [class.is-invalid]="tipoCuentaInvalid" disabled>
+                <small *ngIf="tipoCuentaInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Numero Cuenta</label>
+                <input type="text" class="form-control" formControlName="numeroCuenta" [class.is-invalid]="numeroCuentaInvalid" disabled>
+                <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Forma de Pago</label>
+                <input type="text" class="form-control" formControlName="formaPago" [class.is-invalid]="formaPagoInvalid" disabled>
+                <small *ngIf="formaPagoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+        <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
+        <div class="col-md-12 row">
+            <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                Anexos
+            </h6>
+        </div>
+        <ngx-file-upload (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
+    </div>
+    <div class="container">
+        <!-- Tabla General Adaptada -->
+        <div class="row">
+            <div class="col-md-12 bg-white pb-3">
+                <ngx-general-table [config]="configuracion" [datos]="datosDocumentos"></ngx-general-table>
+            </div>
+            <table>
+                <ng-container>
+                    <th mat-header-cell *matHeaderCellDef> {{column.title.name}}</th>
+                    <td mat-cell *matCellDef="let element" class="{{column.pipe.class}}"> {{element[column.key]}}
+                        <mat-icon title="Editar" *ngIf="column.title.name==='acciones' && (element.Estado==='Elaborado' || element.Estado==='Rechazado')" (click)="editarSolicitud(element)" routerLinkActive="router-link-active" >edit</mat-icon>
+                        <mat-icon title="Enviar" *ngIf="column.title.name==='acciones' && element.Estado==='Elaborado'" (click)="enviarRevision(element)">send</mat-icon>
+                        <mat-icon title="Revisar" *ngIf="column.title.name==='acciones' && element.Estado==='Por revisar'" (click)="revision(element)">visibility</mat-icon>
+                    </td>
+                </ng-container>
+            </table>
+        </div>
+        <!-- Fin Tabla General Adaptada -->
+
+        <!-- Botones: regresar, Siguiente -->
+        <div class="row text-center">
+            <div class="col-6">
+                <button mat-button matStepperPrevious class="btn btn-primary m-0 mt-4 text-white" type="button">{{ 'GLOBAL.regresar' | translate}}</button>
+            </div>
+            <div class="form-group col-6">
+                <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4" (click)="cargarDocumentos()">{{ 'GLOBAL.siguiente' | translate}}</button>
+            </div>
+        </div>
+        <!-- Fin Botones: Regresar, Siguiente -->
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="conceptosModal" tabindex="-1" role="dialog" aria-labelledby="conceptosModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conceptosModalLabel">{{ 'ORDEN_PAGO.elige_concepto' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-conceptos></ngx-conceptos>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->
+
+<!-- Modal: Adjuntar requisitos -->
+<ng-template #adjuntarArchivoModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="adjuntarArchivoModal">Adjuntar Archivo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ngx-file-upload (prepareFilesList)="prepareFileList($event)"></ngx-file-upload>
+        <div class="row">
+            <div class="col-md-6"> {{ archivo?.name }} </div>
+            <div class="col-md-4 text-right"> {{ archivo ? (archivo.size/1024).toFixed(2) + ' Kb' : '' }}</div>
+            <div class="col-md-2"> <button class="btn btn-danger text-white" (click)="archivo = null"><i
+                        class="fas fa-trash-alt"></i></button> </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">Aceptar</button>
+    </div>
+</ng-template>
+<!-- Fin Modal -->
+
+<!-- Modal: Eliminar registros de la tabla -->
+<ng-template #eliminarDatoModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="BorrarDatoModal">{{ 'GLOBAL.borrar_registro' | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {{ 'GLOBAL.desea_borrar_registro' | translate}}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">{{ 'GLOBAL.cancelar' | translate}}</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">{{ 'GLOBAL.borrar' | translate}}</button>
+    </div>
+</ng-template>
+<!-- Fin Modal -->

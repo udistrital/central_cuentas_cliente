@@ -39,6 +39,11 @@ const routes: Routes = [
         .then(m => m.DevoluciontributariaModule),
       },
       {
+        path: 'ordenesdevolucion',
+        loadChildren: () => import('./ordenesdevolucion/ordenesdevolucion.module')
+        .then(m => m.OrdenesdevolucionModule),
+      },
+      {
         path: 'solicituddevolucion',
         loadChildren: () => import('./solicitud-devolucion/solicitud-devolucion.module')
         .then(m => m.SolicitudDevolucionModule),

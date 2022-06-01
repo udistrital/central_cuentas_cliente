@@ -1,0 +1,153 @@
+<form [formGroup]="datosSolicitanteGroup" (ngSubmit)="saveForm(datosSolicitanteGroup.value)">
+    <!-- Grupo: Información de la Solicitud -->
+    <div class="container">
+        <div class="row pt-2">
+            <div class="col-md-12">
+                <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
+                    Datos del Solicitante
+                </h6>
+            </div>
+        </div>
+        <!-- Campo: Area funcinal, numero requerimiento -->
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                            {{opcion.label}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+                <small *ngIf="areaFuncionalInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Grupo: Información de la Solicitud -->
+    <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
+    <!-- Grupo: Detalle de la Solicitud -->
+    <div class="container">
+        <!-- Campo: Tipo id, numero id, nombre -->
+        <div class="form-group row justify-content-between">
+            <div class="col-md-4">
+                <label>Tipo Documento</label>
+                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                            {{opcion.label}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+                <small *ngIf="tipoDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Numero Documento</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
+                </div>
+                <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Estado</label>
+                <input type="text" class="form-control" formControlName="estado" [class.is-invalid]="estadoInvalid" disabled>
+                <small *ngIf="estadoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label>Nombre Completo</label>
+                <input type="text" class="form-control" formControlName="nombre" [class.is-invalid]="nombreInvalid" disabled>
+                <small *ngIf="nombreInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Cargo</label>
+                <input type="text" class="form-control" formControlName="cargo" [class.is-invalid]="cargoInvalid" disabled>
+                <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label>Numero de Requerimiento</label>
+                <input type="number" class="form-control" formControlName="numeroRequerimiento" [class.is-invalid]="numeroRequerimientoInvalid">
+                <small *ngIf="numeroRequerimientoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Fecha Requerimiento</label>
+                <div class="input-group">
+                    <input class="form-control" formControlName="fechaRequerimiento" [class.is-invalid]="fechaRequerimientoInvalid" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-4">
+                <label>Concepto</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <input class="form-control" formControlName="concepto" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
+                </div>
+                <small *ngIf="conceptoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label>Razón devolución</label>
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="razonDevolucion" [class.is-invalid]="razonDevolucionInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                            {{opcion.label}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+                <small *ngIf="areaFuncionalInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+            <div class="col-md-6">
+                <label>Valor Devolución</label>
+                <input currencyMask class="form-control" formControlName="valorDevolucion" [class.is-invalid]="valorDevolucionInvalid">
+                <small *ngIf="valorDevolucionInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
+
+        <!-- Fin Campo: Razón de la Devolución -->
+    </div>
+    <!-- Fin Grupo: Detalle de la Solicitud -->
+    <!-- Botones: Volver a registros, siguiente -->
+    <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
+        <div class="form-group col-md-6">
+            <a routerLink='/pages/devoluciontributaria/lista'>
+                <button type="submit" class="btn btn-primary text-white m-0 mt-4">{{ 'SOLICITUD_GIRO.volver_registros' | translate}}</button>
+            </a>
+        </div>
+        <div class="form-group col-md-6">
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">{{ 'GLOBAL.siguiente' | translate}}</button>
+        </div>
+    </div>
+    <!-- Fin Botones:  -->
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="conceptosModal" tabindex="-1" role="dialog" aria-labelledby="conceptosModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conceptosModalLabel">{{ 'ORDEN_PAGO.elige_concepto' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-conceptos></ngx-conceptos>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->

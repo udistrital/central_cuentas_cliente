@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
+            <h5 class="card-title text-center text-primary">
+                CREAR ORDEN DE DEVOLUCIÓN
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bg-white">
+            <!-- Inicio de "Stepper" -->
+            <mat-horizontal-stepper linear #stepper>
+                <mat-step [stepControl]="datosSolicitanteGroup">
+                    <ng-template matStepLabel>Datos Solicitante</ng-template>
+                    <div class="container">
+                        <ngx-set-datossolicitante></ngx-set-datossolicitante>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="datosBeneficiarioGroup">
+                    <ng-template matStepLabel>Datos Beneficiario</ng-template>
+                    <div class="container">
+                        <ngx-set-datosbeneficiario></ngx-set-datosbeneficiario>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="contabilizacionGroup">
+                    <ng-template matStepLabel>Contabilización</ng-template>
+                    <div class="container">
+                        <ngx-set-contabilizacion></ngx-set-contabilizacion>
+                    </div>
+                </mat-step>
+                <!-- Fin de -->
+                <!-- Paso 4:  -->
+                <mat-step>
+                    <ng-template matStepLabel>Guardar</ng-template>
+                    <div class="container">
+                        <ngx-show-resumenordendevolucion></ngx-show-resumenordendevolucion>
+                    </div>
+                </mat-step>
+                <!-- Fin de -->
+            </mat-horizontal-stepper>
+            <!-- Fin de "Stepper" -->
+        </div>
+    </div>
+</div>
