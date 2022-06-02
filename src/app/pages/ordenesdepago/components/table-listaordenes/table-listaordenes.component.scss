@@ -33,7 +33,11 @@ table {
     background-color: rgb(243, 161, 9);
 }
 
-.mat-column-NumeroOrden, .mat-column-NombreBeneficiario, .mat-column-AutorizacionGiro, .mat-column-Estado, .mat-column-estado {
+.mat-column-NumeroOrden,
+.mat-column-NombreBeneficiario,
+.mat-column-AutorizacionGiro,
+.mat-column-Estado,
+.mat-column-estado {
     border-right: 1px solid lightgray !important;
 }
 

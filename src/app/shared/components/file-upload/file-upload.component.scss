@@ -1,7 +1,7 @@
-.dropzone{
+.dropzone {
     border-style: dotted;
     border-radius: 10px;
-    i{
+    i {
         font-size: 80px;
     }
     input {
@@ -15,10 +15,10 @@
         cursor: pointer;
     }
 }
-.fileover{
+.fileover {
     border-color: gray;
     background-color: #e0e0e0;
-    button{
+    button {
         background-color: transparent;
         border-color: transparent;
         color: black !important;
