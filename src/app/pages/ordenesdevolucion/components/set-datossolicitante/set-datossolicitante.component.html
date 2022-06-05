@@ -31,10 +31,10 @@
         <div class="form-group row justify-content-between">
             <div class="col-md-4">
                 <label>Tipo Documento</label>
-                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
-                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
-                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
-                            {{opcion.label}}
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let tipoDocumento of tiposDocumento" [value]="tipoDocumento">
+                            {{tipoDocumento.Nombre}}
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
@@ -43,14 +43,18 @@
             <div class="col-md-4">
                 <label>Numero Documento</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
+                    <input [readonly]="!editable" type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
                 </div>
                 <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
-                <label>Estado</label>
-                <input type="text" class="form-control" formControlName="estado" [class.is-invalid]="estadoInvalid" disabled>
-                <small *ngIf="estadoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+                <label>Fecha Requerimiento</label>
+                <div class="input-group">
+                    <input [readonly]="!editable" class="form-control" formControlName="fechaRequerimiento" [class.is-invalid]="fechaRequerimientoInvalid" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle [disabled]="!editable" matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <div class="form-group row">
@@ -68,27 +72,18 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label>Numero de Requerimiento</label>
-                <input type="number" class="form-control" formControlName="numeroRequerimiento" [class.is-invalid]="numeroRequerimientoInvalid">
+                <input [readonly]="!editable" type="number" class="form-control" formControlName="numeroRequerimiento" [class.is-invalid]="numeroRequerimientoInvalid">
                 <small *ngIf="numeroRequerimientoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
-            <div class="col-md-4">
-                <label>Fecha Requerimiento</label>
-                <div class="input-group">
-                    <input class="form-control" formControlName="fechaRequerimiento" [class.is-invalid]="fechaRequerimientoInvalid" matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </div>
-                <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <label>Concepto</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
+                        <button [disabled]="!editable" type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
-                    <input class="form-control" formControlName="concepto" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
+                    <input [readonly]="!editable" class="form-control" formControlName="concepto" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
                 </div>
                 <small *ngIf="conceptoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
@@ -98,8 +93,8 @@
                 <label>Razón devolución</label>
                 <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="razonDevolucion" [class.is-invalid]="razonDevolucionInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
-                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
-                            {{opcion.label}}
+                        <mat-option *cdkVirtualFor="let razon of razonesDevolucion" [value]="razon">
+                            {{razon.Nombre}}
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
@@ -107,7 +102,7 @@
             </div>
             <div class="col-md-6">
                 <label>Valor Devolución</label>
-                <input currencyMask class="form-control" formControlName="valorDevolucion" [class.is-invalid]="valorDevolucionInvalid">
+                <input [readonly]="!editable" currencyMask class="form-control" formControlName="valorDevolucion" [class.is-invalid]="valorDevolucionInvalid">
                 <small *ngIf="valorDevolucionInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
@@ -118,7 +113,7 @@
     <!-- Botones: Volver a registros, siguiente -->
     <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
         <div class="form-group col-md-6">
-            <a routerLink='/pages/devoluciontributaria/lista'>
+            <a routerLink='/pages/ordenesdevolucion/lista'>
                 <button type="submit" class="btn btn-primary text-white m-0 mt-4">{{ 'SOLICITUD_GIRO.volver_registros' | translate}}</button>
             </a>
         </div>

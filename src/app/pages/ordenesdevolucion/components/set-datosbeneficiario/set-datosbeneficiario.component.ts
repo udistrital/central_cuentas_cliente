@@ -3,11 +3,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { combineLatest } from 'rxjs';
 import Swal from 'sweetalert2';
-import { getDocumentos, subirDocumentos } from '../../../../shared/actions/shared.actions';
-import { getFilaSeleccionada, selectDocumentos, selectDocumentosDescarga } from '../../../../shared/selectors/shared.selectors';
-import { loadDocumentos } from '../../actions/ordenesdevolucion.actions';
+import { getBancos, getDatosID, getDocumentos, getFormasPago, getParametros, subirDocumentos } from '../../../../shared/actions/shared.actions';
+import { getFilaSeleccionada, selectBancos, selectDatosID, selectDocumentos, selectDocumentosDescarga, selectFormasPago,
+          selectOrdenDEvolucionById, selectParametros, selectTiposID } from '../../../../shared/selectors/shared.selectors';
+import { cargarDocumentosBeneficiario, loadDocumentos } from '../../actions/ordenesdevolucion.actions';
 import { CONFIGURACION_DOCUMENTOS } from '../../interfaces/interfaces';
+import { cargarDatosBeneficiario } from '../../actions/ordenesdevolucion.actions';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'ngx-set-datosbeneficiario',
@@ -24,16 +29,55 @@ export class SetDatosbeneficiarioComponent implements OnInit {
   subDocumentos$: any;
   subscriptionEliminarDato$: any;
   closeResult = '';
+  subTipoDocumento$: any;
+  tiposDocumento: any;
+  subBancos$: any;
+  bancos: any;
+  subTipoCuenta$: any;
+  tiposCuenta: any;
+  subFormasPago$: any;
+  formasPago: any;
+  subscriptionfilter$: any;
+  subDatosBeneficiario$: any;
+  datosBeneficiario: any;
+  subOrdenDevolucion$: any;
+  ordenDevolucion: any;
+  flagOD: boolean;
+  tituloAccion: string;
+  editable: boolean;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
     private translate: TranslateService,
     private modalService: NgbModal,
+    private activatedRoute: ActivatedRoute,
   ) {
+    this.flagOD = true;
+    this.editable = true;
     this.datosDocumentos = [];
     this.configuracion = CONFIGURACION_DOCUMENTOS;
+    this.store.dispatch(getBancos({query: {TipoTerceroId__CodigoAbreviacion: 'BANCO'}}));
+    this.store.dispatch(getParametros({query: {TipoParametroId__CodigoAbreviacion: 'CB'}}));
+    this.store.dispatch(getFormasPago({query: {TipoParametroId__CodigoAbreviacion: 'F_PAGO'}}));
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+    if (this.mostrar(this.tituloAccion)) {
+      if (this.edit(this.tituloAccion)) {
+        this.editable = false;
+        this.configuracion.rowActions.actions[0].ngIf = false;
+      }
+    }
    }
+
+   private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
+    return ACCIONES.some(acc => acc === action);
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
+  }
 
   ngOnInit() {
     this.createForm();
@@ -48,11 +92,35 @@ export class SetDatosbeneficiarioComponent implements OnInit {
         }
       }
     });
+    this.subscriptionfilter$ = combineLatest([
+      this.datosBeneficiarioGroup.get('tipoDocumento').valueChanges,
+      this.datosBeneficiarioGroup.get('numeroDocumento').valueChanges,
+    ]).subscribe(([tipoId, numeroId]) => {
+      if (numeroId && tipoId) {
+        this.store.dispatch(getDatosID({ clave: 'beneficiario1', numero: numeroId, tipo: tipoId.Id }));
+      }
+    });
+    this.subDatosBeneficiario$ = this.store.select(selectDatosID, 'beneficiario1').subscribe(action1 => {
+      if (action1 && action1.datosId[0].TerceroId) {
+        this.datosBeneficiario = action1.datosId[0];
+        this.datosBeneficiarioGroup.patchValue({
+          nombreBeneficiario: this.datosBeneficiario.TerceroId.NombreCompleto
+        });
+        action1.datosId = null;
+      }
+    });
+    this.subOrdenDevolucion$ = this.store.select(selectOrdenDEvolucionById).subscribe((action) => {
+      if (this.flagOD && action && action.OrdenDevolucionById) {
+        this.ordenDevolucion = action.OrdenDevolucionById;
+        this.flagOD = false;
+        this.consultaTipoDocumento();
+      }
+    });
   }
 
   // Modal acciones sobre la tabla: Ver documentos
   modalVer(fila: any) {
-    this.store.dispatch(getDocumentos({uid: fila.uid}));
+    this.store.dispatch(getDocumentos({uid: fila.UID}));
     this.subDocumentos$ = this.store.select(selectDocumentosDescarga).subscribe((accion) => {
       if (accion && accion.DocumentosDescarga) {
         const base64 = accion.DocumentosDescarga.file;
@@ -95,6 +163,74 @@ export class SetDatosbeneficiarioComponent implements OnInit {
     });
   }
 
+  consultaTipoDocumento() {
+    this.subTipoDocumento$ = this.store.select(selectTiposID).subscribe(action => {
+      if (action) {
+        this.tiposDocumento = action[0];
+        this.consultaBancos();
+      }
+    });
+  }
+
+  consultaBancos() {
+    this.subBancos$ = this.store.select(selectBancos).subscribe(action => {
+      if (action && action.Bancos) {
+        this.bancos = action.Bancos;
+        action.Bancos = null;
+        this.consultaTipoCuenta();
+      }
+    });
+  }
+
+  consultaTipoCuenta() {
+    this.subTipoCuenta$ = this.store.select(selectParametros).subscribe(action => {
+      if (action && action.Parametros) {
+        this.tiposCuenta = action.Parametros;
+        action.Parametros = null;
+        this.consultaFormaPago();
+      }
+    });
+  }
+
+  consultaFormaPago() {
+    this.subFormasPago$ = this.store.select(selectFormasPago).subscribe(action => {
+      if (action && action.FormasPago) {
+        this.formasPago = action.FormasPago;
+        action.FormasPago = null;
+        this.ordenDevolucionId();
+      }
+    });
+  }
+
+  ordenDevolucionId() {
+    if (this.mostrar(this.tituloAccion) && this.datosBeneficiarioGroup) {
+      this.datosBeneficiarioGroup.patchValue({
+        tipoDocumento: this.tiposDocumento.find((e: any) => e.Id === this.ordenDevolucion.TipoDocumentoBeneficiario),
+        numeroDocumento: this.ordenDevolucion.NumeroDocumentoBeneficiario,
+        nombreBeneficiario: this.ordenDevolucion.NombreBeneficiario,
+        banco: this.bancos.find((e: any) => e.Id === this.ordenDevolucion.Banco),
+        tipoCuenta: this.tiposCuenta.find((e: any) => e.Id === this.ordenDevolucion.TipoCuenta),
+        numeroCuenta: this.ordenDevolucion.NumeroCuenta,
+        formaPago: this.formasPago.find((e: any) => e.Id === this.ordenDevolucion.FormaPago),
+      });
+      this.datosDocumentos = this.ordenDevolucion.DocumentosBeneficiario;
+    }
+  }
+
+  saveForm(data: any) {
+    if ( this.datosBeneficiarioGroup.invalid ) {
+      return Object.values( this.datosBeneficiarioGroup.controls ).forEach( control => {
+        control.markAsTouched();
+      });
+    } else {
+      this.store.dispatch(cargarDatosBeneficiario(data));
+    }
+  }
+
+  cargarDocumentos() {
+    this.store.dispatch(cargarDocumentosBeneficiario({data: this.datosDocumentos}));
+  }
+
   async prepareFilesList(files: Array<File>) {
     for (const item of files) {
       let documento = [{
@@ -108,10 +244,10 @@ export class SetDatosbeneficiarioComponent implements OnInit {
       this.subDocumentos$ = this.store.select(selectDocumentos).subscribe((accion) => {
         if (accion && accion.DocumentosCarga && documento.length > 0) {
           this.datosDocumentos.push({
-            nombreArchivo: documento[0].nombre,
-            tamañoArchivo: Math.trunc(item.size / 1000) + ' KB',
-            estado: 'Listo',
-            uid: accion.DocumentosCarga.res.Enlace
+            NombreArchivo: documento[0].nombre,
+            TamañoArchivo: Math.trunc(item.size / 1000) + ' KB',
+            Estado: 'Listo',
+            UID: accion.DocumentosCarga.res.Enlace
           });
           accion.DocumentosCarga = null;
           documento = [];

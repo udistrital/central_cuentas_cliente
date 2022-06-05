@@ -12,10 +12,10 @@
         <div class="form-group row justify-content-between">
             <div class="col-md-6">
                 <label>Tipo Documento</label>
-                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
-                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
-                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
-                            {{opcion.label}}
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let tipoDocumento of tiposDocumento" [value]="tipoDocumento">
+                            {{tipoDocumento.Nombre}}
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
@@ -23,9 +23,7 @@
             </div>
             <div class="col-md-6">
                 <label>Numero Documento</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
-                </div>
+                <input [readonly]="!editable" type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
                 <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
@@ -37,24 +35,42 @@
             </div>
             <div class="col-md-4">
                 <label>Banco</label>
-                <input type="text" class="form-control" formControlName="banco" [class.is-invalid]="cargoInvalid" disabled>
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="banco" [class.is-invalid]="bancoInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                        <mat-option *cdkVirtualFor="let banco of bancos" [value]="banco">
+                            {{banco.TerceroId.NombreCompleto}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-4">
                 <label>Tipo Cuenta</label>
-                <input type="text" class="form-control" formControlName="tipoCuenta" [class.is-invalid]="tipoCuentaInvalid" disabled>
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoCuenta" [class.is-invalid]="tipoCuentaInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let tipoCuenta of tiposCuenta" [value]="tipoCuenta">
+                            {{tipoCuenta.Nombre}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="tipoCuentaInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>Numero Cuenta</label>
-                <input type="text" class="form-control" formControlName="numeroCuenta" [class.is-invalid]="numeroCuentaInvalid" disabled>
+                <input [readonly]="!editable" type="text" class="form-control" formControlName="numeroCuenta" [class.is-invalid]="numeroCuentaInvalid">
                 <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>Forma de Pago</label>
-                <input type="text" class="form-control" formControlName="formaPago" [class.is-invalid]="formaPagoInvalid" disabled>
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="formaPago" [class.is-invalid]="formaPagoInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let formaPago of formasPago" [value]="formaPago">
+                            {{formaPago.Nombre}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="formaPagoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
@@ -64,7 +80,7 @@
                 Anexos
             </h6>
         </div>
-        <ngx-file-upload (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
+        <ngx-file-upload *ngIf="editable" (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
     </div>
     <div class="container">
         <!-- Tabla General Adaptada -->

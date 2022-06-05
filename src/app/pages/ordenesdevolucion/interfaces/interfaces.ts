@@ -2,7 +2,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'nombreArchivo',
+            key: 'NombreArchivo',
             title: {
                 name: 'Nombre del Archivo',
                 class: 'text-center',
@@ -12,9 +12,9 @@ export const CONFIGURACION_DOCUMENTOS: any = {
             }
         },
         {
-            key: 'tamañoArchivo',
+            key: 'TamañoArchivo',
             title: {
-                name: 'Tamaño del Archibo',
+                name: 'Tamaño del Archivo',
                 class: 'text-center',
             },
             pipe: {
@@ -22,7 +22,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
             }
         },
         {
-            key: 'estado',
+            key: 'Estado',
             title: {
                 name: 'Estado',
                 class: 'text-center',
@@ -63,7 +63,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
         {
             key: 'Secuencia',
             title: {
-                name: 'secuencia',
+                name: 'Secuencia',
                 class: 'text-center bg-primary text-white',
                 label_i18n: 'secuencia',
             },
@@ -91,31 +91,6 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             },
             pipe: {
                 class: 'text-center align-middle',
-            }
-        },
-        {
-            key: 'PorcentajeRetencion',
-            title: {
-                name: 'Porcentaje',
-                class: 'text-center bg-primary text-white',
-                label_i18n: 'porcentaje'
-            },
-            pipe: {
-                class: 'text-center align-middle',
-            }
-        },
-        {
-            key: 'BaseRetencion',
-            title: {
-                name: 'Base de Retención',
-                class: 'text-center bg-primary text-white',
-                label_i18n: 'base_retencion'
-            },
-            pipe: {
-                type: 'currency',
-                config: [
-                ],
-                class: 'text-right align-middle',
             }
         },
         {
@@ -171,5 +146,85 @@ export const CONFIGURACION_CONTABILIZACION: any = {
     sort: true,
     filter: false,
 };
+
 export const DATOS_CONTABILIZACION: any = [
+    {
+        Secuencia: '1',
+        Codigo: '123',
+        Tercero: '094',
+        Credito: 0.00,
+        Debito: 12000.00,
+    },
+];
+export const CONFIGURACION_TABLAREGISTROS: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'Consecutivo',
+            title: {
+                name: 'Consecutivo',
+                label_i18n: 'consecutivo',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center border',
+            }
+        },
+        {
+            key: 'NombreBeneficiario',
+            title: {
+                name: 'Nombre del beneficiario',
+                label_i18n: 'nombre_beneficiario',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center border',
+            }
+        },
+        {
+            key: 'Estado',
+            title: {
+                name: 'Estado',
+                label_i18n: 'estado',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center border',
+            }
+        },
+        {
+            key: 'acciones',
+            title: {
+                name: 'Acciones',
+                label_i18n: 'acciones',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'icons border'
+            }
+        }
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'ver',
+                icon: 'fas fa-eye',
+                class: 'p-2',
+                title: 'Ver Resumen de Devolución',
+            },
+        ],
+    },
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    filter: true,
+};
+export const DATOS_TABLAREGISTROS: any = [
 ];

@@ -7,11 +7,15 @@ import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiari
 import { SetContabilizacionComponent } from './components/set-contabilizacion/set-contabilizacion.component';
 import { ShowResumenordendevolucionComponent } from './components/show-resumenordendevolucion/show-resumenordendevolucion.component';
 import { OrdenesDevolucionRoutingModule } from './ordenesdevolucion-routing.module';
+import * as fromOrdenesDevolucion from './reducers/ordenesdevolucion.reducer';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatIconModule, MatPaginatorModule, MatSelectModule, MatStepperModule, MatTableModule } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { OrdenesDevolucionEffects } from './effects/ordenesdevolucion.effects';
 
 
 
@@ -39,6 +43,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     MatIconModule,
     MatSelectModule,
     MatCheckboxModule,
+    StoreModule.forFeature(fromOrdenesDevolucion.ordenesdevolucionFeatureKey, fromOrdenesDevolucion.reducer),
+    EffectsModule.forFeature([OrdenesDevolucionEffects])
   ]
 })
 export class OrdenesdevolucionModule { }

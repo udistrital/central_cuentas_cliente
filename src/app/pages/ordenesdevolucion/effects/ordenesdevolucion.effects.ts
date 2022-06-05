@@ -14,6 +14,59 @@ import { Router } from '@angular/router';
 @Injectable()
 export class OrdenesDevolucionEffects {
 
+  loadDocumentos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(OrdenesDevolucionActions.loadDocumentos),
+      /** An EMPTY observable only emits completion. Replace with your own observable API request */
+      concatMap(() => EMPTY)
+    );
+  });
+
+  crearOrdenDevolucion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(OrdenesDevolucionActions.crearOrdenDevolucion),
+      mergeMap((accion) => this.servicio
+      .crearOrdenDevolucion(accion.element)
+      .pipe(map(data => {
+        this.popupManager
+        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        {CONSECUTIVO: accion.element.Consecutivo}))
+        .then((result) => {
+          this.router.navigateByUrl('pages/ordenesdevolucion/lista');
+        });
+        return OrdenesDevolucionActions.cargarOrdenDevolucion({OrdenDevolucion: data});
+      }), catchError(data => of(OrdenesDevolucionActions.CatchError(data)))))
+    );
+  });
+
+  actualizarOrdenDevolucion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(OrdenesDevolucionActions.actualizarOrdenDevolucion),
+      mergeMap((accion) => this.servicio
+      .actualizarOrdenDevolucion(accion.id, accion.element)
+      .pipe(map(data => {
+        this.popupManager
+        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        {CONSECUTIVO: accion.element.Consecutivo}))
+        .then((result) => {
+          this.router.navigateByUrl('pages/ordenesdevolucion/lista');
+        });
+        return OrdenesDevolucionActions.cargarOrdenDevolucion({OrdenDevolucion: data});
+      }), catchError(data => of(OrdenesDevolucionActions.CatchError(data)))))
+    );
+  });
+
+  getOrdenesDevolucion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(OrdenesDevolucionActions.getOrdenesDevolucion),
+      mergeMap((accion) => {
+        return this.servicio.getOrdenesDevolucion(accion.sortby, accion.order)
+        .pipe(map(data => OrdenesDevolucionActions.cargarOrdenDevolucion({OrdenesDevolucion: data})),
+            catchError(data => of(OrdenesDevolucionActions.CatchError(data))));
+      })
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private servicio: OrdenesDevolucionService,

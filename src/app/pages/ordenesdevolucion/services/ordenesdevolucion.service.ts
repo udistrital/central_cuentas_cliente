@@ -9,23 +9,23 @@ import { RequestManager } from '../../../@core/managers/requestManager';
 export class OrdenesDevolucionService {
     constructor(private rqManager: RequestManager) { }
 
-    public subirAutorizacionGiro(element: any) {
+    public crearOrdenDevolucion(element: any) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return (this.rqManager.post('autorizacion-giro/', element)).pipe(map(data => {
+        return (this.rqManager.post('orden-devolucion/', element)).pipe(map(data => {
             return ((data && data.Data) ? data.Data : data);
         }));
     }
 
-    public actualizarAutorizacionGiro(id: string, element: any) {
+    public actualizarOrdenDevolucion(id: string, element: any) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return (this.rqManager.put('autorizacion-giro/', element, id)).pipe(map(data => {
+        return (this.rqManager.put('orden-devolucion/', element, id)).pipe(map(data => {
             return ((data && data.Data) ? data.Data : data);
         }));
     }
 
-    public getAutorizacionGiro(sortby: any, order: any) {
+    public getOrdenesDevolucion(sortby: any, order: any) {
         this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
-        return (this.rqManager.getv2('autorizacion-giro/', null, null, null, sortby, order, null, null)).pipe(map(data => {
+        return (this.rqManager.getv2('orden-devolucion/', null, null, null, sortby, order, null, null)).pipe(map(data => {
             return ((data && data.Data) ? data.Data : data);
         }));
     }

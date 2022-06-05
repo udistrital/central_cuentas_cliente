@@ -11,12 +11,12 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label>{{ 'DEVOL_TRIBUTARIA.tipo_comprobante' | translate}}</label>
-                <input class="form-control" id="tipoComprobante" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid">
+                <input [readonly]="!editable" class="form-control" id="tipoComprobante" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid">
                 <small *ngIf="tipoComprobanteInvalid" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{ 'DEVOL_TRIBUTARIA.numero_comprobante' | translate}}</label>
-                <input class="form-control" type="number" id="numeroComprobante" formControlName="numeroComprobante" [class.is-invalid]="numeroComprobanteInvalid">
+                <input [readonly]="!editable" class="form-control" type="number" id="numeroComprobante" formControlName="numeroComprobante" [class.is-invalid]="numeroComprobanteInvalid">
                 <small *ngIf="numeroComprobanteInvalid" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
             <div class="col-md-4">
@@ -26,12 +26,13 @@
         </div>
         <div class="form-group row">
             <div class="col-md-4">
-                <mat-checkbox class="example-margin" formControlName="cuentaConcepto"
+                <mat-checkbox [disabled]="!editable" class="example-margin" formControlName="cuentaConcepto"
                     (change)="conceptoCuentaContable()">{{ 'SOLICITUD_GIRO.concepto' | translate}}</mat-checkbox>
             </div>
             <div class="col-md-8">
                 <label>{{ 'DEVOL_TRIBUTARIA.base_devolucion' | translate}}</label>
-                <input class="form-control" currencyMask id="baseRetencion" formControlName="baseRetencion">
+                <input [readonly]="!editable" class="form-control" currencyMask
+                id="baseRetencion" formControlName="baseRetencion">
             </div>
         </div>
         <div class="form-group row justify-content-end">
@@ -39,7 +40,7 @@
                 <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                        <button [disabled]="!editable" type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#cuentaContableModal1">
                             <i class="fa fa-plus"></i>
                         </button>
@@ -49,7 +50,8 @@
             </div>
             <div class="col-md-9" *ngIf="conceptoCuenta">
                 <label>{{ 'ORDEN_PAGO.cuenta_contable_concepto' | translate}}</label>
-                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}"
+                <mat-select class="form-control"
+                placeholder="{{ 'GLOBAL.seleccione' | translate}}"
                     formControlName="cuentaContableMovCont1">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200"
                         class="vs-viewport-corto">
@@ -63,7 +65,7 @@
         </div>
         <div class="row justify-content-end">
             <div class="col-md-2">
-                <button class="btn btn-primary text-white w-100" type="button" (click)="agregarContabilizacion()">
+                <button [disabled]="!editable" class="btn btn-primary text-white w-100" type="button" (click)="agregarContabilizacion()">
                     <i class="fas fa-plus"></i> {{ 'GLOBAL.agregar' | translate}}
                 </button>
             </div>
@@ -77,7 +79,7 @@
         <div class="form-group row justify-content-end align-end">
             <div class="col-md-2">
                 <label>
-                    <b>{{ 'DEVOL_TRIBUTARIA.sumas_iguales' | translate}}</b>
+                    <strong>{{ 'DEVOL_TRIBUTARIA.sumas_iguales' | translate}}</strong>
                 </label>
             </div>
             <div class="col-md-4">

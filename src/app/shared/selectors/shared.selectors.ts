@@ -254,3 +254,28 @@ export const selectDevolucionTributariaById = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.DevolucionTributariaById
 );
+
+export const selectOrdenDEvolucionById = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.OrdenDevolucionById
+);
+
+export const selectBancos = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Bancos
+);
+
+export const selectParametros = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Parametros
+);
+
+export const selectRazonesDevolucion = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.RazonesDevolucion
+);
+
+export const selectFormasPago = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.FormasPago
+);

@@ -180,6 +180,16 @@ export class SharedEffects {
     );
   });
 
+  getOrdenDevolucionById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getOrdenDevolucionById),
+      mergeMap((accion) => this.sharedService.getOrdenDevolucionById(accion.id)
+      .pipe(map(data => SharedActions.cargarOrdenDevolucionById(
+        {OrdenDevolucionById: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
   getOrdenesPagoByDoc$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getOrdenesPagoByDoc),
@@ -493,6 +503,54 @@ export class SharedEffects {
         return this.sharedService.getSupervisor(accion.vigencia, accion.documento)
         .pipe(map(data => SharedActions.cargarSupervisor(
           {Supervisor: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getBancos$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getBancos),
+      mergeMap((accion) => {
+        return this.sharedService.getBancos(accion.query)
+        .pipe(map(data => SharedActions.cargarBancos(
+          {Bancos: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getParametros$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getParametros),
+      mergeMap((accion) => {
+        return this.sharedService.getParametros(accion.query)
+        .pipe(map(data => SharedActions.cargarParametros(
+          {Parametros: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getRazonesDevolucion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getRazonesDevolucion),
+      mergeMap((accion) => {
+        return this.sharedService.getParametros(accion.query)
+        .pipe(map(data => SharedActions.cargarRazonesDevolucion(
+          {RazonesDevolucion: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getFormasPago$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getFormasPago),
+      mergeMap((accion) => {
+        return this.sharedService.getParametros(accion.query)
+        .pipe(map(data => SharedActions.cargarFormasPago(
+          {FormasPago: data})),
           catchError(data => of(SharedActions.CatchError(data))));
       })
     );

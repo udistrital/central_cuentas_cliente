@@ -13,6 +13,14 @@ const routes: Routes = [
     path: 'crear',
     component: StepperOrdenesdevolucionComponent,
   },
+  {
+    path: 'editar/:id',
+    component: StepperOrdenesdevolucionComponent,
+  },
+  {
+    path: 'ver/:id',
+    component: StepperOrdenesdevolucionComponent,
+  },
 ];
 
 @NgModule({
