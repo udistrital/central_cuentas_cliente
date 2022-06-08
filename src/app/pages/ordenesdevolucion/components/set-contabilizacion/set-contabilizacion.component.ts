@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { getConcepto, GetConceptosContables, getInfoCuentaContable, getInfoCuentaContableDebito,
         SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
 import { getFilaSeleccionada, getNodoSeleccionadoConcepto, getNodoSeleccionadoCuentaContable, seleccionarConcepto,
@@ -54,6 +55,7 @@ export class SetContabilizacionComponent implements OnInit {
     private store: Store<any>,
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
   ) {
     this.store.dispatch(GetConceptosContables({}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
@@ -69,6 +71,9 @@ export class SetContabilizacionComponent implements OnInit {
         this.editable = false;
         this.configContabilizacion.rowActions = null;
       }
+    }
+    for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
+      this.configContabilizacion.dataConfig[i].title.name = this.translate.instant('ORDEN_DEVOLUCION.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
     }
    }
 

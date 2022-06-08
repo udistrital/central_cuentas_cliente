@@ -46,6 +46,12 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
     this.datosCont = [];
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.store.dispatch(getProcesoConfiguracion({query: {Sigla: 'OD'}}));
+    for (let i = 0; i < this.configDocumentos.dataConfig.length; i++) {
+      this.configDocumentos.dataConfig[i].title.name = this.translate.instant('ORDEN_DEVOLUCION.' + this.configDocumentos.dataConfig[i].title.label_i18n);
+    }
+    for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
+      this.configContabilizacion.dataConfig[i].title.name = this.translate.instant('ORDEN_DEVOLUCION.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
+    }
    }
   ngOnDestroy() {
     if (this.subDatosSolicitante$) this.subDatosSolicitante$.unsubscribe();

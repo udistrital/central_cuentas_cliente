@@ -29,7 +29,7 @@ export class OrdenesDevolucionEffects {
       .crearOrdenDevolucion(accion.element)
       .pipe(map(data => {
         this.popupManager
-        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        .showSuccessAlert(this.translate.instant('ORDEN_DEVOLUCION.guardado_exitoso',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
           this.router.navigateByUrl('pages/ordenesdevolucion/lista');
@@ -46,7 +46,7 @@ export class OrdenesDevolucionEffects {
       .actualizarOrdenDevolucion(accion.id, accion.element)
       .pipe(map(data => {
         this.popupManager
-        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        .showSuccessAlert(this.translate.instant('ORDEN_DEVOLUCION.actualizacion_exitosa',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
           if (accion.path === 'lista') window.location.reload();

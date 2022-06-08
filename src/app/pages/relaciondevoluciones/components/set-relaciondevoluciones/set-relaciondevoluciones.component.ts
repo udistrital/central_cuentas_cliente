@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { getTiposID, getFormasPago, getBancos, getParametros, getRelacionDevolucionesById } from '../../../../shared/actions/shared.actions';
 import { format_date, OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { getAddSelected, selectBancos, selectFormasPago, selectParametros, selectRelacionDevolucionesById, selectTiposID } from '../../../../shared/selectors/shared.selectors';
@@ -44,6 +45,7 @@ export class SetRelaciondevolucionesComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     private _adapter: DateAdapter<any>,
+    private translate: TranslateService
   ) {
     this._adapter.setLocale(format_date);
     this.editable = true;
@@ -64,6 +66,9 @@ export class SetRelaciondevolucionesComponent implements OnInit, OnDestroy {
         this.editable = false;
         this.configuracionTabla.checkElement.pipe.disabled = true;
       }
+    }
+    for (let i = 0; i < this.configuracionTabla.dataConfig.length; i++) {
+      this.configuracionTabla.dataConfig[i].title.name = this.translate.instant('RELACION_DEVOLUCIONES.' + this.configuracionTabla.dataConfig[i].title.label_i18n);
     }
   }
 

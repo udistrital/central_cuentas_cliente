@@ -69,6 +69,9 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     } else {
       this.consultaTipoDocumento();
     }
+    for (let i = 0; i < this.configuracion.dataConfig.length; i++) {
+      this.configuracion.dataConfig[i].title.name = this.translate.instant('ORDEN_DEVOLUCION.' + this.configuracion.dataConfig[i].title.label_i18n);
+    }
    }
   ngOnDestroy() {
     this.subDatosBeneficiario$.unsubscribe();

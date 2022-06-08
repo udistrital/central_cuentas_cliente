@@ -3,7 +3,7 @@
         <div class="row pt-2">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Nueva Relación de Devolución
+                    {{'RELACION_DEVOLUCIONES.nueva_relacion' | translate}}
                 </h6>
             </div>
         </div>
@@ -28,7 +28,7 @@
         <!-- Campo: Tipo id, numero id, nombre -->
         <div class="form-group row justify-content-end">
             <div class="col-md-3">
-                <label>Fecha Requerimiento</label>
+                <label>{{'RELACION_DEVOLUCIONES.desde' | translate}}</label>
                 <div class="input-group">
                     <input [readonly]="!editable" class="form-control" formControlName="fechaInicio" [class.is-invalid]="fechaRequerimientoInvalid" matInput [matDatepicker]="picker1">
                     <mat-datepicker-toggle [disabled]="!editable" matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -37,7 +37,7 @@
                 <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-3">
-                <label>Fecha Requerimiento</label>
+                <label>{{'RELACION_DEVOLUCIONES.hasta' | translate}}</label>
                 <div class="input-group">
                     <input [readonly]="!editable" class="form-control" formControlName="fechaFin" [class.is-invalid]="fechaRequerimientoInvalid" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle [disabled]="!editable" matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -47,14 +47,14 @@
             </div>
         </div>
         <div class="row justify-content-end">
-            <button [disabled]="!editable" type="button" (click)="buscarOrdenesDevolucion()" class="btn btn-primary text-white m-0 mt-4">Buscar</button>
+            <button [disabled]="!editable" type="button" (click)="buscarOrdenesDevolucion()" class="btn btn-primary text-white m-0 mt-4">{{'GLOBAL.buscar' | translate}}</button>
         </div>
         <div class="row col-md-12 bg-white pb-3">
             <ngx-general-table [config]="configuracionTabla" [datos]="datosTabla"></ngx-general-table>
         </div>
         <div class="row justify-content-end form-group">
             <div class="col-md-4">
-                <label>Total</label>
+                <label>{{'GLOBAL.Total' | translate}}</label>
                 <input currencyMask class="form-control" disabled [value]="total">
             </div>
         </div>

@@ -51,7 +51,7 @@ export class RelacionDevolucionesEffects {
       .crearRelacionDevoluciones(accion.element)
       .pipe(map(data => {
         this.popupManager
-        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        .showSuccessAlert(this.translate.instant('RELACION_DEVOLUCIONES.guardado_exitoso',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
           this.router.navigateByUrl('pages/relaciondevoluciones/lista');
@@ -68,7 +68,7 @@ export class RelacionDevolucionesEffects {
       .actualizarRelacionDevoluciones(accion.id, accion.element)
       .pipe(map(data => {
         this.popupManager
-        .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
+        .showSuccessAlert(this.translate.instant('RELACION_DEVOLUCIONES.actualizacion_exitosa',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
           if (accion.path === 'lista') window.location.reload();

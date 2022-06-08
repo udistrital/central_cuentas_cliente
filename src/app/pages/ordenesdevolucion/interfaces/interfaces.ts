@@ -6,6 +6,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
             title: {
                 name: 'Nombre del Archivo',
                 class: 'text-center',
+                label_i18n: 'nombre_archivo'
             },
             pipe: {
                 class: 'text-justify',
@@ -16,6 +17,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
             title: {
                 name: 'Tamaño del Archivo',
                 class: 'text-center',
+                label_i18n: 'tamaño_archivo'
             },
             pipe: {
                 class: 'text-center',
@@ -26,6 +28,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
             title: {
                 name: 'Estado',
                 class: 'text-center',
+                label_i18n: 'estado'
             },
             pipe: {
                 class: '',

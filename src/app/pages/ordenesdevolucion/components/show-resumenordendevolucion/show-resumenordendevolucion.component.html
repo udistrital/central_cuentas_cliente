@@ -121,7 +121,7 @@
     <div class="container">
         <div class="row pt-2 text-center">
             <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
-                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{'GLOBAL.regresar' | translate}}</button>
             </div>
             <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
                 <button mat-button class="btn btn-danger text-white m-0 mt-4" (click)="guardar('rechazar')">{{ 'GLOBAL.rechazar' | translate}}</button>

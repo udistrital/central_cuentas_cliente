@@ -313,6 +313,8 @@
     "endoso_invalido": "El valor del endoso no es valido"
   },
   "DEVOL_TRIBUTARIA": {
+    "guardado_exitoso": "Creación de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion exitosa": "Actualización de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
     "numero_requerimiento": "Número de requerimiento",
     "detalle_solicitud": "Detalle de la solicitud",
     "razon_devolucion": "Razón de la devolución",
@@ -348,11 +350,45 @@
     "secuencia": "Secuencia"
   },
   "ORDEN_DEVOLUCION": {
+    "guardado_exitoso": "Creación de la orden de devolución exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion exitosa": "Actualización de la orden de devolución exitosa con el consecutivo: {{CONSECUTIVO}}",
     "datos_solicitante": "Datos del solicitante",
     "fecha_requerimiento": "Fecha de requerimiento",
     "valor_devolucion": "Valor de la devolución",
     "info_solicitante": "Información solicitante",
-    "info_beneficiario": "Información beneficiario"
+    "info_beneficiario": "Información beneficiario",
+    "nombre_archivo": "Nombre del Archivo",
+    "tamaño_archivo": "Tamaño del Archivo",
+    "estado": "Estado",
+    "secuencia": "Secuencia",
+    "tercero": "Tercero",
+    "numero_cuenta": "No. de cuenta",
+    "nombre_cuenta": "Nombre de la cuenta",
+    "detalle": "Detalle",
+    "debito": "Debito",
+    "credito": "Credito",
+    "registro_orden_devolucion": "REGISTRO ORDENES DE DEVOLUCIÓN",
+    "crear_orden_devolucion": "CREAR ORDEN DE DEVOLUCIÓN",
+    "datos_beneficiario": "Datos del beneficiario",
+    "contabilizacion": "Contabilización"
+  },
+  "RELACION_DEVOLUCIONES": {
+    "guardado_exitoso": "Creación de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion exitosa": "Actualización de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "nueva_relacion": "Nueva Relación de Devolución",
+    "desde": "Desde",
+    "hasta": "Hasta",
+    "consecutivo": "Consecutivo",
+    "beneficiario": "Beneficiario",
+    "tipo_documento": "Tipo de documento",
+    "numero_documento": "Número de documento",
+    "forma_pago": "Forma de Pago",
+    "banco": "Banco",
+    "tipo_cuenta": "Tipo de Cuenta",
+    "numero_cuenta": "Número de cuenta",
+    "valor": "Valor",
+    "registro_relacion_devoluciones": "REGISTRO RELACIÓN DE DEVOLUCIONES",
+    "crear_relacion": "CREAR RELACIÓN DE DEVOLUCIONES"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

@@ -41,6 +41,9 @@ export class ShowResumenRelacionDevolucionesComponent implements OnInit, OnDestr
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.store.dispatch(getProcesoConfiguracion({query: {Sigla: 'RD'}}));
     this.total = 0;
+    for (let i = 0; i < this.configuracionTabla.dataConfig.length; i++) {
+      this.configuracionTabla.dataConfig[i].title.name = this.translate.instant('RELACION_DEVOLUCIONES.' + this.configuracionTabla.dataConfig[i].title.label_i18n);
+    }
    }
   ngOnDestroy() {
     if (this.subRelacionDevoluciones$) this.subRelacionDevoluciones$.unsubscribe();
