@@ -190,6 +190,16 @@ export class SharedEffects {
     );
   });
 
+  getRelacionDevolucionesById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getRelacionDevolucionesById),
+      mergeMap((accion) => this.sharedService.getRelacionDevolucionesById(accion.id)
+      .pipe(map(data => SharedActions.cargarRelacionRevolucionesById(
+        {RelacionDevolucionesById: ((data && data.Data) ? data.Data : data)})),
+        catchError(data => of(SharedActions.CatchError(data)))))
+    );
+  });
+
   getOrdenesPagoByDoc$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getOrdenesPagoByDoc),

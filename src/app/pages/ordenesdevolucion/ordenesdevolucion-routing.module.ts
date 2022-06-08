@@ -21,6 +21,10 @@ const routes: Routes = [
     path: 'ver/:id',
     component: StepperOrdenesdevolucionComponent,
   },
+  {
+    path: 'revisar/:id',
+    component: StepperOrdenesdevolucionComponent,
+  },
 ];
 
 @NgModule({

@@ -3,6 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
 import { crearConsecutivo, getProcesoConfiguracion } from '../../../../shared/actions/shared.actions';
 import { selectProcesoConfiguracion, selectConsecutivo } from '../../../../shared/selectors/shared.selectors';
 import { actualizarDevolucionTributaria, crearDevolucionTributaria } from '../../actions/devoluciontributaria.actions';
@@ -40,6 +42,7 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
   constructor( private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
   ) {
     this.configConsultaOP = Object.assign({}, CONFIGURACION_CONSULTAOP);
     this.configContabilizacion = Object.assign({} , CONFIGURACION_CONTABILIZACION);
@@ -138,12 +141,16 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
       TipoComprobante: this.contabilizacion.tipoComprobante,
       NumeroComprobante: this.contabilizacion.numeroComprobante,
       ValorDevolucion: 1000,
-      Estado: 'Elaborado',
+      Estado: this.infoDevolucionTributaria.estado,
       OrdenesPago: consecOP,
       MovimientoContable: this.datosContabilizacion
     };
     if (this.tituloAccion === 'editar') {
+      elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(actualizarDevolucionTributaria({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+    } else if (this.tituloAccion === 'revisar') {
+      if (revisar === 'aprobar') this.aprobar(elemento);
+      else if (revisar === 'rechazar') this.rechazar(elemento);
     } else {
       const consecutivo = {
         ContextoId: this.proceso.Id,
@@ -154,6 +161,7 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
       this.subConsecutivo$ = this.store.select(selectConsecutivo).subscribe((accion) => {
         if (accion && accion.Consecutivos) {
           elemento.Consecutivo = accion.Consecutivos.Consecutivo;
+          elemento.Estado = Aprobacion.elaborado;
           this.store.dispatch(crearDevolucionTributaria({element: elemento}));
         }
       });
@@ -167,4 +175,65 @@ export class ShowResumenDevolucionTributariaComponent implements OnInit, OnDestr
     }
   }
 
+  aprobar(elemento: any) {
+    Swal.fire({
+      title: this.translate.instant('GLOBAL.aprobar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_aprobacion'),
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: this.translate.instant('GLOBAL.si_aprobar')
+    }).then((result) => {
+      if (result.value === true) {
+        switch (elemento.Estado) {
+          case Aprobacion.revCont: {
+            elemento.Estado = Aprobacion.revPres;
+            break;
+          }
+          case Aprobacion.revPres: {
+            elemento.Estado = Aprobacion.revTes;
+            break;
+          }
+          case Aprobacion.revTes: {
+            elemento.Estado = Aprobacion.aprobado;
+            break;
+          }
+          case Aprobacion.aprobado: {
+            elemento.Estado = Aprobacion.firmado;
+            break;
+          }
+        }
+        this.store.dispatch(actualizarDevolucionTributaria({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
+  }
+
+  rechazar(elemento: any) {
+    Swal.fire({
+      title: this.translate.instant('GLOBAL.rechazar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_rechazo'),
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: this.translate.instant('GLOBAL.si_rechazar')
+    }).then((result) => {
+      if (result.value === true) {
+        elemento.Estado = Aprobacion.rechazado;
+        this.store.dispatch(actualizarDevolucionTributaria({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
+  }
+
+}
+
+enum Aprobacion {
+  elaborado = 'Elaborado',
+  revCont = 'Por revisar contabilidad',
+  revPres = 'Por revisar presupuesto',
+  revTes = 'Por revisar tesorería',
+  aprobado = 'Aprobado',
+  firmado = 'Firmado',
+  rechazado = 'Rechazado'
 }

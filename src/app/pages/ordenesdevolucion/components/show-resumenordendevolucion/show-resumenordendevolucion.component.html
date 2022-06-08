@@ -1,7 +1,7 @@
 <div class="container">
     <div class="container pb-3">
         <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
-            Información solicitante
+            {{ 'ORDEN_DEVOLUCION.info_solicitante' | translate}}
         </h6>
         <div class="row">
             <div class="col-md-6 form-group">
@@ -15,7 +15,7 @@
                 <input *ngIf="!!datosSolicitante" class="form-control" id="tipoDocumento" disabled placeholder="{{datosSolicitante.tipoDocumento.Nombre}}">
             </div>
             <div class="col-md-4 form-group">
-                <label>{{ 'CDP.numero_documento' | translate}}</label>
+                <label>{{'MODIF.numero_documento' | translate}}</label>
                 <input *ngIf="!!datosSolicitante" type="number" class="form-control" id="numeroDocumento" value="{{datosSolicitante.numeroDocumento}}" disabled>
             </div>
             <div class="col-md-4 form-group">
@@ -34,13 +34,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 form-group">
-                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
-                <input *ngIf="!!datosSolicitante" class="form-control" id="numeroRequerimiento" disabled placeholder="{{datosSolicitante.numeroRequerimiento}}" >
-            </div>
             <div class="col-md-8 form-group">
-                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
-                <input *ngIf="!!datosSolicitante" class="form-control" id="concepto" disabled value="{{datosSolicitante.concepto ? datosSolicitante.concepto.Codigo : ''}} - {{datosSolicitante.concepto ? datosSolicitante.concepto.Nombre : ''}}" >
+                <label>{{ 'DEVOL_TRIBUTARIA.numero_requerimiento' | translate}}</label>
+                <input *ngIf="!!datosSolicitante" class="form-control" id="numeroRequerimiento" disabled placeholder="{{datosSolicitante.numeroRequerimiento}}" >
             </div>
         </div>
         <div class="row">
@@ -56,7 +52,7 @@
     </div>
     <div class="container pb-3">
         <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
-            Informacion Beneficiario
+            {{ 'ORDEN_DEVOLUCION.info_beneficiario' | translate}}
         </h6>
         <div class="row justify-content-between">
             <div class="col-md-6 form-group">
@@ -64,7 +60,7 @@
                 <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoDocumentoBeneficiario" disabled placeholder="{{datosBeneficiario.tipoDocumento.Nombre}}">
             </div>
             <div class="col-md-6 form-group">
-                <label>{{ 'CDP.numero_documento' | translate}}</label>
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
                 <input *ngIf="!!datosBeneficiario" type="number" class="form-control" id="numeroDocumentoBeneficiario" value="{{datosBeneficiario.numeroDocumento}}" disabled>
             </div>
         </div>
@@ -80,15 +76,15 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
+                <label>{{'GLOBAL.tipo_cuenta' | translate}}</label>
                 <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoCuenta" disabled placeholder="{{datosBeneficiario.tipoCuenta.Nombre}}" >
             </div>
             <div class="col-md-4 form-group">
-                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
+                <label>{{'GLOBAL.numero_cuenta' | translate}}</label>
                 <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroCuenta" disabled value="{{datosBeneficiario.numeroCuenta}}" >
             </div>
             <div class="col-md-4 form-group">
-                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
+                <label>{{'GLOBAL.forma_pago' | translate}}</label>
                 <input *ngIf="!!datosBeneficiario" class="form-control" id="formaPago" disabled value="{{datosBeneficiario.formaPago.Nombre}}" >
             </div>
         </div>
@@ -124,13 +120,20 @@
     </div>
     <div class="container">
         <div class="row pt-2 text-center">
-            <div class="col-md-6">
-                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.anterior' | translate}}</button>
+            <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
             </div>
-            <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-success text-white m-0 mt-4" (click)="guardar('')">
-                    {{ 'GLOBAL.guardar' | translate}}
-                </button>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-danger text-white m-0 mt-4" (click)="guardar('rechazar')">{{ 'GLOBAL.rechazar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-success text-white m-0 mt-4" (click)="guardar('aprobar')">{{ 'GLOBAL.aprobar' | translate}}</button>
+            </div>
+            <div class="col-md-6 form-group" *ngIf="tituloAccion === 'editar' || tituloAccion === 'crear'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" (click)="guardar()">{{ 'GLOBAL.guardar' | translate}}</button>
+            </div>
+            <div class="col-md-6" *ngIf="tituloAccion === 'ver'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" [routerLink]="['/pages/ordenesdevolucion/lista']" routerLinkActive="router-link-active">{{ 'GLOBAL.terminar' | translate}}</button>
             </div>
         </div>
     </div>

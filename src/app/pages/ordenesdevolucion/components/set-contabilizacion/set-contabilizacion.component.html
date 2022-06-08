@@ -25,49 +25,17 @@
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-md-4">
-                <mat-checkbox [disabled]="!editable" class="example-margin" formControlName="cuentaConcepto"
-                    (change)="conceptoCuentaContable()">{{ 'SOLICITUD_GIRO.concepto' | translate}}</mat-checkbox>
-            </div>
             <div class="col-md-8">
-                <label>{{ 'DEVOL_TRIBUTARIA.base_devolucion' | translate}}</label>
-                <input [readonly]="!editable" class="form-control" currencyMask
-                id="baseRetencion" formControlName="baseRetencion">
-            </div>
-        </div>
-        <div class="form-group row justify-content-end">
-            <div class="col-md-9" *ngIf="!conceptoCuenta">
-                <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button [disabled]="!editable" type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#cuentaContableModal1">
+                        <button [disabled]="!editable" type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal3">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
-                    <input class="form-control" formControlName="cuentaContableMovCont" disabled>
+                    <input [readonly]="!editable" class="form-control" formControlName="concepto" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
                 </div>
-            </div>
-            <div class="col-md-9" *ngIf="conceptoCuenta">
-                <label>{{ 'ORDEN_PAGO.cuenta_contable_concepto' | translate}}</label>
-                <mat-select class="form-control"
-                placeholder="{{ 'GLOBAL.seleccione' | translate}}"
-                    formControlName="cuentaContableMovCont1">
-                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200"
-                        class="vs-viewport-corto">
-                        <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto"
-                            [value]="cuentaContable1">
-                            {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}
-                        </mat-option>
-                    </cdk-virtual-scroll-viewport>
-                </mat-select>
-            </div>
-        </div>
-        <div class="row justify-content-end">
-            <div class="col-md-2">
-                <button [disabled]="!editable" class="btn btn-primary text-white w-100" type="button" (click)="agregarContabilizacion()">
-                    <i class="fas fa-plus"></i> {{ 'GLOBAL.agregar' | translate}}
-                </button>
+                <small *ngIf="conceptoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <!-- Tabla-->
@@ -123,25 +91,22 @@
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="cuentaContableModal1" tabindex="-1" role="dialog" aria-labelledby="cuentaContableModal1"
+<div class="modal fade" id="conceptosModal3" tabindex="-1" role="dialog" aria-labelledby="conceptosModal3"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cuentaContableModalLabel1">{{ 'GLOBAL.sel_cuenta_contable' | translate}}
-                </h5>
+                <h5 class="modal-title" id="conceptosModalLabel">{{ 'ORDEN_PAGO.elige_concepto' | translate}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <ngx-arbol-cuentas-contables></ngx-arbol-cuentas-contables>
+                <ngx-conceptos></ngx-conceptos>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' |
-                    translate}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCuentaContable()">{{
-                    'GLOBAL.agregar' | translate}}</button>
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
             </div>
         </div>
     </div>

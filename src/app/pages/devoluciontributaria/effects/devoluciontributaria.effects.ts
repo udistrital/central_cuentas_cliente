@@ -51,7 +51,8 @@ export class DevoluciontributariaEffects {
         .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
-          this.router.navigateByUrl('pages/devoluciontributaria/lista');
+          if (accion.path === 'lista') window.location.reload();
+          else this.router.navigateByUrl('pages/devoluciontributaria/lista');
         });
         return DevoluciontributariaActions.cargarDevolucionTributaria({OrdenPago: data});
       }), catchError(data => of(DevoluciontributariaActions.CatchError(data)))))

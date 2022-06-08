@@ -72,21 +72,24 @@
             <ngx-general-table [config]="configContabilizacion" [datos]="datosContabilizacion"></ngx-general-table>
         </div>
     </div>
-    <!-- Fin Grupo: Comprobante de pago -->
-    <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
-    <!-- Fin Campo: Observaciones -->
-    <!-- Botones: Regresar, Siguiente -->
+
     <div class="container">
         <div class="row pt-2 text-center">
-            <div class="col-md-6">
-                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.anterior' | translate}}</button>
+            <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
             </div>
-            <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-success text-white m-0 mt-4" (click)="guardar('')">
-                    {{ 'GLOBAL.guardar' | translate}}
-                </button>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-danger text-white m-0 mt-4" (click)="guardar('rechazar')">{{ 'GLOBAL.rechazar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-success text-white m-0 mt-4" (click)="guardar('aprobar')">{{ 'GLOBAL.aprobar' | translate}}</button>
+            </div>
+            <div class="col-md-6 form-group" *ngIf="tituloAccion === 'editar' || tituloAccion === 'crear'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" (click)="guardar()">{{ 'GLOBAL.guardar' | translate}}</button>
+            </div>
+            <div class="col-md-6" *ngIf="tituloAccion === 'ver'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" [routerLink]="['/pages/devoluciontributaria/lista']" routerLinkActive="router-link-active">{{ 'GLOBAL.terminar' | translate}}</button>
             </div>
         </div>
     </div>
-    <!-- Fin Botones: Regresar, Siguiente -->
 </div>

@@ -41,8 +41,21 @@ export class SetConsultaordenpagoComponent implements OnInit {
     for (let i = 0; i < this.configConsultaOP.dataConfig.length; i++) {
       this.configConsultaOP.dataConfig[i].title.name = this.translate.instant('DEVOL_TRIBUTARIA.' + this.configConsultaOP.dataConfig[i].title.label_i18n);
     }
-    if (this.tituloAccion === 'ver') this.configConsultaOP.checkElement.pipe.disabled = true;
+
+    if (this.edit(this.tituloAccion)) {
+      this.configConsultaOP.checkElement.pipe.disabled = true;
+    }
     this.createForm();
+  }
+
+  private edit(action: string): boolean {
+    const ACCIONES_EDICION: string[] = ['ver', 'revisar'];
+    return ACCIONES_EDICION.some(acc => acc === action);
+  }
+
+  private mostrar(action: string): boolean {
+    const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
+    return ACCIONES.some(acc => acc === action);
   }
 
   ngOnInit() {
@@ -63,7 +76,7 @@ export class SetConsultaordenpagoComponent implements OnInit {
           };
           this.datosConsultaOP.push(op);
         });
-        if (this.tituloAccion === 'editar' || this.tituloAccion === 'ver') this.devolucionTributaria();
+        if (this.mostrar(this.tituloAccion)) this.devolucionTributaria();
       }
     });
     this.subscription = this.store.select(getAddSelected).subscribe((accion) => {

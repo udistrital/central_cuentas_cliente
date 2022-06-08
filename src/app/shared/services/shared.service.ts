@@ -203,11 +203,20 @@ export class SharedService {
 
     /**
    * Gets DevolucionesTributarias by id
-   * @param id id de la devolucion tributaria
+   * @param id id de la orden de devolucion
    */
      public getOrdenDevolucionById(id: string) {
       this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
       return this.rqManager.getv2(`orden-devolucion/${id}`);
+    }
+
+    /**
+   * Gets DevolucionesTributarias by id
+   * @param id id de la relacion de devoluciones
+   */
+     public getRelacionDevolucionesById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`relacion-devoluciones/${id}`);
     }
 
   /**

@@ -3,11 +3,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { getInfoCuentaContable, getInfoCuentaContableDebito, SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
-import { getFilaSeleccionada, getNodoSeleccionadoCuentaContable, seleccionarConcepto, selectInfoCuentaContable, selectInfoCuentaContableDebito, selectOrdenDEvolucionById } from '../../../../shared/selectors/shared.selectors';
+import { getConcepto, GetConceptosContables, getInfoCuentaContable, getInfoCuentaContableDebito,
+        SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
+import { getFilaSeleccionada, getNodoSeleccionadoConcepto, getNodoSeleccionadoCuentaContable, seleccionarConcepto,
+        selectInfoCuentaContable, selectInfoCuentaContableDebito, selectOrdenDEvolucionById } from '../../../../shared/selectors/shared.selectors';
 import { cargarContabilizacion, cargarDatosContabilizacion } from '../../actions/ordenesdevolucion.actions';
 import { CONFIGURACION_CONTABILIZACION, DATOS_CONTABILIZACION } from '../../interfaces/interfaces';
-import { selectDatosBeneficiario } from '../../selectors/ordenesdevolucion.selectors';
+import { selectDatosBeneficiario, selectDatosSolicitante } from '../../selectors/ordenesdevolucion.selectors';
 
 @Component({
   selector: 'ngx-set-contabilizacion',
@@ -22,10 +24,11 @@ export class SetContabilizacionComponent implements OnInit {
   conceptoCuenta: boolean;
   subGetNodoSeleccionadoCuenta$: any;
   cuentaContableSeleccionada: any;
-  subConcepto$: any;
   cuentasContablesConcepto: any;
-  total: number;
+  subGetNodoSeleccionadoConcepto$: any;
+  subConcepto$: any;
   concepto: any;
+  total: number;
   cuentaConceptoFull: boolean;
   subInfoCuentaDebito$: any;
   cuentaDebito: any;
@@ -34,6 +37,8 @@ export class SetContabilizacionComponent implements OnInit {
   flagCuentaVN: boolean;
   subInfoBeneficiario$: any;
   infoBeneficiario: any;
+  subInfoSolicitante$: any;
+  infoSolicitante: any;
   secuencia: number;
   sumaCredito: number;
   sumaDebito: number;
@@ -50,6 +55,7 @@ export class SetContabilizacionComponent implements OnInit {
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
   ) {
+    this.store.dispatch(GetConceptosContables({}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.flagOD = true;
     this.editable = true;
@@ -67,56 +73,21 @@ export class SetContabilizacionComponent implements OnInit {
    }
 
   ngOnInit() {
-
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion && accion.accion && accion.accion.idStep === 3 && accion.accion.name === 'eliminar') {
         this.modalEliminar(accion.fila);
       }
     });
 
-    this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((action) => {
-      this.cuentasContablesConcepto = [];
-      this.total = 0;
-      if (action && action.Concepto) {
-        this.concepto = action.Concepto;
-        this.cuentaConceptoFull = false;
-        if (this.concepto.conceptoContable !== '') {
-          this.total = this.concepto.CuentasDebito.length + this.concepto.CuentasCredito.length;
-          this.concepto.CuentasDebito.forEach(CuentaDebito => {
-            this.store.dispatch(getInfoCuentaContableDebito({codigo: CuentaDebito}));
-            this.subInfoCuentaDebito$ = this.store.select(selectInfoCuentaContableDebito).subscribe((accion1) => {
-              if (accion1 && accion1.InfoCuentaContableDebito) {
-                this.cuentaDebito = accion1.InfoCuentaContableDebito;
-                accion1.InfoCuentaContableDebito = null;
-                if (this.cuentasContablesConcepto.length < this.total) {
-                  this.cuentasContablesConcepto.push({cuenta: this.cuentaDebito});
-                  if (this.cuentasContablesConcepto.length === this.total) this.cuentaConceptoFull = true;
-                  this.flagCuentaVN = false;
-                }
-              }
-            });
-          });
-          this.concepto.CuentasCredito.forEach(CuentaCredito => {
-            this.store.dispatch(getInfoCuentaContable({codigo: CuentaCredito}));
-            this.subInfoCuentaCredito$ = this.store.select(selectInfoCuentaContable).subscribe((accion) => {
-              if (accion && accion.InfoCuentaContable) {
-                this.cuentaCredito = accion.InfoCuentaContable;
-                accion.InfoCuentaContable = null;
-                if (this.cuentasContablesConcepto.length < this.total) {
-                  this.cuentasContablesConcepto.push({cuenta: this.cuentaCredito});
-                  if (this.cuentasContablesConcepto.length === this.total) this.cuentaConceptoFull = true;
-                  this.flagCuentaVN = false;
-                }
-              }
-            });
-          });
-        }
-      }
-    });
-
     this.subInfoBeneficiario$ = this.store.select(selectDatosBeneficiario).subscribe(action => {
       if (action) {
         this.infoBeneficiario = action;
+      }
+    });
+
+    this.subInfoSolicitante$ = this.store.select(selectDatosSolicitante).subscribe(action => {
+      if (action) {
+        this.infoSolicitante = action;
       }
     });
 
@@ -127,7 +98,6 @@ export class SetContabilizacionComponent implements OnInit {
         this.ordenDevolucionId();
       }
     });
-
     this.createForm();
   }
 
@@ -145,6 +115,7 @@ export class SetContabilizacionComponent implements OnInit {
     this.contabilizacionGroup = this.fb.group({
       tipoComprobante: [''],
       numeroComprobante: [''],
+      concepto: [''],
       consecutivo: [''],
       cuentaConcepto: [false],
       codigoContable: [''],
@@ -158,30 +129,67 @@ export class SetContabilizacionComponent implements OnInit {
     });
   }
 
+  agregarConcepto() {
+    if (this.subGetNodoSeleccionadoConcepto$) this.subGetNodoSeleccionadoConcepto$.unsubscribe();
+    this.subGetNodoSeleccionadoConcepto$ = this.store.select(getNodoSeleccionadoConcepto).subscribe((nodoConcepto) => {
+      if (nodoConcepto && Object.keys(nodoConcepto)[0] !== 'type') {
+        this.store.dispatch(getConcepto ({codigo: nodoConcepto.Codigo}));
+        if (this.subConcepto$) {
+          this.subConcepto$.unsubscribe();
+          this.concepto = null;
+        }
+        this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+          if (concepto && concepto.Concepto) {
+            this.concepto = concepto.Concepto;
+            concepto.Concepto = null;
+            this.store.dispatch(getInfoCuentaContableDebito({codigo: this.concepto.CuentasDebito[0]}));
+            this.store.dispatch(getInfoCuentaContable({codigo: this.concepto.CuentasCredito[0]}));
+            this.contabilizacionGroup.patchValue({
+              concepto: this.concepto
+            });
+            this.agregarContabilizacion();
+          }
+        });
+      }
+    });
+  }
+
   agregarContabilizacion() {
-    const contabilizacion = Object.assign({}, DATOS_CONTABILIZACION[0]);
-    if (this.contabilizacionGroup.value.cuentaConcepto) {
-      contabilizacion.Codigo = this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.Codigo + ' - '
-      + this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.Nombre;
-      contabilizacion.Naturaleza = this.contabilizacionGroup.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID;
-    } else {
-      contabilizacion.Codigo = this.contabilizacionGroup.value.cuentaContableMovCont;
-      contabilizacion.Naturaleza = this.cuentaContableSeleccionada.data.NaturalezaCuentaID;
-    }
-    contabilizacion.Tercero = this.infoBeneficiario.numeroDocumento;
-    contabilizacion.Secuencia = this.secuencia;
-    const total = (this.contabilizacionGroup.value.baseRetencion * Number(this.contabilizacionGroup.value.porcentajeRetencion)) / 100;
-    if (contabilizacion.Naturaleza === 'credito') {
-      contabilizacion.Credito = this.contabilizacionGroup.value.baseRetencion;
-      contabilizacion.Debito = 0;
-      this.sumaCredito += contabilizacion.Credito;
-    } else {
-      contabilizacion.Debito = this.contabilizacionGroup.value.baseRetencion;
-      contabilizacion.Credito = 0;
-      this.sumaDebito += contabilizacion.Debito;
-    }
-    this.datosContabilizacion.push(contabilizacion);
-    this.secuencia += 1;
+    this.datosContabilizacion = [];
+    const contabilizacionCredito = Object.assign({}, DATOS_CONTABILIZACION[0]);
+    const contabilizacionDebito = Object.assign({}, DATOS_CONTABILIZACION[0]);
+
+    this.subInfoCuentaDebito$ = this.store.select(selectInfoCuentaContableDebito).subscribe((accion1) => {
+      if (accion1 && accion1.InfoCuentaContableDebito) {
+        this.cuentaDebito = accion1.InfoCuentaContableDebito;
+        accion1.InfoCuentaContableDebito = null;
+        contabilizacionDebito.Tecero = this.infoBeneficiario.numeroDocumento;
+        contabilizacionDebito.Codigo = this.concepto.CuentasDebito[0];
+        contabilizacionDebito.Nombre = this.cuentaDebito.Nombre;
+        contabilizacionDebito.Debito = this.infoSolicitante.valorDevolucion;
+        contabilizacionDebito.Credito = 0;
+        contabilizacionDebito.Secuencia = this.secuencia;
+        this.secuencia += 1;
+        this.datosContabilizacion.push(contabilizacionDebito);
+        this.sumaDebito = this.infoSolicitante.valorDevolucion;
+      }
+    });
+
+    this.subInfoCuentaCredito$ = this.store.select(selectInfoCuentaContable).subscribe((accion1) => {
+      if (accion1 && accion1.InfoCuentaContable) {
+        this.cuentaCredito = accion1.InfoCuentaContable;
+        accion1.InfoCuentaContable = null;
+        contabilizacionCredito.Tecero = this.infoBeneficiario.numeroDocumento;
+        contabilizacionCredito.Codigo = this.concepto.CuentasCredito[0];
+        contabilizacionCredito.Nombre = this.cuentaCredito.Nombre;
+        contabilizacionCredito.Credito = this.infoSolicitante.valorDevolucion;
+        contabilizacionCredito.Debito = 0;
+        contabilizacionCredito.Secuencia = this.secuencia;
+        this.secuencia += 1;
+        this.datosContabilizacion.push(contabilizacionCredito);
+        this.sumaCredito = this.infoSolicitante.valorDevolucion;
+      }
+    });
   }
 
   saveForm() {
@@ -231,6 +239,16 @@ export class SetContabilizacionComponent implements OnInit {
     this.datosContabilizacion.forEach(element => {
       this.sumaCredito += element.Credito;
       this.sumaDebito += element.Debito;
+    });
+    this.store.dispatch(getConcepto({codigo: this.ordenDevolucion.Concepto}));
+      this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+      if (concepto && concepto.Concepto) {
+        this.concepto = concepto.Concepto;
+        this.contabilizacionGroup.patchValue({
+          concepto: concepto.Concepto
+        });
+        concepto.Concepto = null;
+      }
     });
   }
 

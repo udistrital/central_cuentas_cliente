@@ -72,6 +72,17 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
         {
+            key: 'Tercero',
+            title: {
+                name: 'Tercero',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'tercero'
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
             key: 'Codigo',
             title: {
                 name: 'No. de Cuenta',
@@ -83,14 +94,28 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
         {
-            key: 'Tercero',
+            key: 'Nombre',
             title: {
-                name: 'Tercero',
+                name: 'Nombre de la cuenta',
                 class: 'text-center bg-primary text-white',
-                label_i18n: 'tercero'
+                label_i18n: 'nombre_cuenta'
             },
             pipe: {
-                class: 'text-center align-middle',
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Detalle',
+            title: {
+                name: 'Detalle',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'detalle'
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
             }
         },
         {
@@ -122,23 +147,6 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
     ],
-    rowActions: {
-        title: {
-            name: 'Acciones',
-            class: 'text-center bg-primary text-white',
-            actionClass: 'd-flex flex-row justify-content-around align-middle'
-        },
-        actions: [
-            {
-                name: 'eliminar',
-                icon: 'fas fa-trash-alt',
-                class: 'p-2',
-                title: 'Ver Resumen de Devolución',
-                idStep: 3,
-                ngIf: true
-            },
-        ],
-    },
     noData: {
         name: 'No Existen Elementos Asociados',
         class: 'text-center',

@@ -495,6 +495,16 @@ export const cargarOrdenDevolucionById = createAction(
   props()
 );
 
+export const getRelacionDevolucionesById = createAction(
+  '[Shared] Obtiene la relacion de devoluciones por id del crud de central cuentas',
+  props<{id: string}>()
+);
+
+export const cargarRelacionRevolucionesById = createAction(
+  '[Shared] Carga la relacion de devoluciones por id al store',
+  props()
+);
+
 export const getBancos = createAction(
   '[Shared] Obtiene los bancos del crud de terceros',
   props<{query: any}>()

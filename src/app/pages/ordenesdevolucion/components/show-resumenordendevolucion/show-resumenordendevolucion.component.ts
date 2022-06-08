@@ -2,6 +2,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
 import { crearConsecutivo, getProcesoConfiguracion } from '../../../../shared/actions/shared.actions';
 import { selectConsecutivo, selectProcesoConfiguracion } from '../../../../shared/selectors/shared.selectors';
 import { actualizarOrdenDevolucion, crearOrdenDevolucion } from '../../actions/ordenesdevolucion.actions';
@@ -35,9 +37,11 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
+    private translate: TranslateService,
   ) {
     this.configDocumentos = Object.assign({}, CONFIGURACION_DOCUMENTOS);
-    this.configContabilizacion = CONFIGURACION_CONTABILIZACION;
+    this.configContabilizacion = Object.assign({}, CONFIGURACION_CONTABILIZACION);
+    this.configContabilizacion.rowActions = null;
     this.documentosBeneficiario = [];
     this.datosCont = [];
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
@@ -96,11 +100,11 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
       Consecutivo: this.contabilizacion.consecutivo,
       TipoDocumentoSolicitante: this.datosSolicitante.tipoDocumento.Id,
       NumeroDocumentoSolicitante: this.datosSolicitante.numeroDocumento,
-      FechaRequerimiento: this.datosSolicitante.numeroRequerimiento,
+      FechaRequerimiento: this.datosSolicitante.fechaRequerimiento,
       NombreSolicitante: this.datosSolicitante.nombre,
       Cargo: this.datosSolicitante.cargo,
       NumeroRequerimiento: this.datosSolicitante.numeroRequerimiento,
-      Concepto: this.datosSolicitante.concepto.Codigo,
+      Concepto: this.contabilizacion.concepto.Codigo,
       RazonDevolucion: this.datosSolicitante.razonDevolucion.Id,
       ValorDevolucion: this.datosSolicitante.valorDevolucion,
       TipoDocumentoBeneficiario: this.datosBeneficiario.tipoDocumento.Id,
@@ -114,10 +118,14 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
       TipoComprobante: this.contabilizacion.tipoComprobante,
       NumeroComprobante: this.contabilizacion.numeroComprobante,
       MovimientoContable: this.datosCont,
-      Estado: 'Elaborado',
+      Estado: this.datosSolicitante.estado,
     };
     if (this.tituloAccion === 'editar') {
+      elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(actualizarOrdenDevolucion({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+    } else if (this.tituloAccion === 'revisar') {
+      if (revisar === 'aprobar') this.aprobar(elemento);
+      else if (revisar === 'rechazar') this.rechazar(elemento);
     } else {
       const consecutivo = {
         ContextoId: this.proceso.Id,
@@ -128,9 +136,66 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
       this.subConsecutivo$ = this.store.select(selectConsecutivo).subscribe((accion) => {
         if (accion && accion.Consecutivos) {
           elemento.Consecutivo = accion.Consecutivos.Consecutivo;
+          elemento.Estado = Aprobacion.elaborado;
           this.store.dispatch(crearOrdenDevolucion({element: elemento}));
         }
       });
     }
   }
+
+  aprobar(elemento: any) {
+    Swal.fire({
+      title: this.translate.instant('GLOBAL.aprobar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_aprobacion'),
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: this.translate.instant('GLOBAL.si_aprobar')
+    }).then((result) => {
+      if (result.value === true) {
+        switch (elemento.Estado) {
+          case Aprobacion.revCont: {
+            elemento.Estado = Aprobacion.revPres;
+            break;
+          }
+          case Aprobacion.revPres: {
+            elemento.Estado = Aprobacion.aprobado;
+            break;
+          }
+          case Aprobacion.aprobado: {
+            elemento.Estado = Aprobacion.firmado;
+            break;
+          }
+        }
+        this.store.dispatch(actualizarOrdenDevolucion({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
+  }
+
+  rechazar(elemento: any) {
+    Swal.fire({
+      title: this.translate.instant('GLOBAL.rechazar'),
+      text: this.translate.instant('ORDEN_PAGO.seguro_rechazo'),
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d00000',
+      confirmButtonColor: 'rgb(243, 161, 9)',
+      confirmButtonText: this.translate.instant('GLOBAL.si_rechazar')
+    }).then((result) => {
+      if (result.value === true) {
+        elemento.Estado = Aprobacion.rechazado;
+        this.store.dispatch(actualizarOrdenDevolucion({id: this.activatedRoute.snapshot.url[1].path, element: elemento}));
+      }
+    });
+  }
+}
+
+enum Aprobacion {
+  elaborado = 'Elaborado',
+  revCont = 'Por revisar contabilidad',
+  revPres = 'Por revisar presupuesto',
+  aprobado = 'Aprobado',
+  firmado = 'Firmado',
+  rechazado = 'Rechazado'
 }

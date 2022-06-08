@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DateAdapter } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { getConcepto, GetConceptosContables, getDatosID, getOrdenDevolucionById, getRazonesDevolucion, getTiposID } from '../../../../shared/actions/shared.actions';
-import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
+import { format_date, OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { getNodoSeleccionadoConcepto, seleccionarConcepto, selectDatosID, selectOrdenDEvolucionById, selectRazonesDevolucion, selectTiposID } from '../../../../shared/selectors/shared.selectors';
 import { cargarDatosSolicitante } from '../../actions/ordenesdevolucion.actions';
 
@@ -21,9 +22,6 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
   tiposDocumento: any;
   roles: any;
   subscriptionfilter$: any;
-  subGetNodoSeleccionadoConcepto$: any;
-  subConcepto$: any;
-  concepto: any;
   subRazonesDevolucion$: any;
   razonesDevolucion: any;
   subDatosSolicitante$: any;
@@ -38,17 +36,20 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
+    private _adapter: DateAdapter<any>,
   ) {
+    this._adapter.setLocale(format_date);
     this.editable = true;
     this.flagOD = true;
     this.opcionesAreaFuncional = OPCIONES_AREA_FUNCIONAL;
     this.store.dispatch(getTiposID());
-    this.store.dispatch(GetConceptosContables({}));
     this.store.dispatch(getRazonesDevolucion({query: {TipoParametroId__CodigoAbreviacion: 'R_DEV'}}));
     this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     if (this.mostrar(this.tituloAccion)) {
       this.store.dispatch(getOrdenDevolucionById({id: this.activatedRoute.snapshot.url[1].path}));
       if (this.edit(this.tituloAccion)) this.editable = false;
+    } else {
+      this.consultaTipoDocumentos();
     }
    }
 
@@ -62,13 +63,12 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
     return ACCIONES_EDICION.some(acc => acc === action);
   }
   ngOnDestroy(): void {
-    this.subTipoDocumento$.unsubscribe();
+    if (this.subTipoDocumento$) this.subTipoDocumento$.unsubscribe();
     if (this.subDatosSolicitante$) this.subDatosSolicitante$.unsubscribe();
   }
 
   ngOnInit() {
     this.createForm();
-
 
     this.subscriptionfilter$ = combineLatest([
       this.datosSolicitanteGroup.get('tipoDocumento').valueChanges,
@@ -78,7 +78,6 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
         this.store.dispatch(getDatosID({ clave: 'solicitante1', numero: numeroId, tipo: tipoId.Id }));
       }
     });
-
 
     this.subDatosSolicitante$ = this.store.select(selectDatosID, 'solicitante1').subscribe(action1 => {
       if (action1 && action1.datosId[0].TerceroId) {
@@ -109,28 +108,6 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
     }
   }
 
-  agregarConcepto() {
-    if (this.subGetNodoSeleccionadoConcepto$) this.subGetNodoSeleccionadoConcepto$.unsubscribe();
-    this.subGetNodoSeleccionadoConcepto$ = this.store.select(getNodoSeleccionadoConcepto).subscribe((nodoConcepto) => {
-      if (nodoConcepto && Object.keys(nodoConcepto)[0] !== 'type') {
-        this.store.dispatch(getConcepto({codigo: nodoConcepto.Codigo}));
-        if (this.subConcepto$) {
-          this.subConcepto$.unsubscribe();
-          this.concepto = null;
-        }
-        this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
-          if (concepto && concepto.Concepto) {
-            this.concepto = concepto.Concepto;
-            concepto.Concepto = null;
-            this.datosSolicitanteGroup.patchValue({
-              concepto: this.concepto
-            });
-          }
-        });
-      }
-    });
-  }
-
   ordenDevolucionId() {
     if (this.mostrar(this.tituloAccion) && this.datosSolicitanteGroup) {
       this.datosSolicitanteGroup.patchValue({
@@ -142,18 +119,9 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
         cargo: this.ordenDevolucion.Cargo,
         numeroRequerimiento: this.ordenDevolucion.NumeroRequerimiento,
         razonDevolucion: this.razonesDevolucion.find((e: any) => e.Id === this.ordenDevolucion.RazonDevolucion),
-        valorDevolucion: this.ordenDevolucion.ValorDevolucion
+        valorDevolucion: this.ordenDevolucion.ValorDevolucion,
+        estado: this.ordenDevolucion.Estado
       });
-      this.store.dispatch(getConcepto({codigo: this.ordenDevolucion.Concepto}));
-      this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
-      if (concepto && concepto.Concepto) {
-        this.concepto = concepto.Concepto;
-        this.datosSolicitanteGroup.patchValue({
-          concepto: concepto.Concepto
-        });
-        concepto.Concepto = null;
-      }
-    });
     }
   }
 
@@ -185,9 +153,9 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
       cargo: [''],
       numeroRequerimiento: [''],
       fechaRequerimiento: [''],
-      concepto: [''],
       razonDevolucion: [''],
       valorDevolucion: [''],
+      estado: ['']
     });
   }
 }

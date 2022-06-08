@@ -42,7 +42,7 @@ export const crearOrdenDevolucion = createAction(
 
 export const actualizarOrdenDevolucion = createAction(
   '[OrdenesDevolucion] Actualizar Orden de devolucion en el crud de central de cuentas',
-  props<{id: any, element: any}>(),
+  props<{id: any, element: any, path?: string}>(),
 );
 
 export const cargarOrdenDevolucion = createAction(

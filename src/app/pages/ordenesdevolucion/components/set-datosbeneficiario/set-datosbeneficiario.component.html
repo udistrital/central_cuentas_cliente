@@ -4,14 +4,14 @@
         <div class="row pt-2">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Datos del Beneficiario
+                    {{ 'SOLICITUD_GIRO.datos_beneficiario' | translate}}
                 </h6>
             </div>
         </div>
         <!-- Campo: Area funcinal, numero requerimiento -->
         <div class="form-group row justify-content-between">
             <div class="col-md-6">
-                <label>Tipo Documento</label>
+                <label>{{'MODIF.tipo_documento' | translate}}</label>
                 <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoDocumento" [class.is-invalid]="tipoDocumentoInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                         <mat-option *cdkVirtualFor="let tipoDocumento of tiposDocumento" [value]="tipoDocumento">
@@ -22,19 +22,19 @@
                 <small *ngIf="tipoDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-6">
-                <label>Numero Documento</label>
+                <label>{{'MODIF.numero_documento' | translate}}</label>
                 <input [readonly]="!editable" type="number" class="form-control" formControlName="numeroDocumento" [class.is-invalid]="numeroDocumentoInvalid">
                 <small *ngIf="numeroDocumentoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-8">
-                <label>Nombre Completo</label>
+                <label>{{'GLOBAL.nombre_completo' | translate}}</label>
                 <input type="text" class="form-control" formControlName="nombreBeneficiario" [class.is-invalid]="nombreBeneficiarioInvalid" disabled>
                 <small *ngIf="nombreBeneficiarioInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
-                <label>Banco</label>
+                <label>{{'GLOBAL.banco' | translate}}</label>
                 <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="banco" [class.is-invalid]="bancoInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                         <mat-option *cdkVirtualFor="let banco of bancos" [value]="banco">
@@ -47,7 +47,7 @@
         </div>
         <div class="form-group row">
             <div class="col-md-4">
-                <label>Tipo Cuenta</label>
+                <label>{{'GLOBAL.tipo_cuenta' | translate}}</label>
                 <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoCuenta" [class.is-invalid]="tipoCuentaInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let tipoCuenta of tiposCuenta" [value]="tipoCuenta">
@@ -58,12 +58,12 @@
                 <small *ngIf="tipoCuentaInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
-                <label>Numero Cuenta</label>
+                <label>{{'GLOBAL.numero_cuenta' | translate}}</label>
                 <input [readonly]="!editable" type="text" class="form-control" formControlName="numeroCuenta" [class.is-invalid]="numeroCuentaInvalid">
                 <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
-                <label>Forma de Pago</label>
+                <label>{{'GLOBAL.forma_pago' | translate}}</label>
                 <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="formaPago" [class.is-invalid]="formaPagoInvalid">
                     <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                         <mat-option *cdkVirtualFor="let formaPago of formasPago" [value]="formaPago">
@@ -77,7 +77,7 @@
         <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
         <div class="col-md-12 row">
             <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                Anexos
+                {{'GLOBAL.anexos' | translate}}
             </h6>
         </div>
         <ngx-file-upload *ngIf="editable" (prepareFilesList)="prepareFilesList($event)"></ngx-file-upload>
@@ -140,7 +140,7 @@
 <!-- Modal: Adjuntar requisitos -->
 <ng-template #adjuntarArchivoModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="adjuntarArchivoModal">Adjuntar Archivo</h4>
+        <h4 class="modal-title" id="adjuntarArchivoModal">{{'GLOBAL.adjuntar_archivo' | translate}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -155,8 +155,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Cancelar</button>
-        <button type="button" class="btn btn-danger" (click)="modal.close(true)">Aceptar</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">{{'GLOBAL.cancelar' | translate}}</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">{{'GLOBAL.aceptar' | translate}}</button>
     </div>
 </ng-template>
 <!-- Fin Modal -->

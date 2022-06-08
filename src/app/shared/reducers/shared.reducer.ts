@@ -55,6 +55,7 @@ export interface State {
   OrdenesPagoById: any;
   DevolucionTributariaById: any;
   OrdenDevolucionById: any;
+  RelacionDevolucionesById: any;
   OrdenesPagoByDoc: any;
   HistorialOP: any;
   Bancos: any;
@@ -114,6 +115,7 @@ export const initialState: State = {
   OrdenesPagoById: null,
   DevolucionTributariaById: null,
   OrdenDevolucionById: null,
+  RelacionDevolucionesById: null,
   OrdenesPagoByDoc: null,
   HistorialOP: null,
   Bancos: null,
@@ -191,6 +193,9 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarOrdenDevolucionById, (state, action) => ({
     ...state, OrdenDevolucionById: state.OrdenDevolucionById = action
+  })),
+  on(SharedActions.cargarRelacionRevolucionesById, (state, action) => ({
+    ...state, RelacionDevolucionesById: state.RelacionDevolucionesById = action
   })),
   on(SharedActions.cargarOrdenesPagoByDoc, (state, action) => ({
     ...state, OrdenesPagoByDoc: state.OrdenesPagoByDoc = action

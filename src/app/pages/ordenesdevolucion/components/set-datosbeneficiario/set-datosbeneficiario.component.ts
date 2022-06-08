@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -19,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './set-datosbeneficiario.component.html',
   styleUrls: ['./set-datosbeneficiario.component.scss']
 })
-export class SetDatosbeneficiarioComponent implements OnInit {
+export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   @ViewChild('adjuntarArchivoModal', { static: false }) adjuntarArchivoModal: ElementRef;
   @ViewChild('eliminarDatoModal', { static: false }) eliminarDatoModal: ElementRef;
 
@@ -66,8 +66,13 @@ export class SetDatosbeneficiarioComponent implements OnInit {
         this.editable = false;
         this.configuracion.rowActions.actions[0].ngIf = false;
       }
+    } else {
+      this.consultaTipoDocumento();
     }
    }
+  ngOnDestroy() {
+    this.subDatosBeneficiario$.unsubscribe();
+  }
 
    private mostrar(action: string): boolean {
     const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
@@ -106,7 +111,6 @@ export class SetDatosbeneficiarioComponent implements OnInit {
         this.datosBeneficiarioGroup.patchValue({
           nombreBeneficiario: this.datosBeneficiario.TerceroId.NombreCompleto
         });
-        action1.datosId = null;
       }
     });
     this.subOrdenDevolucion$ = this.store.select(selectOrdenDEvolucionById).subscribe((action) => {

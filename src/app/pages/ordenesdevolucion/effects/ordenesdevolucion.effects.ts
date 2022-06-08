@@ -49,7 +49,8 @@ export class OrdenesDevolucionEffects {
         .showSuccessAlert(this.translate.instant('ORDEN_PAGO.guardado_exitoso',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
-          this.router.navigateByUrl('pages/ordenesdevolucion/lista');
+          if (accion.path === 'lista') window.location.reload();
+          else this.router.navigateByUrl('pages/ordenesdevolucion/lista');
         });
         return OrdenesDevolucionActions.cargarOrdenDevolucion({OrdenDevolucion: data});
       }), catchError(data => of(OrdenesDevolucionActions.CatchError(data)))))

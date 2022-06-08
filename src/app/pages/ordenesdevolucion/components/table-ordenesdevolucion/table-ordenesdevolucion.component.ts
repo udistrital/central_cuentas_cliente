@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { getOrdenesDevolucion } from '../../actions/ordenesdevolucion.actions';
+import { actualizarOrdenDevolucion, getOrdenesDevolucion } from '../../actions/ordenesdevolucion.actions';
 import { CONFIGURACION_TABLAREGISTROS, DATOS_TABLAREGISTROS } from '../../interfaces/interfaces';
 import { selectOrdenesDevolucion } from '../../selectors/ordenesdevolucion.selectors';
 
@@ -21,13 +21,16 @@ export class TableOrdenesdevolucionComponent implements OnInit {
   displayedColumns = [];
   configuracion: any;
   datosTabla: any;
+  tituloAccion: string;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private translate: TranslateService,
     private store: Store<any>,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.store.dispatch(getOrdenesDevolucion({sortby: ['Consecutivo'], order: ['desc']}));
@@ -70,6 +73,16 @@ export class TableOrdenesdevolucionComponent implements OnInit {
     this.router.navigateByUrl('pages/ordenesdevolucion/ver/' + ordenDevolucion.Id);
   }
 
+  revision(ordenDevolucion: any) {
+    this.router.navigateByUrl('pages/ordenesdevolucion/revisar/' + ordenDevolucion.Id);
+  }
+
+  enviarRevision(ordenDevolucion: any) {
+    const element = this.ordenesDevolucion[this.ordenesDevolucion.findIndex((e: any) => e._id === ordenDevolucion.Id)];
+    element.Estado = revision[0];
+    this.store.dispatch(actualizarOrdenDevolucion({id: element._id, element: element, path: this.tituloAccion}));
+  }
+
   edicion(action: string): boolean {
     const ACCIONES_EDICION: string[] = edicion;
     return ACCIONES_EDICION.some(acc => acc === action);
@@ -95,7 +108,6 @@ export interface Element {
 const revision = [
   'Por revisar contabilidad',
   'Por revisar presupuesto',
-  'Por revisar tesorería',
   'Aprobado'
 ];
 

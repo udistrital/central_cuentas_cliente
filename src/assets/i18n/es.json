@@ -230,6 +230,7 @@
     "direccion": "Dirección",
     "banco": "Banco",
     "tipo_cuenta": "Tipo de Cuenta",
+    "forma_pago": "Forma de Pago",
     "numero_cuenta": "Número de cuenta",
     "supervisor": "Supervisor",
     "sel_cuenta_contable": "Seleccione la Cuenta Contable",
@@ -240,7 +241,9 @@
     "tabla_no_vacia": "Debe agregar al menos un registro a la tabla",
     "si_aprobar": "Si, aprobar",
     "si_rechazar": "Si, rechazar",
-    "seleccione_fecha": "Seleccione la fecha"
+    "seleccione_fecha": "Seleccione la fecha",
+    "anexos": "Anexos",
+    "adjuntar_archivo": "Adjuntar Archivo"
   },
   "SOLICITUD_GIRO": {
     "autorizacion_tesoreria_giro": "Autorización a la Tesorería en general a girar a favor de:",
@@ -325,6 +328,7 @@
     "suma_credito": "Suma credito",
     "registro_devolucion": "Registro de devoluciones tributarias",
     "crear_devolucion": "Crear Nueva Devolución Tributaria",
+    "crear_sol_devolucion": "CREAR SOLICITUD DE DEVOLUCIÓN TRIBUTARIA",
     "consecutivo": "Consecutivo",
     "nombre_beneficiario": "Nombre del beneficiario",
     "estado": "Estado",
@@ -342,6 +346,13 @@
     "credito": "Credito",
     "tercero": "Tercero",
     "secuencia": "Secuencia"
+  },
+  "ORDEN_DEVOLUCION": {
+    "datos_solicitante": "Datos del solicitante",
+    "fecha_requerimiento": "Fecha de requerimiento",
+    "valor_devolucion": "Valor de la devolución",
+    "info_solicitante": "Información solicitante",
+    "info_beneficiario": "Información beneficiario"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

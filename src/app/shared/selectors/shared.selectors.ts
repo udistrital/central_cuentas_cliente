@@ -260,6 +260,11 @@ export const selectOrdenDEvolucionById = createSelector(
   (state: fromShared.State) => state.OrdenDevolucionById
 );
 
+export const selectRelacionDevolucionesById = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.RelacionDevolucionesById
+);
+
 export const selectBancos = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.Bancos

@@ -15,7 +15,6 @@ export class GeneralTableComponent implements OnInit {
   @Output() selectedAction: EventEmitter<any>;
   Subtotal: any;
   stringBusqueda: string;
-  datosPrueba: any[];
 
   constructor(
     private store: Store<any>,
