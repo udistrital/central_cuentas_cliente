@@ -201,6 +201,24 @@ export class SharedService {
       return this.rqManager.getv2(`devolucion-tributaria/${id}`);
     }
 
+    /**
+   * Gets DevolucionesTributarias by id
+   * @param id id de la orden de devolucion
+   */
+     public getOrdenDevolucionById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`orden-devolucion/${id}`);
+    }
+
+    /**
+   * Gets DevolucionesTributarias by id
+   * @param id id de la relacion de devoluciones
+   */
+     public getRelacionDevolucionesById(id: string) {
+      this.rqManager.setPath('CENTRAL_CUENTAS_CRUD_SERVICE');
+      return this.rqManager.getv2(`relacion-devoluciones/${id}`);
+    }
+
   /**
    * Gets tipos Documentos
    * @param query Query para traer los tipos de documentos para cargar soportes
@@ -343,6 +361,20 @@ export class SharedService {
     public getSupervisor(vigencia: any, documento: any) {
       this.rqManager.setPath('ADMINISTRATIVA_JBPM_CRUD_SERVICE');
       return (this.rqManager.getv2(`informacion_persona/${vigencia}/${documento}`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getBancos(query: any) {
+      this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
+      return (this.rqManager.getv2(`tercero_tipo_tercero`,  null, query, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getParametros(query: any) {
+      this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
+      return (this.rqManager.getv2(`parametro`,  null, query, null, null, null, -1, null)).pipe(map(data => {
         return ((data && data.Data) ? data.Data : data);
       }));
     }

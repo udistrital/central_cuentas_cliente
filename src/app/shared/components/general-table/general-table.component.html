@@ -39,7 +39,7 @@
                             <ng-container *ngIf="config.checkElement">
                                 <td [class]="config.checkElement.pipe.class">
                                     <div class="form-check">
-                                        <input [disabled]="config.checkElement.pipe.disabled" class="form-check-input" type="checkbox" [(ngModel)]="items.selected" (change)="Checked(items)"  id="defaultCheck1">
+                                        <input [disabled]="config.checkElement.pipe.disabled" class="form-check-input" type="checkbox" [ngModel]="items.selected" (change)="Checked(items)"  id="defaultCheck1">
                                     </div>
                                 </td>
                             </ng-container>

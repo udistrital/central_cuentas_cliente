@@ -54,8 +54,14 @@ export interface State {
   Supervisor: any;
   OrdenesPagoById: any;
   DevolucionTributariaById: any;
+  OrdenDevolucionById: any;
+  RelacionDevolucionesById: any;
   OrdenesPagoByDoc: any;
   HistorialOP: any;
+  Bancos: any;
+  Parametros: any;
+  RazonesDevolucion: any;
+  FormasPago: any;
 }
 
 export const initialState: State = {
@@ -108,8 +114,14 @@ export const initialState: State = {
   Supervisor: null,
   OrdenesPagoById: null,
   DevolucionTributariaById: null,
+  OrdenDevolucionById: null,
+  RelacionDevolucionesById: null,
   OrdenesPagoByDoc: null,
   HistorialOP: null,
+  Bancos: null,
+  Parametros: null,
+  RazonesDevolucion: null,
+  FormasPago: null,
 };
 
 const sharedReducer = createReducer(
@@ -178,6 +190,12 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarDevolucionTributariaById, (state, action) => ({
     ...state, DevolucionTributariaById: state.DevolucionTributariaById = action
+  })),
+  on(SharedActions.cargarOrdenDevolucionById, (state, action) => ({
+    ...state, OrdenDevolucionById: state.OrdenDevolucionById = action
+  })),
+  on(SharedActions.cargarRelacionRevolucionesById, (state, action) => ({
+    ...state, RelacionDevolucionesById: state.RelacionDevolucionesById = action
   })),
   on(SharedActions.cargarOrdenesPagoByDoc, (state, action) => ({
     ...state, OrdenesPagoByDoc: state.OrdenesPagoByDoc = action
@@ -268,6 +286,18 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarHistorialOP, (state, action) => ({
     ...state, HistorialOP: state.HistorialOP = action
+  })),
+  on(SharedActions.cargarBancos, (state, action) => ({
+    ...state, Bancos: state.Bancos = action
+  })),
+  on(SharedActions.cargarParametros, (state, action) => ({
+    ...state, Parametros: state.Parametros = action
+  })),
+  on(SharedActions.cargarRazonesDevolucion, (state, action) => ({
+    ...state, RazonesDevolucion: state.RazonesDevolucion = action
+  })),
+  on(SharedActions.cargarFormasPago, (state, action) => ({
+    ...state, FormasPago: state.FormasPago = action
   })),
 );
 

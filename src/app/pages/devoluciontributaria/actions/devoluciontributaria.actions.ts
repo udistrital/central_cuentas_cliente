@@ -56,7 +56,7 @@ export const crearDevolucionTributaria = createAction(
 
 export const actualizarDevolucionTributaria = createAction(
   '[Devoluciontributaria] Actualiza la devolucion tributaria en el crud de central cuentas',
-  props<{id: any, element: any}>(),
+  props<{id: any, element: any, path?: string}>(),
 );
 
 export const cargarDevolucionTributaria = createAction(

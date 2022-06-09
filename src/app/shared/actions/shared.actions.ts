@@ -484,3 +484,63 @@ export const cargarDevolucionTributariaById = createAction(
   '[Shared] Carga la devolucion tributaria por id al store',
   props()
 );
+
+export const getOrdenDevolucionById = createAction(
+  '[Shared] Obtiene la orden de devolucion por id del crud de central cuentas',
+  props<{id: string}>()
+);
+
+export const cargarOrdenDevolucionById = createAction(
+  '[Shared] Carga la devolucion tributaria por id al store',
+  props()
+);
+
+export const getRelacionDevolucionesById = createAction(
+  '[Shared] Obtiene la relacion de devoluciones por id del crud de central cuentas',
+  props<{id: string}>()
+);
+
+export const cargarRelacionRevolucionesById = createAction(
+  '[Shared] Carga la relacion de devoluciones por id al store',
+  props()
+);
+
+export const getBancos = createAction(
+  '[Shared] Obtiene los bancos del crud de terceros',
+  props<{query: any}>()
+);
+
+export const cargarBancos = createAction(
+  '[Shared] Carga los bancos al store',
+  props()
+);
+
+export const getParametros = createAction(
+  '[Shared] Obtiene los parametros del crud de parametros',
+  props<{query: any}>()
+);
+
+export const cargarParametros = createAction(
+  '[Shared] Carga los parametros al store',
+  props()
+);
+
+export const getRazonesDevolucion = createAction(
+  '[Shared] Obtiene las razones de devolución del crud de parametros',
+  props<{query: any}>()
+);
+
+export const cargarRazonesDevolucion = createAction(
+  '[Shared] Carga las razones de devolución al store',
+  props()
+);
+
+export const getFormasPago = createAction(
+  '[Shared] Obtiene las formas de pago del crud de parametros',
+  props<{query: any}>()
+);
+
+export const cargarFormasPago = createAction(
+  '[Shared] Carga las formas de pago al store',
+  props()
+);

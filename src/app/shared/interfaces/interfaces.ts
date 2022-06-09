@@ -388,7 +388,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
     filter: true,
 };
 
-export const format_date = 'fr';
+export const format_date = 'es';
 
 export const OPCIONES_AREA_FUNCIONAL = [
     {

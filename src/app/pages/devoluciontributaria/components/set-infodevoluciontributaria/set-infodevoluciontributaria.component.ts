@@ -174,6 +174,7 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
       requerimiento: ['', Validators.required],
       conceptoContable: [''],
       razonDevolucion: [''],
+      estado: [''],
     });
   }
 
@@ -196,7 +197,8 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
         numeroId: this.devolucionesTributaria.DocumentoBeneficiario,
         nombreBeneficiario: this.devolucionesTributaria.NombreBeneficiario,
         fechaSolicitud: this.devolucionesTributaria.FechaSolicitud,
-        razonDevolucion: this.devolucionesTributaria.RazonDevolucion
+        razonDevolucion: this.devolucionesTributaria.RazonDevolucion,
+        estado: this.devolucionesTributaria.Estado
       });
       this.store.dispatch(getConcepto({codigo: this.devolucionesTributaria.Concepto}));
       this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {

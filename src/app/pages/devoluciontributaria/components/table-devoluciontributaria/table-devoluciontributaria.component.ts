@@ -2,11 +2,11 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@
 import { Store } from '@ngrx/store';
 import { DATOS_TABLAREGISTROS, CONFIGURACION_TABLAREGISTROS } from '../../interfaces/interfaces';
 import { getFilaSeleccionada, getAccionTabla } from '../../../../shared/selectors/shared.selectors';
-import { getDevolucionesTributarias, loadDevoluciontributariaSeleccionado } from '../../../devoluciontributaria/actions/devoluciontributaria.actions';
+import { actualizarDevolucionTributaria, getDevolucionesTributarias, loadDevoluciontributariaSeleccionado } from '../../../devoluciontributaria/actions/devoluciontributaria.actions';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { selectDevolucionTributaria } from '../../selectors/devoluciontributaria.selectors';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-table-devoluciontributaria',
@@ -23,6 +23,7 @@ export class TableDevoluciontributariaComponent implements OnInit, OnDestroy {
   displayedColumns = [];
   devolucionesTributarias: any;
   subDevolucionesTributarias$: any;
+  tituloAccion: string;
 
   @Output() selectedAction: EventEmitter<any>;
   stringBusqueda: string;
@@ -31,8 +32,10 @@ export class TableDevoluciontributariaComponent implements OnInit, OnDestroy {
   constructor (
     private store: Store<any>,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
     this.stringBusqueda = '';
@@ -104,6 +107,16 @@ export class TableDevoluciontributariaComponent implements OnInit, OnDestroy {
   ver(devolucionTriburaria: any) {
     this.router.navigateByUrl('pages/devoluciontributaria/ver/' + devolucionTriburaria.Id);
   }
+
+  revision(devolucionTriburaria: any) {
+    this.router.navigateByUrl('pages/devoluciontributaria/revisar/' + devolucionTriburaria.Id);
+  }
+
+  enviarRevision(devolucionTriburaria: any) {
+    const element = this.devolucionesTributarias[this.devolucionesTributarias.findIndex((e: any) => e._id === devolucionTriburaria.Id)];
+    element.Estado = revision[0];
+    this.store.dispatch(actualizarDevolucionTributaria({id: element._id, element: element, path: this.tituloAccion}));
+  }
 }
 
 export interface Element {
@@ -127,4 +140,3 @@ const edicion = [
   'Elaborado',
   'Rechazado'
 ];
-
