@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -159,14 +159,15 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.datosBeneficiarioGroup = this.fb.group({
-      tipoDocumento: [''],
-      numeroDocumento: [''],
-      nombreBeneficiario: [''],
-      banco: [''],
-      tipoCuenta: [''],
-      numeroCuenta: [''],
-      formaPago: [''],
-      documentos: ['']
+      tipoDocumento: ['', Validators.required],
+      numeroDocumento: ['', Validators.required],
+      nombreBeneficiario: ['', Validators.required],
+      banco: ['', Validators.required],
+      tipoCuenta: ['', Validators.required],
+      numeroCuenta: ['', Validators.required],
+      formaPago: ['', Validators.required],
+      documentos: [''],
+      validator: ['', Validators.required]
     });
   }
 
@@ -225,7 +226,10 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   }
 
   saveForm(data: any) {
-    if ( this.datosBeneficiarioGroup.invalid ) {
+    if (this.datosDocumentos.length > 0) {
+      this.validator();
+    }
+    if ( this.datosBeneficiarioGroup.invalid) {
       return Object.values( this.datosBeneficiarioGroup.controls ).forEach( control => {
         control.markAsTouched();
       });
@@ -306,5 +310,33 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  get tipoDocumentoInvalid() {
+    return this.datosBeneficiarioGroup.get('tipoDocumento').invalid && this.datosBeneficiarioGroup.get('tipoDocumento').touched;
+  }
+  get numeroDocumentoInvalid() {
+    return this.datosBeneficiarioGroup.get('numeroDocumento').invalid && this.datosBeneficiarioGroup.get('numeroDocumento').touched;
+  }
+  get nombreBeneficiarioInvalid() {
+    return this.datosBeneficiarioGroup.get('nombreBeneficiario').invalid && this.datosBeneficiarioGroup.get('nombreBeneficiario').touched;
+  }
+  get bancoInvalid() {
+    return this.datosBeneficiarioGroup.get('banco').invalid && this.datosBeneficiarioGroup.get('banco').touched;
+  }
+  get tipoCuentaInvalid() {
+    return this.datosBeneficiarioGroup.get('tipoCuenta').invalid && this.datosBeneficiarioGroup.get('tipoCuenta').touched;
+  }
+  get numeroCuentaInvalid() {
+    return this.datosBeneficiarioGroup.get('numeroCuenta').invalid && this.datosBeneficiarioGroup.get('numeroCuenta').touched;
+  }
+  get formaPagoInvalid() {
+    return this.datosBeneficiarioGroup.get('formaPago').invalid && this.datosBeneficiarioGroup.get('formaPago').touched;
+  }
+
+  private validator() {
+    this.datosBeneficiarioGroup.patchValue({
+      validator: 'a'
+    });
   }
 }

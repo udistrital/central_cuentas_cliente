@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -83,12 +83,12 @@ export class SetRelaciondevolucionesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subFormasPago$.unsubscribe();
-    this.subBancos$.unsubscribe();
-    this.subTiposCuenta$.unsubscribe();
-    this.subTiposDocumento$.unsubscribe();
-    this.subRelacionDevById$.unsubscribe();
-    this.subOrdenesDevolucion$.unsubscribe();
+    if (this.subFormasPago$) this.subFormasPago$.unsubscribe();
+    if (this.subBancos$) this.subBancos$.unsubscribe();
+    if (this.subTiposCuenta$) this.subTiposCuenta$.unsubscribe();
+    if (this.subTiposDocumento$) this.subTiposDocumento$.unsubscribe();
+    if (this.subRelacionDevById$) this.subRelacionDevById$.unsubscribe();
+    if (this.subOrdenesDevolucion$) this.subOrdenesDevolucion$.unsubscribe();
   }
 
   ngOnInit() {
@@ -122,6 +122,9 @@ export class SetRelaciondevolucionesComponent implements OnInit, OnDestroy {
   }
 
   saveForm(data: any) {
+    if (this.ordenesDevolucionSeleccionadas.length > 0) {
+      this.validator();
+    }
     if ( this.relacionDevolucionesGroup.invalid ) {
       return Object.values( this.relacionDevolucionesGroup.controls ).forEach( control => {
         control.markAsTouched();
@@ -216,12 +219,28 @@ export class SetRelaciondevolucionesComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.relacionDevolucionesGroup = this.fb.group({
-      areaFuncional: [''],
+      areaFuncional: ['', Validators.required],
       consecutivo: [''],
-      fechaInicio: [''],
-      fechaFin: [''],
-      estado: ['']
+      fechaInicio: ['', Validators.required],
+      fechaFin: ['', Validators.required],
+      estado: [''],
+      validator: ['', Validators.required]
     });
   }
 
+  get areaFuncionalInvalid() {
+    return this.relacionDevolucionesGroup.get('areaFuncional').invalid && this.relacionDevolucionesGroup.get('areaFuncional').touched;
+  }
+  get fechaInicioInvalid() {
+    return this.relacionDevolucionesGroup.get('fechaInicio').invalid && this.relacionDevolucionesGroup.get('fechaInicio').touched;
+  }
+  get fechaFinInvalid() {
+    return this.relacionDevolucionesGroup.get('fechaFin').invalid && this.relacionDevolucionesGroup.get('fechaFin').touched;
+  }
+
+  private validator() {
+    this.relacionDevolucionesGroup.patchValue({
+      validator: 'a'
+    });
+  }
 }

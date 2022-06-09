@@ -42,7 +42,7 @@
                         </mat-option>
                     </cdk-virtual-scroll-viewport>
                 </mat-select>
-                <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+                <small *ngIf="bancoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
         <div class="form-group row">
@@ -60,7 +60,7 @@
             <div class="col-md-4">
                 <label>{{'GLOBAL.numero_cuenta' | translate}}</label>
                 <input [readonly]="!editable" type="text" class="form-control" formControlName="numeroCuenta" [class.is-invalid]="numeroCuentaInvalid">
-                <small *ngIf="cargoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+                <small *ngIf="numeroCuentaInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{'GLOBAL.forma_pago' | translate}}</label>
@@ -87,6 +87,7 @@
         <div class="row">
             <div class="col-md-12 bg-white pb-3">
                 <ngx-general-table [config]="configuracion" [datos]="datosDocumentos"></ngx-general-table>
+                <small *ngIf="datosDocumentos.length === 0" class="text-danger">{{ 'GLOBAL.tabla_no_vacia' | translate}}</small>
             </div>
             <table>
                 <ng-container>
@@ -113,29 +114,6 @@
         <!-- Fin Botones: Regresar, Siguiente -->
     </div>
 </form>
-
-<!-- Modal -->
-<div class="modal fade" id="conceptosModal" tabindex="-1" role="dialog" aria-labelledby="conceptosModal"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="conceptosModalLabel">{{ 'ORDEN_PAGO.elige_concepto' | translate}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <ngx-conceptos></ngx-conceptos>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fin Modal -->
 
 <!-- Modal: Adjuntar requisitos -->
 <ng-template #adjuntarArchivoModal let-modal>

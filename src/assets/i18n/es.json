@@ -389,7 +389,8 @@
     "valor": "Valor",
     "relacion_devoluciones": "Relación de devoluciones",
     "registro_relacion_devoluciones": "REGISTRO RELACIÓN DE DEVOLUCIONES",
-    "crear_relacion": "CREAR RELACIÓN DE DEVOLUCIONES"
+    "crear_relacion": "CREAR RELACIÓN DE DEVOLUCIONES",
+    "seleccione_uno": "Debe seleccionar al menos una orden de devolución"
   },
   "RUBRO": {
     "asignar_rubro": "Asignar Rubro",

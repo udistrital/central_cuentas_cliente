@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -118,18 +118,12 @@ export class SetContabilizacionComponent implements OnInit {
 
   createForm() {
     this.contabilizacionGroup = this.fb.group({
-      tipoComprobante: [''],
-      numeroComprobante: [''],
-      concepto: [''],
+      tipoComprobante: ['', Validators.required],
+      numeroComprobante: ['', Validators.required],
+      concepto: ['', Validators.required],
       consecutivo: [''],
-      cuentaConcepto: [false],
-      codigoContable: [''],
-      cuentaContableMovCont: [''],
-      cuentaContableMovCont1: [''],
-      porcentajeRetencion: [''],
-      baseRetencion: [''],
-      sumaDebito: [0],
-      sumaCredito: [0],
+      sumaDebito: [0, Validators.required],
+      sumaCredito: [0, Validators.required],
       cuentas: []
     });
   }
@@ -274,5 +268,15 @@ export class SetContabilizacionComponent implements OnInit {
         });
       }
     });
+  }
+
+  get tipoComprobanteInvalid() {
+    return this.contabilizacionGroup.get('tipoComprobante').invalid && this.contabilizacionGroup.get('tipoComprobante').touched;
+  }
+  get numeroComprobanteInvalid() {
+    return this.contabilizacionGroup.get('numeroComprobante').invalid && this.contabilizacionGroup.get('numeroComprobante').touched;
+  }
+  get conceptoInvalid() {
+    return this.contabilizacionGroup.get('concepto').invalid && this.contabilizacionGroup.get('concepto').touched;
   }
 }

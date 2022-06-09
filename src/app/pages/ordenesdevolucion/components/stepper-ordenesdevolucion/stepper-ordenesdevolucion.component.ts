@@ -25,7 +25,7 @@ export class StepperOrdenesdevolucionComponent {
   get datosBeneficiarioGroup() {
     return this.SetDatosbeneficiarioComponent ? this.SetDatosbeneficiarioComponent.datosBeneficiarioGroup : this.fb.group([]) ;
   }
-  get comprobantepagoGroup() {
+  get contabilizacionGroup() {
     return this.SetContabilizacionComponent ? this.SetContabilizacionComponent.contabilizacionGroup : this.fb.group([]) ;
   }
 }

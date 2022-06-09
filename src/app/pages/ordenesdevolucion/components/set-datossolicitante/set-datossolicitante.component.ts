@@ -146,16 +146,44 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.datosSolicitanteGroup = this.fb.group({
-      areaFuncional: [''],
-      tipoDocumento: [''],
-      numeroDocumento: [''],
-      nombre: [''],
+      areaFuncional: ['', Validators.required],
+      tipoDocumento: ['', Validators.required],
+      numeroDocumento: ['', Validators.required],
+      nombre: ['', Validators.required],
       cargo: [''],
-      numeroRequerimiento: [''],
-      fechaRequerimiento: [''],
-      razonDevolucion: [''],
-      valorDevolucion: [''],
+      numeroRequerimiento: ['', Validators.required],
+      fechaRequerimiento: ['', Validators.required],
+      razonDevolucion: ['', Validators.required],
+      valorDevolucion: ['', Validators.required],
       estado: ['']
     });
+  }
+
+  get areaFuncionalInvalid() {
+    return this.datosSolicitanteGroup.get('areaFuncional').invalid && this.datosSolicitanteGroup.get('areaFuncional').touched;
+  }
+  get tipoDocumentoInvalid() {
+    return this.datosSolicitanteGroup.get('tipoDocumento').invalid && this.datosSolicitanteGroup.get('tipoDocumento').touched;
+  }
+  get numeroDocumentoInvalid() {
+    return this.datosSolicitanteGroup.get('numeroDocumento').invalid && this.datosSolicitanteGroup.get('numeroDocumento').touched;
+  }
+  get fechaRequerimientoInvalid() {
+    return this.datosSolicitanteGroup.get('fechaRequerimiento').invalid && this.datosSolicitanteGroup.get('fechaRequerimiento').touched;
+  }
+  get nombreInvalid() {
+    return this.datosSolicitanteGroup.get('nombre').invalid && this.datosSolicitanteGroup.get('nombre').touched;
+  }
+  get cargoInvalid() {
+    return this.datosSolicitanteGroup.get('cargo').invalid && this.datosSolicitanteGroup.get('cargo').touched;
+  }
+  get numeroRequerimientoInvalid() {
+    return this.datosSolicitanteGroup.get('numeroRequerimiento').invalid && this.datosSolicitanteGroup.get('numeroRequerimiento').touched;
+  }
+  get razonDevolucionInvalid() {
+    return this.datosSolicitanteGroup.get('razonDevolucion').invalid && this.datosSolicitanteGroup.get('razonDevolucion').touched;
+  }
+  get valorDevolucionInvalid() {
+    return this.datosSolicitanteGroup.get('valorDevolucion').invalid && this.datosSolicitanteGroup.get('valorDevolucion').touched;
   }
 }
