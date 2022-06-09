@@ -84,6 +84,6 @@ export class RelacionDevolucionesEffects {
     private servicio: RelacionDevolucionesService,
     private popupManager: PopUpManager,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
     ) { }
 }

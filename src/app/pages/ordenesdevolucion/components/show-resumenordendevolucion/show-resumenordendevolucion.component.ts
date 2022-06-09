@@ -52,7 +52,7 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.configContabilizacion.dataConfig.length; i++) {
       this.configContabilizacion.dataConfig[i].title.name = this.translate.instant('ORDEN_DEVOLUCION.' + this.configContabilizacion.dataConfig[i].title.label_i18n);
     }
-   }
+  }
   ngOnDestroy() {
     if (this.subDatosSolicitante$) this.subDatosSolicitante$.unsubscribe();
     if (this.subDatosBeneficiario$) this.subDatosBeneficiario$.unsubscribe();

@@ -51,9 +51,9 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
     } else {
       this.consultaTipoDocumentos();
     }
-   }
+  }
 
-   private mostrar(action: string): boolean {
+  private mostrar(action: string): boolean {
     const ACCIONES: string[] = ['ver', 'editar', 'revisar'];
     return ACCIONES.some(acc => acc === action);
   }

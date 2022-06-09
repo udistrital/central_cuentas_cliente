@@ -11,7 +11,7 @@ export class StepperRelacionDevolucionComponent {
   @ViewChild(SetRelaciondevolucionesComponent, {static: false}) SetRelaciondevolucionesComponent: SetRelaciondevolucionesComponent;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) { }
 
   get relacionDevolucionesGroup() {

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
             <h5 class="card-title text-center text-primary">
-                CREAR ORDEN DE DEVOLUCIÓN
+                {{'RELACION_DEVOLUCIONES.nueva_relacion' | translate}}
             </h5>
         </div>
     </div>
@@ -11,13 +11,13 @@
             <!-- Inicio de "Stepper" -->
             <mat-horizontal-stepper linear #stepper>
                 <mat-step [stepControl]="relacionDevolucionesGroup">
-                    <ng-template matStepLabel>Relación Devoluciones</ng-template>
+                    <ng-template matStepLabel>{{'RELACION_DEVOLUCIONES.relacion_devoluciones' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-relaciondevoluciones></ngx-set-relaciondevoluciones>
                     </div>
                 </mat-step>
                 <mat-step>
-                    <ng-template matStepLabel>Guardar</ng-template>
+                    <ng-template matStepLabel>{{'GLOBAL.guardar' | translate}}</ng-template>
                     <div class="container">
                         <ngx-show-resumenrelaciondevoluciones></ngx-show-resumenrelaciondevoluciones>
                     </div>

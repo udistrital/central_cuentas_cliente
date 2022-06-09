@@ -31,7 +31,8 @@ export class TableRelaciondevolucionesComponent implements OnInit, OnDestroy {
     this.configuracion = CONFIGURACION_TABLAREGISTROS;
     this.datosTabla = DATOS_TABLAREGISTROS;
     this.store.dispatch(getRelacionDevoluciones({sortby: ['Consecutivo'], order: ['desc']}));
-   }
+  }
+  
   ngOnDestroy() {
     this.subRelacionDevoluciones$.unsubscribe();
   }

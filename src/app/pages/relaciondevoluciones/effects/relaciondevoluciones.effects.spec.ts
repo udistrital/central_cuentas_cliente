@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { RelacionDevolucionesEffects } from './relaciondevoluciones.effects';
 
 describe('SolicitudesgirosEffects', () => {
-  // let actions$: Observable<any>;
   const actions$: Observable<any> = new Observable();
   let effects: RelacionDevolucionesEffects;
 

@@ -45,13 +45,13 @@ export class ShowResumenRelacionDevolucionesComponent implements OnInit, OnDestr
       this.configuracionTabla.dataConfig[i].title.name = this.translate.instant('RELACION_DEVOLUCIONES.' + this.configuracionTabla.dataConfig[i].title.label_i18n);
     }
    }
+
   ngOnDestroy() {
     if (this.subRelacionDevoluciones$) this.subRelacionDevoluciones$.unsubscribe();
     if (this.subDatosRelacion$) this.subDatosRelacion$.unsubscribe();
   }
 
   ngOnInit() {
-
     this.subRelacionDevoluciones$ = this.store.select(selectInfoRelacionDevoluciones).subscribe(action => {
       if (action && action.InfoRelacionDevoluciones) {
         this.relacionDevoluciones = action.InfoRelacionDevoluciones;
