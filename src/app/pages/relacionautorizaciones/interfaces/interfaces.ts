@@ -198,27 +198,6 @@ export const CONFIGURACION_TABLACONSULTA: any = {
     filter: false,
 };
 export const DATOS_TABLACONSULTA: any = [
-    {
-        codigoPresupuestal: '001',
-        disponibilidad: '202',
-        registro: '202011-20',
-        concepto: 'Concepto1',
-        total: '$1.000.000',
-    },
-    {
-        codigoPresupuestal: '012',
-        disponibilidad: '203',
-        registro: '20201-12',
-        concepto: 'Concepto2',
-        total: '$1.000.000',
-    },
-    {
-        codigoPresupuestal: '002',
-        disponibilidad: '302',
-        registro: '2020112-02',
-        concepto: 'Concepto3',
-        total: '$1.000.000',
-    }
 ];
 
 export const CONFIGURACION_TABLACONCEPTOS: any = {
@@ -293,5 +272,110 @@ export const DATOS_TABLACONCEPTOS: any = [
         codigo: '003',
         nombreCentro: 'Aportessalud',
         valor: '$1.000.000',
+    }
+];
+
+export const CONFIGURACION_TABLAFUENTES: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'fuenteAfectable',
+            title: {
+                name: 'Fuente Afectable',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'valor',
+            title: {
+                name: 'Valor',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+    ],
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    filter: false,
+};
+
+export const DATOS_TABLAFUENTES: any = [
+];
+
+export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'Nombre',
+            title: {
+                name: 'Nombre',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Codigo',
+            title: {
+                name: 'Código Contable',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Valor',
+            title: {
+                name: 'Valor',
+                class: 'text-center',
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
+            }
+        },
+    ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'modificar',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Modificar',
+                idStep: 4,
+                ngIf: true
+            }
+        ],
+    },
+    noData: {
+        name: 'No existen elementos asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    maxHeight: 200
+};
+export const DATOS_MOVIMIENTO_CONTABLE: any = [
+    {
+        Nombre: '',
+        Codigo: '',
+        Valor: 0,
+        Naturaleza: ''
     }
 ];

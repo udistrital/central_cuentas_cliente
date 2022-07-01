@@ -5,6 +5,7 @@ import { SetConsultanuevarelacionComponent } from '../set-consultanuevarelacion/
 import { RelacionautorizacionesService } from '../../services/relacionautorizaciones.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { SetMovimientocontableComponent } from '../set-movimientocontable/set-movimientocontable.component';
 
 @Component({
   selector: 'ngx-stepper-relacionautorizacion',
@@ -16,6 +17,7 @@ export class StepperRelacionautorizacionComponent {
    @ViewChild(SetInfonuevarelacionComponent, {static: false}) SetInfoautorizacionnominaComponent: SetInfonuevarelacionComponent;
    @ViewChild(SetConsultanuevarelacionComponent, {static: false}) SetConsultanuevarelacionComponent: SetConsultanuevarelacionComponent;
    @ViewChild(SetConceptonuevarelacionComponent, {static: false}) SetConceptonuevarelacionComponent: SetConceptonuevarelacionComponent;
+   @ViewChild(SetMovimientocontableComponent, {static: false}) SetMovimientoContableComponent: SetMovimientocontableComponent;
 
   // Variable local para mostrar datos desde servicio
   relacion: any = {};
@@ -40,6 +42,10 @@ export class StepperRelacionautorizacionComponent {
   }
   get conceptoGroup() {
     return this.SetConceptonuevarelacionComponent ? this.SetConceptonuevarelacionComponent.conceptoGroup : this.fb.group({});
+  }
+
+  get movimientoContableGroup() {
+    return this.SetMovimientoContableComponent ? this.SetMovimientoContableComponent.movimientoContable : this.fb.group({});
   }
 }
 

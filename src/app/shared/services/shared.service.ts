@@ -379,6 +379,69 @@ export class SharedService {
       }));
     }
 
+    public getTercero(query: any) {
+      this.rqManager.setPath('TERCEROS_CRUD_SERVICE');
+      return (this.rqManager.getv2(`tercero_tipo_tercero`,  null, query, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getCrp(vigencia: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`documento_presupuestal/${vigencia}/1/rp`,  null, null , null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getInfoCrp(id: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`solicitudesCRP/${id}`,  null, null , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getDataCrp(vigencia: any, query: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`documento_presupuestal/${vigencia}/1`,  null, query , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getNecesidad(id: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`solicitudesCDP/${id}`,  null, null , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getInfoNecesidadCrp(id: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MID_SERVICE');
+      return (this.rqManager.getv2(`necesidad/getfullnecesidad/${id}`,  null, null , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getDataCdp(vigencia: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`documento_presupuestal/${vigencia}/1/cdp`,  null, null , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getSolicitudesCdp(query: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2('solicitudesCDP',  null, query , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getRubros(vigencia: number, id: any) {
+      this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
+      return (this.rqManager.getv2(`movimiento/${vigencia}/1/${id}?fatherInfoLevel=apropiacion`,  null, null , null, null, null, null, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
     /**
    * Gets arbol cuenta contable
    *  returns one tree level at once.

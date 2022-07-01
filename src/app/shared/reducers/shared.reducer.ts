@@ -62,6 +62,19 @@ export interface State {
   Parametros: any;
   RazonesDevolucion: any;
   FormasPago: any;
+  Eps: any;
+  Pension: any;
+  Arl: any;
+  CajaCompensacion: any;
+  Crp: any;
+  InfoCrp: any;
+  DataCrp: any;
+  Necesidad: any;
+  InfoNecesidadCrp: any;
+  InfoNecesidadCdp: any;
+  DataCdp: any;
+  SolicitudesCdp: any;
+  Rubros: any;
 }
 
 export const initialState: State = {
@@ -122,6 +135,19 @@ export const initialState: State = {
   Parametros: null,
   RazonesDevolucion: null,
   FormasPago: null,
+  Eps: null,
+  Pension: null,
+  Arl: null,
+  CajaCompensacion: null,
+  Crp: null,
+  InfoCrp: null,
+  DataCrp: null,
+  Necesidad: null,
+  InfoNecesidadCrp: null,
+  InfoNecesidadCdp: null,
+  DataCdp: null,
+  SolicitudesCdp: null,
+  Rubros: null,
 };
 
 const sharedReducer = createReducer(
@@ -298,6 +324,45 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarFormasPago, (state, action) => ({
     ...state, FormasPago: state.FormasPago = action
+  })),
+  on(SharedActions.cargarEps, (state, action) => ({
+    ...state, Eps: state.Eps = action
+  })),
+  on(SharedActions.cargarPension, (state, action) => ({
+    ...state, Pension: state.Pension = action
+  })),
+  on(SharedActions.cargarArl, (state, action) => ({
+    ...state, Arl: state.Arl = action
+  })),
+  on(SharedActions.cargarCajaCompensacion, (state, action) => ({
+    ...state, CajaCompensacion: state.CajaCompensacion = action
+  })),
+  on(SharedActions.cargarCrp, (state, action) => ({
+    ...state, Crp: state.Crp = action
+  })),
+  on(SharedActions.cargarInfoCrp, (state, action) => ({
+    ...state, InfoCrp: state.InfoCrp = action
+  })),
+  on(SharedActions.cargarDataCrp, (state, action) => ({
+    ...state, DataCrp: state.DataCrp = action
+  })),
+  on(SharedActions.cargarNecesidad, (state, action) => ({
+    ...state, Necesidad: state.Necesidad = action
+  })),
+  on(SharedActions.cargarInfoNecesidadCrp, (state, action) => ({
+    ...state, InfoNecesidadCrp: state.InfoNecesidadCrp = action
+  })),
+  on(SharedActions.cargarInfoNecesidadCdp, (state, action) => ({
+    ...state, InfoNecesidadCdp: state.InfoNecesidadCdp = action
+  })),
+  on(SharedActions.cargarDataCdp, (state, action) => ({
+    ...state, DataCdp: state.DataCdp = action
+  })),
+  on(SharedActions.cargarSolicitudesCdp, (state, action) => ({
+    ...state, SolicitudesCdp: state.SolicitudesCdp = action
+  })),
+  on(SharedActions.cargarRubros, (state, action) => ({
+    ...state, Rubros: state.Rubros = action
   })),
 );
 

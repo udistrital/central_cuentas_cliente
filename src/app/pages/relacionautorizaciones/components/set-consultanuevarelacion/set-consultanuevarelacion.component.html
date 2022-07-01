@@ -2,6 +2,39 @@
     <!-- Campo: Elegir código del rubro, mostrar nombre del rubro -->
     <div class="form-group row pt-4 px-4">
         <div class="col-md-10">
+            <div class="row justify-content-end">
+                <div class="col-md-4">
+                    <label>Vigencia</label>
+                    <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="vigencia" [class.is-invalid]="vigenciaInvalid" (selectionChange)="buscarCrp()">
+                        <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                            <mat-option *cdkVirtualFor="let vigencia of vigencias" [value]="vigencia">
+                                {{vigencia.valor}}
+                            </mat-option>
+                        </cdk-virtual-scroll-viewport>
+                    </mat-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label><small>CRP - Código de Registro</small></label>
+                    <input type="text" class="form-control" formControlName="codigoRegistro" [class.is-invalid]="registroInvalid" matInput [formControl]="myControl" 
+                    [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let crp of filteredOptions | async" [value]="crp">
+                            {{crp.Consecutivo}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <small *ngIf="registroInvalid" class="text-danger">Ingrese números en este campo</small>
+                </div>
+                <div class="col-md-8">
+                    <fieldset disabled>
+                        <div class="form-group">
+                            <label for="disabledTextInput"><small>Descripción</small></label>
+                            <input type="text" id="disabledTextInput" class="form-control" formControlName="descripcionCrp">
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <label><small>CDP - Código de Disponibilidad</small></label>
@@ -12,29 +45,14 @@
                     <fieldset disabled>
                         <div class="form-group">
                             <label for="disabledTextInput"><small>Descripción</small></label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="">
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <label><small>RP - Código de Registro</small></label>
-                    <input type="text" class="form-control" formControlName="codigoRegistro" [class.is-invalid]="registroInvalid">
-                    <small *ngIf="registroInvalid" class="text-danger">Ingrese números en este campo</small>
-                </div>
-                <div class="col-md-8">
-                    <fieldset disabled>
-                        <div class="form-group">
-                            <label for="disabledTextInput"><small>Descripción</small></label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="">
+                            <input type="text" id="disabledTextInput" class="form-control" formControlName="descripcionCdp">
                         </div>
                     </fieldset>
                 </div>
             </div>
         </div>
         <div class="col-md-2 d-flex align-items-center">
-            <button class="btn btn-primary text-white btn-block" type="button" (click)="mostrarDatos()">Mostrar Datos</button>
+            <button class="btn btn-primary text-white btn-block" type="button" (click)="mostrarDatos()">Agregar</button>
         </div>
     </div>
     <!-- Fin Campo: Elegir código del rubro, mostrar nombre del rubro -->
@@ -61,7 +79,7 @@
     </ng-template>
     <!-- Fin Modal -->
     <!-- Campo: Total relacion autorización -->
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
         <div class="row justify-content-end align-items-end pl-5 pb-5 pt-2">
             <div class="col-3">
             </div>
@@ -74,7 +92,7 @@
             <div class="col-1">
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Fin Campo: Total relacion autorización -->
     <!-- Campo: Fuentes afectables -->
     <div class="container-fluid">
@@ -85,19 +103,34 @@
                 </h6>
             </div>
         </div>
-        <div class="row justify-content-end align-items-end">
-            <div class="col-12 px-4">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1">Descripción</textarea>
+        <div class="row justify-content-end align-items-end pl-5 pb-5 pt-1">
+            <div class="col-md-6">
+                <label>Fuentes Afectables</label>
+                <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="fuentesAfectables" [class.is-invalid]="fuentesAfectablesInvalid" (selectionChange)="valorFuente()">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let fuente of fuentesAfectables" [value]="fuente">
+                            {{fuente.InfoFuente.Codigo}} - {{fuente.InfoFuente.Descripcion}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+            </div>
+            <div class="col-md-6">
+                <label>Valor Fuente de Financiación</label>
+                <input currencyMask type="number" id="disabledTextInput" class="form-control" [value]="valorFuenteAfectable">
             </div>
         </div>
+        <div class="row justify-content-end">
+            <div class="col-md-3">
+                <button class="btn btn-primary text-white btn-block" type="button" (click)="agregarFuente()">Agregar</button>
+            </div>
+        </div>
+        <div class="col bg-white pt-3">
+            <ngx-general-table [config]="configuracionTablaFuentes" [datos]="datosTablaFuentes"></ngx-general-table>
+        </div>
         <div class="row justify-content-end align-items-end pl-5 pb-5 pt-1">
-            <div class="col-3">
-            </div>
-            <div class="col-4 pl-7 py-2">
-                <label>Total Fuentes de Financiación</label>
-            </div>
-            <div class="col-5 px-4">
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="$" readonly>
+            <div class="col-md-6">
+                <label>Valor Fuente de Financiación</label>
+                <input type="text" id="disabledTextInput" class="form-control" [value]="totalFuentes" readonly>
             </div>
         </div>
     </div>

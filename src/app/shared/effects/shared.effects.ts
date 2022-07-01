@@ -565,4 +565,160 @@ export class SharedEffects {
       })
     );
   });
+
+  getEps$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getEps),
+      mergeMap((accion) => {
+        return this.sharedService.getTercero(accion.query)
+        .pipe(map(data => SharedActions.cargarEps(
+          {Eps: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getPension$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getPension),
+      mergeMap((accion) => {
+        return this.sharedService.getTercero(accion.query)
+        .pipe(map(data => SharedActions.cargarPension(
+          {Pension: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getArl$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getArl),
+      mergeMap((accion) => {
+        return this.sharedService.getTercero(accion.query)
+        .pipe(map(data => SharedActions.cargarArl(
+          {Arl: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getCajaCompensacion$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getCajaCompensacion),
+      mergeMap((accion) => {
+        return this.sharedService.getTercero(accion.query)
+        .pipe(map(data => SharedActions.cargarCajaCompensacion(
+          {CajaCompensacion: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getCrp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getCrp),
+      mergeMap((accion) => {
+        return this.sharedService.getCrp(accion.vigencia)
+        .pipe(map(data => SharedActions.cargarCrp(
+          {Crp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getInfoCrp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getInfoCrp),
+      mergeMap((accion) => {
+        return this.sharedService.getInfoCrp(accion.id)
+        .pipe(map(data => SharedActions.cargarInfoCrp(
+          {InfoCrp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getDataCrp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getDataCrp),
+      mergeMap((accion) => {
+        return this.sharedService.getDataCrp(accion.vigencia, accion.query)
+        .pipe(map(data => SharedActions.cargarDataCrp(
+          {DataCrp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getNecesidad$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getNecesidad),
+      mergeMap((accion) => {
+        return this.sharedService.getNecesidad(accion.id)
+        .pipe(map(data => SharedActions.cargarNecesidad(
+          {Necesidad: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getInfoNecesidadCrp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getInfoNecesidadCrp),
+      mergeMap((accion) => {
+        return this.sharedService.getInfoNecesidadCrp(accion.id)
+        .pipe(map(data => SharedActions.cargarInfoNecesidadCrp(
+          {InfoNecesidadCrp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getInfoNecesidadCdp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getInfoNecesidadCdp),
+      mergeMap((accion) => {
+        return this.sharedService.getInfoNecesidadCrp(accion.id)
+        .pipe(map(data => SharedActions.cargarInfoNecesidadCdp(
+          {InfoNecesidadCdp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getDataCdp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getDataCdp),
+      mergeMap((accion) => {
+        return this.sharedService.getDataCdp(accion.vigencia)
+        .pipe(map(data => SharedActions.cargarDataCdp(
+          {DataCdp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getSolicitudesCdp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getSolicitudesCdp),
+      mergeMap((accion) => {
+        return this.sharedService.getSolicitudesCdp(accion.query)
+        .pipe(map(data => SharedActions.cargarSolicitudesCdp(
+          {SolicitudesCdp: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getRubros$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getRubros),
+      mergeMap((accion) => {
+        return this.sharedService.getRubros(accion.vigencia, accion.id)
+        .pipe(map(data => SharedActions.cargarRubros(
+          {Rubros: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
 }

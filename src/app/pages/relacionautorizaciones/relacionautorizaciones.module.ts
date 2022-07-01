@@ -11,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { RelacionautorizacionesEffects } from './effects/relacionautorizaciones.effects';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatStepperModule, } from '@angular/material';
+import { MatAutocompleteModule, MatCheckboxModule, MatDividerModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatStepperModule, } from '@angular/material';
 import { NgbModalConfig, NgbModal, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenutiporelacionComponent } from './components/menutiporelacion/menutiporelacion.component';
 import { RelacionautorizacionesService } from './services/relacionautorizaciones.service';
@@ -21,6 +21,9 @@ import { StepperRelacionautorizacionComponent } from './components/stepper-relac
 import { SetPdfviewComponent } from './components/set-pdfview/set-pdfview.component';
 import { SetExtractodesagregacionComponent } from './components/set-extractodesagregacion/set-extractodesagregacion.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { SetMovimientocontableComponent } from './components/set-movimientocontable/set-movimientocontable.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     SetInfonuevarelacionComponent,
     SetConsultanuevarelacionComponent,
     SetConceptonuevarelacionComponent,
+    SetMovimientocontableComponent,
     SetPdfviewComponent,
     SetExtractodesagregacionComponent,
   ],
@@ -42,8 +46,17 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    MatOptionModule,
+    ScrollingModule,
     MatDividerModule,
     MatStepperModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    ScrollingModule,
+    MatOptionModule,
     NgbModule,
     NgbDatepickerModule,
     PdfViewerModule,

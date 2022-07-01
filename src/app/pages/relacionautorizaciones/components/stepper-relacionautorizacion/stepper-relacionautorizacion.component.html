@@ -28,6 +28,12 @@
                         <ngx-set-consultanuevarelacion></ngx-set-consultanuevarelacion>
                     </div>
                 </mat-step>
+                <mat-step [stepControl]="movimientoContable">
+                    <ng-template matStepLabel>Contabilización</ng-template>
+                    <div class="container">
+                        <ngx-set-movimientocontable></ngx-set-movimientocontable>
+                    </div>
+                </mat-step>
                 <!-- Fin de Consultar CDP y RP -->
                 <!-- Paso 3: Relacion por Concepto -->
                 <mat-step>

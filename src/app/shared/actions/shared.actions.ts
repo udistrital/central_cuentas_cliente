@@ -544,3 +544,133 @@ export const cargarFormasPago = createAction(
   '[Shared] Carga las formas de pago al store',
   props()
 );
+
+export const getEps = createAction(
+  '[Shared] Obtienes las EPS del crud de terceros',
+  props<{query: any}>()
+);
+
+export const cargarEps = createAction(
+  '[Shared] Carga las EPS al store',
+  props()
+);
+
+export const getPension = createAction(
+  '[Shared] Obtienes los fondos de pensión del crud de terceros',
+  props<{query: any}>()
+);
+
+export const cargarPension = createAction(
+  '[Shared] Carga los fondos de pension al store',
+  props()
+);
+
+export const getArl = createAction(
+  '[Shared] Obtienes las ARL del crud de terceros',
+  props<{query: any}>()
+);
+
+export const cargarArl = createAction(
+  '[Shared] Carga las ARL al store',
+  props()
+);
+
+export const getCajaCompensacion = createAction(
+  '[Shared] Obtienes las cajas de compensación del crud de terceros',
+  props<{query: any}>()
+);
+
+export const cargarCajaCompensacion = createAction(
+  '[Shared] Carga las cajas de compensación al store',
+  props()
+);
+
+export const getCrp = createAction(
+  '[Shared] Obtienes los crp del crud de plan cuentas',
+  props<{vigencia: any}>()
+);
+
+export const cargarCrp = createAction(
+  '[Shared] Carga los crp al store',
+  props()
+);
+
+export const getInfoCrp = createAction(
+  '[Shared] Obtienes la info del crp del crud de plan cuentas',
+  props<{id: any}>()
+);
+
+export const cargarInfoCrp = createAction(
+  '[Shared] Carga la info de los crp al store',
+  props()
+);
+
+export const getDataCrp = createAction(
+  '[Shared] Obtienes la data del crp del crud de plan cuentas',
+  props<{vigencia: any, query: any}>()
+);
+
+export const cargarDataCrp = createAction(
+  '[Shared] Carga la data de los crp al store',
+  props()
+);
+
+export const getNecesidad = createAction(
+  '[Shared] Obtienes la necesidad del plan cuentas',
+  props<{id: any}>()
+);
+
+export const cargarNecesidad = createAction(
+  '[Shared] Carga la necesidad al store',
+  props()
+);
+
+export const getInfoNecesidadCrp = createAction(
+  '[Shared] Obtienes la info de la necesidad del crp del plan cuentas',
+  props<{id: any}>()
+);
+
+export const cargarInfoNecesidadCrp = createAction(
+  '[Shared] Carga la info de la necesidad del crp al store',
+  props()
+);
+
+export const getInfoNecesidadCdp = createAction(
+  '[Shared] Obtienes la info de la necesidad del cdp del plan cuentas',
+  props<{id: any}>()
+);
+
+export const cargarInfoNecesidadCdp = createAction(
+  '[Shared] Carga la info de la necesidad del cdp al store',
+  props()
+);
+
+export const getDataCdp = createAction(
+  '[Shared] Obtienes la data del cdp del crud de plan cuentas',
+  props<{vigencia: any}>()
+);
+
+export const cargarDataCdp = createAction(
+  '[Shared] Carga la data de los cdp al store',
+  props()
+);
+
+export const getSolicitudesCdp = createAction(
+  '[Shared] Obtienes la solicitudes de cdp del crud de plan cuentas',
+  props<{query: any}>()
+);
+
+export const cargarSolicitudesCdp = createAction(
+  '[Shared] Carga la solicitudes de cdp al store',
+  props()
+);
+
+export const getRubros = createAction(
+  '[Shared] Obtienes la info de los rubros rubros del back',
+  props<{vigencia: number, id: any}>()
+);
+
+export const cargarRubros = createAction(
+  '[Shared] Carga los info de los rubros al store',
+  props()
+);

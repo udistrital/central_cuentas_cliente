@@ -63,7 +63,7 @@ import { ConceptosComponent } from './components/conceptos/conceptos.component';
     FileUploadDirective,
     AutorizacionGiroComponent,
     ArbolCuentasContablesComponent,
-    ConceptosComponent
+    ConceptosComponent,
   ],
   providers: [
     CustomTablePipe,

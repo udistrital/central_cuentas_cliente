@@ -284,3 +284,67 @@ export const selectFormasPago = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.FormasPago
 );
+
+export const selectEps = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Eps
+);
+
+export const selectPension = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Pension
+);
+
+export const selectArl = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Arl
+);
+
+export const selectCajaCompensacion = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.CajaCompensacion
+);
+
+export const selectCrp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Crp
+);
+
+export const selectInfoCrp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.InfoCrp
+);
+
+export const selectDataCrp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.DataCrp
+);
+export const selectDataCdp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.DataCdp
+);
+
+export const selectNecesidad = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Necesidad
+);
+
+export const selectInfoNecesidadCrp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.InfoNecesidadCrp
+);
+
+export const selectInfoNecesidadCdp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.InfoNecesidadCdp
+);
+
+export const selectSolicitudesCdp = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.SolicitudesCdp
+);
+
+export const selectRubros = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Rubros
+);
