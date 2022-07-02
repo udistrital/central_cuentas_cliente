@@ -284,3 +284,13 @@ export const selectFormasPago = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.FormasPago
 );
+
+export const selectTiposComprobante = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.TiposComprobante
+);
+
+export const selectComprobantes = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.Comprobantes
+);

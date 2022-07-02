@@ -379,6 +379,20 @@ export class SharedService {
       }));
     }
 
+    public getTipoComprobante() {
+      this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+      return (this.rqManager.getv2(`tipo_comprobante`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getComprobante() {
+      this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+      return (this.rqManager.getv2(`comprobante`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
     /**
    * Gets arbol cuenta contable
    *  returns one tree level at once.

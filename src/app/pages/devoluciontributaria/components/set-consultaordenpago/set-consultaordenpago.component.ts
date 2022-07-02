@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DATOS_CONSULTAOP, CONFIGURACION_CONSULTAOP } from '../../interfaces/interfaces';
+import { CONFIGURACION_CONSULTAOP } from '../../interfaces/interfaces';
 import { getAddSelected, getFilaSeleccionada, selectDevolucionTributariaById, selectOrdenesPagoByDoc} from '../../../../shared/selectors/shared.selectors';
 import { cargarDatosOrdenesPago } from '../../actions/devoluciontributaria.actions';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,12 +25,13 @@ export class SetConsultaordenpagoComponent implements OnInit {
   devolucionesTributaria: any;
   flagDT: boolean;
   tituloAccion: any;
+  subFila: any;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
     private translate: TranslateService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
     ) {
     // Datos de ejemplo q se muestran en la tabla
     this.flagDT = true;
@@ -65,6 +66,7 @@ export class SetConsultaordenpagoComponent implements OnInit {
         action.OrdenesPagoByDoc = null;
         this.ordenesPagoByDoc.forEach(ordenPago => {
           const op = {
+            id: ordenPago._id,
             vigencia: ordenPago.Vigencia,
             consecutivo: ordenPago.Consecutivo,
             disponibilidad: ordenPago.ImputacionPresupuestal[0].Disponibilidad,
@@ -96,6 +98,16 @@ export class SetConsultaordenpagoComponent implements OnInit {
         this.flagDT = false;
       }
     });
+
+    this.subFila = this.store.select(getFilaSeleccionada).subscribe((accion) => {
+      if (accion && accion.accion && accion.accion.idStep === 3 && accion.accion.name === 'ver') {
+        this.modalVer(accion.fila);
+      }
+    });
+  }
+
+  modalVer(fila: any) {
+    window.open(`#/pages/ordenespago/ver/${fila.id}`, '_blank');
   }
 
   // Validacion del Formulario

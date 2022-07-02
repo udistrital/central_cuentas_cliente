@@ -165,6 +165,23 @@ export const CONFIGURACION_CONSULTAOP: any = {
             }
         },
     ],
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center bg-primary text-white',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'ver',
+                icon: 'fas fa-solid fa-eye',
+                class: 'p-2',
+                title: 'Ver Orden de Pago',
+                idStep: 3,
+                ngIf: true
+            },
+        ],
+    },
     noData: {
         name: 'No Existen Elementos Asociados',
         class: 'text-center',
@@ -177,17 +194,6 @@ export const DATOS_CONSULTAOP: any = [
 export const CONFIGURACION_CONTABILIZACION: any = {
     showColumnTitle: true,
     dataConfig: [
-        {
-            key: 'Secuencia',
-            title: {
-                name: 'secuencia',
-                class: 'text-center bg-primary text-white',
-                label_i18n: 'secuencia',
-            },
-            pipe: {
-                class: 'text-center align-middle',
-            }
-        },
         {
             key: 'Codigo',
             title: {
@@ -264,6 +270,15 @@ export const CONFIGURACION_CONTABILIZACION: any = {
             }
         },
     ],
+    sequence: {
+        title: {
+            name: 'Secuencia',
+            class: 'text-center bg-primary text-white',
+        },
+        pipe: {
+            class: 'text-center align-middle',
+        }
+    },
     rowActions: {
         title: {
             name: 'Acciones',

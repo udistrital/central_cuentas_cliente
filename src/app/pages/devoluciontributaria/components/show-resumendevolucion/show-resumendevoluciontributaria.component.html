@@ -56,11 +56,11 @@
         </h6>
         <div class="col-md-4">
             <label>{{ 'DEVOL_TRIBUTARIA.tipo_comprobante' | translate}}</label>
-            <input *ngIf="!!contabilizacion" class="form-control" id="tipoComprobante" placeholder="{{contabilizacion.tipoComprobante}}" disabled>
+            <input *ngIf="!!contabilizacion" class="form-control" id="tipoComprobante" placeholder="{{contabilizacion.tipoComprobante.TipoDocumento}}" disabled>
         </div>
         <div class="col-md-4">
             <label>{{ 'DEVOL_TRIBUTARIA.numero_comprobante' | translate}}</label>
-            <input *ngIf="!!contabilizacion" class="form-control" type="number" id="numeroComprobante" placeholder="{{contabilizacion ? contabilizacion.numeroComprobante : ''}}" disabled>
+            <input *ngIf="!!contabilizacion" class="form-control" type="number" id="numeroComprobante" placeholder="{{contabilizacion ? contabilizacion.numeroComprobante.Numero : ''}}" disabled>
         </div>
         <div class="col-md-4">
             <label>{{ 'GLOBAL.consecutivo' | translate}}</label>

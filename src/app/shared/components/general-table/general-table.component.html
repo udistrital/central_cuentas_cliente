@@ -17,6 +17,9 @@
                             </th>
                         </tr>
                         <tr *ngIf="config.showColumnTitle">
+                            <ng-container *ngIf="config.sequence">
+                                <th scope="col" [class]="config.sequence.title.class">{{config.sequence.title.name}}</th>
+                            </ng-container>
                             <ng-container *ngIf="config.checkElement">
                                 <th scope="col" [class]="config.checkElement.title.class">{{config.checkElement.title.name}}</th>
                             </ng-container>
@@ -36,6 +39,11 @@
                     <!-- Fin del Encabezado de titulos -->
                     <tbody>
                         <tr *ngFor="let items of datos | filterTable:stringBusqueda; index as i">
+                            <ng-container *ngIf="config.sequence">
+                                <td class="align-middle text-center">
+                                    {{i + 1}}
+                                </td>
+                            </ng-container>
                             <ng-container *ngIf="config.checkElement">
                                 <td [class]="config.checkElement.pipe.class">
                                     <div class="form-check">

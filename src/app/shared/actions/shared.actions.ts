@@ -544,3 +544,23 @@ export const cargarFormasPago = createAction(
   '[Shared] Carga las formas de pago al store',
   props()
 );
+
+export const getTipoComprobante = createAction(
+  '[Shared] Obtiene los tipos de comprobantes del crud de cuentas contables',
+  props()
+);
+
+export const cargarTipoComprobante = createAction(
+  '[Shared] Carga los tipos de comprobantes al store',
+  props()
+);
+
+export const getComprobante = createAction(
+  '[Shared] Obtiene los comprobantes del crud de cuentas contables',
+  props()
+);
+
+export const cargarComprobante = createAction(
+  '[Shared] Carga los comprobantes al store',
+  props()
+);

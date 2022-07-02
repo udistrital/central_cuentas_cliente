@@ -326,6 +326,7 @@
     "numero_comprobante": "Número de comprobante",
     "base_devolucion": "Base de devolución",
     "sumas_iguales": "Sumas iguales",
+    "sumas_iguales_danger": "Las sumas deben ser iguales",
     "suma_debito": "Suma debito",
     "suma_credito": "Suma credito",
     "registro_devolucion": "Registro de devoluciones tributarias",

@@ -565,4 +565,28 @@ export class SharedEffects {
       })
     );
   });
+
+  getTipoComprobante$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getTipoComprobante),
+      mergeMap((accion) => {
+        return this.sharedService.getTipoComprobante()
+        .pipe(map(data => SharedActions.cargarTipoComprobante(
+          {TiposComprobante: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getComprobante$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getComprobante),
+      mergeMap((accion) => {
+        return this.sharedService.getComprobante()
+        .pipe(map(data => SharedActions.cargarComprobante(
+          {Comprobantes: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
 }

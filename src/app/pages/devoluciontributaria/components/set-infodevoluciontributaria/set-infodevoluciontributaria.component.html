@@ -76,6 +76,7 @@
                 </div>
                 <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
             </div>
+            <small *ngIf="conceptoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
         </div>
         <!-- Fin Campo: Concepto -->
         <!-- Campo: Razón de la Devolución -->
