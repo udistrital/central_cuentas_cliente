@@ -377,7 +377,7 @@
   },
   "RELACION_DEVOLUCIONES": {
     "guardado_exitoso": "Creación de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
-    "actualizacion exitosa": "Actualización de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion_exitosa": "Actualización de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
     "nueva_relacion": "Nueva Relación de Devolución",
     "desde": "Desde",
     "hasta": "Hasta",

@@ -95,6 +95,7 @@ export class ShowResumenRelacionDevolucionesComponent implements OnInit, OnDestr
         Year: new Date().getFullYear(),
         Descripcion: 'Relacion de devoluciones'
       };
+      elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(crearConsecutivo({element: consecutivo}));
       this.subConsecutivo$ = this.store.select(selectConsecutivo).subscribe((accion) => {
         if (accion && accion.Consecutivos) {
