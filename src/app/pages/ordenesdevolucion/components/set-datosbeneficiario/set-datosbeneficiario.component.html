@@ -100,6 +100,13 @@
                 </ng-container>
             </table>
         </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label>{{'ORDEN_DEVOLUCION.motivo_devolucion' | translate}}</label>
+                <textarea [readonly]="!editable" type="text" class="form-control" formControlName="motivoDevolucion" [class.is-invalid]="motivoDevolucionInvalid"></textarea>
+                <small *ngIf="motivoDevolucionInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
+            </div>
+        </div>
         <!-- Fin Tabla General Adaptada -->
 
         <!-- Botones: regresar, Siguiente -->

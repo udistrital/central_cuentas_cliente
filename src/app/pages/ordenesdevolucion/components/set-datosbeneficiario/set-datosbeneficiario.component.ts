@@ -75,6 +75,17 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
    }
   ngOnDestroy() {
     this.subDatosBeneficiario$.unsubscribe();
+    this.subTipoDocumento$.unsubscribe();
+    this.subBancos$.unsubscribe();
+    if (this.subTipoCuenta$) this.subTipoCuenta$.unsubscribe();
+    if (this.subFormasPago$) this.subFormasPago$.unsubscribe();
+    if (this.subscriptionEliminarDato$) this.subscriptionEliminarDato$.unsubscribe();
+    if (this.subscriptionfilter$) this.subscriptionfilter$.unsubscribe();
+    if (this.subDocumentos$) this.subDocumentos$.unsubscribe();
+    this.datosDocumentos = [];
+    if (this.subOrdenDevolucion$) this.subOrdenDevolucion$.unsubscribe();
+    this.ordenDevolucion = null;
+
   }
 
    private mostrar(action: string): boolean {
@@ -167,7 +178,8 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       numeroCuenta: ['', Validators.required],
       formaPago: ['', Validators.required],
       documentos: [''],
-      validator: ['', Validators.required]
+      validator: ['', Validators.required],
+      motivoDevolucion: ['', Validators.required]
     });
   }
 
@@ -220,6 +232,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
         tipoCuenta: this.tiposCuenta.find((e: any) => e.Id === this.ordenDevolucion.TipoCuenta),
         numeroCuenta: this.ordenDevolucion.NumeroCuenta,
         formaPago: this.formasPago.find((e: any) => e.Id === this.ordenDevolucion.FormaPago),
+        motivoDevolucion: this.ordenDevolucion.MovimientoContable[0].Detalle
       });
       this.datosDocumentos = this.ordenDevolucion.DocumentosBeneficiario;
     }
@@ -332,6 +345,9 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
   }
   get formaPagoInvalid() {
     return this.datosBeneficiarioGroup.get('formaPago').invalid && this.datosBeneficiarioGroup.get('formaPago').touched;
+  }
+  get motivoDevolucionInvalid() {
+    return this.datosBeneficiarioGroup.get('motivoDevolucion').invalid && this.datosBeneficiarioGroup.get('motivoDevolucion').touched;
   }
 
   private validator() {

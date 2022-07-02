@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
-import { getConcepto, GetConceptosContables, getDatosID, getOrdenDevolucionById, getRazonesDevolucion, getTiposID } from '../../../../shared/actions/shared.actions';
+import { getConcepto, GetConceptosContables, getDatosID, getDatosIDMid, getOrdenDevolucionById, getRazonesDevolucion, getTiposID } from '../../../../shared/actions/shared.actions';
 import { format_date, OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
-import { getNodoSeleccionadoConcepto, seleccionarConcepto, selectDatosID, selectOrdenDEvolucionById, selectRazonesDevolucion, selectTiposID } from '../../../../shared/selectors/shared.selectors';
+import { getNodoSeleccionadoConcepto, seleccionarConcepto, selectDatosID, selectDatosIDMid, selectOrdenDEvolucionById, selectRazonesDevolucion, selectTiposID } from '../../../../shared/selectors/shared.selectors';
 import { cargarDatosSolicitante } from '../../actions/ordenesdevolucion.actions';
 
 @Component({
@@ -30,6 +31,8 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
   editable: boolean;
   subOrdenDevolucion$: any;
   ordenDevolucion: any;
+  subCargo$: any;
+  cargo: any;
   flagOD: boolean;
 
   constructor(
@@ -37,6 +40,7 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     private _adapter: DateAdapter<any>,
+    private translate: TranslateService,
   ) {
     this._adapter.setLocale(format_date);
     this.editable = true;
@@ -65,6 +69,11 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subTipoDocumento$) this.subTipoDocumento$.unsubscribe();
     if (this.subDatosSolicitante$) this.subDatosSolicitante$.unsubscribe();
+    this.subscriptionfilter$.unsubscribe();
+    this.subOrdenDevolucion$.unsubscribe();
+    this.subRazonesDevolucion$.unsubscribe();
+    this.ordenDevolucion = null;
+    this.datosSolicitanteGroup.reset();
   }
 
   ngOnInit() {
@@ -80,10 +89,18 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
     });
 
     this.subDatosSolicitante$ = this.store.select(selectDatosID, 'solicitante1').subscribe(action1 => {
-      if (action1 && action1.datosId[0].TerceroId) {
+      if (action1 && action1.datosId && action1.datosId[0].TerceroId) {
         this.datosSolicitante = action1.datosId[0];
         this.datosSolicitanteGroup.patchValue({
           nombre: this.datosSolicitante.TerceroId.NombreCompleto
+        });
+        this.store.dispatch(getDatosIDMid({rol: 'ordenadoresGasto', id: this.datosSolicitante.TerceroId.Id}));
+        this.subCargo$ = this.store.select(selectDatosIDMid).subscribe(action => {
+          if (action && action.DatosIDMid) {
+            this.datosSolicitanteGroup.patchValue({
+              cargo: this.translate.instant('ORDEN_DEVOLUCION.ordenador_gasto')
+            });
+          }
         });
         action1.datosId = null;
       }
@@ -150,7 +167,7 @@ export class SetDatossolicitanteComponent implements OnInit, OnDestroy {
       tipoDocumento: ['', Validators.required],
       numeroDocumento: ['', Validators.required],
       nombre: ['', Validators.required],
-      cargo: [''],
+      cargo: ['', Validators.required],
       numeroRequerimiento: ['', Validators.required],
       fechaRequerimiento: ['', Validators.required],
       razonDevolucion: ['', Validators.required],

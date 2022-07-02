@@ -64,6 +64,7 @@ export interface State {
   FormasPago: any;
   TiposComprobante: any;
   Comprobantes: any;
+  DatosIDMid: any;
 }
 
 export const initialState: State = {
@@ -126,6 +127,7 @@ export const initialState: State = {
   FormasPago: null,
   TiposComprobante: null,
   Comprobantes: null,
+  DatosIDMid: null,
 };
 
 const sharedReducer = createReducer(
@@ -308,6 +310,9 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarComprobante, (state, action) => ({
     ...state, Comprobantes: state.Comprobantes = action
+  })),
+  on(SharedActions.loadDatosIDMid, (state, action) => ({
+    ...state, DatosIDMid: state.DatosIDMid = action
   })),
 );
 

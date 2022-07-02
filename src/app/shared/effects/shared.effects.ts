@@ -100,6 +100,18 @@ export class SharedEffects {
       ) );
     });
 
+    getDatosIDMid$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(SharedActions.getDatosIDMid),
+        mergeMap((accion) => {
+          return this.sharedService.getDatosIDMid(accion.rol, accion.id)
+          .pipe(map(data => SharedActions.loadDatosIDMid(
+            {DatosIDMid: data})),
+            catchError(data => of(SharedActions.CatchError(data))));
+        })
+      );
+    });
+
   getVigencias$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getVigencias),

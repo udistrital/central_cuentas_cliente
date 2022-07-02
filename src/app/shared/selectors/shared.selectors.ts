@@ -294,3 +294,8 @@ export const selectComprobantes = createSelector(
   selectSharedState,
   (state: fromShared.State) => state.Comprobantes
 );
+
+export const selectDatosIDMid = createSelector(
+  selectSharedState,
+  (state: fromShared.State) => state.DatosIDMid
+);

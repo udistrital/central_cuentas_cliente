@@ -121,8 +121,8 @@ export class ShowResumenordendevolucionComponent implements OnInit, OnDestroy {
       NumeroCuenta: this.datosBeneficiario.numeroCuenta,
       FormaPago: this.datosBeneficiario.formaPago.Id,
       DocumentosBeneficiario: this.documentosBeneficiario,
-      TipoComprobante: this.contabilizacion.tipoComprobante,
-      NumeroComprobante: this.contabilizacion.numeroComprobante,
+      TipoComprobante: this.contabilizacion.tipoComprobante.TipoDocumento,
+      NumeroComprobante: this.contabilizacion.numeroComprobante.Numero,
       MovimientoContable: this.datosCont,
       Estado: this.datosSolicitante.estado,
     };

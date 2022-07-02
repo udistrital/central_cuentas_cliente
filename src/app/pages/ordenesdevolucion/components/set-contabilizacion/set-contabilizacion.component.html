@@ -11,12 +11,24 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label>{{ 'DEVOL_TRIBUTARIA.tipo_comprobante' | translate}}</label>
-                <input [readonly]="!editable" class="form-control" id="tipoComprobante" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid">
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid" (selectionChange)="numerosComprobante()">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let tipoComprobante of tiposComprobante" [value]="tipoComprobante">
+                            {{tipoComprobante.TipoDocumento}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="tipoComprobanteInvalid" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
             <div class="col-md-4">
                 <label>{{ 'DEVOL_TRIBUTARIA.numero_comprobante' | translate}}</label>
-                <input [readonly]="!editable" class="form-control" type="number" id="numeroComprobante" formControlName="numeroComprobante" [class.is-invalid]="numeroComprobanteInvalid">
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="numeroComprobante" [class.is-invalid]="numeroComprobanteInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let comprobante of comprobantesAux" [value]="comprobante">
+                            {{comprobante.Numero}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
                 <small *ngIf="numeroComprobanteInvalid" class="text-danger">{{ 'GLOBAL.seleccione' | translate}}</small>
             </div>
             <div class="col-md-4">
