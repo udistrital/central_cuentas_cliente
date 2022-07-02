@@ -31,7 +31,7 @@ export class DevoluciontributariaEffects {
       .crearDevolucionTributaria(accion.element)
       .pipe(map(data => {
         this.popupManager
-        .showSuccessAlert(this.translate.instant('DEVOLUCION_TRIBUTARIA.guardado_exitoso',
+        .showSuccessAlert(this.translate.instant('DEVOL_TRIBUTARIA.guardado_exitoso',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
           this.router.navigateByUrl('pages/devoluciontributaria/lista');
@@ -48,7 +48,7 @@ export class DevoluciontributariaEffects {
       .actualizarDevolucionTributaria(accion.id, accion.element)
       .pipe(map(data => {
         this.popupManager
-        .showSuccessAlert(this.translate.instant('DEVOLUCION_TRIBUTARIA.actualizacion_exitosa',
+        .showSuccessAlert(this.translate.instant('DEVOL_TRIBUTARIA.actualizacion_exitosa',
         {CONSECUTIVO: accion.element.Consecutivo}))
         .then((result) => {
           if (accion.path === 'lista') window.location.reload();

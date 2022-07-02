@@ -314,7 +314,7 @@
   },
   "DEVOL_TRIBUTARIA": {
     "guardado_exitoso": "Creación de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
-    "actualizacion exitosa": "Actualización de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion_exitosa": "Actualización de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
     "numero_requerimiento": "Número de requerimiento",
     "detalle_solicitud": "Detalle de la solicitud",
     "razon_devolucion": "Razón de la devolución",

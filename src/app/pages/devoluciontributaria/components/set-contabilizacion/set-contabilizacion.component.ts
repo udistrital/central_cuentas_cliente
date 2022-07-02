@@ -122,17 +122,6 @@ export class SetContabilizacionComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subTiposComprobante$ = this.store.select(selectTiposComprobante).subscribe(action => {
-      if (action && action.TiposComprobante) {
-        this.tiposComprobante = action.TiposComprobante;
-      }
-    });
-    this.subComprobantes$ = this.store.select(selectComprobantes).subscribe(action => {
-      if (action && action.Comprobantes) {
-        this.comprobantes = action.Comprobantes;
-      }
-    });
-
     this.subConcepto$ = this.store.select(getConcepto).subscribe((action) => {
       this.cuentasContablesConcepto = [];
       this.total = 0;
@@ -180,11 +169,31 @@ export class SetContabilizacionComponent implements OnInit, OnDestroy {
       }
     });
 
+    if (this.tituloAccion === 'crear') this.comprobante();
+
     this.subDevolucionTributaria$ = this.store.select(selectDevolucionTributariaById).subscribe((action) => {
       if (this.flagDT && action && action.DevolucionTributariaById) {
         this.devolucionesTributaria = action.DevolucionTributariaById;
         this.flagDT = false;
-        this.devolucionTributaria();
+        this.comprobante();
+      }
+    });
+  }
+
+  tiposComprobantes() {
+    this.subTiposComprobante$ = this.store.select(selectTiposComprobante).subscribe(action => {
+      if (action && action.TiposComprobante) {
+        this.tiposComprobante = action.TiposComprobante;
+        if (this.tituloAccion !== 'crear') this.devolucionTributaria();
+      }
+    });
+  }
+
+  comprobante() {
+    this.subComprobantes$ = this.store.select(selectComprobantes).subscribe(action => {
+      if (action && action.Comprobantes) {
+        this.comprobantes = action.Comprobantes;
+        this.tiposComprobantes();
       }
     });
   }
@@ -196,6 +205,11 @@ export class SetContabilizacionComponent implements OnInit, OnDestroy {
         this.comprobantesAux.push(element);
       }
     });
+    if (this.devolucionesTributaria) {
+      this.contabilizacionGroup.patchValue({
+        numeroComprobante: this.comprobantesAux.find((e: any) => String(e.Numero) === this.devolucionesTributaria.NumeroComprobante),
+      });
+    }
   }
 
   // Validacion del Formulario
@@ -323,8 +337,7 @@ export class SetContabilizacionComponent implements OnInit, OnDestroy {
   devolucionTributaria() {
     if (this.mostrar(this.tituloAccion) && this.contabilizacionGroup) {
       this.contabilizacionGroup.patchValue({
-        tipoComprobante: this.devolucionesTributaria.TipoComprobante,
-        numeroComprobante: this.devolucionesTributaria.NumeroComprobante,
+        tipoComprobante: this.tiposComprobante.find((e: any) => e.TipoDocumento === this.devolucionesTributaria.TipoComprobante),
         consecutivo: this.devolucionesTributaria.Consecutivo,
       });
     }
@@ -333,6 +346,8 @@ export class SetContabilizacionComponent implements OnInit, OnDestroy {
       this.sumaCredito += element.Credito;
       this.sumaDebito += element.Debito;
     });
+    this.sumasIguales();
+    this.numerosComprobante();
   }
 
   get tipoComprobanteInvalid() {
