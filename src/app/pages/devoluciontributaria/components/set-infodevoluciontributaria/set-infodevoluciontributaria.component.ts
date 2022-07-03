@@ -106,7 +106,6 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
         this.devolucionTributaria();
       }
     });
-
     this.getDatosBeneficiario();
     this.handleFormChanges();
   }
@@ -172,7 +171,7 @@ export class SetInfodevoluciontributariaComponent implements OnInit, OnDestroy {
       numeroId: ['', Validators.required],
       nombreBeneficiario: ['', Validators.required],
       requerimiento: ['', Validators.required],
-      conceptoContable: [''],
+      conceptoContable: ['', Validators.required],
       razonDevolucion: [''],
       estado: [''],
     });

@@ -62,6 +62,9 @@ export interface State {
   Parametros: any;
   RazonesDevolucion: any;
   FormasPago: any;
+  TiposComprobante: any;
+  Comprobantes: any;
+  DatosIDMid: any;
 }
 
 export const initialState: State = {
@@ -122,6 +125,9 @@ export const initialState: State = {
   Parametros: null,
   RazonesDevolucion: null,
   FormasPago: null,
+  TiposComprobante: null,
+  Comprobantes: null,
+  DatosIDMid: null,
 };
 
 const sharedReducer = createReducer(
@@ -298,6 +304,15 @@ const sharedReducer = createReducer(
   })),
   on(SharedActions.cargarFormasPago, (state, action) => ({
     ...state, FormasPago: state.FormasPago = action
+  })),
+  on(SharedActions.cargarTipoComprobante, (state, action) => ({
+    ...state, TiposComprobante: state.TiposComprobante = action
+  })),
+  on(SharedActions.cargarComprobante, (state, action) => ({
+    ...state, Comprobantes: state.Comprobantes = action
+  })),
+  on(SharedActions.loadDatosIDMid, (state, action) => ({
+    ...state, DatosIDMid: state.DatosIDMid = action
   })),
 );
 

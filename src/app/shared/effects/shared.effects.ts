@@ -100,6 +100,18 @@ export class SharedEffects {
       ) );
     });
 
+    getDatosIDMid$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(SharedActions.getDatosIDMid),
+        mergeMap((accion) => {
+          return this.sharedService.getDatosIDMid(accion.rol, accion.id)
+          .pipe(map(data => SharedActions.loadDatosIDMid(
+            {DatosIDMid: data})),
+            catchError(data => of(SharedActions.CatchError(data))));
+        })
+      );
+    });
+
   getVigencias$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SharedActions.getVigencias),
@@ -561,6 +573,30 @@ export class SharedEffects {
         return this.sharedService.getParametros(accion.query)
         .pipe(map(data => SharedActions.cargarFormasPago(
           {FormasPago: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getTipoComprobante$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getTipoComprobante),
+      mergeMap((accion) => {
+        return this.sharedService.getTipoComprobante()
+        .pipe(map(data => SharedActions.cargarTipoComprobante(
+          {TiposComprobante: data})),
+          catchError(data => of(SharedActions.CatchError(data))));
+      })
+    );
+  });
+
+  getComprobante$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SharedActions.getComprobante),
+      mergeMap((accion) => {
+        return this.sharedService.getComprobante()
+        .pipe(map(data => SharedActions.cargarComprobante(
+          {Comprobantes: data})),
           catchError(data => of(SharedActions.CatchError(data))));
       })
     );

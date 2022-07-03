@@ -115,10 +115,7 @@ export const CONFIGURACION_CONTABILIZACION: any = {
                 label_i18n: 'detalle'
             },
             pipe: {
-                type: 'currency',
-                config: [
-                ],
-                class: 'text-right align-middle',
+                class: 'text-justify align-middle',
             }
         },
         {
@@ -165,6 +162,7 @@ export const DATOS_CONTABILIZACION: any = [
         Tercero: '094',
         Credito: 0.00,
         Debito: 12000.00,
+        Detalle: '',
     },
 ];
 export const CONFIGURACION_TABLAREGISTROS: any = {

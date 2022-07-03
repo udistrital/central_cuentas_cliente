@@ -116,6 +116,13 @@ export class SharedService {
     return this.rqManager.get('datos_identificacion', params);
   }
 
+  public getDatosIDMid(rol?: string, id?: number) {
+    this.rqManager.setPath('TERCEROS_MID_SERVICE');
+      return (this.rqManager.getv2(`tipo/${rol}/${id}`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+  }
+
   public getRubro(codigo: string) {
     this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
     return this.rqManager.get(`arbol_rubro/arbol/${codigo}`);
@@ -375,6 +382,20 @@ export class SharedService {
     public getParametros(query: any) {
       this.rqManager.setPath('PARAMETROS_CRUD_SERVICE');
       return (this.rqManager.getv2(`parametro`,  null, query, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getTipoComprobante() {
+      this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+      return (this.rqManager.getv2(`tipo_comprobante`,  null, null, null, null, null, -1, null)).pipe(map(data => {
+        return ((data && data.Data) ? data.Data : data);
+      }));
+    }
+
+    public getComprobante() {
+      this.rqManager.setPath('CUENTAS_CONTABLES_SERVICE');
+      return (this.rqManager.getv2(`comprobante`,  null, null, null, null, null, -1, null)).pipe(map(data => {
         return ((data && data.Data) ? data.Data : data);
       }));
     }

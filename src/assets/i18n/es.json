@@ -314,7 +314,7 @@
   },
   "DEVOL_TRIBUTARIA": {
     "guardado_exitoso": "Creación de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
-    "actualizacion exitosa": "Actualización de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion_exitosa": "Actualización de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",
     "numero_requerimiento": "Número de requerimiento",
     "detalle_solicitud": "Detalle de la solicitud",
     "razon_devolucion": "Razón de la devolución",
@@ -326,6 +326,7 @@
     "numero_comprobante": "Número de comprobante",
     "base_devolucion": "Base de devolución",
     "sumas_iguales": "Sumas iguales",
+    "sumas_iguales_danger": "Las sumas deben ser iguales",
     "suma_debito": "Suma debito",
     "suma_credito": "Suma credito",
     "registro_devolucion": "Registro de devoluciones tributarias",
@@ -351,7 +352,7 @@
   },
   "ORDEN_DEVOLUCION": {
     "guardado_exitoso": "Creación de la orden de devolución exitosa con el consecutivo: {{CONSECUTIVO}}",
-    "actualizacion exitosa": "Actualización de la orden de devolución exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion_exitosa": "Actualización de la orden de devolución exitosa con el consecutivo: {{CONSECUTIVO}}",
     "datos_solicitante": "Datos del solicitante",
     "fecha_requerimiento": "Fecha de requerimiento",
     "valor_devolucion": "Valor de la devolución",
@@ -370,11 +371,13 @@
     "registro_orden_devolucion": "REGISTRO ORDENES DE DEVOLUCIÓN",
     "crear_orden_devolucion": "CREAR ORDEN DE DEVOLUCIÓN",
     "datos_beneficiario": "Datos del beneficiario",
-    "contabilizacion": "Contabilización"
+    "contabilizacion": "Contabilización",
+    "ordenador_gasto": "ORDENADOR DE GASTO",
+    "motivo_devolucion": "Motivo de la devolución"
   },
   "RELACION_DEVOLUCIONES": {
     "guardado_exitoso": "Creación de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
-    "actualizacion exitosa": "Actualización de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
+    "actualizacion_exitosa": "Actualización de la relación de devoluciones exitosa con el consecutivo: {{CONSECUTIVO}}",
     "nueva_relacion": "Nueva Relación de Devolución",
     "desde": "Desde",
     "hasta": "Hasta",

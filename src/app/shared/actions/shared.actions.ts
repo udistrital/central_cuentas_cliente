@@ -109,6 +109,17 @@ export const loadDatosID = createAction(
   '[Shared] Load Datos Identificacion',
   props<{ clave: string, datosId: any }>()
 );
+// Datos de ID de terceros
+
+export const getDatosIDMid = createAction(
+  '[Shared] Get Datos Identificacion del mid de terceros',
+  props<{rol: any, id?: number}>()
+);
+
+export const loadDatosIDMid = createAction(
+  '[Shared] Load Datos Identificacion del mid de terceros',
+  props()
+);
 
 // obtener numero de documento de usuario logueado
 
@@ -542,5 +553,25 @@ export const getFormasPago = createAction(
 
 export const cargarFormasPago = createAction(
   '[Shared] Carga las formas de pago al store',
+  props()
+);
+
+export const getTipoComprobante = createAction(
+  '[Shared] Obtiene los tipos de comprobantes del crud de cuentas contables',
+  props()
+);
+
+export const cargarTipoComprobante = createAction(
+  '[Shared] Carga los tipos de comprobantes al store',
+  props()
+);
+
+export const getComprobante = createAction(
+  '[Shared] Obtiene los comprobantes del crud de cuentas contables',
+  props()
+);
+
+export const cargarComprobante = createAction(
+  '[Shared] Carga los comprobantes al store',
   props()
 );
