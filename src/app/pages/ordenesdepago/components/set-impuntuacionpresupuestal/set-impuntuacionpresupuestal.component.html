@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label for="registro">{{ 'GLOBAL.registro' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="crp" [class.is-invalid]="isInvalid('crp')" (selectionChange)="fijarCdp()" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="crp" [class.is-invalid]="crpInvalid" (selectionChange)="fijarCdp()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let rp of rps" [value]="rp">
                         {{rp.Consecutivo}}
@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-6 form-group">
             <label for="codigo">{{ 'GLOBAL.codigo' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="codigo" [class.is-invalid]="isInvalid('codigo')" (selectionChange)="nombreRubro()" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="codigo" [class.is-invalid]="codigoInvalid" (selectionChange)="nombreRubro()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let rubroCrp of rubrosCrp" [value]="rubroCrp">
                         {{rubroCrp.FatherInfo._id}}

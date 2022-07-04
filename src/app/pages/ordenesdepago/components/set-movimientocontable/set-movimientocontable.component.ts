@@ -420,14 +420,6 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     }
   }
 
-  isInvalid(nombre: string) {
-    const input = this.movimientoContable.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
   get valorTotal() {
     return this.datosTableMovimientoContable.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
   }
@@ -458,5 +450,9 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  get conceptoContableInvalid() {
+    return this.movimientoContable.get('conceptoContable').invalid && this.movimientoContable.get('conceptoContable').touched;
   }
 }

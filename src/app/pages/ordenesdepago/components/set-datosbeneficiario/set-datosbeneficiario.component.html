@@ -2,7 +2,7 @@
     <div class="form-group row justify-content-between">
         <div class="col-md-4">
             <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="isInvalid('areaFuncional')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
                         {{opcion.label}}
@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-4">
             <label> {{ 'GLOBAL.consecutivo' | translate}}</label>
-            <input type="number" class="form-control" formControlName="consecutivo" [class.is-invalid]="isInvalid('consecutivo')" [readonly]="!editable">
+            <input type="number" class="form-control" formControlName="consecutivo" [class.is-invalid]="consecutivoInvalid" [readonly]="!editable">
         </div>
     </div>
     <div class="form-group row">
@@ -24,12 +24,12 @@
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
-                <input class="form-control" formControlName="solicitudGiro" [class.is-invalid]="isInvalid('solicitudGiro')" disabled [value]="solicGiro">
+                <input class="form-control" formControlName="solicitudGiro" [class.is-invalid]="solicitudGiroInvalid" disabled [value]="solicGiro">
             </div>
         </div>
         <div class="col-md-4">
             <label for="vigencia">{{ 'ORDEN_PAGO.vigencia_presupuesto' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="vigencia" [class.is-invalid]="isInvalid('vigencia')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="vigencia" [class.is-invalid]="vigenciaInvalid" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let vigencia of vigencias" [value]="vigencia">
                         {{vigencia?.valor}}
@@ -45,35 +45,35 @@
         <div class="col-md-3">
             <label for="numeroId">{{ 'GLOBAL.numero_documento' | translate}}</label>
             <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
-                [class.is-invalid]="esInvalido('numeroId')" [readonly]="!editable">
+                [class.is-invalid]="numeroIdInvalid" [readonly]="!editable">
         </div>
         <div class="col-md-9">
             <label for="nombre">{{ 'GLOBAL.nombre' | translate}}</label>
-            <input class="form-control" id="nombre" formControlName="nombreBeneficiario" [class.is-invalid]="isInvalid('nombreBeneficiario')" disabled>
+            <input class="form-control" id="nombre" formControlName="nombreBeneficiario" [class.is-invalid]="nombreBeneficiarioInvalid" disabled>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
             <label for="regimen">{{ 'ORDEN_PAGO.regimen' | translate}}</label>
-            <input class="form-control" id="regimen" formControlName="regimenBeneficiario" [class.is-invalid]="isInvalid('regimenBeneficiario')" disabled>
+            <input class="form-control" id="regimen" formControlName="regimenBeneficiario" [class.is-invalid]="regimenBeneficiarioInvalid" disabled>
         </div>
         <div class="col-md-9">
             <label for="direccion">{{ 'GLOBAL.direccion' | translate}}</label>
-            <input class="form-control" id="direccion" formControlName="direccionBeneficiario" [class.is-invalid]="isInvalid('direccionBeneficiario')" disabled>
+            <input class="form-control" id="direccion" formControlName="direccionBeneficiario" [class.is-invalid]="direccionBeneficiarioInvalid" disabled>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-4">
             <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
-            <input class="form-control" id="banco" disabled formControlName="banco" [class.is-invalid]="isInvalid('banco')">
+            <input class="form-control" id="banco" disabled formControlName="banco" [class.is-invalid]="bancoInvalid">
         </div>
         <div class="col-md-4">
             <label for="cuenta">{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
-            <input type="text" class="form-control" disabled id="cuenta" formControlName="tipoCuenta" [class.is-invalid]="isInvalid('tipoCuenta')">
+            <input type="text" class="form-control" disabled id="cuenta" formControlName="tipoCuenta" [class.is-invalid]="tipoCuentaInvalid">
         </div>
         <div class="col-md-4">
             <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
-            <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta" [class.is-invalid]="isInvalid('cuenta')">
+            <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta" [class.is-invalid]="cuentaInvalid">
         </div>
     </div>
     <div class="row justify-content-between">

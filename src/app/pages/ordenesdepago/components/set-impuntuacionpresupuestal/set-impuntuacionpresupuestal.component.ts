@@ -227,14 +227,6 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     }
   }
 
-  isInvalid(nombre: string) {
-    const input = this.impuntuacionPresupuestal.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
   agregar() {
     let valor;
     if (this.impuntuacionPresupuestal.value.valor > 0) valor = this.impuntuacionPresupuestal.value.valor;
@@ -306,5 +298,13 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
 
   ordenesPago() {
     this.datosTableImputacion = this.ordenPago.ImputacionPresupuestal;
+  }
+
+  get crpInvalid() {
+    return this.impuntuacionPresupuestal.get('crp').invalid && this.impuntuacionPresupuestal.get('crp').touched;
+  }
+
+  get codigoInvalid() {
+    return this.impuntuacionPresupuestal.get('codigo').invalid && this.impuntuacionPresupuestal.get('codigo').touched;
   }
 }

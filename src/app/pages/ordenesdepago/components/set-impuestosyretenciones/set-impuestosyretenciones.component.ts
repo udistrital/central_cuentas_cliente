@@ -177,14 +177,6 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     });
   }
 
-  isInvalid(nombre: string) {
-    const input = this.impuestosYRetenciones.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
   validarFormulario() {
     if (this.datosTableImpuestosRetenciones.length > 0) {
       this.validator();
@@ -218,5 +210,13 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     this.impuestosYRetenciones.patchValue({
       validator: 'a'
     });
+  }
+
+  get retencionInvalid() {
+    return this.impuestosYRetenciones.get('retencion').invalid && this.impuestosYRetenciones.get('retencion').touched;
+  }
+
+  get codigoContableInvalid() {
+    return this.impuestosYRetenciones.get('codigoContable').invalid && this.impuestosYRetenciones.get('codigoContable').touched;
   }
 }

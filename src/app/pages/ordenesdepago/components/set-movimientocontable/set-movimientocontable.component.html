@@ -12,7 +12,7 @@
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
-                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="isInvalid('conceptoContable')" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
+                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="conceptoContableInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
             </div>
         </div>
     </div>

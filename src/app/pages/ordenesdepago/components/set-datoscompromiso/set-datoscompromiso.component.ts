@@ -249,22 +249,6 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     return filtro;
   }
 
-  esInvalido(nombre: string) {
-    const input = this.datosCompromiso.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
-  isInvalid(nombre: string) {
-    const input = this.datosCompromiso.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
   validarFormulario(data: any) {
     if (this.datosCompromiso.invalid) {
       return Object.values(this.datosCompromiso.controls).forEach(control => {
@@ -283,5 +267,24 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
       });
       this.consultarConvenios();
     }
+  }
+
+  get compromisoInvalid() {
+    return this.datosCompromiso.get('compromiso').invalid && this.datosCompromiso.get('compromiso').touched;
+  }
+  get numeroCompromisoInvalid() {
+    return this.datosCompromiso.get('numeroCompromiso').invalid && this.datosCompromiso.get('numeroCompromiso').touched;
+  }
+  get tipoConvenioInvalid() {
+    return this.datosCompromiso.get('tipoConvenio').invalid && this.datosCompromiso.get('tipoConvenio').touched;
+  }
+  get convenioInvalid() {
+    return this.datosCompromiso.get('convenio').invalid && this.datosCompromiso.get('convenio').touched;
+  }
+  get actaRecibidoInvalid() {
+    return this.datosCompromiso.get('actaRecibido').invalid && this.datosCompromiso.get('actaRecibido').touched;
+  }
+  get tipoOrdenPagoInvalid() {
+    return this.datosCompromiso.get('tipoOrdenPago').invalid && this.datosCompromiso.get('tipoOrdenPago').touched;
   }
 }
