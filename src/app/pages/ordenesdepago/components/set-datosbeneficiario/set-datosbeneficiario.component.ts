@@ -187,6 +187,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       numeroId: ['', Validators.required],
       banco: ['', Validators.required],
       cuenta: ['', Validators.required],
+      tipoCuenta: ['', Validators.required],
       nombreBeneficiario: ['', Validators.required],
       regimenBeneficiario: ['', Validators.required],
       direccionBeneficiario: ['', Validators.required],
@@ -251,6 +252,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
           this.supervisor = action2.Supervisor;
           this.datosBeneficiario.patchValue({
             banco: this.supervisor.informacion_persona.cuenta.banco,
+            tipoCuenta: this.supervisor.informacion_persona.cuenta.tipo,
           });
         }
       });
@@ -282,19 +284,45 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
     }
   }
 
-  isInvalid(nombre: string) {
-    const input = this.datosBeneficiario.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
   validarFormulario(data: any ) {
     if (this.datosBeneficiario.invalid) {
       return Object.values(this.datosBeneficiario.controls).forEach(control => {
         control.markAsTouched();
       });
     }
+  }
+
+  get areaFuncionalInvalid() {
+    return this.datosBeneficiario.get('areaFuncional').invalid && this.datosBeneficiario.get('areaFuncional').touched;
+  }
+  get consecutivoInvalid() {
+    return this.datosBeneficiario.get('consecutivo').invalid && this.datosBeneficiario.get('consecutivo').touched;
+  }
+  get solicitudGiroInvalid() {
+    return this.datosBeneficiario.get('solicitudGiro').invalid && this.datosBeneficiario.get('solicitudGiro').touched;
+  }
+  get vigenciaInvalid() {
+    return this.datosBeneficiario.get('vigencia').invalid && this.datosBeneficiario.get('vigencia').touched;
+  }
+  get numeroIdInvalid() {
+    return this.datosBeneficiario.get('numeroId').invalid && this.datosBeneficiario.get('numeroId').touched;
+  }
+  get nombreBeneficiarioInvalid() {
+    return this.datosBeneficiario.get('nombreBeneficiario').invalid && this.datosBeneficiario.get('nombreBeneficiario').touched;
+  }
+  get regimenBeneficiarioInvalid() {
+    return this.datosBeneficiario.get('regimenBeneficiario').invalid && this.datosBeneficiario.get('regimenBeneficiario').touched;
+  }
+  get direccionBeneficiarioInvalid() {
+    return this.datosBeneficiario.get('direccionBeneficiario').invalid && this.datosBeneficiario.get('direccionBeneficiario').touched;
+  }
+  get bancoInvalid() {
+    return this.datosBeneficiario.get('banco').invalid && this.datosBeneficiario.get('banco').touched;
+  }
+  get tipoCuentaInvalid() {
+    return this.datosBeneficiario.get('tipoCuenta').invalid && this.datosBeneficiario.get('tipoCuenta').touched;
+  }
+  get cuentaInvalid() {
+    return this.datosBeneficiario.get('cuenta').invalid && this.datosBeneficiario.get('cuenta').touched;
   }
 }

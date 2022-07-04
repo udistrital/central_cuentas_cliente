@@ -37,11 +37,15 @@
 
     </div>
     <div class="row">
-        <div class="col-md-6 form-group">
+        <div class="col-md-4 form-group">
             <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="banco" disabled placeholder="{{datosBeneficiario.banco}}">
         </div>
-        <div class="col-md-6 form-group">
+        <div class="col-md-4 form-group">
+            <label for="tipoCuenta">{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoCuenta" disabled placeholder="{{datosBeneficiario.tipoCuenta}}">
+        </div>
+        <div class="col-md-4 form-group">
             <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="cuenta" disabled placeholder="{{datosBeneficiario.cuenta}}">
         </div>
@@ -59,14 +63,14 @@
             <input *ngIf="!!datosCompromiso" class="form-control" id="numeroCompromiso" disabled placeholder="{{datosCompromiso.numeroCompromiso}}">
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="flagConvenio">
         <div class="col-md-3 form-group">
             <label>{{ 'ORDEN_PAGO.tipo_convenio' | translate}}</label>
             <input *ngIf="!!datosCompromiso" class="form-control" id="tipoConvenio" disabled placeholder="{{datosCompromiso.tipoConvenio.tipo_convenio}}">
         </div>
         <div class="col-md-9 form-group">
             <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
-            <input *ngIf="!!datosCompromiso" class="form-control" id="convenio" disabled placeholder="{{datosCompromiso.conv.data ? datosCompromiso.conv.data.Nombre : ''}}">
+            <input *ngIf="!!datosCompromiso" class="form-control" id="convenio" disabled placeholder="{{datosCompromiso.conv.data ? datosCompromiso.conv.data.Nombre : datosCompromiso.convenio}}">
         </div>
     </div>
     <div class="row">
@@ -76,7 +80,7 @@
         </div>
         <div class="col-md-4 form-group">
             <label for="noEntradaAlmacen">{{ 'ORDEN_PAGO.numero_entrada_almacen' | translate}}</label>
-            <input *ngIf="!!datosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosCompromiso.entradaAlmacen.consecutivo}}">
+            <input *ngIf="!!datosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosCompromiso.entradaAlmacen}}">
         </div>
     </div>
     <div class="row">

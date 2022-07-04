@@ -51,6 +51,7 @@ export class AutorizacionGiroComponent implements OnInit {
         NombreBeneficiario: this.solicitudesGiro[index].Nombre_Beneficiario,
         estado: true,
         Id: this.solicitudesGiro[index]._id,
+        valor: this.solicitudesGiro[index].Valor_Numeros,
       };
       tableArr.push(element);
     }
@@ -69,4 +70,5 @@ export interface Element {
   NombreBeneficiario: string;
   Id: string;
   estado: boolean;
+  valor: number;
 }

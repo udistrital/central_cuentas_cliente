@@ -297,7 +297,7 @@ export class SharedService {
 
     public getRPExpYParcCompr(vigencia: number, centroGestor: any, query: any) {
       this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
-      return (this.rqManager.getv2(`documento_presupuestal/${vigencia}/${centroGestor}`, null, query, null, null, null, 0, null)).pipe(map(data => {
+      return (this.rqManager.getv2(`documento_presupuestal/${vigencia}/1`, null, query, null, null, null, 0, null)).pipe(map(data => {
         return ((data && data.Data) ? data.Data : data);
       }));
     }
@@ -311,7 +311,7 @@ export class SharedService {
 
     public getRubrosCrp(vigencia: number, centroGestor: any, crp: any) {
       this.rqManager.setPath('PLAN_CUENTAS_MONGO_SERVICE');
-      return (this.rqManager.getv2(`movimiento/${vigencia}/${centroGestor}/${crp}?fatherInfoLevel=apropiacion`,  null, null, null, null, null, 0, null)).pipe(map(data => {
+      return (this.rqManager.getv2(`movimiento/${vigencia}/1/${crp}?fatherInfoLevel=apropiacion`,  null, null, null, null, null, 0, null)).pipe(map(data => {
         return ((data && data.Data) ? data.Data : data);
       }));
     }

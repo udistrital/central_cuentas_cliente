@@ -5,7 +5,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label for="compromiso">{{ 'ORDEN_PAGO.compromiso_pagar' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="compromiso" [class.is-invalid]="isInvalid('compromiso')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="compromiso" [class.is-invalid]="compromisoInvalid" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
                     <mat-option *cdkVirtualFor="let tipoCompromiso of tiposCompromisos" [value]="tipoCompromiso">
                         {{tipoCompromiso.Nombre}}
@@ -16,13 +16,13 @@
         <div class="col-md-4">
             <label for="numeroCompromiso">{{ 'CRP.numero-compromiso' | translate}}</label>
             <input type="number" class="form-control" id="numeroCompromiso" formControlName="numeroCompromiso"
-                [class.is-invalid]="esInvalido('numeroCompromiso')" readonly>
+                [class.is-invalid]="numeroCompromisoInvalid" readonly>
         </div>
     </div>
-    <div class="form-group row">
+    <div *ngIf="convenio" class="form-group row">
         <div class="col-md-3">
             <label>{{ 'ORDEN_PAGO.tipo_convenio' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoConvenio" [class.is-invalid]="isInvalid('tipoConvenio')" (selectionChange)="consultarConvenios()" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoConvenio" [class.is-invalid]="tipoConvenioInvalid" (selectionChange)="consultarConvenios()" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let tipoConvenio of tiposConvenio" [value]="tipoConvenio">
                         {{tipoConvenio.tipo_convenio}}
@@ -33,7 +33,7 @@
         <div class="col-md-9">
             <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
                     <input type="text" placeholder="{{ 'GLOBAL.seleccione' | translate}}" matInput [formControl]="myControl" [matAutocomplete]="auto"
-                    class="form-control" formControlName="convenio" [class.is-invalid]="isInvalid('convenio')" [readonly]="!editable">
+                    class="form-control" formControlName="convenio" [class.is-invalid]="convenioInvalid" [readonly]="!editable">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let convenio of filteredOptions | async" [value]="convenio">
                             {{convenio.data.Nombre}}
@@ -44,7 +44,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label>{{ 'ORDEN_PAGO.numero_acta_recibido' | translate}}</label>
-            <input class="form-control" placeholder="{{datosAlmacenadosCompromiso.numeroActa}}" formControlName="actaRecibido" [class.is-invalid]="isInvalid('actaRecibido')" [readonly]="!editable">
+            <input class="form-control" placeholder="{{datosAlmacenadosCompromiso.numeroActa}}" formControlName="actaRecibido" [class.is-invalid]="actaRecibidoInvalid" [readonly]="!editable">
         </div>
         <div class="col-md-6">
             <label>{{ 'ORDEN_PAGO.numero_entrada_almacen' | translate}}</label>
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col-md-6 form-group">
             <label for="tipoOrden">{{ 'ORDEN_PAGO.tipo_orden_pago' | translate}}</label>
-            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoOrdenPago" [class.is-invalid]="isInvalid('tipoOrdenPago')" [disabled]="!editable">
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoOrdenPago" [class.is-invalid]="tipoOrdenPagoInvalid" [disabled]="!editable">
                 <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
                     <mat-option *cdkVirtualFor="let tipoOrdenPago of tiposOrdenesPago" [value]="tipoOrdenPago">
                         {{tipoOrdenPago.Nombre}}

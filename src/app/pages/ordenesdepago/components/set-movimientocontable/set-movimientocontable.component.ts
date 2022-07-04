@@ -1,17 +1,17 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
-  CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE
+  CONFIGURACION_CONTABILIZACION, DATOS_CONTABILIZACION
 } from '../../interfaces/interfaces';
 import { ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFilaSeleccionada, getConceptosContables, getNodoSeleccionadoCuentaContable, selectInfoCuentaContable, selectInfoCuentaContableDebito, selectOrdenesPagoById,
-          selectBeneficiarioEndoso, selectInfoCuentaContableEndoso } from '../../../../shared/selectors/shared.selectors';
+          selectBeneficiarioEndoso, selectInfoCuentaContableEndoso, getNodoSeleccionadoConcepto, seleccionarConcepto } from '../../../../shared/selectors/shared.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { getBeneficiarioEndoso, GetConceptosContables, getInfoCuentaContable, getInfoCuentaContableDebito, getInfoCuentaContableEndoso, LoadFilaSeleccionada,
+import { getBeneficiarioEndoso, getConcepto, GetConceptosContables, getInfoCuentaContable, getInfoCuentaContableDebito, getInfoCuentaContableEndoso, LoadFilaSeleccionada,
           SeleccionarCuentaContable } from '../../../../shared/actions/shared.actions';
-import { cargarDatosMovimientoContable, cargarMovimientoContable } from '../../actions/ordenespago.actions';
-import { getDatosImpuestosYRetenciones, getDatosImputacionPresupuestal, getImpYRet } from '../../selectors/ordenespago.selectors';
+import { cargarDatosMovimientoContable, cargarImpYRet, cargarMovimientoContable } from '../../actions/ordenespago.actions';
+import { getDatosCompromiso, getDatosImpuestosYRetenciones, getDatosImputacionPresupuestal, getImpYRet, getInfoDatosBeneficiario } from '../../selectors/ordenespago.selectors';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -65,6 +65,13 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   valorMovContable: number;
   valorValido: boolean;
   valorValidoEndoso: boolean;
+  subGetNodoSeleccionadoConcepto$: any;
+  subscriptionDatosBeneficiario$: any;
+  datosBeneficiario: any;
+  subscriptionCompromiso$: any;
+  datosCompromiso: any;
+  subConcepto$: any;
+  concepto: any;
 
   constructor(
     private fb: FormBuilder,
@@ -75,7 +82,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       this.valorValido = true;
       this.valorValidoEndoso = true;
       this.cuentaConceptoFull = true;
-      this.configTableMovimientoContable = CONFIGURACION_MOVIMIENTO_CONTABLE;
+      this.configTableMovimientoContable = CONFIGURACION_CONTABILIZACION;
       this.datosTableMovimientoContable = [];
       this.store.dispatch(GetConceptosContables({ id: '' }));
       this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
@@ -101,6 +108,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       cuentaContable: [''],
       endoso: [false],
       cuentaContableMovCont: [''],
+      cuentaContableMovContNombre: [''],
       cuentaContableMovCont1: [''],
       cuentaConcepto: [false],
       nombreMovimientoContable: ['Valor Bruto'],
@@ -113,7 +121,8 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
       numeroCuentaEndoso: [''],
       valorEndoso: [''],
       cuentaContableEndoso: [''],
-      validator: ['', Validators.required]
+      validator: ['', Validators.required],
+      conceptoContable: ['', Validators.required],
     });
     // Conceptos contables
     this.subscriptionConceptos = this.store.select(getConceptosContables).subscribe((conceptos) => {
@@ -122,9 +131,21 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     // Fila seleccionada
     this.subscription = this.store.select(getFilaSeleccionada).subscribe((accion) => {
       if (accion && accion.accion) {
-        if (accion.accion.idStep === 4 && accion.accion.name === 'modificar') {
+        if (accion.accion.idStep === 3 && accion.accion.name === 'eliminar') {
           this.modalEliminar(accion.fila);
         }
+      }
+    });
+
+    this.subscriptionDatosBeneficiario$ = this.store.select(getInfoDatosBeneficiario).subscribe((action) => {
+      if (action && action.InfoDatosBeneficiario) {
+        this.datosBeneficiario = action.InfoDatosBeneficiario;
+      }
+    });
+
+    this.subscriptionCompromiso$ = this.store.select(getDatosCompromiso).subscribe((action) => {
+      if (action && action.DatosCompromiso) {
+        this.datosCompromiso = action.DatosCompromiso;
       }
     });
 
@@ -152,6 +173,10 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
           this.valorImputacion += imputacion.Valor;
         });
       }
+    });
+
+    this.subscriptionCambios$ = this.movimientoContable.get('conceptoContable').valueChanges.subscribe((valor) => {
+      this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
     });
 
     this.subImpYRet$ = this.store.select(getImpYRet).subscribe((action) => {
@@ -245,6 +270,28 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.endoso = this.movimientoContable.value.endoso;
   }
 
+  agregarConcepto() {
+    if (this.subGetNodoSeleccionadoConcepto$) this.subGetNodoSeleccionadoConcepto$.unsubscribe();
+    this.subGetNodoSeleccionadoConcepto$ = this.store.select(getNodoSeleccionadoConcepto).subscribe((nodoConcepto) => {
+      if (nodoConcepto && Object.keys(nodoConcepto)[0] !== 'type') {
+        this.store.dispatch(getConcepto({codigo: nodoConcepto.Codigo}));
+        if (this.subConcepto$) {
+          this.subConcepto$.unsubscribe();
+          this.concepto = null;
+        }
+        this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+          if (concepto && concepto.Concepto) {
+            this.concepto = concepto.Concepto;
+            concepto.Concepto = null;
+            this.movimientoContable.patchValue({
+              conceptoContable: this.concepto
+            });
+          }
+        });
+      }
+    });
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.subscriptionConceptos.unsubscribe();
@@ -256,6 +303,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     this.subscriptionfilter$.unsubscribe();
     if (this.subInfoCuentaEndoso$) this.subInfoCuentaEndoso$.unsubscribe();
     if (this.subBenefEndoso$) this.subBenefEndoso$.unsubscribe();
+    if (this.subConcepto$) this.subConcepto$.unsubscribe();
     this.cuentasContablesConcepto = [];
     this.cuentaConceptoFull = true;
   }
@@ -281,24 +329,40 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
 
   agregar() {
     // TODO
-    const elemento = Object.assign({}, DATOS_MOVIMIENTO_CONTABLE[0]);
-    elemento.Nombre = this.movimientoContable.get('nombreMovimientoContable').value;
+    const elemento = Object.assign({}, DATOS_CONTABILIZACION[0]);
+    elemento.NombreMovimiento = this.movimientoContable.get('nombreMovimientoContable').value;
     if (this.movimientoContable.value.cuentaConcepto) {
-      elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Codigo + ' - '
-      + this.movimientoContable.value.cuentaContableMovCont1.cuenta.Nombre;
+      elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Codigo;
+      elemento.Nombre = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Nombre;
       elemento.Naturaleza = this.movimientoContable.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID;
+      if (this.movimientoContable.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID === 'debito') {
+        elemento.Debito = this.movimientoContable.get('valorMovimientoContable').value;
+        elemento.Credito = 0;
+      } else if (this.movimientoContable.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID === 'credito') {
+        elemento.Credito = this.movimientoContable.get('valorMovimientoContable').value;
+        elemento.Debito = 0;
+      }
     } else {
       elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont;
+      elemento.Nombre = this.movimientoContable.value.cuentaContableMovContNombre;
       elemento.Naturaleza = this.cuentaContableSeleccionada.data.NaturalezaCuentaID;
+      if (this.cuentaContableSeleccionada.data.NaturalezaCuentaID === 'debito') {
+        elemento.Debito = this.movimientoContable.get('valorMovimientoContable').value;
+        elemento.Credito = 0;
+      } else if (this.cuentaContableSeleccionada.data.NaturalezaCuentaID === 'credito') {
+        elemento.Credito = this.movimientoContable.get('valorMovimientoContable').value;
+        elemento.Debito = 0;
+      }
     }
-    elemento.Valor = this.movimientoContable.get('valorMovimientoContable').value;
+    elemento.Detalle = this.datosCompromiso.detalle;
+    elemento.Tercero = this.datosBeneficiario.numeroId;
     this.datosTableMovimientoContable.push(elemento);
     this.valorMovContable = 0;
     this.datosTableMovimientoContable.forEach(element => {
-      if (element.Naturaleza === 'debito') this.valorMovContable += element.Valor;
-      else this.valorMovContable = this.valorMovContable - element.Valor;
+      if (element.Naturaleza === 'debito') this.valorMovContable += element.Debito;
+      else this.valorMovContable = this.valorMovContable - element.Credito;
     });
-    if (this.valorMovContable > this.valorImputacion || this.valorMovContable < 0) this.valorValido = false;
+    if (this.valorMovContable - this.valorDescuento > this.valorImputacion || this.valorMovContable - this.valorDescuento < 0) this.valorValido = false;
     else this.valorValido = true;
   }
 
@@ -315,7 +379,8 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
             this.cuentaContableSeleccionada = nodoCuenta;
             nodoCuenta = null;
             this.movimientoContable.patchValue({
-              cuentaContableMovCont: this.cuentaContableSeleccionada.data.Codigo + ' - ' + this.cuentaContableSeleccionada.data.Nombre
+              cuentaContableMovCont: this.cuentaContableSeleccionada.data.Codigo,
+              cuentaContableMovContNombre: this.cuentaContableSeleccionada.data.Nombre
             });
           }
         }
@@ -340,6 +405,9 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
 
   cargarMovimiento() {
     if (this.datosTableMovimientoContable.length === 0 || !this.valorValido || !this.valorValidoEndoso) {
+      this.movimientoContable.patchValue({
+        validator: ''
+      });
       return Object.values(this.movimientoContable.controls).forEach(control => {
         control.markAsTouched();
       });
@@ -352,14 +420,6 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     }
   }
 
-  isInvalid(nombre: string) {
-    const input = this.movimientoContable.get(nombre);
-    if (input)
-      return input.invalid && (input.touched || input.dirty);
-    else
-      return true;
-  }
-
   get valorTotal() {
     return this.datosTableMovimientoContable.reduce((a: any, b: { valor: number; }) => a + b.valor, 0);
   }
@@ -367,6 +427,16 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
   ordenesPago() {
     this.datosTableMovimientoContable = this.ordenPago.MovimientoContable;
     this.endoso = this.ordenPago.Endoso;
+    this.store.dispatch(getConcepto({codigo: this.ordenPago.Concepto}));
+    this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
+      if (concepto && concepto.Concepto) {
+        this.concepto = concepto.Concepto;
+        this.movimientoContable.patchValue({
+          conceptoContable: concepto.Concepto
+        });
+        concepto.Concepto = null;
+      }
+    });
     this.store.dispatch(getInfoCuentaContableEndoso({codigo: this.ordenPago.CuentaEndoso}));
     this.subInfoCuentaEndoso$ = this.store.select(selectInfoCuentaContableEndoso).subscribe((action) => {
       if (action && action.InfoCuentaContableEndoso) {
@@ -380,5 +450,9 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  get conceptoContableInvalid() {
+    return this.movimientoContable.get('conceptoContable').invalid && this.movimientoContable.get('conceptoContable').touched;
   }
 }
