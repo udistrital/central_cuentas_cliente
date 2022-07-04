@@ -63,11 +63,15 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
             <input class="form-control" id="banco" disabled formControlName="banco" [class.is-invalid]="isInvalid('banco')">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <label for="cuenta">{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input type="text" class="form-control" disabled id="cuenta" formControlName="tipoCuenta" [class.is-invalid]="isInvalid('tipoCuenta')">
+        </div>
+        <div class="col-md-4">
             <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
             <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta" [class.is-invalid]="isInvalid('cuenta')">
         </div>

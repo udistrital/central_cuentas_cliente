@@ -307,14 +307,26 @@ export const DATOS_IMPUNTUACION: any = [
         Valor: 3000000.00
     }
 ];
-export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
+export const CONFIGURACION_CONTABILIZACION: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'Nombre',
+            key: 'Tercero',
+            title: {
+                name: 'Tercero',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'tercero'
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'NombreMovimiento',
             title: {
                 name: 'Nombre',
-                class: 'text-center',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'nombre'
             },
             pipe: {
                 class: 'text-center align-middle',
@@ -323,18 +335,56 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
         {
             key: 'Codigo',
             title: {
-                name: 'Código Contable',
-                class: 'text-center',
+                name: 'No. de Cuenta',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'numero_cuenta'
             },
             pipe: {
                 class: 'text-justify align-middle',
             }
         },
         {
-            key: 'Valor',
+            key: 'Nombre',
             title: {
-                name: 'Valor',
-                class: 'text-center',
+                name: 'Nombre de la cuenta',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'nombre_cuenta'
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Detalle',
+            title: {
+                name: 'Detalle',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'detalle'
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Debito',
+            title: {
+                name: 'Débito',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'debito'
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
+            }
+        },
+        {
+            key: 'Credito',
+            title: {
+                name: 'Crédito',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'credito'
             },
             pipe: {
                 type: 'currency',
@@ -344,36 +394,48 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
             }
         },
     ],
+    sequence: {
+        title: {
+            name: 'Secuencia',
+            class: 'text-center bg-primary text-white',
+        },
+        pipe: {
+            class: 'text-center align-middle',
+        }
+    },
     rowActions: {
         title: {
             name: 'Acciones',
-            class: 'text-center',
+            class: 'text-center bg-primary text-white',
             actionClass: 'd-flex flex-row justify-content-around align-middle'
         },
         actions: [
             {
-                name: 'modificar',
+                name: 'eliminar',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
-                title: 'Modificar',
-                idStep: 4,
+                title: 'Eliminar movimiento',
+                idStep: 3,
                 ngIf: true
-            }
+            },
         ],
     },
     noData: {
-        name: 'No existen elementos asociados',
+        name: 'No Existen Elementos Asociados',
         class: 'text-center',
     },
     sort: true,
-    maxHeight: 200
+    filter: false,
 };
-export const DATOS_MOVIMIENTO_CONTABLE: any = [
+
+export const DATOS_CONTABILIZACION: any = [
     {
         Nombre: '',
         Codigo: '',
-        Valor: 0,
-        Naturaleza: ''
+        Credito: 0,
+        Debito: 0,
+        Naturaleza: '',
+        Tercero: '',
     }
 ];
 export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {

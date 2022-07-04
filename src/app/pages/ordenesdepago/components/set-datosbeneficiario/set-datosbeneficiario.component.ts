@@ -187,6 +187,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
       numeroId: ['', Validators.required],
       banco: ['', Validators.required],
       cuenta: ['', Validators.required],
+      tipoCuenta: ['', Validators.required],
       nombreBeneficiario: ['', Validators.required],
       regimenBeneficiario: ['', Validators.required],
       direccionBeneficiario: ['', Validators.required],
@@ -251,6 +252,7 @@ export class SetDatosbeneficiarioComponent implements OnInit, OnDestroy {
           this.supervisor = action2.Supervisor;
           this.datosBeneficiario.patchValue({
             banco: this.supervisor.informacion_persona.cuenta.banco,
+            tipoCuenta: this.supervisor.informacion_persona.cuenta.tipo,
           });
         }
       });

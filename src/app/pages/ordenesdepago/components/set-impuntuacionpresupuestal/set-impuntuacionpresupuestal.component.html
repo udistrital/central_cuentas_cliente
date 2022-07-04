@@ -78,7 +78,7 @@
         </div>
         <div class="col-md-4">
             <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
-            <small *ngIf="!valorValido" class="text-danger">{{ 'ORDEN_PAGO.valor_maximo_imputacion' | translate}} {{impuntuacionPresupuestal.value.crp.ValorActual|currency}}</small>
+            <small *ngIf="!valorValido" class="text-danger">{{ 'ORDEN_PAGO.valor_maximo_imputacion' | translate}} {{valorMaximo|currency}}</small>
         </div>
     </div>
     <ng-template #eliminarModal let-modal>

@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { getConvenios, getEntradaAlmacen, getTiposCompromisos, getTiposOrdenesPago, getVigencias } from '../../../../shared/actions/shared.actions';
 import { selectConvenios, selectEntradaAlmacen, selectOrdenesPagoById, selectSupervisor, selectTiposCompromisos, selectTiposOrdenesPago } from '../../../../shared/selectors/shared.selectors';
-import { getAreaFuncional, getInfoDatosBeneficiario } from '../../selectors/ordenespago.selectors';
-import { cargarDatosCompromiso, cargarDatosAlmacenadosCompromiso, loadRP } from '../../actions/ordenespago.actions';
+import { getInfoDatosBeneficiario } from '../../selectors/ordenespago.selectors';
+import { cargarDatosCompromiso } from '../../actions/ordenespago.actions';
 import { DATOS_COMPROMISO, DATOS_TIPO_CONVENIO } from '../../interfaces/interfaces';
 import { OPCIONES_AREA_FUNCIONAL } from '../../../../shared/interfaces/interfaces';
 import { map, startWith } from 'rxjs/operators';
@@ -51,6 +51,7 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   tituloAccion: any;
   subOrdenesPago$: any;
   ordenPago: any;
+  convenio: boolean;
   subSolicitudesGiro$;
   subConvenio$: any;
   editable: boolean;
@@ -61,7 +62,9 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private activatedRoute: ActivatedRoute,
     ) {
+      this.datosBeneficiario = null;
       this.editable = true;
+      this.convenio = true;
       this.flagActa = true;
       this.flagRubro = true;
       this.store.dispatch(getVigencias());
@@ -91,6 +94,8 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosBeneficiario$ = this.store.select(getInfoDatosBeneficiario).subscribe((action) => {
       if (action && action.InfoDatosBeneficiario) {
         this.datosBeneficiario = action.InfoDatosBeneficiario;
+        if (this.datosBeneficiario && this.datosBeneficiario.areaFuncional.Id === 2) this.convenio = true;
+        else this.convenio = false;
       }
     });
     this.subTiposOrdenesPago$ = this.store.select(selectTiposOrdenesPago).subscribe((action) => {
@@ -178,11 +183,16 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
     this.subOrdenesPago$.unsubscribe();
   }
 
+  validatorConvenio(): ValidatorFn {
+    if (this.datosBeneficiario && this.datosBeneficiario.areaFuncional.Id !== 2) return Validators.nullValidator;
+    else return Validators.required;
+  }
+
   crearFormulario() {
     this.datosCompromiso = this.fb.group({
       compromiso: ['', Validators.required],
-      tipoConvenio: ['', Validators.required],
-      convenio: ['', Validators.required],
+      tipoConvenio: [''],
+      convenio: [''],
       supervisor: [''],
       tipoOrdenPago: ['', Validators.required],
       numeroCompromiso: [''],

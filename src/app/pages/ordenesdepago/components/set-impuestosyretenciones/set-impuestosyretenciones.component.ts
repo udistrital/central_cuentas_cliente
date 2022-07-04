@@ -20,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   @ViewChild('eliminarModal', { static: false }) eliminarModal: ElementRef;
+  @ViewChild('cuentaContableModal', { static: false }) cuentaContableModal: ElementRef;
   impuestosYRetenciones: FormGroup;
   configTableImpuestosRetenciones: any;
   datosTableImpuestosRetenciones: any;
@@ -32,11 +33,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
   porcentaje: any;
   subGetNodoSeleccionadoCuenta$: any;
   cuentaContableSeleccionada: any;
-  subGetNodoSeleccionadoConcepto$: any;
   conceptoSeleccionado: any;
-  subConcepto$: any;
-  concepto: any;
-  subscriptionCambios$: any;
   tituloAccion: string;
   subOrdenesPago$: any;
   ordenPago: any;
@@ -73,9 +70,8 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
       retencion: [''],
       baseRetencion: [''],
       porcentajeDescuento: [''],
-      conceptoContable: ['', Validators.required],
       codigoContable: [''],
-      validator: ['', Validators.required]
+      validator: ['']
     });
     // Conceptos contables
     this.subscriptionConceptos$ = this.store.select(getConceptosContables).subscribe((conceptos) => {
@@ -93,10 +89,6 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
         this.retenciones = action.Retenciones;
         action.Retenciones = null;
       }
-    });
-
-    this.subscriptionCambios$ = this.impuestosYRetenciones.get('conceptoContable').valueChanges.subscribe((valor) => {
-      this.store.dispatch(cargarImpYRet({ ImpYRet: valor }));
     });
 
     this.subOrdenesPago$ = this.store.select(selectOrdenesPagoById).subscribe((action) => {
@@ -122,9 +114,7 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
     this.subRetenciones$.unsubscribe();
     this.subscriptionConceptos$.unsubscribe();
-    this.subscriptionCambios$.unsubscribe();
     this.subOrdenesPago$.unsubscribe();
-    if (this.subConcepto$) this.subConcepto$.unsubscribe();
     this.store.dispatch(LoadFilaSeleccionada(null));
   }
 
@@ -141,6 +131,10 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     });
   }
 
+  cuentaContableMod() {
+    this.modalService.open(this.cuentaContableModal);
+  }
+
   agregar() {
     const elemento = Object.assign({}, DATOS_IMPUESTOS_RETENCIONES[0]);
     elemento.Descuento = this.impuestosYRetenciones.get('porcentajeDescuento').value + '%';
@@ -149,6 +143,9 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
     elemento.Nombre = this.impuestosYRetenciones.value.retencion.Nombre;
     elemento.Codigo = this.cuentaContableSeleccionada.data.Codigo;
     this.datosTableImpuestosRetenciones.push(elemento);
+    this.impuestosYRetenciones.patchValue({
+      codigoContable: ''
+    });
     this.validator();
   }
 
@@ -170,29 +167,8 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
         }
       }
     });
+    this.modalService.dismissAll();
     this.subGetNodoSeleccionadoCuenta$.unsubscribe();
-  }
-
-  agregarConcepto() {
-    if (this.subGetNodoSeleccionadoConcepto$) this.subGetNodoSeleccionadoConcepto$.unsubscribe();
-    this.subGetNodoSeleccionadoConcepto$ = this.store.select(getNodoSeleccionadoConcepto).subscribe((nodoConcepto) => {
-      if (nodoConcepto && Object.keys(nodoConcepto)[0] !== 'type') {
-        this.store.dispatch(getConcepto({codigo: nodoConcepto.Codigo}));
-        if (this.subConcepto$) {
-          this.subConcepto$.unsubscribe();
-          this.concepto = null;
-        }
-        this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
-          if (concepto && concepto.Concepto) {
-            this.concepto = concepto.Concepto;
-            concepto.Concepto = null;
-            this.impuestosYRetenciones.patchValue({
-              conceptoContable: this.concepto
-            });
-          }
-        });
-      }
-    });
   }
 
   retencion() {
@@ -224,16 +200,6 @@ export class SetImpuestosyretencionesComponent implements OnInit, OnDestroy {
 
   ordenesPago() {
     this.datosTableImpuestosRetenciones = this.ordenPago.ImpuestosRetenciones;
-    this.store.dispatch(getConcepto({codigo: this.ordenPago.Concepto}));
-    this.subConcepto$ = this.store.select(seleccionarConcepto).subscribe((concepto) => {
-      if (concepto && concepto.Concepto) {
-        this.concepto = concepto.Concepto;
-        this.impuestosYRetenciones.patchValue({
-          conceptoContable: concepto.Concepto
-        });
-        concepto.Concepto = null;
-      }
-    });
   }
 
   get valorNeto() {

@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
-  CONFIGURACION_MOVIMIENTO_CONTABLE, DATOS_MOVIMIENTO_CONTABLE,
-  CONFIGURACION_IMPUNTUACION, DATOS_IMPUNTUACION, CONFIGURACION_IMPUESTOS_RETENCIONES,
+  CONFIGURACION_CONTABILIZACION, CONFIGURACION_IMPUNTUACION, CONFIGURACION_IMPUESTOS_RETENCIONES,
 } from '../../interfaces/interfaces';
 import { getDatosCompromiso, getDatosAlmacenadosCompromiso, getDatosImputacionPresupuestal, getDatosMovimientoContable, getInfoDatosBeneficiario,
   getDatosImpuestosYRetenciones, getImpYRet, getMovimientoContable } from '../../selectors/ordenespago.selectors';
@@ -46,6 +45,7 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
   gasto: any;
   vigenciaActual: number;
   susVigencias$: any;
+  flagConvenio: boolean;
   vigencias: any;
   endoso: boolean;
   tituloAccion: string;
@@ -55,16 +55,17 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService,
     ) {
-    this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION);
-    this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_MOVIMIENTO_CONTABLE);
-    this.configTableImpuntuacion.rowActions = null;
-    this.configTableMovimientoContable.rowActions = null;
-    this.datosTableImputacion = [];
-    this.datosTableMovimientoContable = [];
-    this.datosTableImpuestosRetenciones = [];
-    this.configTableImpuestosRetenciones = Object.assign({}, CONFIGURACION_IMPUESTOS_RETENCIONES);
-    this.configTableImpuestosRetenciones.rowActions = null;
-    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+      this.flagConvenio = true;
+      this.configTableImpuntuacion = Object.assign({}, CONFIGURACION_IMPUNTUACION);
+      this.configTableMovimientoContable = Object.assign({}, CONFIGURACION_CONTABILIZACION);
+      this.configTableImpuntuacion.rowActions = null;
+      this.configTableMovimientoContable.rowActions = null;
+      this.datosTableImputacion = [];
+      this.datosTableMovimientoContable = [];
+      this.datosTableImpuestosRetenciones = [];
+      this.configTableImpuestosRetenciones = Object.assign({}, CONFIGURACION_IMPUESTOS_RETENCIONES);
+      this.configTableImpuestosRetenciones.rowActions = null;
+      this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
   }
 
   ngOnDestroy () {
@@ -84,6 +85,8 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
     this.subscriptionDatosBeneficiario$ = this.store.select(getInfoDatosBeneficiario).subscribe((action) => {
       if (action && action.InfoDatosBeneficiario) {
         this.datosBeneficiario = action.InfoDatosBeneficiario;
+        if (this.datosBeneficiario.areaFuncional.Id === 2) this.flagConvenio = true;
+        else this.flagConvenio = false;
       }
     });
     this.subscriptionDatosCompromiso$ = this.store.select(getDatosCompromiso).subscribe((action) => {

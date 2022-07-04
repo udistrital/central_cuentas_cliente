@@ -58,6 +58,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
   historialOP: any;
   tituloAccion: string;
   subOrdenesPago$: any;
+  valorMaximo: number;
   ordenPago: any;
   editable: boolean = true;
   valorValido: boolean = false;
@@ -68,6 +69,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute
     ) {
+    this.valorMaximo = 0;
     this.configTableHistorial = CONFIGURACION_HISTORIAL;
     this.datosTableHistorial = DATOS_HISTORIAL;
     this.configTableFuentes = CONFIGURACION_CONCEPTO_VALOR;
@@ -120,6 +122,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
     this.subscriptionDatosBeneficiario$ = this.store.select(getInfoDatosBeneficiario).subscribe((action) => {
       if (action && action.InfoDatosBeneficiario) {
         this.datosBeneficiario = action.InfoDatosBeneficiario;
+        this.valorMaximo = this.datosBeneficiario.solicitudGiro.valor;
       }
     });
 
@@ -193,6 +196,8 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
             && element.Valor === fila.Valor
         ), 1);
       }
+      if (this.totalGasto() > this.datosBeneficiario.solicitudGiro.valor) this.valorValido = false;
+      else this.valorValido = true;
     });
   }
 
@@ -244,7 +249,7 @@ export class SetImpuntuacionpresupuestalComponent implements OnInit, OnDestroy {
       }
     ];
     this.datosTableImputacion.push(datosAgregar[0]);
-    if (this.totalGasto() > this.impuntuacionPresupuestal.value.crp.ValorActual) this.valorValido = false;
+    if (this.totalGasto() > this.datosBeneficiario.solicitudGiro.valor) this.valorValido = false;
     else this.valorValido = true;
   }
 
