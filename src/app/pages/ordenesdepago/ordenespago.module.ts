@@ -10,7 +10,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MatStepperModule, MatSelectModule, MatCheckboxModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatTableModule, MatIconModule, MatPaginatorModule } from '@angular/material';
+import { MatStepperModule, MatSelectModule, MatCheckboxModule, MatAutocompleteModule,
+         MatFormFieldModule, MatInputModule, MatTableModule, MatIconModule, MatPaginatorModule, MatCardModule } from '@angular/material';
 import { SetDatosbeneficiarioComponent } from './components/set-datosbeneficiario/set-datosbeneficiario.component';
 import { SetDatoscompromisoComponent } from './components/set-datoscompromiso/set-datoscompromiso.component';
 import { SetImpuntuacionpresupuestalComponent } from './components/set-impuntuacionpresupuestal/set-impuntuacionpresupuestal.component';
@@ -20,6 +21,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TipoOrdenVigenciaPipe } from './pipes/tipo-orden-vigencia.pipe';
 import { SetImpuestosyretencionesComponent } from './components/set-impuestosyretenciones/set-impuestosyretenciones.component';
+import { SetContabilizacionordenpagoComponent } from './components/set-contabilizacionordenpago/set-contabilizacionordenpago.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { SetImpuestosyretencionesComponent } from './components/set-impuestosyre
     SetImpuntuacionpresupuestalComponent, SetMovimientocontableComponent,
     ShowResumenordenpagoComponent,
     TipoOrdenVigenciaPipe,
-    SetImpuestosyretencionesComponent],
+    SetImpuestosyretencionesComponent,
+    SetContabilizacionordenpagoComponent],
   imports: [
     NgbModule,
     CurrencyMaskModule,
@@ -47,6 +50,7 @@ import { SetImpuestosyretencionesComponent } from './components/set-impuestosyre
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
+    MatCardModule,
     StoreModule.forFeature(fromOrdenespago.ordenespagoFeatureKey, fromOrdenespago.reducer),
     EffectsModule.forFeature([OrdenespagoEffects])
   ]

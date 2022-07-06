@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TableListaordenesComponent } from './components/table-listaordenes/table-listaordenes.component';
 import { CrearOrdenpagoComponent } from './components/crear-ordenpago/crear-ordenpago.component';
+import { SetContabilizacionordenpagoComponent } from './components/set-contabilizacionordenpago/set-contabilizacionordenpago.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'revisar/:Id',
     component: CrearOrdenpagoComponent,
+  },
+  {
+    path: 'contabilizar/:Id',
+    component: SetContabilizacionordenpagoComponent,
   },
 ];
 

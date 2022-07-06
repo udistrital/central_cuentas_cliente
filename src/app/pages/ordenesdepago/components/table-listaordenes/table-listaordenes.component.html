@@ -31,6 +31,7 @@
                     (click)="revision(element)">visibility</mat-icon>
                     <mat-icon title="Ver" *ngIf="column.title.name==='acciones' && element.Estado==='Firmado'" (click)="ver(element)">visibility</mat-icon>
                     <mat-icon title="Enviar" *ngIf="column.title.name==='acciones' && (element.Estado==='Elaborado')" (click)="enviarRevision(element)">send</mat-icon>
+                    <mat-icon title="Contabilizar" *ngIf="column.title.name==='acciones'" (click)="contabilizar(element)">account_balance</mat-icon>
                 </td>
             </ng-container>
 

@@ -1,0 +1,21 @@
+<div class="container">
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>{{ 'ORDEN_PAGO.contabilizar' | translate}}</mat-card-title>
+          <mat-card-subtitle>{{ 'ORDEN_PAGO.orden_pago' | translate}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="container">
+            <label>{{ 'ORDEN_PAGO.beneficiario' | translate}}: </label> {{ordenPago.NombreBeneficiario}}
+            <label>{{'GLOBAL.numero_documento' | translate}}: </label> {{ordenPago.DocumentoBeneficiario}}
+            <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable">
+            </ngx-general-table>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+          <button mat-button class="btn btn-primary" (click)="contabilizar()">{{'GLOBAL.confirmar' | translate}}</button>
+          
+      </mat-card-actions>
+  </mat-card>
+
+</div>

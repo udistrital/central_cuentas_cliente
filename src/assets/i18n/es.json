@@ -136,6 +136,7 @@
     "confirmarEliminar": "ha sido eliminado(a)",
     "confirmarActualizar": "ha sido actualizado(a)",
     "confirmarCrear": "ha sido creado(a)",
+    "confirmar": "Confirmar",
     "formulario": "Formulario",
     "lista": "Listado",
     "perfil": "Perfil",
@@ -310,7 +311,8 @@
     "seguro_aprobacion": "¿Seguro que deseas aprobar esta orden de pago?",
     "seguro_rechazo": "¿Seguro que deseas rechazar esta orden de pago?",
     "movimiento_contable_invalido": "Valores de movimiento contable no validos",
-    "endoso_invalido": "El valor del endoso no es valido"
+    "endoso_invalido": "El valor del endoso no es valido",
+    "contabilizar": "Contabilizar"
   },
   "DEVOL_TRIBUTARIA": {
     "guardado_exitoso": "Creación de la devolución tributaria exitosa con el consecutivo: {{CONSECUTIVO}}",

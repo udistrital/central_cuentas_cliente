@@ -99,6 +99,10 @@ export class TableListaordenesComponent implements OnInit, OnDestroy {
     this.store.dispatch(actualizarOrdenPago({id: element._id, element: element, path: this.tituloAccion}));
   }
 
+  contabilizar(ordenPago: any) {
+    this.router.navigateByUrl('pages/ordenespago/contabilizar/' + ordenPago.Id);
+  }
+
   revision(ordenPago: any) {
     this.router.navigateByUrl('pages/ordenespago/revisar/' + ordenPago.Id);
   }
