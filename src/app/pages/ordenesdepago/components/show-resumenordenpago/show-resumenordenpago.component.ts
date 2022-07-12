@@ -177,21 +177,27 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       ActaRecibido: this.datosCompromiso.actaRecibido,
       Supervisor: this.datosCompromiso.supervisor,
       Detalle: this.datosCompromiso.detalle,
-      TipoConvenio: this.datosCompromiso.tipoConvenio.tipo_convenio,
-      Convenio: this.datosCompromiso.conv.Codigo,
+      TipoConvenio: '',
+      Convenio: '',
       TipoOrdenPago: this.datosCompromiso.tipoOrdenPago.Id,
       ImputacionPresupuestal: this.datosTableImputacion,
       Concepto: this.impYRet.Codigo,
       ImpuestosRetenciones: this.datosTableImpuestosRetenciones,
       CuentaValorNeto: this.movimientoContable.cuentaCredito.cuenta.Codigo,
+      CuentaValorNetoId: this.movimientoContable.cuentaCredito.cuenta.Id,
       MovimientoContable: this.datosTableMovimientoContable,
       Endoso: this.movimientoContable.endoso,
       BeneficiarioEndoso: String(this.movimientoContable.identificacionEndoso),
       ValorEndoso: this.movimientoContable.valorEndoso,
       CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
+      CuentaEndosoId: this.movimientoContable.cuentaContableEndoso.Id,
       Estado: this.datosBeneficiario.estado,
       ValorOP: this.totalNeto()
     };
+    if (this.datosCompromiso.tipoConvenio) {
+      elemento.TipoConvenio = this.datosCompromiso.tipoConvenio.tipo_convenio;
+      elemento.Convenio = this.datosCompromiso.conv.Codigo;
+    }
     if (this.tituloAccion === 'editar') {
       elemento.Estado = Aprobacion.elaborado;
       this.store.dispatch(actualizarOrdenPago({id: this.activatedRoute.snapshot.url[1].path,
