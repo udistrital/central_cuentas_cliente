@@ -185,12 +185,14 @@ export class ShowResumenordenpagoComponent implements OnInit, OnDestroy {
       ImpuestosRetenciones: this.datosTableImpuestosRetenciones,
       CuentaValorNeto: this.movimientoContable.cuentaCredito.cuenta.Codigo,
       CuentaValorNetoId: this.movimientoContable.cuentaCredito.cuenta.Id,
+      CuentaValorNetoNaturaleza: this.movimientoContable.cuentaCredito.cuenta.NaturalezaCuentaID,
       MovimientoContable: this.datosTableMovimientoContable,
       Endoso: this.movimientoContable.endoso,
       BeneficiarioEndoso: String(this.movimientoContable.identificacionEndoso),
       ValorEndoso: this.movimientoContable.valorEndoso,
       CuentaEndoso: this.movimientoContable.cuentaContableEndoso.Codigo,
       CuentaEndosoId: this.movimientoContable.cuentaContableEndoso.Id,
+      CuentaEndosoNaturaleza: this.movimientoContable.cuentaContableEndoso.NaturalezaCuentaID,
       Estado: this.datosBeneficiario.estado,
       ValorOP: this.totalNeto()
     };
