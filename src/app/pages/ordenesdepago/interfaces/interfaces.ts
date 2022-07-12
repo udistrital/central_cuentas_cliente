@@ -436,6 +436,7 @@ export const DATOS_CONTABILIZACION: any = [
         Debito: 0,
         Naturaleza: '',
         Tercero: '',
+        CuentaContableId: '',
     }
 ];
 export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
@@ -529,6 +530,7 @@ export const DATOS_IMPUESTOS_RETENCIONES: any = [
         Base: 0,
         Descuento: '',
         Valor: 0,
+        CuentaContableId: ''
     }
 ];
 export const DATOS_BENEFICIARIO: any = [

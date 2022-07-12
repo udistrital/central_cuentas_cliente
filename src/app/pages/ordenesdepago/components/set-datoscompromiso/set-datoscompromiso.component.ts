@@ -210,10 +210,12 @@ export class SetDatoscompromisoComponent implements OnInit, OnDestroy {
   consultarConvenios() {
     this.convenios = [];
     let codigoRubro = '';
-    if (String(this.datosCompromiso.get('tipoConvenio').value.tipo_convenio) === 'CONVENIOS') codigoRubro = '3-00-991-00-00-01';
-    else codigoRubro = '3-00-991-00-00-29';
-    if (this.flagRubro) {
-      this.store.dispatch(getConvenios({codigo: codigoRubro}));
+    if (this.datosCompromiso.value.tipoConvenio) {
+      if (String(this.datosCompromiso.get('tipoConvenio').value.tipo_convenio) === 'CONVENIOS') codigoRubro = '3-00-991-00-00-01';
+      else codigoRubro = '3-00-991-00-00-29';
+      if (this.flagRubro) {
+        this.store.dispatch(getConvenios({codigo: codigoRubro}));
+      }
     }
     this.subConvenio$ = this.store.select(selectConvenios).subscribe((action) => {
       if (action && action.Convenios) {

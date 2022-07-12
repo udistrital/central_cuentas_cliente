@@ -332,6 +332,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
     const elemento = Object.assign({}, DATOS_CONTABILIZACION[0]);
     elemento.NombreMovimiento = this.movimientoContable.get('nombreMovimientoContable').value;
     if (this.movimientoContable.value.cuentaConcepto) {
+      elemento.CuentaContableId = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Id;
       elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Codigo;
       elemento.Nombre = this.movimientoContable.value.cuentaContableMovCont1.cuenta.Nombre;
       elemento.Naturaleza = this.movimientoContable.value.cuentaContableMovCont1.cuenta.NaturalezaCuentaID;
@@ -343,6 +344,7 @@ export class SetMovimientocontableComponent implements OnInit, OnDestroy {
         elemento.Debito = 0;
       }
     } else {
+      elemento.CuentaContableId = this.cuentaContableSeleccionada.data.Id;
       elemento.Codigo = this.movimientoContable.value.cuentaContableMovCont;
       elemento.Nombre = this.movimientoContable.value.cuentaContableMovContNombre;
       elemento.Naturaleza = this.cuentaContableSeleccionada.data.NaturalezaCuentaID;
