@@ -11,7 +11,14 @@ export interface State {
   DatosAlmacenadosCompromiso: any;
   AreaFuncional: any;
   DatosMovimientoContable: any;
+  MovimientoContable: any;
+  DatosImpuestosYRetenciones: any;
   DatosImputacionPresupuestal: any;
+  ImpYRet: any;
+  InfoDatosBeneficiario: any;
+  RP: any;
+  OrdenPago: any;
+  OrdenesPago: any;
 }
 
 export const initialState: State = {
@@ -22,7 +29,14 @@ export const initialState: State = {
   DatosAlmacenadosCompromiso: null,
   AreaFuncional: null,
   DatosMovimientoContable: null,
+  MovimientoContable: null,
+  DatosImpuestosYRetenciones: null,
+  ImpYRet: null,
   DatosImputacionPresupuestal: null,
+  InfoDatosBeneficiario: null,
+  RP: null,
+  OrdenPago: null,
+  OrdenesPago: null,
 };
 
 const ordenespagoReducer = createReducer(
@@ -52,6 +66,27 @@ const ordenespagoReducer = createReducer(
   })),
   on(OrdenespagoActions.cargarDatosMovimientoContable, (state, action) => ({
     ...state, DatosMovimientoContable: state.DatosMovimientoContable = action
+  })),
+  on(OrdenespagoActions.cargarMovimientoContable, (state, action) => ({
+    ...state, MovimientoContable: state.MovimientoContable = action
+  })),
+  on(OrdenespagoActions.cargarDatosImpuestosYRetenciones, (state, action) => ({
+    ...state, DatosImpuestosYRetenciones: state.DatosImpuestosYRetenciones = action
+  })),
+  on(OrdenespagoActions.cargarImpYRet, (state, action) => ({
+    ...state, ImpYRet: state.ImpYRet = action
+  })),
+  on(OrdenespagoActions.loadInfoDatosBeneficiario, (state, action) => ({
+    ...state, InfoDatosBeneficiario: state.InfoDatosBeneficiario = action
+  })),
+  on(OrdenespagoActions.loadRP, (state, action) => ({
+    ...state, RP: state.RP = action
+  })),
+  on(OrdenespagoActions.cargarOrdenPago, (state, action) => ({
+    ...state, OrdenPago: state.OrdenPago = action
+  })),
+  on(OrdenespagoActions.cargarOrdenesPago, (state, action) => ({
+    ...state, OrdenesPago: state.OrdenesPago = action
   })),
 
 );

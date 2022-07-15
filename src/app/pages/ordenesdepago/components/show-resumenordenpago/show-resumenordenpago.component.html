@@ -1,127 +1,137 @@
 <form [formGroup]="resumen">
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Resumen de Orden
+        {{ 'ORDEN_PAGO.resumen_orden' | translate}}
     </h6>
     <div class="row">
         <div class="col-md-4 form-group">
-            <label for="numeroOrden">No. Orden</label>
-            <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroOrden" disabled placeholder="{{datosBeneficiario.numeroOrden}}">
+            <label for="numeroOrden">{{ 'GLOBAL.consecutivo' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroOrden" disabled placeholder="{{datosBeneficiario.consecutivo}}">
         </div>
         <div class="col-md-4 form-group">
-            <label for="fechaOrden">Fecha</label>
-            <div class="input-group-append">
-                <input *ngIf="!!datosBeneficiario" class="form-control" ngbDatepicker id="fechaOrden" disabled placeholder="{{ datosBeneficiario.fechaOrden | date }}  ">
-                <button class="btn btn-outline-secondary calendar" type="button" disabled><i
-                        class="fas fa-calendar"></i></button>
-            </div>
-        </div>
-        <div class="col-md-4 form-group">
-            <label for="unidadEjecutora">Unidad Ejecutora</label>
-            <input *ngIf="!!datosBeneficiario" class="form-control" id="unidadEjecutora" disabled placeholder="{{datosBeneficiario.unidadEjecutora.label}}">
+            <label for="unidadEjecutora">{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="unidadEjecutora" disabled placeholder="{{datosBeneficiario.areaFuncional.label}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
-        Datos del Beneficiario
+        {{ 'SOLICITUD_GIRO.datos_beneficiario' | translate}}
     </h6>
     <div class="row">
-        <div class="col-md-2 form-group">
-            <label for="tipoId">Tipo de ID</label>
-            <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoId" disabled placeholder="{{datosBeneficiario.tipoId}}">
-        </div>
-        <div class="col-md-4 form-group">
-            <label for="numeroId">No. de ID</label>
+        <div class="col-md-3 form-group">
+            <label for="numeroId">{{ 'GLOBAL.numero_documento' | translate}}</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="numeroId" disabled placeholder="{{datosBeneficiario.numeroId}}">
         </div>
-        <div class="col-md-6 form-group">
-            <label for="nombre">Nombre</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosAlmacenadosBeneficiario.nombre}}">
+        <div class="col-md-9 form-group">
+            <label for="nombre">{{ 'GLOBAL.nombre' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosBeneficiario.nombreBeneficiario}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 form-group">
-            <label for="regimen">Régimen</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosAlmacenadosBeneficiario.regimen}}">
+            <label for="regimen">{{ 'ORDEN_PAGO.regimen' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosBeneficiario.regimenBeneficiario}}">
         </div>
-        <div class="col-md-6 form-group">
-            <label for="direccion">Dirección</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosAlmacenadosBeneficiario.direccion}}">
+        <div class="col-md-9 form-group">
+            <label for="direccion">{{ 'GLOBAL.direccion' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosBeneficiario.direccionBeneficiario}}">
         </div>
-        <div class="col-md-3 form-group">
-            <label for="telefono">Teléfono</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="telefono" disabled placeholder="{{datosAlmacenadosBeneficiario.telefono}}">
-        </div>
+
     </div>
     <div class="row">
-        <div class="col-md-6 form-group">
-            <label for="banco">Banco / Sucursal</label>
+        <div class="col-md-4 form-group">
+            <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="banco" disabled placeholder="{{datosBeneficiario.banco}}">
         </div>
-        <div class="col-md-6 form-group">
-            <label for="cuenta">No. de Cuenta</label>
+        <div class="col-md-4 form-group">
+            <label for="tipoCuenta">{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input *ngIf="!!datosBeneficiario" class="form-control" id="tipoCuenta" disabled placeholder="{{datosBeneficiario.tipoCuenta}}">
+        </div>
+        <div class="col-md-4 form-group">
+            <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
             <input *ngIf="!!datosBeneficiario" class="form-control" id="cuenta" disabled placeholder="{{datosBeneficiario.cuenta}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
-        Datos del Compromiso
+        {{ 'ORDEN_PAGO.datos_compromiso' | translate}}
     </h6>
     <div class="row">
         <div class="col-md-6 form-group">
-            <label for="compromiso">Compromiso a pagar</label>
-            <input *ngIf="!!datosCompromiso" class="form-control" id="compromiso" disabled placeholder="{{datosCompromiso.compromiso}}">
+            <label for="compromiso">{{ 'ORDEN_PAGO.compromiso_pagar' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="compromiso" disabled placeholder="{{datosCompromiso.compromiso.Nombre}}">
         </div>
         <div class="col-md-4 form-group">
-            <label for="numeroCompromiso">No. de Compromiso</label>
+            <label for="numeroCompromiso">{{ 'CRP.numero-compromiso' | translate}}</label>
             <input *ngIf="!!datosCompromiso" class="form-control" id="numeroCompromiso" disabled placeholder="{{datosCompromiso.numeroCompromiso}}">
         </div>
     </div>
-    <div class="row border-top border-primary mx-1 my-3"></div>
+    <div class="row" *ngIf="flagConvenio">
+        <div class="col-md-3 form-group">
+            <label>{{ 'ORDEN_PAGO.tipo_convenio' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="tipoConvenio" disabled placeholder="{{datosCompromiso.tipoConvenio ? datosCompromiso.tipoConvenio.tipo_convenio : ''}}">
+        </div>
+        <div class="col-md-9 form-group">
+            <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="convenio" disabled placeholder="{{datosCompromiso.conv.data ? datosCompromiso.conv.data.Nombre : datosCompromiso.convenio}}">
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4 form-group">
-            <label for="noActa">No. Acta de Recibido</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroActa}}">
+            <label for="noActa">{{ 'ORDEN_PAGO.numero_acta_recibido' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosCompromiso.actaRecibido}}">
         </div>
         <div class="col-md-4 form-group">
-            <label for="noEntradaAlmacen">No. Entrada al Almacen</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroEntradaAlmacen}}">
+            <label for="noEntradaAlmacen">{{ 'ORDEN_PAGO.numero_entrada_almacen' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosCompromiso.entradaAlmacen}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="nombreInterventor">Nombre del Interventor</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="nombreInterventor" disabled placeholder="{{datosAlmacenadosCompromiso.nombreInterventor}}">
+            <label for="nombreSupervisor">{{ 'GLOBAL.supervisor' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="nombreSupervisor" disabled placeholder="{{datosCompromiso.supervisor}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="detalle">Detalle</label>
-            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" disabled placeholder="{{datosAlmacenadosCompromiso.detalle}}"></textarea>
+            <label for="detalle">{{ 'GLOBAL.detalle' | translate}}</label>
+            <textarea *ngIf="!!datosCompromiso" class="form-control" id="detalle" disabled placeholder="{{datosCompromiso.detalle}}"></textarea>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 form-group">
-            <label for="vigencia">Vigencia</label>
-            <input *ngIf="!!datosCompromiso" class="form-control" id="vigencia" disabled placeholder="{{datosCompromiso.vigencia.valor}}">
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="tipoOrden">Tipo de Orden de Pago</label>
-            <input *ngIf="!!datosCompromiso" class="form-control" id="tipoOrden" disabled value="{{vigenciaSeleccionada | tipoOrdenVigencia: vigenciaActual }}">
+            <label for="tipoOrden">{{ 'ORDEN_PAGO.tipo_orden_pago' | translate}}</label>
+            <input *ngIf="!!datosCompromiso" class="form-control" id="tipoOrden" disabled value="{{datosCompromiso.tipoOrdenPago.Descripcion}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
-        Imputación Presupuestal
+        {{ 'ORDEN_PAGO.imputacion_presupuestal' | translate}}
     </h6>
     <div id="tablaImputacion" class="container py-2 px-0">
         <ngx-general-table [config]="configTableImpuntuacion" [datos]="datosTableImputacion"></ngx-general-table>
     </div>
     <div class="row form-group justify-content-md-center">
-        <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Valor Total</label>
+        <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">{{ 'ORDEN_PAGO.valor_total' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
         </div>
     </div>
     <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
-        Movimiento Contable
+        {{ 'ORDEN_PAGO.impuestos_retenciones' | translate}}
+    </h6>
+    <div class="col-md-6 justify-content-end">
+        <input class="form-control" id="conceptoContable" disabled [value]="impYRet ? impYRet.Nombre : ''">
+    </div>
+    <div id="tablaImpuestosYRetenciones" class="container py-2 px-0">
+        <ngx-general-table [config]="configTableImpuestosRetenciones" [datos]="datosTableImpuestosRetenciones"></ngx-general-table>
+    </div>
+    <div class="row form-group justify-content-md-center">
+        <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">{{ 'ORDEN_PAGO.valor_total_descuentos' | translate}}</label>
+        </div>
+        <div class="col-md-4">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        {{ 'ORDEN_PAGO.movimiento_contable' | translate}}
     </h6>
     <div class="container py-2 px-0">
         <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable">
@@ -130,32 +140,88 @@
     <div class="row form-group">
         <div class="col-md-4"></div>
         <div class="col-md-3 d-flex align-items-center">
-            <label for="valorTotal" class="m-0 ml-auto">Valor Total Descuentos</label>
+            <label for="valorTotal" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_total_descuentos' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalDescuento()|currency}}">
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="codigoContable">Código Contable</label>
-                <input type="text" class="form-control" id="codigoContable" disabled>
+                <label for="codigoContable">{{ 'ORDEN_PAGO.codigo_contable' | translate}}</label>
+                <input type="text" class="form-control" id="codigoContable" [value]="movimientoContable ? movimientoContable.cuentaCredito.cuenta.Codigo : ''" disabled>
             </div>
         </div>
         <div class="col-md-3 d-flex align-items-center">
-            <label for="valorNeto" class="m-0 ml-auto">Valor Neto a Girar</label>
+            <label for="valorNeto" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_neto_girar' | translate}}</label>
         </div>
         <div class="col-md-4 d-flex align-items-center">
-            <input class="form-control" id="valorNeto" disabled value="{{totalNeto()|currency}}">
+            <input currencyMask class="form-control" id="valorNeto" disabled value="{{totalNeto()|currency}}">
+        </div>
+    </div>
+    <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+        {{ 'ORDEN_PAGO.endoso' | translate}}
+    </h6>
+    <div class="row form-group justify-content-between" *ngIf="endoso">
+        <div class="col-md-4">
+            <label for="identificacionEndoso">{{ 'MODIF.numero_documento' | translate}}</label>
+            <input type="number" class="form-control" id="identificacionEndoso" value="{{movimientoContable.identificacionEndoso}}" readonly>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.digito_verificacion' | translate}}</label>
+            <input class="form-control" id="digitoVerificacion" readonly>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-12">
+            <label>{{ 'ORDEN_PAGO.beneficiario_endoso' | translate}}</label>
+            <input class="form-control" id="beneficiarioEndoso" value="{{movimientoContable.beneficiarioEndoso}}" disabled>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.banco' | translate}}</label>
+            <input class="form-control" id="bancoEndoso" value="{{movimientoContable.bancoEndoso}}" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input class="form-control" id="tipoCuentaEndoso" value="{{movimientoContable.tipoCuentaEndoso}}" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.numero_cuenta' | translate}}</label>
+            <input class="form-control" id="numeroCuentaEndoso" value="{{movimientoContable.numeroCuentaEndoso}}" disabled>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.valor_endoso' | translate}}</label>
+            <input currencyMask class="form-control" id="valorEndoso" value="{{movimientoContable.valorEndoso|currency}}" disabled>
+        </div>
+
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+            <input class="form-control" id="cuentaContableEndoso" value="{{movimientoContable.cuentaContableEndoso.Codigo}} - {{movimientoContable.cuentaContableEndoso.Nombre}}" disabled>
         </div>
     </div>
 
-    <div class="row justify-content-end">
-        <div class="col-md-3">
-            <button class="btn btn-success w-100" type="button" data-toggle="modal" data-target="#guardarModal">
-                Guardar
-            </button>
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-danger text-white m-0 mt-4" (click)="guardar('rechazar')">{{ 'GLOBAL.rechazar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-success text-white m-0 mt-4" (click)="guardar('aprobar')">{{ 'GLOBAL.aprobar' | translate}}</button>
+            </div>
+            <div class="col-md-6 form-group" *ngIf="tituloAccion === 'editar' || tituloAccion === 'crear'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" (click)="guardar()">{{ 'GLOBAL.guardar' | translate}}</button>
+            </div>
+            <div class="col-md-6" *ngIf="tituloAccion === 'ver'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" [routerLink]="['/pages/solicitudesgiros/lista']" routerLinkActive="router-link-active">{{ 'GLOBAL.terminar' | translate}}</button>
+            </div>
         </div>
     </div>
     <!-- Modal -->
@@ -164,18 +230,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Guardar</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ 'GLOBAL.guardar' | translate}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    ¿Desea Guardar los cambios?
+                    {{ 'GLOBAL.desea_guardar_cambios' | translate}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white" data-dismiss="modal">
-                        Guardar
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'GLOBAL.cancelar' | translate}}</button>
+                    <a role="button" class="btn btn-primary text-white" data-dismiss="modal" (click)="guardar('')">
+                        {{ 'GLOBAL.guardar' | translate}}
                     </a>
                 </div>
             </div>

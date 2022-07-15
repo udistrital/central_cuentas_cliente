@@ -6,6 +6,7 @@ import { ShowResumensolicitudgiroComponent } from '../show-resumensolicitudgiro/
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { getTiposID } from '../../../../shared/actions/shared.actions';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-stepper-solicitudgiro',
@@ -19,9 +20,10 @@ export class StepperSolicitudgiroComponent {
   @ViewChild(SetAutorizaciongiroComponent, {static: false}) SetAutorizaciongiroComponent: SetAutorizaciongiroComponent;
   @ViewChild(ShowResumensolicitudgiroComponent, {static: false}) ShowResumensolicitudgiroComponent: ShowResumensolicitudgiroComponent;
 
-  constructor( private fb: FormBuilder, private store: Store<any> ) {
+  constructor( private fb: FormBuilder,
+    private store: Store<any>,
+    private activatedRoute: ActivatedRoute ) {
     this.store.dispatch(getTiposID());
-
   }
 
   get infoSolicitudGroup() {

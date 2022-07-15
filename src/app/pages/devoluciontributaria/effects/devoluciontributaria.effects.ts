@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { concatMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { catchError, concatMap, map, mergeMap } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
 
 import * as DevoluciontributariaActions from '../actions/devoluciontributaria.actions';
+import { DevolucionTributariaService } from '../services/devoluciontributaria.service';
+import { PopUpManager } from '../../../@core/managers/popUpManager';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -20,7 +24,59 @@ export class DevoluciontributariaEffects {
     );
   });
 
+  crearDevolucionTributaria$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DevoluciontributariaActions.crearDevolucionTributaria),
+      mergeMap((accion) => this.servicio
+      .crearDevolucionTributaria(accion.element)
+      .pipe(map(data => {
+        this.popupManager
+        .showSuccessAlert(this.translate.instant('DEVOL_TRIBUTARIA.guardado_exitoso',
+        {CONSECUTIVO: accion.element.Consecutivo}))
+        .then((result) => {
+          this.router.navigateByUrl('pages/devoluciontributaria/lista');
+        });
+        return DevoluciontributariaActions.cargarDevolucionTributaria({OrdenPago: data});
+      }), catchError(data => of(DevoluciontributariaActions.CatchError(data)))))
+    );
+  });
 
-  constructor(private actions$: Actions) { }
+  actualizarDevolucionTributaria$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DevoluciontributariaActions.actualizarDevolucionTributaria),
+      mergeMap((accion) => this.servicio
+      .actualizarDevolucionTributaria(accion.id, accion.element)
+      .pipe(map(data => {
+        this.popupManager
+        .showSuccessAlert(this.translate.instant('DEVOL_TRIBUTARIA.actualizacion_exitosa',
+        {CONSECUTIVO: accion.element.Consecutivo}))
+        .then((result) => {
+          if (accion.path === 'lista') window.location.reload();
+          else this.router.navigateByUrl('pages/devoluciontributaria/lista');
+        });
+        return DevoluciontributariaActions.cargarDevolucionTributaria({OrdenPago: data});
+      }), catchError(data => of(DevoluciontributariaActions.CatchError(data)))))
+    );
+  });
+
+  getDevolucionesTributarias$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DevoluciontributariaActions.getDevolucionesTributarias),
+      mergeMap((accion) => {
+        return this.servicio.getDevolucionesTributarias(accion.sortby, accion.order)
+        .pipe(map(data => DevoluciontributariaActions.cargarDevolucionTributaria({DevolucionTributaria: data})),
+            catchError(data => of(DevoluciontributariaActions.CatchError(data))));
+      })
+    );
+  });
+
+
+  constructor(
+    private actions$: Actions,
+    private servicio: DevolucionTributariaService,
+    private popupManager: PopUpManager,
+    private translate: TranslateService,
+    private router: Router
+    ) { }
 
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                Resumen de la Solicitud
+                {{ 'SOLICITUD_GIRO.resumen_solicitud' | translate}}
             </h6>
         </div>
     </div>
@@ -11,28 +11,24 @@
         <div class="row">
             <div class="col">
                 <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
-                    Información de la Solicitud
+                    {{ 'SOLICITUD_GIRO.info_solicitud' | translate}}
                 </h6>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-4">
-                <label>No. Solicitud</label>
+                <label>{{ 'SOLICITUD_GIRO.numero_solicitud' | translate}}</label>
                 <input type="text" class="form-control" value="{{ infoSolicitudgiro?.numeroSolicitud }}" readonly>
             </div>
             <div class="col-md-4">
-                <label>Área Funcional</label>
-                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.areaFuncional }}" readonly>
-            </div>
-            <div class="col-md-4">
-                <label>Fecha</label>
-                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.fechaSolicitud | date:'dd/MM/yyyy'}}" readonly>
+                <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.areaFuncional.label }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-12">
-                <label>Concepto</label>
-                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.concepto }}" readonly>
+                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
+                <input type="text" class="form-control" value="{{ infoSolicitudgiro?.concepto.Nombre }}" readonly>
             </div>
         </div>
     </div>
@@ -42,27 +38,27 @@
         <div class="row">
             <div class="col">
                 <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
-                    Solicitante
+                    {{ 'GLOBAL.solicitante' | translate}}
                 </h6>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-12">
-                <label>Nombre Completo</label>
+                <label>{{ 'GLOBAL.nombre_completo' | translate}}</label>
                 <input type="text" class="form-control" value="{{ datosSolicitante?.TerceroId?.NombreCompleto }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-4">
-                <label>Tipo de ID</label>
+                <label>{{ 'MODIF.tipo_documento' | translate}}</label>
                 <input type="text" class="form-control" value="{{ infoSolicitudgiro?.tipoId.CodigoAbreviacion }}" readonly>
             </div>
             <div class="col-md-4">
-                <label>Número de ID</label>
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
                 <input type="text" class="form-control" value="{{ infoSolicitudgiro?.numeroId }}" readonly>
             </div>
             <div class="col-md-4">
-                <label>Cargo</label>
+                <label>{{ 'GLOBAL.cargo' | translate}}</label>
                 <input type="text" class="form-control" value="{{ infoSolicitudgiro?.cargo }}" readonly>
             </div>
         </div>
@@ -74,7 +70,7 @@
             <div class="col-md-12">
                 <button #btnDocumentos class="card-title col-md-12 btn btn-primary-700 text-dark" type="button" data-toggle="collapse" data-target="#collapseDocumentos" aria-expanded="false" aria-controls="collapseDocumentos" (click)="mostrarOcultarDocumentos(btnDocumentos.getAttribute('aria-expanded'))">
                     <i class="fas {{mostrarOcultarIcono}} text-ligth pr-3"></i>
-                    <span>Lista de Documentos</span>
+                    <span>{{ 'SOLICITUD_GIRO.lista_documentos' | translate}}</span>
                 </button>
             </div>
         </div>
@@ -98,23 +94,23 @@
         <div class="row">
             <div class="col">
                 <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
-                    Datos del Beneficiario
+                    {{ 'SOLICITUD_GIRO.datos_beneficiario' | translate}}
                 </h6>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-6">
-                <label>Tipo de ID</label>
+                <label>{{ 'MODIF.tipo_documento' | translate}}</label>
                 <input type="text" class="form-control" value="{{ autorizacionGiro?.tipoId.CodigoAbreviacion }}" readonly>
             </div>
             <div class="col-md-6">
-                <label>Número de ID</label>
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
                 <input type="text" class="form-control" value="{{ autorizacionGiro?.numeroId }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-12">
-                <label>Nombre Completo</label>
+                <label>{{ 'GLOBAL.nombre_completo' | translate}}</label>
                 <input type="text" class="form-control" value="{{ datosBeneficiario?.TerceroId?.NombreCompleto }}" readonly>
             </div>
         </div>
@@ -125,28 +121,28 @@
         <div class="row">
             <div class="col">
                 <h6 class="card-title col-md-12 bg-dark text-white text-center py-2 px-2 rounded">
-                    Información Presupuestal
+                    {{ 'GLOBAL.info_presupuestal' | translate}}
                 </h6>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-6">
-                <label>Código del Rubro</label>
+                <label>{{ 'GLOBAL.codigo_rubro' | translate}}</label>
                 <input type="text" class="form-control" value="{{ autorizacionGiro?.rubroSeleccionado.data.Codigo }}" readonly>
             </div>
             <div class="col-md-6">
-                <label>Nombre del Rubro</label>
+                <label>{{ 'GLOBAL.nombre_rubro' | translate}}</label>
                 <input type="text" class="form-control" value="{{ autorizacionGiro?.rubroSeleccionado.data.Nombre }}" readonly>
             </div>
         </div>
         <div class="row pt-2">
             <div class="col-md-8">
-                <label>Valor en Letras</label>
+                <label>{{ 'GLOBAL.valor_letras' | translate}}</label>
                 <input type="text" class="form-control" value="{{ autorizacionGiro?.valorLetras }}" readonly>
             </div>
             <div class="col-md-4">
-                <label>Valor en Número</label>
-                <input class="form-control" value="${{ autorizacionGiro?.valorNumero }}" readonly>
+                <label>{{ 'GLOBAL.valor_numeros' | translate}}</label>
+                <input currencyMask min="0.0" class="form-control" formControlName="valorNumeros" readonly>
             </div>
         </div>
     </div>
@@ -155,40 +151,42 @@
     <!-- Botones: Regresar, Siguiente -->
     <div class="container">
         <div class="row pt-2 text-center">
-            <div class="col-md-6">
-                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">Regresar</button>
+            <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
             </div>
-            <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" data-target="#exampleModal2">
-                    GUARDAR</button>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-danger text-white m-0 mt-4" data-toggle="modal" data-target="#rechazarSolicitud">{{ 'GLOBAL.rechazar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-success text-white m-0 mt-4" (click)="guardar('aprobar')">{{ 'GLOBAL.aprobar' | translate}}</button>
+            </div>
+            <div class="col-md-6 form-group" *ngIf="tituloAccion === 'editar' || tituloAccion === 'crear'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" (click)="guardar()">{{ 'GLOBAL.guardar' | translate}}</button>
+            </div>
+            <div class="col-md-6" *ngIf="tituloAccion === 'ver'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" [routerLink]="['/pages/solicitudesgiros/lista']" routerLinkActive="router-link-active">{{ 'GLOBAL.terminar' | translate}}</button>
             </div>
         </div>
     </div>
     <!-- Fin Botones: Regresar, Siguiente -->
 </form>
 
-
-<!-- Modal: Solicitud Guardada -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModal2Label"><i class="fas fa-check text-success"></i>¡Guardado!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="text-center">Se ha guardado la Solicitud de Autorización de Giro No. 001.</p>
-                <p class="text-center">Estado: Elaborado</p>
-            </div>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" >Close</button> -->
-                <a routerLink="../../solicitudesgiros/lista" role="button" class="btn btn-primary" data-dismiss="modal">
-                    Aceptar
-                </a>
+<!-- Modal: Rechazar Solicitud -->
+<form [formGroup]="motivoRechazoGroup" (ngSubmit)="saveForm()">
+    <div class="modal fade" id="rechazarSolicitud" tabindex="-1" role="dialog" aria-labelledby="rechazarSolicitudLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content form-group">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rechazarSolicitudLabel">{{ 'GLOBAL.motivo_rechazo' | translate}}</h5>
+                </div>
+                <div class="modal-body">
+                    <textarea [class.is-invalid]="isInvalid('motivoRechazo')" formControlName="motivoRechazo" class="form-control" id="motivoRechazo" matInput cols="60" rows="5" placeholder="Escribe el motivo del rechazo..." [(ngModel)]="motivoRechazo"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button mat-button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                    <button *ngIf="motivoRechazo" mat-button type="submit" class="btn btn-primary text-white" data-dismiss="modal" (click)="guardar('rechazar')">{{ 'GLOBAL.continuar' | translate}}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Fin Modal: Solicitud Guardada -->
+</form>

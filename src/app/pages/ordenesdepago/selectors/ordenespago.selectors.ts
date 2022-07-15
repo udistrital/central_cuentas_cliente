@@ -38,7 +38,43 @@ export const getDatosImputacionPresupuestal = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.DatosImputacionPresupuestal
 );
+
+export const getDatosImpuestosYRetenciones = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.DatosImpuestosYRetenciones
+);
+
+export const getImpYRet = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.ImpYRet
+);
+
 export const getDatosMovimientoContable = createSelector(
   selectOrdenespagoState,
   (state: fromOrdenespago.State) => state.DatosMovimientoContable
+);
+
+export const getMovimientoContable = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.MovimientoContable
+);
+
+export const getInfoDatosBeneficiario = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.InfoDatosBeneficiario
+);
+
+export const getRP = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.RP
+);
+
+export const selectOrdenPago = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.OrdenPago
+);
+
+export const selectOrdenesPago = createSelector(
+  selectOrdenespagoState,
+  (state: fromOrdenespago.State) => state.OrdenesPago
 );

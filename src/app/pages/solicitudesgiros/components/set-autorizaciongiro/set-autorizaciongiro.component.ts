@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getNodoSeleccionado, selectTiposID, selectDatosID } from '../../../../shared/selectors/shared.selectors';
+import { getNodoSeleccionado, selectTiposID, selectDatosID, selectSolicitudesGiro, getRubro } from '../../../../shared/selectors/shared.selectors';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { getDatosID } from '../../../../shared/actions/shared.actions';
+import { getDatosID, obtenerRubro } from '../../../../shared/actions/shared.actions';
 import { combineLatest } from 'rxjs';
 import { loadAutorizaciongiro } from '../../actions/solicitudesgiros.actions';
+import { ActivatedRoute } from '@angular/router';
+import { ACCIONES_DISABLED, ACCIONES_EDI } from '../../interfaces/interfaces';
 
 
 @Component({
@@ -25,14 +27,25 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
   subscriptionCambios$: any;
   tiposID: any;
   datosID: any;
+  tituloAccion: string;
+  subSolicitudesGiro$: any;
+  solicitudesGiro: any;
+  subRubroVer$: any;
+  rubroSeleccionado: any;
+  ver: boolean;
+  flag: boolean;
 
-  constructor(private fb: FormBuilder, private store: Store<any>) {
+  constructor(private fb: FormBuilder,
+    private store: Store<any>,
+    private activatedRoute: ActivatedRoute) {
     this.createForm();
     this.tiposID = [];
+    this.tituloAccion = this.activatedRoute.snapshot.url[0].path;
+    this.ver = ACCIONES_DISABLED.some(accion => accion === this.tituloAccion);
   }
 
   ngOnInit() {
-
+    this.flag = true;
     // Seleccionar Rubro
     this.subscription$ = this.store.select(getNodoSeleccionado).subscribe((nodo: any) => {
       if (nodo) {
@@ -49,19 +62,39 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Cargar datos Tipo ID y Numero ID
-    this.subscriptionTipoId$ = this.store.select(selectTiposID).subscribe((action) => {
-      if (action && action[0]) {
-        this.tiposID = action[0];
-      }
-    });
-
     this.subscriptionDatosId$ = this.store.select(selectDatosID, 'beneficiario').subscribe((action) => {
       if (action && action.datosId && action.datosId[0]) {
         this.datosID = action.datosId[0];
       }
     });
 
+    this.subscriptionCambios$ = this.autorizacionGroup.valueChanges.subscribe((valor) => {
+      if (this.autorizacionGroup.valid)
+        this.store.dispatch(loadAutorizaciongiro({ autorizaciongiro: valor }));
+    });
+
+    if (ACCIONES_EDI.some(accion => accion === this.tituloAccion)) {
+      this.subSolicitudesGiro$ = this.store.select(selectSolicitudesGiro).subscribe((accion) => {
+        if (accion && accion.SolicitudesById) {
+          this.solicitudesGiro = accion.SolicitudesById;
+          this.tiposId();
+        }
+      });
+    } else {
+      this.tiposId();
+    }
+    this.getDatosID();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionTipoId$.unsubscribe();
+    this.subscriptionDatosId$.unsubscribe();
+    this.subscriptionfilter$.unsubscribe();
+    this.subscriptionCambios$.unsubscribe();
+    this.rubroSeleccionado = null;
+  }
+
+  getDatosID() {
     this.subscriptionfilter$ = combineLatest([
       this.autorizacionGroup.get('numeroId').valueChanges,
       this.autorizacionGroup.get('tipoId').valueChanges,
@@ -70,18 +103,42 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
         this.store.dispatch(getDatosID({ clave: 'beneficiario', numero: numeroId, tipo: tipoId.Id }));
       }
     });
-
-    this.subscriptionCambios$ = this.autorizacionGroup.valueChanges.subscribe((valor) => {
-      if (this.autorizacionGroup.valid)
-        this.store.dispatch(loadAutorizaciongiro({ autorizaciongiro: valor }));
-    });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptionTipoId$.unsubscribe();
-    this.subscriptionDatosId$.unsubscribe();
-    this.subscriptionfilter$.unsubscribe();
-    this.subscriptionCambios$.unsubscribe();
+  tiposId() {
+    if (this.flag) {
+      this.subscriptionTipoId$ = this.store.select(selectTiposID).subscribe((action) => {
+        if (action && action[0]) {
+          this.tiposID = action[0];
+          if (ACCIONES_EDI.some(accion => accion === this.tituloAccion)) this.subRubro();
+        }
+      });
+    }
+  }
+
+  subRubro() {
+    if (this.flag) {
+      this.store.dispatch(obtenerRubro({codRubro: this.solicitudesGiro.Rubro}));
+        this.subRubroVer$ = this.store.select(getRubro).subscribe((accion) => {
+          if (accion && accion.Rubro) {
+            this.rubroSeleccionado = accion.Rubro[0];
+            this.setAutorizacionGiro();
+          }
+        });
+    }
+  }
+  setAutorizacionGiro() {
+    if (this.flag) {
+      this.flag = false;
+      this.autorizacionGroup.patchValue({
+        tipoId: this.tiposID[this.tiposID.findIndex((e: any) => e.Id === this.solicitudesGiro.Tipo_Doc_Beneficiario)],
+        numeroId: this.solicitudesGiro.Documento_Beneficiario,
+        nombreBeneficiario: this.solicitudesGiro.Nombre_Beneficiario,
+        valorLetras: this.solicitudesGiro.Valor_Letras,
+        valorNumero: this.solicitudesGiro.Valor_Numeros,
+        rubroSeleccionado: this.rubroSeleccionado
+      });
+    }
   }
 
   // Validacion del Formulario
@@ -123,5 +180,13 @@ export class SetAutorizaciongiroComponent implements OnInit, OnDestroy {
         control.markAsTouched();
       });
     }
+  }
+
+  isInvalid(nombre: string) {
+    const input = this.autorizacionGroup.get(nombre);
+    if (input)
+      return input.invalid && (input.touched || input.dirty);
+    else
+      return true;
   }
 }

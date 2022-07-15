@@ -12,7 +12,19 @@ const routes: Routes = [
   {
     path: 'crear',
     component: StepperDevoluciontributariaComponent,
-  }
+  },
+  {
+    path: 'editar/:id',
+    component: StepperDevoluciontributariaComponent,
+  },
+  {
+    path: 'ver/:id',
+    component: StepperDevoluciontributariaComponent,
+  },
+  {
+    path: 'revisar/:Id',
+    component: StepperDevoluciontributariaComponent,
+  },
 ];
 
 @NgModule({

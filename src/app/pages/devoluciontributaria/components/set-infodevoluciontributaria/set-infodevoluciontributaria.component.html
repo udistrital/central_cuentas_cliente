@@ -4,56 +4,31 @@
         <div class="row pt-2">
             <div class="col-md-12">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Información de la Solicitud
+                    {{ 'SOLICITUD_GIRO.info_solicitud' | translate}}
                 </h6>
             </div>
         </div>
-        <!-- Campo: Area funcinal, fecha -->
+        <!-- Campo: Area funcinal, numero requerimiento -->
         <div class="form-group row">
-            <div class="col-md-5">
-                <label>Área Funcional</label>
-                <select class="custom-select" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
-                </select>
-                <small *ngIf="areaFuncionalInvalid" class="text-danger">Complete este campo</small>
+            <div class="col-md-6">
+                <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
+                <mat-select [disabled]="!editable" class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid">
+                    <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                        <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                            {{opcion.label}}
+                        </mat-option>
+                    </cdk-virtual-scroll-viewport>
+                </mat-select>
+                <small *ngIf="areaFuncionalInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-5">
-                <label>Fecha de Solicitud</label>
+            <div class="col-md-6">
+                <label>{{ 'DEVOL_TRIBUTARIA.numero_requerimiento' | translate}}</label>
                 <div class="input-group">
-                    <input name="fechaSolicitud" class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" ngbDatepicker #d2="ngbDatepicker">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
-                            <i class="fas fa-calendar"></i>
-                        </button>
-                    </div>
+                    <input [readonly]="!editable" type="number" name="requerimiento" class="form-control" formControlName="requerimiento" [class.is-invalid]="numeroRequerimiento">
                 </div>
-                <small *ngIf="fechaSolicitudInvalid" class="text-danger">Seleccione la fecha</small>
+                <small *ngIf="numeroRequerimiento" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
             </div>
         </div>
-        <!-- Fin Campo: Area funcinal, fecha -->
-        <!-- Campo: Numero de comprobante, tipo -->
-        <div class="form-group row">
-            <div class="col-md-5">
-                <label>No. de Comprobante</label>
-                <input type="text" class="form-control" formControlName="numeroComprobante" readonly>
-            </div>
-            <div class="col-md-7">
-                <label>Tipo de Comprobante</label>
-                <select class="custom-select" formControlName="tipoComprobante" [class.is-invalid]="tipoComprobanteInvalid">
-                    <option selected disabled value="">Seleccione...</option>
-                    <option>...</option>
-                    <option>...</option>
-                    <option>...</option>
-                </select>
-                <small *ngIf="tipoComprobanteInvalid" class="text-danger">Complete este campo</small>
-            </div>
-        </div>
-        <!-- Fin Campo: Numero de comprobante, tipo -->
     </div>
     <!-- Fin Grupo: Información de la Solicitud -->
     <mat-divider class="col-md-12 py-3 border-warning"></mat-divider>
@@ -62,77 +37,54 @@
         <div class="row">
             <div class="col-md-12 py-2">
                 <h6 class="card-title col-md-4 bg-primary text-white text-center py-2 px-2 rounded">
-                    Detalle de la Solicitud
+                    {{ 'DEVOL_TRIBUTARIA.detalle_solicitud' | translate}}
                 </h6>
             </div>
         </div>
-        <!-- Campo: numero requerimiento, fecha -->
-        <div class="form-group row">
+        <!-- Campo: Tipo id, numero id, nombre -->
+        <div class="form-group row justify-content-between">
             <div class="col-md-4">
-                <label>Número de Requerimiento</label>
-                <input type="text" class="form-control" formControlName="requerimiento" [class.is-invalid]="requerimientoInvalid">
-                <small *ngIf="requerimientoInvalid" class="text-danger">Ingrese números en este campo</small>
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
+                <input [readonly]="!editable" type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
+                <small *ngIf="numeroIdInvalid" class="text-danger">{{ 'GLOBAL.ingrese_numeros' | translate}}</small>
             </div>
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-5">
-                <label>Fecha de Requerimiento</label>
+            <div class="col-md-4">
+                <label>{{ 'CDP.fecha_solicitud' | translate}}</label>
                 <div class="input-group">
-                    <input name="fecha" class="form-control" formControlName="fecha" [class.is-invalid]="fechaInvalid" ngbDatepicker #d1="ngbDatepicker">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                    </div>
+                    <input [readonly]="!editable" class="form-control" formControlName="fechaSolicitud" [class.is-invalid]="fechaSolicitudInvalid" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle [disabled]="!editable" matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [disabled]="!editable" #picker></mat-datepicker>
                 </div>
-                <small *ngIf="fechaInvalid" class="text-danger">Seleccione la fecha</small>
+                <small *ngIf="fechaSolicitudInvalid" class="text-danger">{{ 'GLOBAL.seleccione_fecha' | translate}}</small>
             </div>
         </div>
-        <!-- Fin Campo: numero requerimiento, fecha -->
-        <!-- Campo: Tipo id, numero id, nombre -->
         <div class="form-group row">
-            <div class="col-md-2">
-                <label>Tipo de ID</label>
-                <select class="custom-select" formControlName="tipoId" [class.is-invalid]="tipoIdInvalid">
-                    <option>CC</option>
-                    <option>NIT</option>
-                    <option>CE</option>
-                </select>
-                <small *ngIf="tipoIdInvalid" class="text-danger">Seleccione</small>
-            </div>
-            <div class="col-md-3">
-                <label>Número de ID</label>
-                <input type="text" class="form-control" formControlName="numeroId" [class.is-invalid]="numeroIdInvalid">
-                <small *ngIf="numeroIdInvalid" class="text-danger">Ingrese números en este campo</small>
-            </div>
-            <div class="col-md-7">
-                <label>Nombre</label>
-                <input *ngIf="!!datoAlmacenadoDevolucion" type="text" class="form-control" readonly placeholder="{{datoAlmacenadoDevolucion.nombre}}">
+            <div class="col-md-12">
+                <label>{{ 'GLOBAL.nombre' | translate}}</label>
+                <input type="text" class="form-control" formControlName="nombreBeneficiario" [class.is-invalid]="nombreBeneficiarioInvalid" readonly>
             </div>
         </div>
         <!-- Fin Campo: Tipo id, numero id, nombre -->
         <!-- Campo: Concepto -->
-        <div class="form-group row">
-            <div class="col">
-                <label>Concepto</label>
-                <ng-container *ngIf="conceptosContables">
-                    <mat-select class="form-control" placeholder="Seleccione concepto contable..."
-                        formControlName="concepto">
-                        <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" class="vs-viewport">
-                            <mat-option *cdkVirtualFor="let concepto of conceptosContables" class="vs-item"
-                                [value]="concepto">
-                                {{concepto.Nombre}}</mat-option>
-                        </cdk-virtual-scroll-viewport>
-                    </mat-select>
-                </ng-container>
-                <small *ngIf="conceptoInvalid" class="text-danger">Complete este campo</small>
+        <div class="form-group col-md-12">
+            <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button [disabled]="!editable" type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="conceptoInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
             </div>
+            <small *ngIf="conceptoInvalid" class="text-danger">{{ 'GLOBAL.complete_campo' | translate}}</small>
         </div>
         <!-- Fin Campo: Concepto -->
         <!-- Campo: Razón de la Devolución -->
         <div class="form-group row">
             <div class="col">
-                <label>Razón de la Devolución</label>
-                <textarea class="form-control" formControlName="razonDevolucion" rows="1" [class.is-invalid]="razonDevolucionInvalid"></textarea>
-                <small *ngIf="razonDevolucionInvalid" class="text-danger">Describa la razón de la devolución</small>
+                <label>{{ 'DEVOL_TRIBUTARIA.razon_devolucion' | translate}}</label>
+                <textarea [readonly]="!editable" class="form-control" formControlName="razonDevolucion" rows="2" [class.is-invalid]="razonDevolucionInvalid"></textarea>
+                <small *ngIf="razonDevolucionInvalid" class="text-danger">{{ 'DEVOL_TRIBUTARIA.d_razon_devolucion' | translate}}</small>
             </div>
         </div>
         <!-- Fin Campo: Razón de la Devolución -->
@@ -142,12 +94,35 @@
     <div class="row pt-2 text-center d-flex flex-row justify-content-around align-middle">
         <div class="form-group col-md-6">
             <a routerLink='/pages/devoluciontributaria/lista'>
-                <button type="submit" class="btn btn-primary text-white m-0 mt-4">Volver a registros</button>
+                <button type="submit" class="btn btn-primary text-white m-0 mt-4">{{ 'SOLICITUD_GIRO.volver_registros' | translate}}</button>
             </a>
         </div>
         <div class="form-group col-md-6">
-            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">Siguiente</button>
+            <button mat-button matStepperNext type="submit" class="btn btn-success m-0 mt-4">{{ 'GLOBAL.siguiente' | translate}}</button>
         </div>
     </div>
     <!-- Fin Botones:  -->
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="conceptosModal" tabindex="-1" role="dialog" aria-labelledby="conceptosModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conceptosModalLabel">{{ 'ORDEN_PAGO.elige_concepto' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-conceptos></ngx-conceptos>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->

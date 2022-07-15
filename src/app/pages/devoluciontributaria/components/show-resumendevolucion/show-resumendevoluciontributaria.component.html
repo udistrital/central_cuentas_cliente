@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="container pb-3">
+        <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+            {{ 'SOLICITUD_GIRO.info_solicitud' | translate}}
+        </h6>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
+                <input *ngIf="!!infoDevolucionTributaria" class="form-control" id="areaFuncional" disabled placeholder="{{infoDevolucionTributaria.areaFuncional.label}}">
+            </div>
+            <div class="col-md-6 form-group">
+                <label>{{ 'DEVOL_TRIBUTARIA.numero_requerimiento' | translate}}</label>
+                <input *ngIf="!!infoDevolucionTributaria" class="form-control" id="numeroRequerimiento" disabled placeholder="{{infoDevolucionTributaria.requerimiento}}">
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col-md-4 form-group">
+                <label>{{ 'MODIF.numero_documento' | translate}}</label>
+                <input *ngIf="!!infoDevolucionTributaria" class="form-control" id="numeroDocumento" disabled placeholder="{{infoDevolucionTributaria.numeroId}}">
+            </div>
+            <div class="col-md-4 form-group">
+                <label>{{ 'CDP.fecha_solicitud' | translate}}</label>
+                <input *ngIf="!!infoDevolucionTributaria" type="date" class="form-control" id="fechaSolicitud" value="{{infoDevolucionTributaria.fechaSolicitud | date:'yyyy-MM-dd'}}" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label>{{ 'GLOBAL.nombre' | translate}}</label>
+                <input *ngIf="!!infoDevolucionTributaria" class="form-control" id="nombreBeneficiario" disabled placeholder="{{infoDevolucionTributaria.nombreBeneficiario}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label>{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
+                <input *ngIf="!!infoDevolucionTributaria" class="form-control" id="concepto" disabled value="{{infoDevolucionTributaria.conceptoContable ? infoDevolucionTributaria.conceptoContable.Codigo : ''}} - {{infoDevolucionTributaria.conceptoContable ? infoDevolucionTributaria.conceptoContable.Nombre : ''}}" >
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label>{{ 'DEVOL_TRIBUTARIA.razon_devolucion' | translate}}</label>
+                <textarea *ngIf="!!infoDevolucionTributaria" rows="2" class="form-control" id="razonDevolucion" disabled value="{{infoDevolucionTributaria ? infoDevolucionTributaria.razonDevolucion : ''}}" ></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="container pb-3">
+        <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+            {{ 'DEVOL_TRIBUTARIA.consulta_op' | translate}}
+        </h6>
+        <div id="consultaOrdenPago" class="container py-2 px-0">
+            <ngx-general-table [config]="configConsultaOP" [datos]="datosConsultaOP"></ngx-general-table>
+        </div>
+    </div>
+    <div class="form-group row">
+        <h6 class="text-white bg-dark p-2 px-4 rounded w-100">
+            {{ 'DEVOL_TRIBUTARIA.contabilizacion' | translate}}
+        </h6>
+        <div class="col-md-4">
+            <label>{{ 'DEVOL_TRIBUTARIA.tipo_comprobante' | translate}}</label>
+            <input *ngIf="!!contabilizacion" class="form-control" id="tipoComprobante" placeholder="{{contabilizacion.tipoComprobante.TipoDocumento}}" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'DEVOL_TRIBUTARIA.numero_comprobante' | translate}}</label>
+            <input *ngIf="!!contabilizacion" class="form-control" type="number" id="numeroComprobante" placeholder="{{contabilizacion ? contabilizacion.numeroComprobante.Numero : ''}}" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.consecutivo' | translate}}</label>
+            <input *ngIf="!!contabilizacion" class="form-control" id="consecutivo" placeholder="{{contabilizacion ? contabilizacion.consecutivo : ''}}" disabled>
+        </div>
+    </div>
+    <div class="row">
+        <div id="contabilizacion" class="container py-2 px-0">
+            <ngx-general-table [config]="configContabilizacion" [datos]="datosContabilizacion"></ngx-general-table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row pt-2 text-center">
+            <div [ngClass]="{'col-md-4': tituloAccion === 'revisar', 'col-md-6' : tituloAccion !== 'revisar'}">
+                <button mat-button matStepperPrevious class="btn btn-primary text-white m-0 mt-4">{{ 'GLOBAL.regresar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-danger text-white m-0 mt-4" (click)="guardar('rechazar')">{{ 'GLOBAL.rechazar' | translate}}</button>
+            </div>
+            <div class="col-md-4" *ngIf="tituloAccion === 'revisar'">
+                <button mat-button class="btn btn-success text-white m-0 mt-4" (click)="guardar('aprobar')">{{ 'GLOBAL.aprobar' | translate}}</button>
+            </div>
+            <div class="col-md-6 form-group" *ngIf="tituloAccion === 'editar' || tituloAccion === 'crear'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" (click)="guardar()">{{ 'GLOBAL.guardar' | translate}}</button>
+            </div>
+            <div class="col-md-6" *ngIf="tituloAccion === 'ver'">
+                <button type="button" class="btn btn-success text-white m-0 mt-4" data-toggle="modal" [routerLink]="['/pages/devoluciontributaria/lista']" routerLinkActive="router-link-active">{{ 'GLOBAL.terminar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

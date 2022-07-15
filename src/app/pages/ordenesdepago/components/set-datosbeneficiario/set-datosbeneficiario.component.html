@@ -1,90 +1,117 @@
 <form [formGroup]="datosBeneficiario" (ngSubmit)="validarFormulario(datosBeneficiario.value)">
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label for="numeroOrden">No. Orden</label>
-            <input type="number" class="form-control" id="numeroOrden" formControlName="numeroOrden"
-                [class.is-invalid]="esInvalido('numeroOrden')">
+    <div class="form-group row justify-content-between">
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.unidad_ejecutora' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="areaFuncional" [class.is-invalid]="areaFuncionalInvalid" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let opcion of opcionesAreaFuncional" [value]="opcion">
+                        {{opcion.label}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
-        <div class="col-md-4 form-group">
-            <label for="fechaOrden">Fecha</label>
-            <div class="input-group-append">
-                <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="fechaOrden"
-                    formControlName="fechaOrden" [class.is-invalid]="esInvalido('fechaOrden')">
-                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
-                        class="fas fa-calendar"></i></button>
+        <div class="col-md-4">
+            <label> {{ 'GLOBAL.consecutivo' | translate}}</label>
+            <input type="number" class="form-control" formControlName="consecutivo" [class.is-invalid]="consecutivoInvalid" [readonly]="!editable">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-8">
+            <label>{{ 'ORDEN_PAGO.numero_sol_orden_giro' | translate}}</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalAutorizacionGiro" [disabled]="!editable">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <input class="form-control" formControlName="solicitudGiro" [class.is-invalid]="solicitudGiroInvalid" disabled [value]="solicGiro">
             </div>
         </div>
-        <div class="col-md-4 form-group">
-            <label for="unidadEjecutora">Unidad Ejecutora</label>
-            <select class="form-control" id="unidadEjecutora" formControlName="unidadEjecutora"
-                [class.is-invalid]="esInvalido('unidadEjecutora')">
-                <option [ngValue]="opcion" *ngFor="let opcion of opcionesAreaFuncional">{{opcion?.label}}</option>
-            </select>
+        <div class="col-md-4">
+            <label for="vigencia">{{ 'ORDEN_PAGO.vigencia_presupuesto' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="vigencia" [class.is-invalid]="vigenciaInvalid" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let vigencia of vigencias" [value]="vigencia">
+                        {{vigencia?.valor}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
     </div>
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Datos del Beneficiario
+        {{ 'SOLICITUD_GIRO.datos_beneficiario' | translate}}
     </h6>
-    <div class="row">
-        <div class="col-md-2 form-group">
-            <label for="tipoId">Tipo de ID</label>
-            <select class="form-control" id="tipoId" formControlName="tipoId" [class.is-invalid]="esInvalido('tipoId')">
-                <option>CC</option>
-                <option>CE</option>
-                <option>NIT</option>
-            </select>
-        </div>
-        <div class="col-md-4 form-group">
-            <label for="numeroId">No. de ID</label>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <label for="numeroId">{{ 'GLOBAL.numero_documento' | translate}}</label>
             <input type="number" class="form-control" id="numeroId" formControlName="numeroId"
-                [class.is-invalid]="esInvalido('numeroId')">
+                [class.is-invalid]="numeroIdInvalid" [readonly]="!editable">
         </div>
-        <div class="col-md-6 form-group">
-            <label for="nombre">Nombre</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="nombre" disabled placeholder="{{datosAlmacenadosBeneficiario.nombre}}">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 form-group">
-            <label for="regimen">Régimen</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="regimen" disabled placeholder="{{datosAlmacenadosBeneficiario.regimen}}">
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="direccion">Dirección</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="direccion" disabled placeholder="{{datosAlmacenadosBeneficiario.direccion}}">
-        </div>
-        <div class="col-md-3 form-group">
-            <label for="telefono">Teléfono</label>
-            <input *ngIf="!!datosAlmacenadosBeneficiario" class="form-control" id="telefono" disabled placeholder="{{datosAlmacenadosBeneficiario.telefono}}">
+        <div class="col-md-9">
+            <label for="nombre">{{ 'GLOBAL.nombre' | translate}}</label>
+            <input class="form-control" id="nombre" formControlName="nombreBeneficiario" [class.is-invalid]="nombreBeneficiarioInvalid" disabled>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <label for="banco">Banco / Sucursal</label>
-            <input class="form-control" id="banco" formControlName="banco" [class.is-invalid]="esInvalido('banco')">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <label for="regimen">{{ 'ORDEN_PAGO.regimen' | translate}}</label>
+            <input class="form-control" id="regimen" formControlName="regimenBeneficiario" [class.is-invalid]="regimenBeneficiarioInvalid" disabled>
         </div>
-        <div class="col-md-6 form-group">
-            <label for="cuenta">No. de Cuenta</label>
-            <input type="number" class="form-control" id="cuenta" formControlName="cuenta"
-                [class.is-invalid]="esInvalido('cuenta')">
+        <div class="col-md-9">
+            <label for="direccion">{{ 'GLOBAL.direccion' | translate}}</label>
+            <input class="form-control" id="direccion" formControlName="direccionBeneficiario" [class.is-invalid]="direccionBeneficiarioInvalid" disabled>
         </div>
     </div>
-    <div class="row">
+    <div class="form-group row">
         <div class="col-md-4">
-            <ngx-general-table [config]="configTableEstados" [datos]="datosTableEstados"></ngx-general-table>
+            <label for="banco">{{ 'GLOBAL.banco' | translate}}</label>
+            <input class="form-control" id="banco" disabled formControlName="banco" [class.is-invalid]="bancoInvalid">
+        </div>
+        <div class="col-md-4">
+            <label for="cuenta">{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input type="text" class="form-control" disabled id="cuenta" formControlName="tipoCuenta" [class.is-invalid]="tipoCuentaInvalid">
+        </div>
+        <div class="col-md-4">
+            <label for="cuenta">{{ 'GLOBAL.numero_cuenta' | translate}}</label>
+            <input type="number" class="form-control" disabled id="cuenta" formControlName="cuenta" [class.is-invalid]="cuentaInvalid">
         </div>
     </div>
-
     <div class="row justify-content-between">
         <div class="col-md-3">
-            <a routerLink="../../ordenespago/lista" role="button" class="btn btn-primary text-white">
-                Volver a registros
+            <a href="#/pages/ordenespago/lista">
+                <button type="button" class="btn btn-primary mb-3 mt-3 text-white">
+                    <div class="d-flex flex-row justify-content-around align-middle">
+                        <span>{{ 'SOLICITUD_GIRO.volver_registros' | translate}}</span>
+                    </div>
+                </button>
             </a>
         </div>
         <div class="col-md-3 text-right">
             <button mat-button matStepperNext type="submit" class="btn btn-success">
-                Siguiente
+                {{ 'GLOBAL.siguiente' | translate}}
             </button>
         </div>
     </div>
 </form>
+
+<!-- Modal: Seleccionar Rubro -->
+<div class="modal fade" id="ModalAutorizacionGiro" tabindex="-1" role="dialog" aria-labelledby="AutorizacionGiroLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AutorizacionGiroLabel">{{ 'ORDEN_PAGO.sel_orden_giro' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-autorizacion-giro></ngx-autorizacion-giro>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary text-white" data-dismiss="modal">{{ 'GLOBAL.continuar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal: Seleccionar Rubro -->

@@ -13,9 +13,17 @@ const routes: Routes = [
     component: CrearOrdenpagoComponent,
   },
   {
-    path: 'editar',
+    path: 'ver/:Id',
     component: CrearOrdenpagoComponent,
-  }
+  },
+  {
+    path: 'editar/:Id',
+    component: CrearOrdenpagoComponent,
+  },
+  {
+    path: 'revisar/:Id',
+    component: CrearOrdenpagoComponent,
+  },
 ];
 
 @NgModule({

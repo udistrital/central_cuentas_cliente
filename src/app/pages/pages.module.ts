@@ -7,6 +7,7 @@ import { ConfiguracionService } from '../@core/data/configuracion.service';
 import { MenuService } from '../@core/data/menu.service';
 import { SharedModule } from '../shared/shared.module';
 import { NbIconModule } from '@nebular/theme';
+import { MatFormFieldModule } from '@angular/material';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { NbIconModule } from '@nebular/theme';
     NbIconModule,
     SharedModule,
     NbSpinnerModule,
+    MatFormFieldModule
   ],
   declarations: [
     PagesComponent,

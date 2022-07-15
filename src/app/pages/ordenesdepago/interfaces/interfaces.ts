@@ -4,11 +4,11 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
         {
             key: 'NumeroOrden',
             title: {
-                name: 'No. de Órden',
+                name: 'No. de Órden Pago',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'center',
             }
         },
         {
@@ -18,7 +18,17 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
+            }
+        },
+        {
+            key: 'AutorizacionGiro',
+            title: {
+                name: 'Autorización de giro',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'center',
             }
         },
         {
@@ -28,9 +38,19 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
+        {
+            key: 'acciones',
+            title: {
+                name: 'acciones',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'icons'
+            }
+        }
     ],
     rowActions: {
         title: {
@@ -81,13 +101,91 @@ export const DATOS_TABLAREGISTROS: any = [
         Estado: 'Elaborado',
     },
 ];
+export const DATOS_CONCEPTO_VALOR: any = [
+    {
+        codigoRubro: '',
+        metas: '',
+        actividades: '',
+        fuenteFinanciamiento: '',
+        rubroGasto: '',
+        valor: '0'
+    },
+];
 export const CONFIGURACION_CONCEPTO_VALOR: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'concepto',
+            key: 'codigoRubro',
             title: {
-                name: 'Concepto',
+                name: 'Codigo Rubro',
+                class: 'text-center',
+            },
+            pipe: {
+                class: '',
+            }
+        },
+        {
+            key: 'metas',
+            title: {
+                name: 'Metas',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'actividades',
+            title: {
+                name: 'actividades',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'fuenteFinanciamiento',
+            title: {
+                name: 'Fuente Financiamiento',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'rubroGasto',
+            title: {
+                name: 'Rubro Gasto (Producto)',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-justify',
+            }
+        },
+        {
+            key: 'valor',
+            title: {
+                name: 'Valor',
+                class: 'text-center',
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
+            }
+        },
+    ],
+};
+export const CONFIGURACION_HISTORIAL: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'consecutivoOP',
+            title: {
+                name: 'Consecutivo OP',
                 class: 'text-center',
             },
             pipe: {
@@ -101,41 +199,31 @@ export const CONFIGURACION_CONCEPTO_VALOR: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
             }
         },
     ],
-    noData: {
-        name: 'No existen elementos asociados',
-        class: 'text-center',
-    },
-    sort: true,
 };
-export const DATOS_CONCEPTO_VALOR: any = [
-    {
-        concepto: '',
-        valor: ''
-    },
-    {
-        concepto: '',
-        valor: ''
-    }
+export const DATOS_HISTORIAL: any = [
 ];
 export const CONFIGURACION_IMPUNTUACION: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'disponibilidad',
+            key: 'Disponibilidad',
             title: {
                 name: 'Disponibilidad',
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'text-center align-middle',
             }
         },
         {
-            key: 'codigo',
+            key: 'Codigo',
             title: {
                 name: 'Código',
                 class: 'text-center',
@@ -145,17 +233,17 @@ export const CONFIGURACION_IMPUNTUACION: any = {
             }
         },
         {
-            key: 'registro',
+            key: 'Registro',
             title: {
                 name: 'Registro',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'text-center align-middle',
             }
         },
         {
-            key: 'nombre',
+            key: 'Nombre',
             title: {
                 name: 'Nombre',
                 class: 'text-center',
@@ -165,7 +253,7 @@ export const CONFIGURACION_IMPUNTUACION: any = {
             }
         },
         {
-            key: 'valor',
+            key: 'Valor',
             title: {
                 name: 'Valor Aplicación (Gasto)',
                 class: 'text-center',
@@ -174,7 +262,7 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -190,14 +278,16 @@ export const CONFIGURACION_IMPUNTUACION: any = {
                 icon: 'fas fa-eye',
                 class: 'p-2',
                 title: 'Ver Fuentes',
-                idStep: 3
+                idStep: 3,
+                ngIf: true
             },
             {
                 name: 'modificar',
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
-                idStep: 3
+                idStep: 3,
+                ngIf: true
             }
         ],
     },
@@ -210,64 +300,193 @@ export const CONFIGURACION_IMPUNTUACION: any = {
 };
 export const DATOS_IMPUNTUACION: any = [
     {
-        disponibilidad: '111',
-        codigo: '111-222-333',
-        registro: '123456',
-        nombre: 'Eventos Academicos',
-        valor: 3000000.00
+        Disponibilidad: '111',
+        Codigo: '111-222-333',
+        Registro: '123456',
+        Nombre: 'Eventos Academicos',
+        Valor: 3000000.00
     }
 ];
-export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
+export const CONFIGURACION_CONTABILIZACION: any = {
     showColumnTitle: true,
     dataConfig: [
         {
-            key: 'nombre',
+            key: 'Tercero',
             title: {
-                name: 'Nombre Retención',
-                class: 'text-center',
+                name: 'Tercero',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'tercero'
             },
             pipe: {
-                class: '',
-            }
-        },
-        {
-            key: 'descuento',
-            title: {
-                name: 'Descuento',
-                class: 'text-center',
-            },
-            pipe: {
-                type: 'percent',
-                config: [
-                ],
                 class: 'text-center align-middle',
             }
         },
         {
-            key: 'base',
+            key: 'NombreMovimiento',
             title: {
-                name: 'Base de Retención',
+                name: 'Nombre',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'nombre'
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Codigo',
+            title: {
+                name: 'No. de Cuenta',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'numero_cuenta'
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Nombre',
+            title: {
+                name: 'Nombre de la cuenta',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'nombre_cuenta'
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Detalle',
+            title: {
+                name: 'Detalle',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'detalle'
+            },
+            pipe: {
+                class: 'text-justify align-middle',
+            }
+        },
+        {
+            key: 'Debito',
+            title: {
+                name: 'Débito',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'debito'
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
+            }
+        },
+        {
+            key: 'Credito',
+            title: {
+                name: 'Crédito',
+                class: 'text-center bg-primary text-white',
+                label_i18n: 'credito'
+            },
+            pipe: {
+                type: 'currency',
+                config: [
+                ],
+                class: 'text-right align-middle',
+            }
+        },
+    ],
+    sequence: {
+        title: {
+            name: 'Secuencia',
+            class: 'text-center bg-primary text-white',
+        },
+        pipe: {
+            class: 'text-center align-middle',
+        }
+    },
+    rowActions: {
+        title: {
+            name: 'Acciones',
+            class: 'text-center bg-primary text-white',
+            actionClass: 'd-flex flex-row justify-content-around align-middle'
+        },
+        actions: [
+            {
+                name: 'eliminar',
+                icon: 'fas fa-trash-alt',
+                class: 'p-2',
+                title: 'Eliminar movimiento',
+                idStep: 3,
+                ngIf: true
+            },
+        ],
+    },
+    noData: {
+        name: 'No Existen Elementos Asociados',
+        class: 'text-center',
+    },
+    sort: true,
+    filter: false,
+};
+
+export const DATOS_CONTABILIZACION: any = [
+    {
+        Nombre: '',
+        Codigo: '',
+        Credito: 0,
+        Debito: 0,
+        Naturaleza: '',
+        Tercero: '',
+        CuentaContableId: '',
+    }
+];
+export const CONFIGURACION_IMPUESTOS_RETENCIONES: any = {
+    showColumnTitle: true,
+    dataConfig: [
+        {
+            key: 'Nombre',
+            title: {
+                name: 'Nombre',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Codigo',
+            title: {
+                name: 'Código Contable',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'text-center align-middle',
+            }
+        },
+        {
+            key: 'Base',
+            title: {
+                name: 'Base',
                 class: 'text-center',
             },
             pipe: {
                 type: 'currency',
                 config: [
                 ],
+                class: 'text-right align-middle',
+            }
+        },
+        {
+            key: 'Descuento',
+            title: {
+                name: '% Descuento',
+                class: 'text-center',
+            },
+            pipe: {
                 class: 'text-center align-middle',
             }
         },
         {
-            key: 'codigo',
-            title: {
-                name: 'Código Contable',
-                class: 'text-center',
-            },
-            pipe: {
-                class: 'text-justify',
-            }
-        },
-        {
-            key: 'valor',
+            key: 'Valor',
             title: {
                 name: 'Valor',
                 class: 'text-center',
@@ -276,7 +495,7 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 type: 'currency',
                 config: [
                 ],
-                class: 'text-center align-middle',
+                class: 'text-right align-middle',
             }
         },
     ],
@@ -292,7 +511,8 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Modificar',
-                idStep: 4
+                idStep: 4,
+                ngIf: true
             }
         ],
     },
@@ -303,13 +523,14 @@ export const CONFIGURACION_MOVIMIENTO_CONTABLE: any = {
     sort: true,
     maxHeight: 200
 };
-export const DATOS_MOVIMIENTO_CONTABLE: any = [
+export const DATOS_IMPUESTOS_RETENCIONES: any = [
     {
-        nombre: 'Valor Bruto',
-        descuento: '',
-        base: '',
-        codigo: '111-222-333',
-        valor: 3000000.00
+        Nombre: '',
+        Codigo: '',
+        Base: 0,
+        Descuento: '',
+        Valor: 0,
+        CuentaContableId: ''
     }
 ];
 export const DATOS_BENEFICIARIO: any = [
@@ -331,6 +552,14 @@ export const DATOS_COMPROMISO: any = [
     }
 ];
 
+export const DATOS_TIPO_CONVENIO: any = [
+    {
+        tipo_convenio: 'CONVENIOS',
+    },
+    {
+        tipo_convenio: 'CONTRATOS',
+    }
+];
 
 
 export const CONFIGURACION_TABLA_ESTADOS: any = {

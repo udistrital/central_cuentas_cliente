@@ -1,67 +1,88 @@
 <form [formGroup]="datosCompromiso" (ngSubmit)="validarFormulario(datosCompromiso.value)">
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Datos del Compromiso
+        {{ 'ORDEN_PAGO.datos_compromiso' | translate}}
     </h6>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <label for="compromiso">Compromiso a pagar</label>
-            <select class="form-control" id="compromiso" formControlName="compromiso"
-                [class.is-invalid]="esInvalido('compromiso')">
-                <option>Opcion 1</option>
-                <option>Opcion 2</option>
-                <option>Opcion 3</option>
-            </select>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="compromiso">{{ 'ORDEN_PAGO.compromiso_pagar' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="compromiso" [class.is-invalid]="compromisoInvalid" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport">
+                    <mat-option *cdkVirtualFor="let tipoCompromiso of tiposCompromisos" [value]="tipoCompromiso">
+                        {{tipoCompromiso.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
-        <div class="col-md-4 form-group">
-            <label for="numeroCompromiso">No. de Compromiso</label>
+        <div class="col-md-4">
+            <label for="numeroCompromiso">{{ 'CRP.numero-compromiso' | translate}}</label>
             <input type="number" class="form-control" id="numeroCompromiso" formControlName="numeroCompromiso"
-                [class.is-invalid]="esInvalido('numeroCompromiso')">
+                [class.is-invalid]="numeroCompromisoInvalid" readonly>
         </div>
     </div>
-    <div class="row border-top border-primary mx-1 my-3"></div>
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label for="noActa">No. Acta de Recibido</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroActa}}">
+    <div *ngIf="convenio" class="form-group row">
+        <div class="col-md-3">
+            <label>{{ 'ORDEN_PAGO.tipo_convenio' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoConvenio" [class.is-invalid]="tipoConvenioInvalid" (selectionChange)="consultarConvenios()" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let tipoConvenio of tiposConvenio" [value]="tipoConvenio">
+                        {{tipoConvenio.tipo_convenio}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
-        <div class="col-md-4 form-group">
-            <label for="noEntradaAlmacen">No. Entrada al Almacen</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="noActa" disabled placeholder="{{datosAlmacenadosCompromiso.numeroEntradaAlmacen}}">
+        <div class="col-md-9">
+            <label>{{ 'ORDEN_PAGO.convenio' | translate}}</label>
+                    <input type="text" placeholder="{{ 'GLOBAL.seleccione' | translate}}" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                    class="form-control" formControlName="convenio" [class.is-invalid]="convenioInvalid" [readonly]="!editable">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let convenio of filteredOptions | async" [value]="convenio">
+                            {{convenio.data.Nombre}}
+                        </mat-option>
+                    </mat-autocomplete>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.numero_acta_recibido' | translate}}</label>
+            <input class="form-control" placeholder="{{datosAlmacenadosCompromiso.numeroActa}}" formControlName="actaRecibido" [class.is-invalid]="actaRecibidoInvalid" [readonly]="!editable">
+        </div>
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.numero_entrada_almacen' | translate}}</label>
+            <input class="form-control" id="entradaAlmacen" formControlName="entradaAlmacen" disabled>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="nombreInterventor">Nombre del Interventor</label>
-            <input *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="nombreInterventor" disabled placeholder="{{datosAlmacenadosCompromiso.nombreInterventor}}">
+            <label for="nombreInterventor">{{ 'GLOBAL.supervisor' | translate}}</label>
+            <input class="form-control" formControlName="supervisor" disabled>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 form-group">
-            <label for="detalle">Detalle</label>
-            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" disabled placeholder="{{datosAlmacenadosCompromiso.detalle}}"></textarea>
+            <label >{{ 'GLOBAL.detalle' | translate}}</label>
+            <textarea *ngIf="!!datosAlmacenadosCompromiso" class="form-control" id="detalle" placeholder="{{datosAlmacenadosCompromiso.detalle}}" formControlName="detalle" [readonly]="!editable"></textarea>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 form-group">
-            <label for="vigencia">Vigencia</label>
-            <select class="form-control" id="vigencia" formControlName="vigencia"
-                [class.is-invalid]="esInvalido('vigencia')">
-                <option [ngValue]="vigencia" *ngFor="let vigencia of vigencias">{{vigencia?.valor}}</option>
-            </select>
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="tipoOrden">Tipo de Orden de Pago</label>
-            <input id="tipoOrden" class="form-control" disabled value="{{vigenciaSeleccionada | tipoOrdenVigencia: vigenciaActual }}">
+            <label for="tipoOrden">{{ 'ORDEN_PAGO.tipo_orden_pago' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="tipoOrdenPago" [class.is-invalid]="tipoOrdenPagoInvalid" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let tipoOrdenPago of tiposOrdenesPago" [value]="tipoOrdenPago">
+                        {{tipoOrdenPago.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
     </div>
 
     <div class="row justify-content-between">
         <div class="col-md-3">
-            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">{{ 'GLOBAL.anterior' | translate}}</button>
         </div>
         <div class="col-md-3 text-right">
             <button mat-button matStepperNext type="submit" class="btn btn-success">
-                Siguiente
+                {{ 'GLOBAL.siguiente' | translate}}
             </button>
         </div>
     </div>

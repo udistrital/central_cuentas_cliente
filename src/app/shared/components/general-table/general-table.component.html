@@ -17,6 +17,7 @@
                             </th>
                         </tr>
                         <tr *ngIf="config.showColumnTitle">
+                            <th *ngIf="config.sequence" scope="col" [class]="config.sequence.title.class">{{config.sequence.title.name}}</th>
                             <ng-container *ngIf="config.checkElement">
                                 <th scope="col" [class]="config.checkElement.title.class">{{config.checkElement.title.name}}</th>
                             </ng-container>
@@ -36,17 +37,27 @@
                     <!-- Fin del Encabezado de titulos -->
                     <tbody>
                         <tr *ngFor="let items of datos | filterTable:stringBusqueda; index as i">
+                            <td *ngIf="config.sequence" class="align-middle text-center">
+                                {{i + 1}}
+                            </td>
                             <ng-container *ngIf="config.checkElement">
                                 <td [class]="config.checkElement.pipe.class">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <input [disabled]="config.checkElement.pipe.disabled" class="form-check-input" type="checkbox" [ngModel]="items.selected" (change)="Checked(items)"  id="defaultCheck1">
                                     </div>
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf="config.secuencia">
+                                <td [class]="config.secuencia.pipe.class">
+                                    {{ config.secuencia.pipe.type ? (items[config.secuencia.key] | multiPipe:config.secuencia.pipe.type:config.secuencia.pipe.config) : items[config.secuencia.key] }}
                                 </td>
                             </ng-container>
                             <ng-container *ngFor="let data of config.dataConfig">
                                 <ng-container *ngIf="!data.pipe.isArray">
                                     <td [class]="data.pipe.class">
-                                        {{ data.pipe.type ? (items[data.key] | multiPipe:data.pipe.type:data.pipe.config) : items[data.key] }}
+                                        {{ data.pipe.type
+                                            ? (items[data.key] | multiPipe:data.pipe.type:data.pipe.config)
+                                            : items[data.key] }}
                                     </td>
                                 </ng-container>
                                 <ng-container *ngIf="data.pipe.isArray">
@@ -61,7 +72,7 @@
                                 <td class="align-middle">
                                     <div [class]="config.rowActions.title.actionClass">
                                         <ng-container *ngFor="let actions of config.rowActions.actions">
-                                            <div ngxMouseOver [class]="actions.class" data-toggle="tooltip" data-placement="top" (click)="SelectedAction(actions, items)" title="{{actions.title}}">
+                                            <div *ngIf="actions.ngIf" ngxMouseOver [class]="actions.class" data-toggle="tooltip" data-placement="top" (click)="SelectedAction(actions, items)" title="{{actions.title}}">
                                                 <i [class]="actions.icon"></i>
                                             </div>
                                         </ng-container>

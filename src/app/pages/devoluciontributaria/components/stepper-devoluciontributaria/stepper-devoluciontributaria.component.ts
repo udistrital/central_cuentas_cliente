@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SetInfodevoluciontributariaComponent } from '../set-infodevoluciontributaria/set-infodevoluciontributaria.component';
 import { FormBuilder } from '@angular/forms';
 import { SetContabilizacionComponent } from '../set-contabilizacion/set-contabilizacion.component';
-import { ShowComprobantepagoComponent } from '../show-comprobantepago/show-comprobantepago.component';
+import { ShowResumenDevolucionTributariaComponent } from '../show-resumendevolucion/show-resumendevoluciontributaria.component';
 
 @Component({
   selector: 'ngx-stepper-devoluciontributaria',
@@ -13,7 +13,7 @@ export class StepperDevoluciontributariaComponent {
 
   @ViewChild(SetInfodevoluciontributariaComponent, {static: false}) SetInfodevoluciontributariaComponent: SetInfodevoluciontributariaComponent;
   @ViewChild(SetContabilizacionComponent, {static: false}) SetContabilizacionComponent: SetContabilizacionComponent;
-  @ViewChild(ShowComprobantepagoComponent, {static: false}) ShowComprobantepagoComponent: ShowComprobantepagoComponent;
+  @ViewChild(ShowResumenDevolucionTributariaComponent, {static: false}) ShowComprobantepagoComponent: ShowResumenDevolucionTributariaComponent;
 
   constructor( private fb: FormBuilder) {
 

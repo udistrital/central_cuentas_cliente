@@ -1,130 +1,246 @@
-<form [formGroup]=movimientoContable>
+<form [formGroup]=movimientoContable (ngSubmit)="cargarMovimiento()">
     <div class="row justify-content-end form-group">
         <div class="col-md-2 d-flex align-items-center">
             <i class="fas fa-question-circle m-2 ml-auto" data-toggle="tooltip" data-placement="bottom"
-                title="Concepto Cliente de Contabilidad:&#10;cuentas contables asignadas, crédito, débito"></i>
-            <label for="concepto" class="m-0">Concepto</label>
+                title="Concepto Cliente de Tesoreria"></i>
+            <label for="concepto" class="m-0">{{ 'SOLICITUD_GIRO.concepto' | translate}}</label>
         </div>
-        <div class="col-md-6">
-            <ng-container *ngIf="conceptosContables">
-                <mat-select class="form-control" placeholder="Seleccione concepto contable..."
-                    formControlName="conceptoContable">
-                    <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" class="vs-viewport">
-                        <mat-option *cdkVirtualFor="let concepto of conceptosContables" class="vs-item"
-                            [value]="concepto">
-                            {{concepto.Nombre}}</mat-option>
-                    </cdk-virtual-scroll-viewport>
-                </mat-select>
-            </ng-container>
+        <div class="form-group col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#conceptosModal" [disabled]="!editable">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <input class="form-control" formControlName="conceptoContable" [class.is-invalid]="conceptoContableInvalid" value="{{concepto ? concepto.Codigo : ''}} - {{concepto ? concepto.Nombre : ''}}" disabled>
+            </div>
         </div>
     </div>
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Movimiento Contable
+        {{ 'ORDEN_PAGO.movimiento_contable' | translate}}
     </h6>
-    <div class="row">
-        <div class="col-md-9 form-group">
-            <label for="retencion">Retención</label>
-            <select class="form-control" id="retencion">
-                <option>Seleccione retención...</option>
-            </select>
-        </div>
-        <div class="col-md-3 d-flex align-items-center">
-            <div class="form-check">
-                <input class="form-check-input mt-2" type="checkbox" value="" id="soloInfo">
-                <label class="form-check-label" for="soloInfo">
-                    Solo información
-                </label>
-                <i class="fas fa-question-circle m-2" data-toggle="tooltip" data-placement="bottom"
-                    title="Solo si no afecta al valor total"></i>
-            </div>
-        </div>
-    </div>
     <div class="row border-top border-primary mx-1 my-3"></div>
-    <div class="row">
-        <div class="col-md-5 form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" disabled>
+    <div class="row form-group">
+        <div class="col-md-6">
+            <label>{{ 'GLOBAL.nombre' | translate}}</label>
+            <input type="text" class="form-control" formControlName="nombreMovimientoContable" [readonly]="!editable">
         </div>
-        <div class="col-md-3 form-group">
-            <label for="descuento">% de Descuento</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="descuento" disabled formControlName="porcentajeDescuento">
-                <div class="input-group-append">
-                    <span class="input-group-text">%</span>
+        <div class="col-md-6">
+            <label>{{ 'MODIF.valor' | translate}}</label>
+            <input currencyMask class="form-control" formControlName="valorMovimientoContable" [readonly]="!editable">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <mat-checkbox class="example-margin" formControlName="cuentaConcepto" (change)="conceptoCuentaContable()" [disabled]="!editable">{{ 'SOLICITUD_GIRO.concepto' | translate}}</mat-checkbox>
+        </div>
+        <div class="col-md-9" *ngIf="!conceptoCuenta">
+            <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal1" [disabled]="!editable">
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
+                <input class="form-control" formControlName="cuentaContableMovCont" disabled>
             </div>
         </div>
-        <div class="col-md-4 form-group">
-            <label for="codigoContable">Código Contable</label>
-            <input type="text" class="form-control" id="codigoContable" disabled>
+        <div class="col-md-9" *ngIf="conceptoCuenta">
+            <label>{{ 'ORDEN_PAGO.cuenta_contable_concepto' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaContableMovCont1">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto" [value]="cuentaContable1">
+                        {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5 form-group">
-            <label for="baseRetencion">Base de Retención</label>
-            <input currencyMask class="form-control" id="baseRetencion" formControlName="baseRetencion">
-        </div>
-        <div class="col-md-5 form-group">
-            <label for="valorDescuento">Valor de descuento</label>
-            <input class="form-control" id="valorDescuento" disabled value="{{valorDescuento|currency}}">
-        </div>
-        <div class="col-md-2 form-group d-flex align-items-end">
-            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
-                <i class="fas fa-plus"></i> Agregar
+        <div class="col-md-2 d-flex align-items-center">
+            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()" [disabled]="!editable">
+                <i class="fas fa-plus"></i> {{ 'GLOBAL.agregar' | translate}}
             </button>
         </div>
     </div>
+    <div class="row border-top border-primary mx-1 my-3"></div>
     <div class="container py-2 px-0">
         <ngx-general-table [config]="configTableMovimientoContable" [datos]="datosTableMovimientoContable">
         </ngx-general-table>
+        <small *ngIf="!valorValido" class="text-danger">{{ 'ORDEN_PAGO.movimiento_contable_invalido' | translate}}</small>
     </div>
     <div class="row form-group">
         <div class="col-md-4"></div>
         <div class="col-md-3 d-flex align-items-center">
-            <label for="valorTotal" class="m-0 ml-auto">Valor Total Descuentos</label>
+            <label for="valorTotal" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_total_descuentos' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{valorTotal|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{valorDescuento|currency}}">
         </div>
     </div>
-    <div class="row">
+    <div class="row form-group" *ngIf="cuentaConceptoFull">
         <div class="col-md-4">
-            <div class="form-group">
-                <label for="codigoContable">Código Contable</label>
-                <input type="text" class="form-control" id="codigoContable" disabled>
-            </div>
+            <label for="codigoContable">{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="cuentaCredito" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let cuentaContable1 of cuentasContablesConcepto" [value]="cuentaContable1">
+                        {{cuentaContable1.cuenta.Codigo}} - {{cuentaContable1.cuenta.Nombre}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
         <div class="col-md-3 d-flex align-items-center">
-            <label for="valorNeto" class="m-0 ml-auto">Valor Neto a Girar</label>
+            <label for="valorNeto" class="m-0 ml-auto">{{ 'ORDEN_PAGO.valor_neto_girar' | translate}}</label>
         </div>
         <div class="col-md-4 d-flex align-items-center">
-            <input class="form-control" id="valorNeto" disabled value="{{valorNeto|currency}}">
+            <input currencyMask class="form-control" id="valorNeto" disabled value="{{valorNeto|currency}}">
+        </div>
+    </div>
+    <div class="row justify-content-end form-group">
+        <div class="col-md-4">
+            <mat-checkbox class="example-margin" formControlName="endoso" (change)="cambioEndoso()">{{ 'ORDEN_PAGO.endoso' | translate}}</mat-checkbox>
+        </div>
+    </div>
+    <div class="row form-group justify-content-between" *ngIf="endoso">
+        <div class="col-md-4">
+            <label for="identificacionEndoso">{{ 'MODIF.numero_documento' | translate}}</label>
+            <input type="number" class="form-control" id="identificacionEndoso" formControlName="identificacionEndoso" [readonly]="!editable">
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.digito_verificacion' | translate}}</label>
+            <input class="form-control" id="digitoVerificacion" [readonly]="!editable">
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-12">
+            <label>{{ 'ORDEN_PAGO.beneficiario_endoso' | translate}}</label>
+            <input class="form-control" id="beneficiarioEndoso" formControlName="beneficiarioEndoso" disabled>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.banco' | translate}}</label>
+            <input class="form-control" id="bancoEndoso" formControlName="bancoEndoso" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.tipo_cuenta' | translate}}</label>
+            <input class="form-control" id="tipoCuentaEndoso" formControlName="tipoCuentaEndoso" disabled>
+        </div>
+        <div class="col-md-4">
+            <label>{{ 'GLOBAL.numero_cuenta' | translate}}</label>
+            <input class="form-control" id="numeroCuentaEndoso" formControlName="numeroCuentaEndoso" disabled>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="endoso">
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.valor_endoso' | translate}}</label>
+            <input currencyMask class="form-control" id="valorEndoso" formControlName="valorEndoso" [readonly]="!editable">
+            <small *ngIf="!valorValidoEndoso" class="text-danger">{{ 'ORDEN_PAGO.endoso_invalido' | translate}}</small>
+        </div>
+
+        <div class="col-md-6">
+            <label>{{ 'ORDEN_PAGO.cuenta_contable' | translate}}</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cuentaContableModal2" [disabled]="!editable">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+                <input class="form-control" formControlName="cuentaContableEndoso" value="{{cuentaContableSeleccionada1 ? cuentaContableSeleccionada1.Codigo : ''}} - {{cuentaContableSeleccionada1 ? cuentaContableSeleccionada1.Nombre : ''}}" disabled>
+            </div>
         </div>
     </div>
     <ng-template #eliminarModal let-modal>
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Borrar</h4>
+            <h4 class="modal-title" id="modal-basic-title">{{ 'GLOBAL.borrar' | translate}}</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            ¿Desea borrar el registro?
+            {{ 'GLOBAL.desea_borrar_registro' | translate}}
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
-            <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">{{ 'GLOBAL.cancelar' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close(true)">{{ 'GLOBAL.borrar' | translate}}</button>
         </div>
     </ng-template>
 
     <div class="row justify-content-between">
         <div class="col-md-3">
-            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">{{ 'GLOBAL.anterior' | translate}}</button>
         </div>
         <div class="col-md-3 text-right">
-            <button mat-button matStepperNext type="submit" class="btn btn-success" (click)="cargarMovimiento()">
-                Siguiente
+            <button mat-button matStepperNext type="submit" class="btn btn-success">
+                {{ 'GLOBAL.siguiente' | translate}}
             </button>
         </div>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="cuentaContableModal1" tabindex="-1" role="dialog" aria-labelledby="cuentaContableModal1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cuentaContableModalLabel1">{{ 'GLOBAL.sel_cuenta_contable' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-arbol-cuentas-contables></ngx-arbol-cuentas-contables>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCuentaContable()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="cuentaContableModal2" tabindex="-1" role="dialog" aria-labelledby="cuentaContableModal2" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cuentaContableModalLabel1">{{ 'GLOBAL.sel_cuenta_contable' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-arbol-cuentas-contables></ngx-arbol-cuentas-contables>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarCuentaContable1()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="conceptosModal" tabindex="-1" role="dialog" aria-labelledby="conceptosModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conceptosModalLabel">{{ 'ORDEN_PAGO.elige_concepto' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-conceptos></ngx-conceptos>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">{{ 'GLOBAL.cerrar' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarConcepto()">{{ 'GLOBAL.agregar' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal -->

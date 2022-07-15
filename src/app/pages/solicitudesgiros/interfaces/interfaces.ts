@@ -8,17 +8,17 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: '',
+                class: 'center',
             }
         },
         {
-            key: 'NombreBeneficiaro',
+            key: 'NombreBeneficiario',
             title: {
                 name: 'Nombre del Beneficiario',
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
         {
@@ -32,7 +32,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 config: [
                     'shortDate'
                 ],
-                class: 'text-center',
+                class: 'center',
             }
         },
         {
@@ -42,9 +42,19 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
                 class: 'text-center',
             },
             pipe: {
-                class: 'text-justify',
+                class: 'center',
             }
         },
+        {
+            key: 'acciones',
+            title: {
+                name: 'acciones',
+                class: 'text-center',
+            },
+            pipe: {
+                class: 'icons'
+            }
+        }
     ],
     rowActions: {
         title: {
@@ -61,14 +71,6 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
             },
         ],
     },
-    // tableActions: [
-    //     {
-    //         name: 'nuevo',
-    //         icon: 'fas fa-plus py-1 px-2',
-    //         class: 'px-2',
-    //         title: 'Crear Nueva Solicitud',
-    //     }
-    // ],
     noData: {
         name: 'No Existen Elementos Asociados',
         class: 'text-center',
@@ -76,38 +78,7 @@ export const CONFIGURACION_TABLAREGISTROS: any = {
     sort: true,
     filter: true,
 };
-export const DATOS_TABLAREGISTROS: any = [
-    {
-        NumeroSolicitud: '0',
-        NombreBeneficiaro: 'Juana',
-        Fecha: '2020-11-20T02:18:54Z',
-        Estado: 'Elaborado',
-    },
-    {
-        NumeroSolicitud: '1',
-        NombreBeneficiaro: 'Juan',
-        Fecha: '2020-11-20T02:18:54Z',
-        Estado: 'Elaborado',
-    },
-    {
-        NumeroSolicitud: '2',
-        NombreBeneficiaro: 'Alberto',
-        Fecha: '2020-11-20T02:18:54Z',
-        Estado: 'Elaborado',
-    },
-    {
-        NumeroSolicitud: '3',
-        NombreBeneficiaro: 'Miguel',
-        Fecha: '2020-11-20T02:18:54Z',
-        Estado: 'Elaborado',
-    },
-    {
-        NumeroSolicitud: '4',
-        NombreBeneficiaro: 'Carlos',
-        Fecha: '2020-11-20T02:18:54Z',
-        Estado: 'Elaborado',
-    }
-];
+
 export const CONFIGURACION_DOCUMENTOS: any = {
     showColumnTitle: true,
     dataConfig: [
@@ -144,7 +115,7 @@ export const CONFIGURACION_DOCUMENTOS: any = {
     ],
     rowActions: {
         title: {
-            name: 'Modificar',
+            name: 'Acciones',
             class: 'text-center',
             actionClass: 'd-flex flex-row justify-content-around align-middle'
         },
@@ -154,24 +125,42 @@ export const CONFIGURACION_DOCUMENTOS: any = {
                 icon: 'fas fa-trash-alt',
                 class: 'p-2',
                 title: 'Borrar Documento',
+                ngIf: true,
             },
+            {
+                name: 'VerDocumento',
+                icon: 'fas fa-eye',
+                class: 'p-2',
+                title: 'Ver Documento',
+                ngIf: true,
+            }
         ],
     },
 };
-export const DATOS_DOCUMENTOS: any = [
-    {
-      nombreDocumento: 'documento1',
-      nombreArchivo: 'doc1.pdf',
-      estado: 'Listo'
-    },
-    {
-        nombreDocumento: 'documento2',
-        nombreArchivo: 'doc2.pdf',
-        estado: 'Listo'
-    },
-    {
-        nombreDocumento: 'documento3',
-        nombreArchivo: 'doc3.pdf',
-        estado: 'Listo'
-    },
+
+export const ACCIONES_EDI: string[] = [
+    'editar',
+    'revisar',
+    'ver'
 ];
+
+export const ACCIONES_DISABLED: string[] = [
+    'revisar',
+    'ver'
+];
+
+export interface EstructuraArbolRubrosApropiaciones {
+    Codigo: string;
+    Descripcion?: string;
+    ValorInicial: number;
+    Hijos?: EstructuraArbolRubrosApropiaciones[];
+    Movimientos?: string[];
+    Padre?: string;
+    UnidadEjecutora: number;
+    Estado?: string;
+    IsLeaf: boolean;
+    expanded?: boolean;
+    isHighlighted?: boolean;
+    data?: EstructuraArbolRubrosApropiaciones;
+    children?: EstructuraArbolRubrosApropiaciones[];
+  }

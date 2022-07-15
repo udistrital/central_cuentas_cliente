@@ -1,13 +1,13 @@
-<form [formGroup]=impuntuacionPresupuestal>
+<form [formGroup]=impuntuacionPresupuestal (ngSubmit)="validarFormulario()">
     <h6 class="text-white bg-primary d-inline-block p-2 px-4 rounded">
-        Imputación Presupuestal
+        {{ 'ORDEN_PAGO.imputacion_presupuestal' | translate}}
     </h6>
     <div class="row">
         <div class="col-md-10">
             <button #btnHistorial class="btn btn-primary-700 w-100" type="button" data-toggle="collapse"
                 data-target="#collapseHistorialOrdenes" aria-expanded="false" aria-controls="collapseHistorialOrdenes"
                 (click)="mostrarOcultarHistoria(btnHistorial.getAttribute('aria-expanded'))">
-                Historial de órdenes de pago
+                {{ 'ORDEN_PAGO.historial_ordenes_pago' | translate}}
             </button>
         </div>
         <div class="col-md-2">
@@ -19,79 +19,86 @@
             </button>
         </div>
     </div>
-    <div class="collapse" id="collapseHistorialOrdenes">
-        <div class="container pt-2">
+    <div class="" id="collapseHistorialOrdenes">
+        <div class="container col-md-12">
             <ngx-general-table [config]="configTableHistorial" [datos]="datosTableHistorial"></ngx-general-table>
         </div>
     </div>
     <div class="row border-top border-primary mx-1 my-3"></div>
     <div class="row">
         <div class="col-md-3 form-group">
-            <label for="disponibilidad">Disponibilidad</label>
-            <select class="form-control" id="disponibilidad" formControlName="disponibilidad">
-                <option selected disabled>Elegir...</option>
-                <option value="111">111</option>
-                <option value="222">222</option>
-            </select>
+            <label for="disponibilidad">{{ 'ORDEN_PAGO.disponibilidad' | translate}}</label>
+            <input type="text" class="form-control" formControlName="disponibilidad" disabled>
         </div>
         <div class="col-md-3 form-group">
-            <label for="registro">Registro</label>
-            <select class="form-control" id="registro" formControlName="registro">
-                <option selected disabled>Elegir...</option>
-                <option value="123456">123456</option>
-                <option value="789001">789001</option>
-            </select>
+            <label for="registro">{{ 'GLOBAL.registro' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="crp" [class.is-invalid]="crpInvalid" (selectionChange)="fijarCdp()" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let rp of rps" [value]="rp">
+                        {{rp.Consecutivo}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
         <div class="col-md-6 form-group">
-            <label for="codigo">Código</label>
-            <input type="text" class="form-control" id="codigo" disabled>
+            <label for="codigo">{{ 'GLOBAL.codigo' | translate}}</label>
+            <mat-select class="form-control" placeholder="{{ 'GLOBAL.seleccione' | translate}}" formControlName="codigo" [class.is-invalid]="codigoInvalid" (selectionChange)="nombreRubro()" [disabled]="!editable">
+                <cdk-virtual-scroll-viewport itemSize="2" minBufferPx="100" maxBufferPx="200" class="vs-viewport-corto">
+                    <mat-option *cdkVirtualFor="let rubroCrp of rubrosCrp" [value]="rubroCrp">
+                        {{rubroCrp.FatherInfo._id}}
+                    </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-select>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" disabled>
+            <label for="nombre">{{ 'GLOBAL.nombre' | translate}}</label>
+            <input type="text" class="form-control" formControlName="nombre" [value]="nombre" disabled>
         </div>
         <div class="col-md-4 form-group">
-            <label for="valorAplicacion">Valor Aplicación (Gasto)</label>
-            <input currencyMask class="form-control" id="valorAplicacion" formControlName="valor">
+            <label for="valorAplicacion">{{ 'ORDEN_PAGO.valor_aplicacion' | translate}}</label>
+            <input currencyMask class="form-control" id="valorAplicacion" formControlName="valor" [readonly]="!editable">
         </div>
     </div>
     <div class="row justify-content-end">
         <div class="col-md-2">
-            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()">
-                <i class="fas fa-plus"></i> Agregar
+            <button class="btn btn-primary text-white w-100" type="button" (click)="agregar()" [disabled]="!editable">
+                <i class="fas fa-plus"></i> {{ 'GLOBAL.agregar' | translate}}
             </button>
         </div>
     </div>
     <div id="tablaImputacion" class="container py-2 px-0">
         <ngx-general-table [config]="configTableImpuntuacion" [datos]="datosTableImputacion"></ngx-general-table>
+        <small *ngIf="datosTableImputacion === 0" class="text-danger">{{ 'GLOBAL.tabla_no_vacia' | translate}}</small>
     </div>
     <div class="row form-group justify-content-md-center">
-        <div class="col-md-2 d-flex align-items-center"><label class="m-0 ml-auto" for="valorTotal">Valor Total</label>
+        <div class="col-md-2 d-flex align-items-center">
+            <label class="m-0 ml-auto" for="valorTotal">{{ 'ORDEN_PAGO.valor_total' | translate}}</label>
         </div>
         <div class="col-md-4">
-            <input class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
+            <input currencyMask class="form-control" id="valorTotal" disabled value="{{totalGasto()|currency}}">
+            <small *ngIf="!valorValido" class="text-danger">{{ 'ORDEN_PAGO.valor_maximo_imputacion' | translate}} {{valorMaximo|currency}}</small>
         </div>
     </div>
     <ng-template #eliminarModal let-modal>
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Borrar</h4>
+            <h4 class="modal-title" id="modal-basic-title">{{ 'GLOBAL.borrar' | translate}}</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            ¿Desea borrar el registro?
+            {{ 'GLOBAL.desea_borrar_registro' | translate}}
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
-            <button type="button" class="btn btn-danger" (click)="modal.close(true)">Borrar</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">{{ 'GLOBAL.cancelar' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close(true)">{{ 'GLOBAL.borrar' | translate}}</button>
         </div>
     </ng-template>
     <ng-template #fuentesFinanciamientoModal let-modal>
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Fuentes de financiamiento</h4>
+            <h4 class="modal-title" id="modal-basic-title">{{ 'MENU.gestion_plan_cuentas.gestion_fuentes' | translate}}</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -100,17 +107,17 @@
             <ngx-general-table [config]="configTableFuentes" [datos]="datosTableFuentes"></ngx-general-table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.close()">{{ 'GLOBAL.cerrar' | translate}}</button>
         </div>
     </ng-template>
 
     <div class="row justify-content-between">
         <div class="col-md-3">
-            <button mat-button matStepperPrevious class="btn btn-primary text-white">Anterior</button>
+            <button mat-button matStepperPrevious class="btn btn-primary text-white">{{ 'GLOBAL.anterior' | translate}}</button>
         </div>
         <div class="col-md-3 text-right">
-            <button mat-button matStepperNext type="submit" class="btn btn-success" (click)="cargarImputacion()">
-                Siguiente
+            <button mat-button matStepperNext type="submit" class="btn btn-success">
+                {{ 'GLOBAL.siguiente' | translate}}
             </button>
         </div>
     </div>

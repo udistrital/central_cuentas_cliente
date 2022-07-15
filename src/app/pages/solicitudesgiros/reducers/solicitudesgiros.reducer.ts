@@ -9,13 +9,17 @@ export interface State {
   InfoSolicitudgiro: any;
   Autorizaciongiro: any;
   Documentosgiro: any;
+  SolicitudesGiro: any;
+  SolicitudGiro: any;
 }
 
 export const initialState: State = {
   SolicitudgiroSeleccionado: null,
   InfoSolicitudgiro: null,
   Autorizaciongiro: null,
-  Documentosgiro: null
+  Documentosgiro: null,
+  SolicitudesGiro: null,
+  SolicitudGiro: null,
 };
 
 const solicitudesgirosReducer = createReducer(
@@ -33,6 +37,12 @@ const solicitudesgirosReducer = createReducer(
   })),
   on(SolicitudesgirosActions.loadDocumentos, (state, action) => ({
     ...state, Documentosgiro: state.Documentosgiro = action
+  })),
+  on(SolicitudesgirosActions.cargarSolicitudesGiro, (state, action) => ({
+    ...state, SolicitudesGiro: state.SolicitudesGiro = action
+  })),
+  on(SolicitudesgirosActions.cargarSolicitudGiro, (state, action) => ({
+    ...state, SolicitudGiro: state.SolicitudGiro = action
   })),
 
 );

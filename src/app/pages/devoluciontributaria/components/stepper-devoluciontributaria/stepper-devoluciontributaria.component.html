@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 bg-white px-3 py-3 pt-3 pb-3">
             <h5 class="card-title text-center text-primary">
-                CREAR SOLICITUD DE DEVOLUCIÓN TRIBUTARIA
+                {{'DEVOL_TRIBUTARIA.crear_sol_devolucion' | translate}}
             </h5>
         </div>
     </div>
@@ -12,7 +12,7 @@
             <mat-horizontal-stepper linear #stepper>
                 <!-- Paso 1: Inicio (información de devolucion tributaria) -->
                 <mat-step [stepControl]="infoDevolucionGroup">
-                    <ng-template matStepLabel>Inicio</ng-template>
+                    <ng-template matStepLabel>{{'MENU.dashboard' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-infodevoluciontributaria></ngx-set-infodevoluciontributaria>
                     </div>
@@ -20,7 +20,7 @@
                 <!-- Fin de información de devolucion tributaria -->
                 <!-- Paso 2: Consulta Orden de Pago -->
                 <mat-step [stepControl]="infoDevolucionGroup">
-                    <ng-template matStepLabel>Consulta Orden de Pago</ng-template>
+                    <ng-template matStepLabel>{{'DEVOL_TRIBUTARIA.consulta_op' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-consultaordenpago></ngx-set-consultaordenpago>
                     </div>
@@ -28,17 +28,17 @@
                 <!-- Fin de Consulta Orden de Pago -->
                 <!-- Paso 3:  -->
                 <mat-step [stepControl]="contabilizacionGroup">
-                    <ng-template matStepLabel>Contabilización</ng-template>
+                    <ng-template matStepLabel>{{'DEVOL_TRIBUTARIA.contabilizacion' | translate}}</ng-template>
                     <div class="container">
                         <ngx-set-contabilizacion></ngx-set-contabilizacion>
                     </div>
                 </mat-step>
                 <!-- Fin de -->
                 <!-- Paso 4:  -->
-                <mat-step [stepControl]="comprobantepagoGroup">
-                    <ng-template matStepLabel>Guardar</ng-template>
+                <mat-step>
+                    <ng-template matStepLabel>{{'GLOBAL.guardar' | translate}}</ng-template>
                     <div class="container">
-                        <ngx-show-comprobantepago></ngx-show-comprobantepago>
+                        <ngx-show-resumendevoluciontributaria></ngx-show-resumendevoluciontributaria>
                     </div>
                 </mat-step>
                 <!-- Fin de -->
